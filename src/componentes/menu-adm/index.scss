@@ -1,0 +1,30 @@
+.main-menu{
+    display: flex;
+    flex-direction: column;
+
+    background-color: rgb(145, 145, 134);
+    height: 700px;
+    justify-content: center;
+
+
+    .menu{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        background-color: white;
+        box-shadow: -7px 5px 6px -5px #520DA9, 7px 5px 6px -5px #520DA9, 3px 5px 5px -5px #520DA9, 3px -5px 5px -5px #520DA9;
+       
+
+
+        
+        align-items: center;
+        
+        width:50px;
+        height: 80vh;
+
+        border-radius: 20px;
+        margin-left: 15px;
+
+    }
+}

@@ -5,6 +5,7 @@ import './index.scss';
 
 import Ladingpage from './ladingpage/index.js';
 import Rodape from './componentes/rodape/index.js'
+import MenuAdm from './componentes/menu-adm/index.js';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
@@ -16,6 +17,7 @@ root.render(
             
             <Route path='/' element={<Ladingpage/>}/>
             <Route path='/rodape' element={<Rodape/>}/>
+            <Route path='/admR' element={<MenuAdm/>}/>
 
         </Routes>
       </BrowserRouter>
