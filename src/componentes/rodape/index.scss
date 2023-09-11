@@ -1,0 +1,58 @@
+
+*{
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.main-rodape {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    background-color: #1F0145;
+
+    height: 300px;
+    width: 100%;
+
+    margin-bottom: 10px;
+
+    h1 {
+        color: white;
+    }
+
+    .fotos-cab{
+        display:  flex;
+        justify-content: center;
+
+        width: 200px;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .barra-long{
+        background-color: #FFFFFF;
+
+        width: 60%;
+        height: 3px;
+        margin-bottom: 10px;
+    }
+
+    .textos-cab{
+        text-align: center;
+
+        color: #d2d0d0;
+    }
+
+
+    .textos-cab p {
+        margin-bottom: 05px;
+    }
+
+
+    .t2 {
+
+        color: #FFFFFF;
+    }
+}
