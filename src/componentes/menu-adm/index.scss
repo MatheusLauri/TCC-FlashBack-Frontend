@@ -3,9 +3,10 @@
     flex-direction: column;
 
     background-color: rgb(145, 145, 134);
-    height: 700px;
     justify-content: center;
 
+    height: 100vh;
+    width: 0vw; // arrumar aqui se bugar na tela 
 
     .menu{
         display: flex;
@@ -16,7 +17,7 @@
         box-shadow: -7px 5px 6px -5px #520DA9, 7px 5px 6px -5px #520DA9, 3px 5px 5px -5px #520DA9, 3px -5px 5px -5px #520DA9;
        
 
-
+        position: fixed;
         
         align-items: center;
         
