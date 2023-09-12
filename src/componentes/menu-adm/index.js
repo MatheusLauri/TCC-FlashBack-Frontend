@@ -1,20 +1,21 @@
 import './index.scss';
-
 function MenuAdm() {
   return (
     <div className="main-menu">
              <div className='menu'>
              
-                <h1>LG</h1>
+                <img src='/assets/images/logo-flash.png' />
 
                     <div className='meio-menu'>
-                            <p>f1</p>
-                            <p>f2</p>
-                            <p>f3</p>
-                            <p>f4</p>
+
+                    <img src='/assets/images/casinha-adm.png' />
+                    <img src='/assets/images/lupa.png' />
+                    <img src='/assets/images/add-adm.svg' />
+                    <img src='/assets/images/redondo-adm.png' />
+
                     </div>
 
-                    <p>f</p>
+                    <img className='ft-5' src='/assets/images/sair-adm.png' />
              </div>
     </div>
   );
