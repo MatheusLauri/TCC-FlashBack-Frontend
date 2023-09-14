@@ -32,6 +32,14 @@ function App() {
           />
         </div>
       </section>
+      <div className='main-faixa-eventos'>
+        <h1>Eventos em Destaque</h1>
+      </div>
+      <section className='secao-02'>
+      </section>
+      <section className='secao-03'>
+
+      </section>
       <Rodape/>
     </div>
   );

@@ -2,6 +2,7 @@ body{
     display: flex;
     flex-direction: column;
     width: 100vw;
+    overflow-x: hidden;
     .secao-01{
         padding-top: calc(70px + 64px);
         padding-left: 100px;
@@ -18,6 +19,36 @@ body{
             justify-content: space-between;
             margin-bottom: 70px;
         }
+        
     }
+    .main-faixa-eventos{
+        width: 100%;
+        height: 60px;
+        background-color: #520DA9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 10px solid #F9DD4A;
+        h1{
+            font-size: 24px;
+            color: #F9DD4A;
+        }
+    }
+}
+body::-webkit-scrollbar {
+    width: 5px;
+}
+body::-webkit-scrollbar:hover {
+    width: 10px;
+}
+
+
+body::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #F9DD4A;
 }
 
