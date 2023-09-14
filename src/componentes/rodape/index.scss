@@ -10,7 +10,7 @@
     justify-content: center;
     align-items: center;
     background-color: #1F0145;
-    height: 310px;
+    height: fit-content;
     width: 100%;
     margin-bottom: 10px;
 
@@ -25,6 +25,22 @@
         width: 200px;
         justify-content: space-between;
         margin-bottom: 10px;
+        .wa, .ia{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 100%;
+            background-color: #F9DD4A;
+            width: 34px;
+            height: 32px;
+        }
+        .wa, .ia{
+            svg{
+                fill: #1F0145;
+                width: 25px;
+                height: auto;
+            }
+        }
     }
 
     .barra-long{

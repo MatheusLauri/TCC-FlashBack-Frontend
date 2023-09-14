@@ -6,3 +6,10 @@
 body{
   width: 100vw;
 }
+@font-face {
+  font-family: 'inter';
+  src: url('../src/assets/fonts/Inter-VariableFont_slnt\,wght.ttf');
+}
+a,p,h1,select,option{
+  font-family: 'inter';
+}
