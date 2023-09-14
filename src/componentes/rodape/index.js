@@ -7,10 +7,11 @@ function Rodape() {
         <h1>Redes sociais</h1>
 
         <div className='fotos-cab'>
-            <p>f1</p>
-            <p>f2</p>
-            <p>f3</p>
-            <p>f4</p>
+            <a><img src='/assets/images/Twitter.png'/></a>
+            <a><img src='/assets/images/faceboook.png'/></a>
+            <a><img src='/assets/images/faceboook.png'/></a>
+            <a><img src='/assets/images/faceboook.png'/></a>
+            <a><img src='/assets/images/youtube.png'/></a>
         </div>
 
         <div className='barra-long'>
