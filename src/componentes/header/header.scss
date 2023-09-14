@@ -22,6 +22,7 @@
         border-radius: 10px;
         border: 4px solid #FFF;
         background: #FFF;
+        gap: 15px;
         >img{
             height: 80%;
             width: auto;
@@ -39,12 +40,49 @@
         flex-direction: row;
         align-items: center;
         .menu-select{
+            margin-right: 40px;
             flex-direction: row;
             align-items: center;
             display: flex;
-            >img{
+            background-color: transparent;
+            >img:first-child{
                 height: 30px;
                 width: auto;
+                margin-right: 10px;
+            }
+            >select{
+                outline: none;
+                min-width: 110px;
+                width: fit-content;
+                margin-right: 5px;
+                background-color: #1F0145;
+                color: #F9DD4A;
+                border: none;
+            }
+        }
+        .menu-carrinho{
+            align-items: center;
+            justify-self: flex-end;
+            display: flex;
+            height: 45px;
+            width: fit-content;
+            display: flex;
+            position: relative;
+            >img{
+                height: 25px;
+                width: auto;
+            }
+            >span{
+                padding: 0 3px;
+                height: fit-content;
+                width: fit-content;
+                font-size: 10px;
+                position: absolute;
+                z-index: 5;
+                background-color: #F9DD4A;
+                border-radius: 30%;
+                top: 0;
+                right: -5px;
             }
         }
     }
