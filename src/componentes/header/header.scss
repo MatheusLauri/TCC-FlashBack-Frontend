@@ -34,4 +34,18 @@
             width: 100%;
         }
     }
+    .secao-header-menu{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .menu-select{
+            flex-direction: row;
+            align-items: center;
+            display: flex;
+            >img{
+                height: 30px;
+                width: auto;
+            }
+        }
+    }
 }
