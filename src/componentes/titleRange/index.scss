@@ -1,0 +1,15 @@
+.title-range-main{
+    display: flex;
+    flex-direction: row;
+    .pre-title-form{
+        width: 5px;
+        height: 25px;
+        background-color: #520DA9;
+        border-radius: 30px;
+        margin-right: 5px;
+    }
+    h1{
+        font-size: 20px;
+        font-weight: 600;
+    }
+}

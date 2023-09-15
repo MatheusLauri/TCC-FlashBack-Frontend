@@ -21,7 +21,7 @@ root.render(
             <Route path='/' element={<Landingpage/>}/>
             <Route path='/rodape' element={<Rodape/>}/>
             <Route path='/adm' element={<AdmPage/>}/>
-            <Route path='/h' element={<CategoryBtn/>}/>
+            <Route path='/h' element={<AdmPage/>}/>
         </Routes>
       </BrowserRouter>
   </React.StrictMode>
