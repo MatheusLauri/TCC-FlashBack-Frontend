@@ -34,6 +34,40 @@ body{
             color: #F9DD4A;
         }
     }
+    .secao-02{
+
+    }
+    .secao-03{
+        padding-top: 50px;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        .secao-03-carrosel{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 0 100px;
+            .carrosel-controller{
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                align-items: center;
+                justify-content: flex-end;
+                gap: 14px;
+                >svg:first-child{
+                    rotate: 180deg;
+                    fill: yellow;
+                }
+            }
+            .carrosel{
+                margin-top: 17px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+    }
 }
 body::-webkit-scrollbar {
     width: 5px;
@@ -41,12 +75,9 @@ body::-webkit-scrollbar {
 body::-webkit-scrollbar:hover {
     width: 10px;
 }
-
-
 body::-webkit-scrollbar-track {
     background-color: transparent;
 }
-
 body::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: #F9DD4A;
