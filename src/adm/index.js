@@ -1,16 +1,23 @@
 import  './index.scss'
 import MenuAdm from '../componentes/menu-adm'
 import CategorySection from '../componentes/categoryBtn';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TitleRange from '../componentes/titleRange/index'
 export default function AdmPage(){
     const [graphicChosen,setGraphicChosen] = useState(0)
+    const [menu,setMenu] = useState(1)
 
+    useEffect(() => {
+        MenuPage()
+    }, [menu])
+    function MenuPage(pagedata){
+        setMenu(pagedata)
+    }
 
     return(
         <section className='adm-main'>
             <section className='adm-panel'>
-                <MenuAdm/>
+                <MenuAdm f={MenuPage}/>
             </section>
             <section className='adm-content'>
                 <section className='adm-home'>
