@@ -1,10 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './index.scss';
 function MenuAdm(props) {
   const [page,setPage] = useState(1)
+  useEffect(() => {
+    setPageMenu()
+  }, [page])
   function setPageMenu(n){
-    setPage(n)
-    props.f(page)
+    if (n){
+      setPage(n)
+      props.f(page)
+    }
+      
   }
 
 

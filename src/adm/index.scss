@@ -15,26 +15,27 @@
         padding-left: 28px;
         display: flex;
         width: 93%;
+        height: 100vh;
         flex-direction: column;
         justify-content: space-between;
         .adm-home{
+            height: 100%;
             display: flex;
             flex-direction: column;
-            height: 100vh;
             .home-content{
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
                 align-content: flex-start;
-                padding: 80px 38px 50px 30px;
+                padding: 30px 38px 0px 30px;
                 height: 100%;
                 .home-grafico{
                     height: 500px;
-                    margin-top: 40px;
                     display: flex;
                     justify-content: space-between;
                     flex-direction: row;
                     >img{
+                        margin-top: 10px;
                         background-color: white;
                         padding: 30px 24px;
                         border-radius: 10px;
