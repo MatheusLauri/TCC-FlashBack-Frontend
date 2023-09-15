@@ -1,0 +1,17 @@
+.adm-main{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    background-color: #F3F3F3;
+    .adm-panel{
+        width: 10%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .adm-content{
+        display: flex;
+        width: 100%;
+    }
+}

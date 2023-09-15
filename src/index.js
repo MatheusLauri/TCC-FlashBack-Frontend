@@ -10,6 +10,8 @@ import { TrianguloCategoria } from './componentes/trianguloCategoria';
 import TitleTag from './componentes/titleTag';
 import BoxCity from './componentes/boxCity';
 import BoxIngresso from './componentes/boxIngresso';
+import AdmPage from './adm';
+import CategoryBtn from './componentes/categoryBtn';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,8 +20,8 @@ root.render(
         <Routes>
             <Route path='/' element={<Landingpage/>}/>
             <Route path='/rodape' element={<Rodape/>}/>
-            <Route path='/adm' element={<MenuAdm/>}/>
-            <Route path='/h' element={<BoxIngresso/>}/>
+            <Route path='/adm' element={<AdmPage/>}/>
+            <Route path='/h' element={<CategoryBtn/>}/>
         </Routes>
       </BrowserRouter>
   </React.StrictMode>
