@@ -1,23 +1,18 @@
+import { useState } from 'react';
 import './index.scss';
-function MenuAdm() {
+function MenuAdm(props) {
+  const [page,setPage] = useState(1)
   return (
-    <div className="main-menu">
-             <div className='menu'>
-             
-                <img src='/assets/images/logo-flash.png' />
-
-                    <div className='meio-menu'>
-
-                    <img src='/assets/images/casinha-adm.png' />
-                    <img src='/assets/images/lupa.png' />
-                    <img src='/assets/images/add-adm.svg' />
-                    <img src='/assets/images/redondo-adm.png' />
-
-                    </div>
-
-                    <img className='ft-5' src='/assets/images/sair-adm.png' />
-             </div>
-    </div>
+    <div className="secao-menu-adm">
+      <img src='../assets/images/logo-flash.png' />
+      <div className='secao-menu'>
+        <a onClick={() => setPage(1)}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" viewBox="0 0 30 25" fill="none"><path d="M14.9994 5.0459L4.30002 14.2824C4.30002 14.2954 4.29689 14.3146 4.29064 14.3407C4.28451 14.3666 4.28125 14.3855 4.28125 14.3989V23.7517C4.28125 24.0894 4.39915 24.3821 4.63489 24.6285C4.87056 24.8751 5.14965 24.9992 5.4722 24.9992H12.6174V17.5167H17.3815V24.9995H24.5266C24.8491 24.9995 25.1285 24.8757 25.3639 24.6285C25.5996 24.3824 25.7179 24.0895 25.7179 23.7517V14.3989C25.7179 14.347 25.7111 14.3078 25.6991 14.2824L14.9994 5.0459Z" fill={page == 1 ? '#520DA9' : "#C2C2C2"} /><path d="M29.7931 12.1786L25.7182 8.63225V0.682147C25.7182 0.5004 25.6624 0.350936 25.5504 0.233957C25.4394 0.117115 25.2966 0.058694 25.1227 0.058694H21.55C21.3763 0.058694 21.2336 0.117115 21.1218 0.233957C21.0103 0.350936 20.9546 0.500469 20.9546 0.682147V4.48176L16.4144 0.506611C16.0178 0.168848 15.5463 0 15.0004 0C14.4546 0 13.9832 0.168848 13.5863 0.506611L0.206772 12.1786C0.0827437 12.2823 0.0147659 12.422 0.00212194 12.5974C-0.0104569 12.7726 0.0328846 12.9257 0.132277 13.0555L1.28594 14.4975C1.38534 14.6143 1.51543 14.6858 1.67673 14.7119C1.82566 14.725 1.97459 14.6794 2.12351 14.5756L15.0001 3.33211L27.8767 14.5755C27.9762 14.6661 28.1062 14.7114 28.2675 14.7114H28.3234C28.4845 14.6857 28.6143 14.6138 28.7142 14.4972L29.868 13.0555C29.9672 12.9254 30.0107 12.7726 29.9978 12.5971C29.9851 12.4222 29.9168 12.2825 29.7931 12.1786Z" fill={page == 1 ? '#520DA9' : "#C2C2C2"} /></svg></a>
+        <a onClick={() => setPage(2)}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none"><path d="M29.0703 25.5292L21.9642 19.4855C21.2296 18.8243 20.444 18.5208 19.8093 18.5501C21.4868 16.5853 22.5001 14.0361 22.5001 11.25C22.5001 5.03679 17.4633 0 11.25 0C5.03685 0 0 5.03679 0 11.25C0 17.4633 5.03679 22.5001 11.25 22.5001C14.0361 22.5001 16.5853 21.4868 18.5501 19.8093C18.5208 20.4439 18.8244 21.2295 19.4855 21.9641L25.5292 29.0702C26.5641 30.22 28.2545 30.3169 29.2856 29.2857C30.3168 28.2545 30.22 26.5641 29.0703 25.5292ZM11.25 18.75C7.10791 18.75 3.75001 15.3921 3.75001 11.25C3.75001 7.10791 7.10791 3.75001 11.25 3.75001C15.3921 3.75001 18.7501 7.10791 18.7501 11.25C18.7501 15.3921 15.3922 18.75 11.25 18.75Z" fill={page == 2 ? '#520DA9' : "#C2C2C2"} /></svg></a>
+        <a onClick={() => setPage(3)}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none"><path d="M28.75 12.5H18.125C17.75 12.5 17.5 12.25 17.5 11.875V1.25C17.5 0.5 17 0 16.25 0H13.75C13 0 12.5 0.5 12.5 1.25V11.875C12.5 12.25 12.25 12.5 11.875 12.5H1.25C0.5 12.5 0 13 0 13.75V16.25C0 17 0.5 17.5 1.25 17.5H11.875C12.25 17.5 12.5 17.75 12.5 18.125V28.75C12.5 29.5 13 30 13.75 30H16.25C17 30 17.5 29.5 17.5 28.75V18.125C17.5 17.75 17.75 17.5 18.125 17.5H28.75C29.5 17.5 30 17 30 16.25V13.75C30 13 29.5 12.5 28.75 12.5Z" fill={page == 3 ? '#520DA9' : "#C2C2C2"} /></svg></a>
+        <a onClick={() => setPage(4)}><svg xmlns="http://www.w3.org/2000/svg" width="36" height="35" viewBox="0 0 36 35" fill="none"><path d="M32.8203 3H33.0009" stroke={page == 4 ? '#520DA9' : "#C2C2C2"} stroke-width="5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" /><path d="M3 32H3.18072" stroke={page == 4 ? '#520DA9' : "#C2C2C2"} stroke-width="5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" /><path d="M24.5044 9.02462C22.5164 7.92703 20.3477 7.19531 17.9983 7.19531C10.9501 7.19531 5.34766 12.8662 5.34766 20.0004C5.34766 22.3785 6.07055 24.7566 7.1549 26.7689" stroke={page == 4 ? '#520DA9' : "#C2C2C2"} stroke-width="3.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" /><path d="M11.3125 30.9756C13.3005 32.2561 15.4691 32.8049 17.9992 32.8049C25.0474 32.8049 30.6499 27.1341 30.6499 19.9998C30.6499 17.6217 29.927 15.2437 28.8426 13.2314" stroke={page == 4 ? '#520DA9' : "#C2C2C2"} stroke-width="3.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" /></svg></a>
+      </div>
+      <a onClick={() => setPage(5)}><svg style={page == 5 ? {backgroundColor:`#520DA9`} : {backgroundColor:`#C2C2C2`}} xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none"><path d="M28.9995 17H2" stroke='white' stroke-width="3" stroke-miterlimit="10" stroke-linejoin="round" /><path d="M7.99988 23.001L2 17.001L7.99988 11.001" stroke='white' stroke-width="3" stroke-miterlimit="10" stroke-linejoin="round" /><path d="M10 9V4C10 2.895 10.895 2 12 2H29.9996C31.1046 2 31.9996 2.895 31.9996 4V30C31.9996 31.105 31.1046 32 29.9996 32H12C10.895 32 10 31.105 10 30V25" stroke='white' stroke-width="3" stroke-miterlimit="10" stroke-linejoin="round" /></svg></a>
+    </div >
   );
 }
 

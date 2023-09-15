@@ -67,6 +67,9 @@ body{
                 justify-content: space-between;
             }
         }
+        .secao-03-carrosel:last-child{
+            margin-bottom: 200px;
+        }
     }
 }
 body::-webkit-scrollbar {

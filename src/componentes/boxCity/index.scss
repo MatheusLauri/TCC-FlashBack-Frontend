@@ -32,8 +32,12 @@
 }
 .box-main:hover{
     transform: translateY(10px);
+    h1{
+        color: #F9DD4A;
+    }
     h1::after{
         transform: scaleX(1);
         transform-origin: left;
+        background-color: #F9DD4A;
     }
 }

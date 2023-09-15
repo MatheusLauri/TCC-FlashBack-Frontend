@@ -1,53 +1,49 @@
-.main-menu{
+.secao-menu-adm{
+    position: relative;
+    z-index: 2;
+    border-radius: 15px;
+    width: 60px;
+    height: 600px;
+    padding: 60px 0px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0px 1px 4px 3px #520DA9;
+    border: 1px solid #520DA9;
 
-    background-color: rgb(145, 145, 134);
-    justify-content: center;
-
-    height: 100vh;
-    width: 0vw; // arrumar aqui se bugar na tela 
-
-    img {
-        height: 35px;
+    align-items: center;
+    img{
+        width: 50px;
+        height: auto;
     }
-
-    .menu{
+    .secao-menu{
+        height: 400px;
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
-
-        background-color: white;
-        box-shadow: -7px 5px 6px -5px #520DA9, 7px 5px 6px -5px #520DA9, 3px 5px 5px -5px #520DA9, 3px -5px 5px -5px #520DA9;
-       
-
-        position: fixed;
-        
         align-items: center;
-        
-        width:50px;
-        height: 80vh;
-
-        border-radius: 20px;
-        margin-left: 15px;
-
+        justify-content: space-evenly;
     }
-
-    .meio-menu {
+    a,svg{
+        width: 30px;
+        height: auto;
+    }
+    >a:last-child{
         display: flex;
-        flex-direction: column;
-
-        height: 300px;
-
-        justify-content: space-around;
-        
-        img {
-            height: 27px;
-        }
- 
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: fit-content;
     }
-
-    .ft-5{
-        height: 27px;
+    >a svg:last-child{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        border-radius: 5px;
+        width: 40px !important;
+        height: fit-content;
+        background-color: #C2C2C2;
     }
 }
