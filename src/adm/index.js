@@ -7,6 +7,7 @@ import AdmTicket from '../componentes/admTicket';
 export default function AdmPage(){
     const [graphicChosen,setGraphicChosen] = useState(1)
     const [menu,setMenu] = useState(1)
+    const [showMenu,setShowMenu] = useState(false)
 
     function MenuPage(pagedata){
         setMenu(pagedata)
@@ -118,7 +119,83 @@ export default function AdmPage(){
                     {menu == 3 &&
                     <>
                         <section className='add-content'>
-                        
+                            <div className='category-range'>
+                                <TitleRange text='Categorias'/>
+                                <CategorySection/>
+                            </div>
+                            <div className='add-range'>
+                                <TitleRange text='Informações do evento'/>
+                                <div className='add-input-main'>
+                                    <div className='file-input-box'>
+                                        <input type='file'/>
+                                    </div>
+                                    <div className='divisor'></div>
+                                    <div className='text-inputs-box' >
+                                        <div className='text-input-box'>
+                                            <input type='text' placeholder='Nome do Evento'/>
+                                        </div>
+                                        <div className='text-input-box'>
+                                            <input type='text' placeholder='Local'/>
+                                            <img src=''/>
+                                        </div>
+                                        <div className='text-input-box'>
+                                            <input type='datetime-local' placeholder='Data e Hora'/>
+                                        </div>
+                                        <div className='text-input-box'>
+                                            <input type='text' placeholder='Adicionar descrição'/>
+                                        </div>
+                                    </div>
+                                    <div className='divisor'></div>
+                                    <div className={showMenu ? 'type-controller-clicked' : 'type-controller'} onClick={() => setShowMenu(!showMenu)}>
+                                        <div className='header'>
+                                            <h1>Tipos de ingresso, quantidade e preço</h1>
+                                            <img src='../assets/images/arrow.svg'/>
+                                        </div>
+                                        <div className='body'>
+                                            <div className='input-row'>
+                                                <input type='text' placeholder='Nome'/>
+                                                <input type='text' placeholder='Qtd'/>
+                                                <input type='text' placeholder='R$ 0,00'/>
+                                                <a>Adicionar</a>
+                                            </div>
+                                            <div className='body-table'>
+                                                <div className='body-table-row'>
+                                                    <span>Front Stage</span>
+                                                    <span>15 Un</span>
+                                                    <div className='divisor'></div>
+                                                    <span>R$ 150,00</span>
+                                                    <a>Remover</a>
+                                                    <a>Alterar</a>
+                                                </div>
+                                                <div className='body-table-row'>
+                                                    <span>Camarote</span>
+                                                    <span>15 Un</span>
+                                                    <div className='divisor'></div>
+                                                    <span>R$ 150,00</span>
+                                                    <a>Remover</a>
+                                                    <a>Alterar</a>
+                                                </div>
+                                                <div className='body-table-row'>
+                                                    <span>Pista</span>
+                                                    <span>15 Un</span>
+                                                    <div className='divisor'></div>
+                                                    <span>R$ 150,00</span>
+                                                    <a>Remover</a>
+                                                    <a>Alterar</a>
+                                                </div>
+                                                <div className='body-table-row'>
+                                                    <span>VIP</span>
+                                                    <span>15 Un</span>
+                                                    <div className='divisor'></div>
+                                                    <span>R$ 150,00</span>
+                                                    <a>Remover</a>
+                                                    <a>Alterar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </section>
                     </>
                     }
