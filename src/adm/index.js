@@ -3,6 +3,7 @@ import MenuAdm from '../componentes/menu-adm'
 import CategorySection from '../componentes/categoryBtn';
 import { useEffect, useState } from 'react';
 import TitleRange from '../componentes/titleRange/index'
+import AdmTicket from '../componentes/admTicket';
 export default function AdmPage(){
     const [graphicChosen,setGraphicChosen] = useState(1)
     const [menu,setMenu] = useState(1)
@@ -106,8 +107,18 @@ export default function AdmPage(){
                                 <input type='text' placeholder='Ex: Numanice, The town...'/>
                             </div>
                             <div className='ticket-wrapper'>
-                                
+                                <AdmTicket/>
+                                <AdmTicket/>
+                                <AdmTicket/>
+                                <AdmTicket/>
                             </div>
+                        </section>
+                    </>
+                    }
+                    {menu == 3 &&
+                    <>
+                        <section className='add-content'>
+                        
                         </section>
                     </>
                     }

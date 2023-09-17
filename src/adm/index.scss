@@ -25,7 +25,7 @@
             .home-content{
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
+                justify-content: space-evenly;
                 align-content: flex-start;
                 padding: 30px 38px 0px 30px;
                 height: 100%;
@@ -117,9 +117,10 @@
                 }
             }
             .search-content{
+                overflow: hidden;
                 display: flex;
                 flex-direction: column;
-                padding: 40px;
+                padding: 40px 20px;
                 align-items: center;
 
                 .input-div{
@@ -143,6 +144,17 @@
                         border: none;
 
                     }
+                }
+                .ticket-wrapper{
+                    margin-top: 60px;
+                    display: flex;
+                    flex-direction: row;
+                    width: 100%;
+                    flex-wrap: wrap;
+                    height: fit-content;
+                    justify-content: space-evenly;
+                    overflow: auto;
+                    gap: 30px;
                 }
             }
         }

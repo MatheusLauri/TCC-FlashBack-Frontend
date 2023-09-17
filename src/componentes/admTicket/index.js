@@ -4,7 +4,7 @@ import './index.scss'
 export default function AdmTicket() {
     const [showType,setShowType] = useState(false)
     return (
-        <div className={showType ? 'adm-ticket-grow' : 'adm-ticket'}>
+        <div className={showType ? 'adm-ticket-grow' : 'adm-ticket'} onClick={() => setShowType(!showType)}>
             <div className='ticket-upper-info'>
                 <p>ID: <span>1</span></p>
                 <h1>Numanice</h1>
