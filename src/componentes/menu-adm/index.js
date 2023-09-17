@@ -3,14 +3,10 @@ import './index.scss';
 function MenuAdm(props) {
   const [page,setPage] = useState(1)
   useEffect(() => {
-    setPageMenu()
-  }, [page])
+    props.f(page)
+  }, [setPageMenu])
   function setPageMenu(n){
-    if (n){
-      setPage(n)
-      props.f(page)
-    }
-      
+    setPage(n)
   }
 
 
