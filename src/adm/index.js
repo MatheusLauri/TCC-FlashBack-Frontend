@@ -9,7 +9,7 @@ export default function AdmPage(){
 
     function MenuPage(pagedata){
         setMenu(pagedata)
-        console.log(pagedata)
+        console.log(menu)
     }
 
     return(
@@ -19,7 +19,8 @@ export default function AdmPage(){
             </section>
             <section className='adm-content'>
                 <section className='adm-home'>
-                    {<>
+                    {menu == 1 &&
+                    <>
                         <CategorySection/>
                         <section className='home-content'>
                             <TitleRange text='Gráfico de vendas:'/>
@@ -95,7 +96,21 @@ export default function AdmPage(){
                                 </div>
                             </div> 
                         </section>
-                    </>}
+                    </>
+                    }
+                    {menu == 2 &&
+                    <>
+                        <section className='search-content'>
+                            <div className='input-div'>
+                                <img src='../assets/images/search.png' />
+                                <input type='text' placeholder='Ex: Numanice, The town...'/>
+                            </div>
+                            <div className='ticket-wrapper'>
+                                
+                            </div>
+                        </section>
+                    </>
+                    }
                 </section>
             </section>
         </section>

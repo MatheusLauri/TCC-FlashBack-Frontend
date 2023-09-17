@@ -116,6 +116,35 @@
                     }
                 }
             }
+            .search-content{
+                display: flex;
+                flex-direction: column;
+                padding: 40px;
+                align-items: center;
+
+                .input-div{
+                    width: 600px;
+                    height: 50px;
+                    background-color: white;
+                    display: flex;
+                    flex-direction: row;
+                    gap: 21px;
+                    align-items: center;
+                    padding: 17px 10px;
+                    border-radius: 10px;
+                    img{
+                        width: 25px;
+                        height: 25px;
+                    }
+                    input{
+                        width: 800%;
+                        appearance: none;
+                        outline: none;
+                        border: none;
+
+                    }
+                }
+            }
         }
     }
 }
