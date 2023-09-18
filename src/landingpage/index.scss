@@ -3,6 +3,7 @@ body{
     flex-direction: column;
     width: 100vw;
     overflow-x: hidden;
+    position: relative;
     .secao-01{
         padding-top: calc(70px + 64px);
         padding-left: 100px;

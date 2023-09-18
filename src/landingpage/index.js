@@ -5,6 +5,7 @@ import TitleTag from '../componentes/titleTag';
 import { TrianguloCategoria } from '../componentes/trianguloCategoria';
 import BoxIngresso from '../componentes/boxIngresso'
 import './index.scss';
+import Modal from 'react-modal'
 
 function App() {
   return (

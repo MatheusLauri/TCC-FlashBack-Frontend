@@ -18,7 +18,7 @@
     .triangulo-1{
         transition: all .5s ease-in-out;
         position: absolute;
-        z-index: 2;
+        z-index: -1;
         rotate: 20deg;
         top: 10px;
         right: 0px;
@@ -31,7 +31,7 @@
     .triangulo-2{
         transition: all .5s ease-in-out;
         position: absolute;
-        z-index: 1;
+        z-index: -2;
         rotate: -15deg;
         left: 0;
         width: 0; 
@@ -52,7 +52,7 @@
         height: auto;
         position: absolute;
         rotate: 9deg;
-        z-index: 3;
+        z-index: -1;
     }
     h1{
         left: 0px;
