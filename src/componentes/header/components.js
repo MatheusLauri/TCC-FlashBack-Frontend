@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-
+import img from './loginbg.png'
 export const Container = styled.div`
 background-color: #fff;
 border-radius: 10px;
@@ -52,12 +52,14 @@ text-align: center;
 
 export const Title = styled.h1`
 font-weight: bold;
-margin: 0;
+margin-bottom: 30px;
 `;
 
 export const Input = styled.input`
+outline: none;
 background-color: #eee;
 border: none;
+border-bottom: 3px solid #520DA9;
 padding: 12px 15px;
 margin: 8px 0;
 width: 100%;
@@ -66,9 +68,8 @@ width: 100%;
 
 export const Button = styled.button`
    border-radius: 20px;
-   border: 1px solid #ff4b2b;
-   background-color: #ff4b2b;
-   color: #ffffff;
+   border: 1px solid #520DA9;
+   color: #520DA9;
    font-size: 12px;
    font-weight: bold;
    padding: 12px 45px;
@@ -78,6 +79,10 @@ export const Button = styled.button`
    &:active{
        transform: scale(0.95);
    }
+   &:hover{
+   background-color: #520DA9;
+   color: white;
+  }
    &:focus {
        outline: none;
    }
@@ -85,6 +90,11 @@ export const Button = styled.button`
 export const GhostButton = styled(Button)`
 background-color: transparent;
 border-color: #ffffff;
+color: white;
+&:hover{
+  background-color: white;
+  color: #520DA9;
+}
 `;
 
 export const Anchor = styled.a`
@@ -107,7 +117,7 @@ ${props =>
 `;
 
 export const Overlay = styled.div`
-background-image: url('../../../public/assets/images/loginbg.png');
+background-image: url(${img});
 background-repeat: no-repeat;
 background-size: cover;
 background-position: 0 0;

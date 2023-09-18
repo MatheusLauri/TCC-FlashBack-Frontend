@@ -51,7 +51,7 @@ export function Header(){
 
               <Components.SignInContainer signinIn={signIn}>
                    <Components.Form>
-                       <Components.Title>Sign in</Components.Title>
+                       <Components.Title>Entrar</Components.Title>
                        <Components.Input type='email' placeholder='Email' />
                        <Components.Input type='password' placeholder='Senha' />
                        <Components.Anchor href='#'>Esqueceu sua senha?</Components.Anchor>
