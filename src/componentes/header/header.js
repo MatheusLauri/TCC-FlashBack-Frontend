@@ -45,7 +45,7 @@ export function Header(){
                       <Components.Input type='email' placeholder='CPF' />
                       <Components.Input type='password' placeholder='Senha' />
                       <Components.Input type='password' placeholder='Confirme sua senha' />
-                      <Components.Button>Entrar</Components.Button>
+                      <Components.Button>Cadastre-se</Components.Button>
                   </Components.Form>
               </Components.SignUpContainer>
 
@@ -55,7 +55,7 @@ export function Header(){
                        <Components.Input type='email' placeholder='Email' />
                        <Components.Input type='password' placeholder='Senha' />
                        <Components.Anchor href='#'>Esqueceu sua senha?</Components.Anchor>
-                       <Components.Button>Cadastre-se</Components.Button>
+                       <Components.Button>Entrar</Components.Button>
                    </Components.Form>
               </Components.SignInContainer>
 
