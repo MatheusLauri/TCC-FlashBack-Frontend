@@ -1,11 +1,43 @@
+
 import { useState } from 'react';
 import './header.scss'
 import Modal from 'react-modal'
 import * as Components from './components'
 
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 export function Header(){
     const [showModal,setShowModal] = useState(false)
     const [signIn, toggle] = useState(true);
+
+
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [erro, setErro] = useState('');
+
+    const navigate = useNavigate();
+
+    async function Logar () {
+
+        try {
+
+            const resp = await axios.post('http://localhost:5000/cliente/login', {
+
+                email: email,
+                senha: senha
+            });
+
+        navigate('/adm');
+            
+        } catch (err) {
+            if(err.response.status === 401)
+            setErro(err.response.data.erro)
+        }
+       
+        
+    }
+
     return(
         <>
         <section className="secao-header">
@@ -52,10 +84,10 @@ export function Header(){
               <Components.SignInContainer signinIn={signIn}>
                    <Components.Form>
                        <Components.Title>Entrar</Components.Title>
-                       <Components.Input type='email' placeholder='Email' />
-                       <Components.Input type='password' placeholder='Senha' />
+                       <Components.Input type='email' placeholder='Email'  value={email}  onChange={e => setEmail(e.target.value)}/>
+                       <Components.Input type='password' placeholder='Senha' value={senha}  onChange={e => setSenha(e.target.value)}/>
                        <Components.Anchor href='#'>Esqueceu sua senha?</Components.Anchor>
-                       <Components.Button>Entrar</Components.Button>
+                       <Components.Button onClick={Logar}>Entrar</Components.Button>
                    </Components.Form>
               </Components.SignInContainer>
 
