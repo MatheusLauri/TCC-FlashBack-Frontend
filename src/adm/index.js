@@ -216,7 +216,7 @@ export default function AdmPage() {
                     <div className={handleMenu ? 'sign-up-mode' : 'container'}>
                         <div className="forms-container">
                             <div className="signin-signup">
-                                <form action="#" className="sign-in-form">
+                                <div action="#" className="sign-in-form">
                                     <h2 className="title">Entrar</h2>
                                     <div className="input-field">
                                         <i className="fas fa-user"></i>
@@ -242,8 +242,8 @@ export default function AdmPage() {
                                             <i className="fab fa-linkedin-in"></i>
                                         </a>
                                     </div>
-                                </form>
-                                <form action="#" className="sign-up-form">
+                                </div>
+                                <div action="#" className="sign-up-form">
                                     <h2 className="title">Cadastre-se</h2>
                                     <div className="input-field">
                                         <i className="fas fa-user"></i>
@@ -277,7 +277,7 @@ export default function AdmPage() {
                                             <i className="fab fa-linkedin-in"></i>
                                         </a>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
 
