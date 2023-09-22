@@ -8,12 +8,12 @@ export default function AdmPage() {
     const [graphicChosen, setGraphicChosen] = useState(1)
     const [menu, setMenu] = useState(1)
     const [showMenu, setShowMenu] = useState(false)
-    const [isLogged, setIsLogged] = useState(true)
+    const [isLogged, setIsLogged] = useState(false)
     const [handleMenu, toggle] = useState(false)
-    
-    
-    
-    
+
+
+
+
     function MenuPage(pagedata) {
         setMenu(pagedata)
         console.log(menu)
@@ -23,102 +23,6 @@ export default function AdmPage() {
         <>
             {isLogged
                 ?
-                <div className='adm-login'>
-                    <div className={handleMenu ? 'sign-up-mode' : 'container'}>
-                        <div className="forms-container">
-                            <div className="signin-signup">
-                                <form action="#" className="sign-in-form">
-                                    <h2 className="title">Sign in</h2>
-                                    <div className="input-field">
-                                        <i className="fas fa-user"></i>
-                                        <input type="text" placeholder="Username" />
-                                    </div>
-                                    <div className="input-field">
-                                        <i className="fas fa-lock"></i>
-                                        <input type="password" placeholder="Password" />
-                                    </div>
-                                    <input type="submit" value="Login" className="btn solid" />
-                                    <p className="social-text">Or Sign in with social platforms</p>
-                                    <div className="social-media">
-                                        <a href="#" className="social-icon">
-                                            <i className="fab fa-facebook-f"></i>
-                                        </a>
-                                        <a href="#" className="social-icon">
-                                            <i className="fab fa-twitter"></i>
-                                        </a>
-                                        <a href="#" className="social-icon">
-                                            <i className="fab fa-google"></i>
-                                        </a>
-                                        <a href="#" className="social-icon">
-                                            <i className="fab fa-linkedin-in"></i>
-                                        </a>
-                                    </div>
-                                </form>
-                                <form action="#" className="sign-up-form">
-                                    <h2 className="title">Sign up</h2>
-                                    <div className="input-field">
-                                        <i className="fas fa-user"></i>
-                                        <input type="text" placeholder="Username" />
-                                    </div>
-                                    <div className="input-field">
-                                        <i className="fas fa-envelope"></i>
-                                        <input type="email" placeholder="Email" />
-                                    </div>
-                                    <div className="input-field">
-                                        <i className="fas fa-lock"></i>
-                                        <input type="password" placeholder="Password" />
-                                    </div>
-                                    <input type="submit" className="btn" value="Sign up" />
-                                    <p className="social-text">Or Sign up with social platforms</p>
-                                    <div className="social-media">
-                                        <a href="#" className="social-icon">
-                                            <i className="fab fa-facebook-f"></i>
-                                        </a>
-                                        <a href="#" className="social-icon">
-                                            <i className="fab fa-twitter"></i>
-                                        </a>
-                                        <a href="#" className="social-icon">
-                                            <i className="fab fa-google"></i>
-                                        </a>
-                                        <a href="#" className="social-icon">
-                                            <i className="fab fa-linkedin-in"></i>
-                                        </a>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                        <div className="panels-container">
-                            <div className="panel left-panel">
-                                <div className="content">
-                                    <h3>New here ?</h3>
-                                    <p>
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-                                        ex ratione. Aliquid!
-                                    </p>
-                                    <button className="btn transparent" id="sign-up-btn" onClick={() => toggle(true)}>
-                                        Cadastre-se
-                                    </button>
-                                </div>
-                                <img src="./assets/images/log.svg" className="image" alt="" />
-                            </div>
-                            <div className="panel right-panel">
-                                <div className="content">
-                                    <h3>One of us ?</h3>
-                                    <p>
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-                                        laboriosam ad deleniti.
-                                    </p>
-                                    <button className="btn transparent" id="sign-in-btn" onClick={() => toggle(false)}>
-                                        Entrar
-                                    </button>
-                                </div>
-                                <img src="./assets/images/register.svg" className="image" alt="" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                :
                 <section className='adm-main'>
                     <section className='adm-panel'>
                         <MenuAdm f={MenuPage} />
@@ -306,6 +210,101 @@ export default function AdmPage() {
                         </section>
                     </section>
                 </section>
+                :
+
+                <div className='adm-login'>
+                    <div className={handleMenu ? 'sign-up-mode' : 'container'}>
+                        <div className="forms-container">
+                            <div className="signin-signup">
+                                <form action="#" className="sign-in-form">
+                                    <h2 className="title">Entrar</h2>
+                                    <div className="input-field">
+                                        <i className="fas fa-user"></i>
+                                        <input type="text" placeholder="Usuário ou CPF" />
+                                    </div>
+                                    <div className="input-field">
+                                        <i className="fas fa-lock"></i>
+                                        <input type="password" placeholder="Senha" />
+                                    </div>
+                                    <input type="submit" value="Entrar" className="btn solid" />
+                                    <p className="social-text">Ou entre com suas redes sociais.</p>
+                                    <div className="social-media">
+                                        <a href="#" className="social-icon">
+                                            <i className="fab fa-facebook-f"></i>
+                                        </a>
+                                        <a href="#" className="social-icon">
+                                            <i className="fab fa-twitter"></i>
+                                        </a>
+                                        <a href="#" className="social-icon">
+                                            <i className="fab fa-google"></i>
+                                        </a>
+                                        <a href="#" className="social-icon">
+                                            <i className="fab fa-linkedin-in"></i>
+                                        </a>
+                                    </div>
+                                </form>
+                                <form action="#" className="sign-up-form">
+                                    <h2 className="title">Cadastre-se</h2>
+                                    <div className="input-field">
+                                        <i className="fas fa-user"></i>
+                                        <input type="text" placeholder="Usuário" />
+                                    </div>
+                                    <div className="input-field">
+                                        <i className="fas fa-envelope"></i>
+                                        <input type="email" placeholder="E-mail" />
+                                    </div>
+                                    <div className="input-field">
+                                        <i className="fas fa-lock"></i>
+                                        <input type="password" placeholder="Senha" />
+                                    </div>
+                                    <div className="input-field">
+                                        <i className="fas fa-lock"></i>
+                                        <input type="password" placeholder="Confirme sua senha" />
+                                    </div>
+                                    <input type="submit" className="btn" value="Cadastre-se" />
+                                    <p className="social-text">Ou cadastre-se com suas redes sociais</p>
+                                    <div className="social-media">
+                                        <a href="#" className="social-icon">
+                                            <i className="fab fa-facebook-f"></i>
+                                        </a>
+                                        <a href="#" className="social-icon">
+                                            <i className="fab fa-twitter"></i>
+                                        </a>
+                                        <a href="#" className="social-icon">
+                                            <i className="fab fa-google"></i>
+                                        </a>
+                                        <a href="#" className="social-icon">
+                                            <i className="fab fa-linkedin-in"></i>
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div className="panels-container">
+                            <div className="panel left-panel">
+                                <div className="content">
+                                    <h3>Bem-vindo ao Painel do Administrador</h3>
+                                    <p>Este é o seu centro de controle, onde você tem o poder de moldar a experiência dos visitantes do site.</p>
+                                    <button className="btn transparent" id="sign-up-btn" onClick={() => toggle(true)}>Cadastre-se</button>
+                                </div>
+                                <img src="./assets/images/log.svg" className="image" alt="" />
+                            </div>
+                            <div className="panel right-panel">
+                                <div className="content">
+                                    <h3>Já é um Administrador?</h3>
+                                    <p>
+                                        Entre com suas informações de acesso.
+                                    </p>
+                                    <button className="btn transparent" id="sign-in-btn" onClick={() => toggle(false)}>
+                                        Entrar
+                                    </button>
+                                </div>
+                                <img src="./assets/images/register.svg" className="image" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
         </>
     );
