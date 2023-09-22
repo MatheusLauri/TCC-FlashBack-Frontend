@@ -77,6 +77,7 @@ export function Header(){
             overlayClassName="modal-overlay"
             closeTimeoutMS={500}
             isOpen={showModal}
+            onRequestClose={() => setShowModal(false)}
         >
             <Components.Container>
               <Components.SignUpContainer signinIn={signIn}>
