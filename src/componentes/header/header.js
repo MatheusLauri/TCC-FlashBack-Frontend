@@ -28,10 +28,10 @@ export function Header(){
                 senha: senha
             });
 
-        navigate('/adm');
+        navigate('/adm')
             
         } catch (err) {
-            if(err.response.status === 401)
+            if(err.status === 401)
             setErro(err.response.data.erro)
         }
        
