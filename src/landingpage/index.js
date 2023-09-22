@@ -6,7 +6,7 @@ import { TrianguloCategoria } from '../componentes/trianguloCategoria';
 import BoxIngresso from '../componentes/boxIngresso'
 import './index.scss';
 
-function App() {
+function LandingPage() {
   return (
     <div className="body">
       <Header/>
@@ -87,4 +87,4 @@ function App() {
   );
 }
 
-export default App; 
+export default LandingPage; 

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
-import Landingpage from './landingpage/index.js';
+import LandingPage from './landingpage/index.js'
 import Rodape from './componentes/rodape/index.js'
 import MenuAdm from './componentes/menu-adm/index.js';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -18,7 +18,7 @@ root.render(
   <React.StrictMode>
       <BrowserRouter>
         <Routes>
-            <Route path='/' element={<Landingpage/>}/>
+            <Route path='/' element={<LandingPage/>}/>
             <Route path='/rodape' element={<Rodape/>}/>
             <Route path='/adm' element={<AdmPage/>}/>
             <Route path='/h' element={<Header/>}/>

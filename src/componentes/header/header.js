@@ -10,6 +10,8 @@ import { useNavigate } from 'react-router-dom';
 export function Header(){
     const [showModal,setShowModal] = useState(false)
     const [signIn, toggle] = useState(true);
+    const [isLogged,setIsLogged] = useState(false)
+    const [usuario,setUsuario] = useState('')
 
 
     const [email, setEmail] = useState('');
@@ -21,21 +23,28 @@ export function Header(){
     async function Logar () {
 
         try {
-
             const resp = await axios.post('http://localhost:5000/cliente/login', {
 
                 email: email,
                 senha: senha
+            
             });
-
-        navigate('/adm')
+            if(!resp.data){
+                alert('Errado')
+            }
+            else{
+                alert('logado')
+                setIsLogged(true)
+                setShowModal(false)
+                setUsuario(resp.data.NM_USUARIO)
+            }
+            console.log(resp.data)
             
         } catch (err) {
-            if(err.status === 401)
-            setErro(err.response.data.erro)
+            alert(err.message)
         }
-       
-        
+            
+            
     }
 
     return(
@@ -58,7 +67,8 @@ export function Header(){
                     <img src='/assets/images/carrinho.svg'/>
                     <span>0</span>
                 </div>
-                <a onClick={() => setShowModal(!showModal)}>Entrar</a>
+                {isLogged ? <a>{usuario}</a>
+                          : <a onClick={() => setShowModal(!showModal)}>Entrar</a>                }
             </div>
 
         </section>
