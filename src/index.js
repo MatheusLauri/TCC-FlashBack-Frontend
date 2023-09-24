@@ -13,6 +13,7 @@ import BoxIngresso from './componentes/boxIngresso';
 import AdmPage from './adm';
 import CategoryBtn from './componentes/categoryBtn';
 import AdmTicket from './componentes/admTicket';
+import Empresa from './empresa';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -21,6 +22,7 @@ root.render(
             <Route path='/' element={<LandingPage/>}/>
             <Route path='/rodape' element={<Rodape/>}/>
             <Route path='/adm' element={<AdmPage/>}/>
+            <Route path='/empresa' element={<Empresa/>}/>
             <Route path='/h' element={<Header/>}/>
         </Routes>
       </BrowserRouter>
