@@ -4,19 +4,22 @@ import CategorySection from '../componentes/categoryBtn';
 import { useEffect, useState } from 'react';
 import TitleRange from '../componentes/titleRange/index'
 import AdmTicket from '../componentes/admTicket';
+import Modal from 'react-modal'
 export default function AdmPage() {
     const [graphicChosen, setGraphicChosen] = useState(1)
     const [menu, setMenu] = useState(1)
     const [showMenu, setShowMenu] = useState(false)
-    const [isLogged, setIsLogged] = useState(false)
+    const [isLogged, setIsLogged] = useState(true)
     const [handleMenu, toggle] = useState(false)
-
+    const [logOutModal,setLogOutModal] = useState(true)
 
 
 
     function MenuPage(pagedata) {
         setMenu(pagedata)
-        console.log(menu)
+        if(pagedata == 5){
+            setLogOutModal(true)
+        }
     }
 
     return (
@@ -207,6 +210,21 @@ export default function AdmPage() {
                                     </section>
                                 </>
                             }
+                            {menu == 5 &&
+                                <Modal
+                                    className={'modal'}
+                                    overlayClassName={'overlay-modal'}
+                                    isOpen={logOutModal}
+                                    shouldCloseOnOverlayClick={() => setLogOutModal(!logOutModal)}
+                                    closeTimeoutMS={500}
+                                >
+                                    <section className='logout-modal-content'>
+                                        <h1>Você tem certeza que quer sair?</h1>
+                                        <a onClick={() => setIsLogged(false)}>Sim</a>
+                                    </section>
+                                </Modal>
+                            }
+                            
                         </section>
                     </section>
                 </section>

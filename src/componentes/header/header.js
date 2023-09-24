@@ -43,7 +43,7 @@ export function Header() {
     }
 
     return (
-        <>
+        <section className='header-main'>
             <section className="secao-header">
                 <img src='/assets/images/logoTCC.png' />
                 <div className='secao-header-input-div'>
@@ -166,6 +166,6 @@ export function Header() {
                     </div>
                 </div>
             </Modal>
-        </>
+        </section>
     );
 }
