@@ -1,9 +1,56 @@
 import { useState } from 'react'
 import './index.scss'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function Empresa() {
     const [isLogged, setIsLogged] = useState(false)
     const [handleMenu, toggle] = useState(false)
+
+
+
+    const [emailCNPJ, setEmailCNPJ] = useState('');
+    const [senha, setSenha] = useState('');
+
+    const navigate = useNavigate();
+
+
+
+    async function Cadastrar () {
+
+        
+
+    }
+
+    async function Logar() {
+
+        try {
+            const resp = await axios.post('http://localhost:5000/empresa/login', {
+                
+                cnpj: emailCNPJ,
+                email: emailCNPJ,
+                senha: senha
+
+            });
+            if (!resp.data) {
+                alert('Errado')
+            }
+            else {
+                alert('logado')
+                navigate('/adm')
+            }
+
+
+        } catch (err) {
+
+            
+        }
+
+
+    }
+
+
+
     return (
         <section className='empresa-main'>
             {isLogged
@@ -18,13 +65,13 @@ export default function Empresa() {
                                         <h2 className="title">Entrar</h2>
                                         <div className="input-field">
                                             <i className="fas fa-user"></i>
-                                            <input type="text" placeholder="Empresa, E-mail ou CNPJ" />
+                                            <input type="text" placeholder="Empresa, E-mail ou CNPJ" value={emailCNPJ} onChange={(e) => setEmailCNPJ(e.target.value)}/>
                                         </div>
                                         <div className="input-field">
                                             <i className="fas fa-lock"></i>
-                                            <input type="password" placeholder="Senha" />
+                                            <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
                                         </div>
-                                        <input type="submit" value="Entrar" className="btn solid" />
+                                        <input type="submit" value="Entrar" className="btn solid" onClick={Logar}/>
                                     </div>
                                     <div action="#" className="sign-up-form">
                                         <h2 className="title">Cadastre-se</h2>
