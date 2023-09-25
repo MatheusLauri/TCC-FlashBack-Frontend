@@ -1,5 +1,4 @@
 .adm-ticket{
-    cursor: pointer;
     width: 500px;
     height: 250px;
     background-color: white;
@@ -153,7 +152,6 @@
             .ticket-type{
                 overflow: hidden;
                 width: 100%;
-                cursor: pointer;
                 justify-content: space-between;
                 align-items: start;
                 display: flex;
@@ -192,6 +190,7 @@
                     }
                 }
                 .header{
+                    cursor: pointer;
                     display: flex;
                     flex-direction: row;
                     align-items: center;
@@ -219,7 +218,6 @@
     }
 }
 .adm-ticket-grow{
-    cursor: pointer;
     box-shadow: 0px 4px 4px 3px rgba(0, 0, 0, 0.25);
     width: 500px;
     height: 320px;
@@ -320,7 +318,6 @@
                 box-shadow: 0px 4px 4px 3px rgba(0, 0, 0, 0.25);
                 overflow: hidden;
                 width: 100%;
-                cursor: pointer;
                 justify-content: space-between;
                 align-items: start;
                 display: flex;
@@ -358,6 +355,7 @@
                     }
                 }
                 .header{
+                    cursor: pointer;
                     display: flex;
                     flex-direction: row;
                     align-items: center;

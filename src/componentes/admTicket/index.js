@@ -4,7 +4,7 @@ import './index.scss'
 export default function AdmTicket() {
     const [showType,setShowType] = useState(false)
     return (
-        <div className={showType ? 'adm-ticket-grow' : 'adm-ticket'} onClick={() => setShowType(!showType)}>
+        <div className={showType ? 'adm-ticket-grow' : 'adm-ticket'}>
             <div className='ticket-upper-info'>
                 <p>ID: <span>1</span></p>
                 <h1>Numanice</h1>
@@ -17,10 +17,10 @@ export default function AdmTicket() {
                 <div className='left-part'>
                     <p>Data/hora: <span>20/11/2023 20:00</span></p>
                     <p className='last-child'>Local: <span>Teatro Municipal - São Paulo, SP</span></p>
-                    <div className={showType ? 'ticket-type-clicked' : 'ticket-type'} onClick={() => setShowType(!showType)}>
+                    <div className={showType ? 'ticket-type-clicked' : 'ticket-type'}>
                         <div className='header'>
-                            <a>Tipos Ingresso, qtd e valor</a>
-                            <img src='../assets/images/arrow.svg'/>
+                            <a onClick={() => setShowType(!showType)}>Tipos Ingresso, qtd e valor</a>
+                            <img src='../assets/images/arrow.svg' onClick={() => setShowType(!showType)}/>
                         </div>
                         <div className='body'>
                             <div className='body-row'>
