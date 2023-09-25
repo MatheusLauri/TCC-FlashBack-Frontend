@@ -9,7 +9,7 @@ export default function AdmPage() {
     const [graphicChosen, setGraphicChosen] = useState(1)
     const [menu, setMenu] = useState(1)
     const [showMenu, setShowMenu] = useState(false)
-    const [isLogged, setIsLogged] = useState(true)
+    const [isLogged, setIsLogged] = useState(false)
     const [handleMenu, toggle] = useState(false)
     const [logOutModal,setLogOutModal] = useState(true)
 

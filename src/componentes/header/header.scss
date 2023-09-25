@@ -109,10 +109,10 @@
     border: none;
     z-index: 2;
     position: absolute;
-    top: 15%;
-    bottom: 5%;
-    left: 10%;
-    right: 10%;
+    top: 15% !important;
+    bottom: 5% !important;
+    left: 10% !important;
+    right: 10% !important;
     border-radius: 20px;
     display: flex;
     flex-direction: row;
@@ -204,6 +204,7 @@
         background-color: $background-color_2;
         margin: 10px 0;
         height: 7% !important;
+        max-height: 50px !important;
         border-radius: 55px;
         align-items: center !important;
         display: flex !important;
