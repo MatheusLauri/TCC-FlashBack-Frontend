@@ -14,6 +14,7 @@ import AdmPage from './adm';
 import CategoryBtn from './componentes/categoryBtn';
 import AdmTicket from './componentes/admTicket';
 import Empresa from './empresa';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

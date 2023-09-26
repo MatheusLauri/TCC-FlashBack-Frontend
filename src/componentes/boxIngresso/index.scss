@@ -10,11 +10,18 @@
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         transform: translateY(10px);
     }
-    .box-ingresso-bg{
-        background-size: cover;
-        background-repeat: no-repeat;
+    .box-ingresso-bgbox{
+        position: relative;
+        border-radius: 10px 10px 0  0;
         height: 138px;
         width: 100%;
+        overflow: hidden;
+        .box-ingresso-bg{
+            position: absolute;
+            width: 100%;
+            height: auto;
+            top: -50%;
+        }
     }
     .box-ingresso-content{
         width: 100%;
