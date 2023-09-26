@@ -89,7 +89,7 @@
                 right: -5px;
             }
         }
-        a{
+        >a{
             font-weight: 500;
             margin-left: 30px;
             display: flex;
@@ -100,6 +100,16 @@
             background-color: #F9DD4A;
             width: 120px;
             height: 40px;
+        }
+        .user-div{
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            padding: 5px 20px;
+            color: white;
+            i,a{
+                color: #F9DD4A;
+            }
         }
     }
 }

@@ -2,6 +2,7 @@ import './index.scss'
 import MenuAdm from '../componentes/menu-adm'
 import CategorySection from '../componentes/categoryBtn';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import TitleRange from '../componentes/titleRange/index'
 import AdmTicket from '../componentes/admTicket';
 import Modal from 'react-modal'
@@ -9,10 +10,32 @@ export default function AdmPage() {
     const [graphicChosen, setGraphicChosen] = useState(1)
     const [menu, setMenu] = useState(1)
     const [showMenu, setShowMenu] = useState(false)
-    const [isLogged, setIsLogged] = useState(true)
+    const [isLogged, setIsLogged] = useState(false)
     const [logOutModal,setLogOutModal] = useState(true)
+    const [emailCPF,setEmailCPF] = useState('')
+    const [senha,setSenha] = useState('')
+
+    async function Logar() {
+
+        try {
+            const resp = await axios.post('http://localhost:5000/adm/login', {
+                cpf: emailCPF,
+                email: emailCPF,
+                senha: senha
+            });
+            if (!resp.data) {
+                alert('Errado')
+            }
+            else {
+                alert('logado')
+            }
 
 
+        } catch (err) {
+
+            
+        }
+    }
 
     function MenuPage(pagedata) {
         setMenu(pagedata)
@@ -237,11 +260,11 @@ export default function AdmPage() {
                                     <h2 className="title">Entrar</h2>
                                     <div className="input-field">
                                         <i className="fas fa-user"></i>
-                                        <input type="text" placeholder="Usuário ou CPF" />
+                                        <input type="text" placeholder="Usuário ou CPF" value={emailCPF} onChange={(e) => setEmailCPF(e.target.value)}/>
                                     </div>
                                     <div className="input-field">
                                         <i className="fas fa-lock"></i>
-                                        <input type="password" placeholder="Senha" />
+                                        <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)}/>
                                     </div>
                                     <input type="submit" value="Entrar" className="btn solid" />
                                 </div>

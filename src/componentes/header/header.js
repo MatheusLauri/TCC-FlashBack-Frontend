@@ -19,27 +19,19 @@ export function Header() {
 
         try {
             const resp = await axios.post('http://localhost:5000/cliente/login', {
-
+                NomeUsuario: email,
+                cpf: email,
                 email: email,
                 senha: senha
-
             });
-            if (!resp.data) {
-                alert('Errado')
-            }
-            else {
-                alert('logado')
-                setIsLogged(true)
-                setShowModal(false)
-                setUsuario(resp.data.NM_USUARIO)
-            }
-            console.log(resp.data)
-
+            alert('logado')
+            setIsLogged(true)
+            setShowModal(false)
+            setUsuario(resp.data.NM_USUARIO)
+            
         } catch (err) {
-            alert(err.message)
+            alert(err.response.data.erro)
         }
-
-
     }
 
     return (
@@ -62,8 +54,13 @@ export function Header() {
                         <img src='/assets/images/carrinho.svg' />
                         <span>0</span>
                     </div>
-                    {isLogged ? <a>{usuario}</a>
-                        : <a onClick={() => setShowModal(!showModal)}>Entrar</a>}
+                    {isLogged 
+                        ? <div className='user-div'>
+                            <i className="fas fa-user"></i>
+                            <a>{usuario}</a>
+                        </div>
+                        : <a onClick={() => setShowModal(!showModal)}>Entrar</a>
+                    }
                 </div>
 
             </section>
@@ -82,13 +79,13 @@ export function Header() {
                                     <h2 className="title">Entrar</h2>
                                     <div className="input-field">
                                         <i className="fas fa-user"></i>
-                                        <input type="text" placeholder="Usuário, E-mail ou CPF" />
+                                        <input type="text" placeholder="Usuário, E-mail ou CPF" value={email} onChange={(e) => setEmail(e.target.value)} />
                                     </div>
                                     <div className="input-field">
                                         <i className="fas fa-lock"></i>
-                                        <input type="password" placeholder="Senha" />
+                                        <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)}/>
                                     </div>
-                                    <input type="submit" value="Fazer Login" className="btn solid" />
+                                    <input type="submit" value="Fazer Login" className="btn solid" onClick={Logar}/>
                                     <p className="social-text">Ou entre com suas redes sociais.</p>
                                     <div className="social-media">
                                         <a className="social-icon">
