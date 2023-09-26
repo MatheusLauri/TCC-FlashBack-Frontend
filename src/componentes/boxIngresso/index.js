@@ -2,7 +2,7 @@ import './index.scss'
 
 export default function BoxIngresso(props){
     return(
-        <div className='box-ingresso-main'>
+        <div onClick={() => console.log(props.imagem)} className='box-ingresso-main'>
             <img className='box-ingresso-bg' src={props.imagem}/>
             <div className='box-ingresso-content'>
                 <div className='box-ingresso-adress'><h1>{props.data}</h1></div>
