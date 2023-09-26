@@ -4,6 +4,7 @@ import './header.scss'
 import Modal from 'react-modal'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 export function Header() {
     const [showModal, setShowModal] = useState(false)
@@ -28,7 +29,7 @@ export function Header() {
             setIsLogged(true)
             setShowModal(false)
             setUsuario(resp.data.NM_USUARIO)
-            
+
         } catch (err) {
             alert(err.response.data.erro)
         }
@@ -163,6 +164,7 @@ export function Header() {
                     </div>
                 </div>
             </Modal>
+            <ToastContainer/>
         </section>
     );
 }
