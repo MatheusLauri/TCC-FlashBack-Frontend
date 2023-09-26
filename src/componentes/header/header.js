@@ -25,13 +25,14 @@ export function Header() {
                 email: email,
                 senha: senha
             });
-            alert('logado')
-            setIsLogged(true)
-            setShowModal(false)
-            setUsuario(resp.data.NM_USUARIO)
+            if ( resp.data > 0)
+                alert('logado')
+                setIsLogged(true)
+                setShowModal(false)
+                setUsuario(resp.data.NM_USUARIO)
 
         } catch (err) {
-            alert(err.response.data.erro)
+            
         }
     }
 
