@@ -21,7 +21,10 @@ export function Header() {
         setIsLogged(false)
         setUserModal(false)
     }
-
+    function FecharPopUp(){
+        setUserModal(!userModal)
+        setUserPopUp(!userPopUp)
+    }
     const navigate = useNavigate();
 
     async function Logar() {
@@ -86,7 +89,8 @@ export function Header() {
                                 </div>
                                 <div className='user-option' style={userPopUp ? {display:'flex'} : {display: 'none'}}>
                                     <div className='baloon'></div>
-                                    <div className='user-option-row' onClick={() => setUserModal(!userModal)}>
+                                    <div className='user-option-row' onClick={() => FecharPopUp()}
+                                    >
                                         <img src='./assets/images/info.svg'/>
                                         <a>Informações da conta</a>
                                     </div>
@@ -210,7 +214,9 @@ export function Header() {
                 isOpen={userModal}
                 onRequestClose={() => setUserModal(false)}
             >
-                oi
+                <section className='user-modal-main'>
+                    <section></section>
+                </section>
             </Modal>
 
         </section>
