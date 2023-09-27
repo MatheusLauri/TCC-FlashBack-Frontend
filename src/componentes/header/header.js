@@ -36,10 +36,11 @@ export function Header() {
                 email: email,
                 senha: senha
             });
-            toast.success('Login efetuado com sucesso!')
+            setUsuario(resp.data.NM_USUARIO)
+            toast.success(`Login efetuado com sucesso, ${usuario}!`)
             setIsLogged(true)
             setShowModal(false)
-            setUsuario(resp.data.NM_USUARIO)
+            setUserPopUp(false)
 
         } catch (err) {
             toast.error(err.response.data.erro)

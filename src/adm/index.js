@@ -6,34 +6,29 @@ import axios from 'axios';
 import TitleRange from '../componentes/titleRange/index'
 import AdmTicket from '../componentes/admTicket';
 import Modal from 'react-modal'
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function AdmPage() {
     const [graphicChosen, setGraphicChosen] = useState(1)
     const [menu, setMenu] = useState(1)
     const [showMenu, setShowMenu] = useState(false)
     const [isLogged, setIsLogged] = useState(false)
     const [logOutModal,setLogOutModal] = useState(true)
-    const [emailCPF,setEmailCPF] = useState('')
+    const [email,setEmail] = useState('')
     const [senha,setSenha] = useState('')
 
     async function Logar() {
 
         try {
             const resp = await axios.post('http://localhost:5000/adm/login', {
-                cpf: emailCPF,
-                email: emailCPF,
+                email: email,
                 senha: senha
             });
-            if (!resp.data) {
-                alert('Errado')
-            }
-            else {
-                alert('logado')
-            }
-
+            toast.success(`Login efetuado com sucesso, ${email}!`)
+            setIsLogged(true)
 
         } catch (err) {
-
-            
+            toast.error(err.response.data.erro)
         }
     }
 
@@ -46,6 +41,19 @@ export default function AdmPage() {
 
     return (
         <>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
+            <ToastContainer />
             {isLogged
                 ?
                 <section className='adm-main'>
@@ -260,13 +268,13 @@ export default function AdmPage() {
                                     <h2 className="title">Entrar</h2>
                                     <div className="input-field">
                                         <i className="fas fa-user"></i>
-                                        <input type="text" placeholder="Usuário ou CPF" value={emailCPF} onChange={(e) => setEmailCPF(e.target.value)}/>
+                                        <input type="text" placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)}/>
                                     </div>
                                     <div className="input-field">
                                         <i className="fas fa-lock"></i>
                                         <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)}/>
                                     </div>
-                                    <input type="submit" value="Entrar" className="btn solid" />
+                                    <input type="submit" value="Entrar" className="btn solid" onClick={Logar}/>
                                 </div>
                                 
                             </div>
