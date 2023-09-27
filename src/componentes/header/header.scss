@@ -103,12 +103,56 @@
         }
         .user-div{
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             gap: 5px;
             padding: 5px 20px;
             color: white;
-            i,a{
-                color: #F9DD4A;
+            position: relative;
+            .user{
+                display: flex;
+                flex-direction: row;
+                gap: 5px;
+                i,a{
+                    color: #F9DD4A;
+                    font-weight: 900;
+                }
+            }
+            .user-option{
+                box-shadow: 4px 4px 4px 0px rgba(82, 13, 169, 0.30);
+                border-bottom: 3px solid #520DA9;
+                border-radius: 5px;
+                height: fit-content !important;
+                padding: 5px 15px;
+                width: 250%;
+                position: absolute;
+                top: 40px;
+                right: -15px;
+                height: 30px;
+                gap: 10px;
+                align-items: flex-start;
+                justify-content: center;
+                z-index: 2;
+                display: flex;
+                flex-direction: column;
+                background-color: rgb(255, 255, 255) !important;
+                .baloon{
+                    position: absolute;
+                    top: -10px;
+                    right: 46px;
+                    border-left: 12.5px solid transparent;
+                    border-right: 12.5px solid transparent;
+                    border-bottom: 25px solid white;
+                    z-index: -1;
+                }
+                .user-option-row{
+                    img{
+                        width: 20px;
+                    }
+                    gap: 5px;
+                    display: flex;
+                    flex-direction: row;
+                    color: black;
+                }
             }
         }
     }

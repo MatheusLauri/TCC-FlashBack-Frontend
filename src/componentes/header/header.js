@@ -14,7 +14,13 @@ export function Header() {
     const [email, setEmail] = useState('');
     const [handleMenu, toggle] = useState(false)
     const [senha, setSenha] = useState('');
-    
+    const [userModal, setUserModal] = useState(false)
+    const [userPopUp, setUserPopUp] = useState(false)
+
+    function Sair(){
+        setIsLogged(false)
+        setUserModal(false)
+    }
 
     const navigate = useNavigate();
 
@@ -27,17 +33,15 @@ export function Header() {
                 email: email,
                 senha: senha
             });
-            if ( resp.data > 0)
-
-                toast.success('logado')
-                setIsLogged(true)
-                setShowModal(false)
-                setUsuario(resp.data.NM_USUARIO)       
+            toast.success('Login efetuado com sucesso!')
+            setIsLogged(true)
+            setShowModal(false)
+            setUsuario(resp.data.NM_USUARIO)
 
         } catch (err) {
-            
+            toast.error(err.response.data.erro)
         }
-        toast.success('logado')
+
     }
 
     return (
@@ -53,7 +57,7 @@ export function Header() {
                 draggable
                 pauseOnHover
                 theme="light"
-                />
+            />
             <ToastContainer />
             <section className="secao-header">
                 <img src='/assets/images/logoTCC.png' />
@@ -73,14 +77,31 @@ export function Header() {
                         <img src='/assets/images/carrinho.svg' />
                         <span>0</span>
                     </div>
-                    {isLogged 
-                        ? <div className='user-div'>
-                            <i className="fas fa-user"></i>
-                            <a>{usuario}</a>
-                        </div>
-                        : <a onClick={() => setShowModal(!showModal)}>Entrar</a>
+                    {isLogged
+                        ?   <>
+                            <div className='user-div'>
+                                <div className='user' onClick={() => setUserPopUp(!userPopUp)}>
+                                    <i className="fas fa-user"></i>
+                                    <a>{usuario}</a>
+                                </div>
+                                <div className='user-option' style={userPopUp ? {display:'flex'} : {display: 'none'}}>
+                                    <div className='baloon'></div>
+                                    <div className='user-option-row' onClick={() => setUserModal(!userModal)}>
+                                        <img src='./assets/images/info.svg'/>
+                                        <a>Informações da conta</a>
+                                    </div>
+                                    <div className='user-option-row' onClick={() => Sair()}>
+                                        <img src='./assets/images/sair.svg'/>
+                                        <a>Sair</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            </>
+
+                            : <a onClick={() => setShowModal(!showModal)}>Entrar</a>
                     }
-                </div>
+                        </div>
 
             </section>
             <Modal
@@ -102,9 +123,9 @@ export function Header() {
                                     </div>
                                     <div className="input-field">
                                         <i className="fas fa-lock"></i>
-                                        <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)}/>
+                                        <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
                                     </div>
-                                    <input type="submit" value="Fazer Login" className="btn solid" onClick={Logar}/>
+                                    <input type="submit" value="Fazer Login" className="btn solid" onClick={Logar} />
                                     <p className="social-text">Ou entre com suas redes sociais.</p>
                                     <div className="social-media">
                                         <a className="social-icon">
@@ -182,7 +203,16 @@ export function Header() {
                     </div>
                 </div>
             </Modal>
-          
+            <Modal
+                className="modal"
+                overlayClassName="modal-overlay"
+                closeTimeoutMS={500}
+                isOpen={userModal}
+                onRequestClose={() => setUserModal(false)}
+            >
+                oi
+            </Modal>
+
         </section>
     );
 }
