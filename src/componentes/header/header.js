@@ -4,7 +4,8 @@ import './header.scss'
 import Modal from 'react-modal'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export function Header() {
     const [showModal, setShowModal] = useState(false)
@@ -13,6 +14,7 @@ export function Header() {
     const [email, setEmail] = useState('');
     const [handleMenu, toggle] = useState(false)
     const [senha, setSenha] = useState('');
+    
 
     const navigate = useNavigate();
 
@@ -26,18 +28,33 @@ export function Header() {
                 senha: senha
             });
             if ( resp.data > 0)
-                alert('logado')
+
+                toast.success('logado')
                 setIsLogged(true)
                 setShowModal(false)
-                setUsuario(resp.data.NM_USUARIO)
+                setUsuario(resp.data.NM_USUARIO)       
 
         } catch (err) {
             
         }
+        toast.success('logado')
     }
 
     return (
         <section className='header-main'>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                />
+            <ToastContainer />
             <section className="secao-header">
                 <img src='/assets/images/logoTCC.png' />
                 <div className='secao-header-input-div'>
@@ -165,7 +182,7 @@ export function Header() {
                     </div>
                 </div>
             </Modal>
-            <ToastContainer/>
+          
         </section>
     );
 }
