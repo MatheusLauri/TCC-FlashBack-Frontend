@@ -278,38 +278,38 @@ export function Header() {
                             <h1>Dados Pessoais</h1>
                             <div className='info-form-div'>
                                 <div className='info-input-div'>
-                                    <label>Nome:</label>
+                                    <label>Nome </label>
                                     <input type='text'/>
                                 </div>
                                 <div className='info-input-div'>
-                                    <label>Sobrenome:</label>
+                                    <label>Sobrenome</label>
                                     <input type='text'/>
                                 </div>
                                 <div className='info-input-div'>
-                                    <label>Data de nascimento:</label>
+                                    <label>Data de nascimento</label>
+                                    <input type='date'/>
+                                </div>
+                                <div className='info-input-div'>
+                                    <label>Genêro</label>
                                     <input type='text'/>
                                 </div>
                                 <div className='info-input-div'>
-                                    <label>Genêro:</label>
-                                    <input type='text'/>
+                                    <label>Celular</label>
+                                    <input type='tel'/>
                                 </div>
                                 <div className='info-input-div'>
-                                    <label>Celular:</label>
-                                    <input type='text'/>
-                                </div>
-                                <div className='info-input-div'>
-                                    <label>CPF:</label>
+                                    <label>CPF</label>
                                     <input type='text'/>
                                 </div>
                             </div>
                             <h1>Dados de Login</h1>
                             <div className='info-form-div'>
                                 <div className='info-input-div'>
-                                    <label>E-mail:</label>
-                                    <input type='text'/>
+                                    <label>E-mail</label>
+                                    <input type='email'/>
                                 </div>
                                 <div className='info-input-div'>
-                                    <label>Senha:</label>
+                                    <label>Senha</label>
                                     <input type='text'/>
                                 </div>
                             </div>
