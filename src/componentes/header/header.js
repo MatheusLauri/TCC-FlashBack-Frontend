@@ -11,7 +11,7 @@ export function Header() {
     const navigate = useNavigate();
 
     const [showModal, setShowModal] = useState(false)
-    const [isLogged, setIsLogged] = useState(false)
+    const [isLogged, setIsLogged] = useState(true)
 
 // Variáveis de Cadastro do usuário
 
@@ -25,10 +25,13 @@ export function Header() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
+// Variáveis de abertura de modal
+
     const [handleMenu, toggle] = useState(false)
-    const [userModal, setUserModal] = useState(false)
+    const [userModal, setUserModal] = useState(true)
     const [userPopUp, setUserPopUp] = useState(false)
 
+// Funções para modivicação de estado de modal
     function Sair(){
         setIsLogged(false)
         setUserModal(false)
@@ -37,8 +40,18 @@ export function Header() {
         setUserModal(!userModal)
         setUserPopUp(!userPopUp)
     }
-
-
+// Função para modificação da barra de usuário
+    const [userBar,setUserBar] = useState(false)
+    const [userRightBar,setUserRightBar] = useState(false)
+    function UserBarLeft(){
+        setUserBar(true)
+        setUserRightBar(true)
+    }
+    function UserBarRight(){
+        setUserBar(false)
+        setUserRightBar(false)
+    }
+// Função de cadastro com API
     async function CadastrarCliente () {
         try {
 
@@ -54,8 +67,8 @@ export function Header() {
 
             const r = await axios.post('http://localhost:5000/cliente', cliente)
             toast.success(`Cadastro realizado com sucesso!`)
-
-
+            toggle(false)
+        
             setNomeUsuario('')
             setemailUsuario('')
             setcpfUsuario('')
@@ -66,7 +79,7 @@ export function Header() {
         }
     }
 
-
+// Função de Login com API
     async function Logar() {
 
         try {
@@ -245,7 +258,64 @@ export function Header() {
                 onRequestClose={() => setUserModal(false)}
             >
                 <section className='user-modal-main'>
-                    <section></section>
+                    <section className='user-option-select'>
+                        <div className='user-option' onClick={() => UserBarLeft()}>
+                            <i class="fas fa-paste"></i>
+                            <a>Meus Pedidos</a>
+                        </div>
+                        <div className='user-option' onClick={() => UserBarRight()}>
+                            <i className="fas fa-user"></i>
+                            <a>Informações da Conta</a>
+                        </div>
+                        <div className={userBar ? 'bar-left' : 'bar-right'}></div>
+                    </section>
+                    {userRightBar
+                    ?
+                    <section className='left-side'>Esquerda</section>
+                    :
+                    <section className='right-side'>
+                        <section className='info-part'>
+                            <h1>Dados Pessoais</h1>
+                            <div className='info-form-div'>
+                                <div className='info-input-div'>
+                                    <label>Nome:</label>
+                                    <input type='text'/>
+                                </div>
+                                <div className='info-input-div'>
+                                    <label>Sobrenome:</label>
+                                    <input type='text'/>
+                                </div>
+                                <div className='info-input-div'>
+                                    <label>Data de nascimento:</label>
+                                    <input type='text'/>
+                                </div>
+                                <div className='info-input-div'>
+                                    <label>Genêro:</label>
+                                    <input type='text'/>
+                                </div>
+                                <div className='info-input-div'>
+                                    <label>Celular:</label>
+                                    <input type='text'/>
+                                </div>
+                                <div className='info-input-div'>
+                                    <label>CPF:</label>
+                                    <input type='text'/>
+                                </div>
+                            </div>
+                            <h1>Dados de Login</h1>
+                            <div className='info-form-div'>
+                                <div className='info-input-div'>
+                                    <label>E-mail:</label>
+                                    <input type='text'/>
+                                </div>
+                                <div className='info-input-div'>
+                                    <label>Senha:</label>
+                                    <input type='text'/>
+                                </div>
+                            </div>
+                        </section>
+                    </section>
+                    }
                 </section>
             </Modal>
 

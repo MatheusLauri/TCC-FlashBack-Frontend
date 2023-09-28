@@ -58,6 +58,7 @@ body{
                 >svg:first-child{
                     rotate: 180deg;
                     fill: yellow;
+                    z-index: -1;
                 }
             }
             .carrosel{
