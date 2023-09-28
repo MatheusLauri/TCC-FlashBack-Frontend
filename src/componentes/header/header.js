@@ -9,26 +9,24 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export function Header() {
     const navigate = useNavigate();
-
     const [showModal, setShowModal] = useState(false)
-    const [isLogged, setIsLogged] = useState(true)
-
+    const [isLogged, setIsLogged] = useState(false)
+// Variáveis de informação do usuário
+    const [usuario, setUsuario] = useState('')
 // Variáveis de Cadastro do usuário
-
     const [NomeUsuario, setNomeUsuario] = useState('');
     const [cpfUsuario, setcpfUsuario] = useState('');
     const [emailUsuario, setemailUsuario] = useState('');
     const [senhaUsuario, setsenhaUsuario] = useState();
 
 // Variáveis de Login do usuário
-    const [usuario, setUsuario] = useState('')
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
 // Variáveis de abertura de modal
 
     const [handleMenu, toggle] = useState(false)
-    const [userModal, setUserModal] = useState(true)
+    const [userModal, setUserModal] = useState(false)
     const [userPopUp, setUserPopUp] = useState(false)
 
 // Funções para modivicação de estado de modal
