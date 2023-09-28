@@ -8,12 +8,24 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export function Header() {
+    const navigate = useNavigate();
+
     const [showModal, setShowModal] = useState(false)
     const [isLogged, setIsLogged] = useState(false)
+
+// Variáveis de Cadastro do usuário
+
+    const [NomeUsuario, setNomeUsuario] = useState('');
+    const [cpfUsuario, setcpfUsuario] = useState('');
+    const [emailUsuario, setemailUsuario] = useState('');
+    const [senhaUsuario, setsenhaUsuario] = useState();
+
+// Variáveis de Login do usuário
     const [usuario, setUsuario] = useState('')
     const [email, setEmail] = useState('');
-    const [handleMenu, toggle] = useState(false)
     const [senha, setSenha] = useState('');
+
+    const [handleMenu, toggle] = useState(false)
     const [userModal, setUserModal] = useState(false)
     const [userPopUp, setUserPopUp] = useState(false)
 
@@ -25,7 +37,35 @@ export function Header() {
         setUserModal(!userModal)
         setUserPopUp(!userPopUp)
     }
-    const navigate = useNavigate();
+
+
+    async function CadastrarCliente () {
+        try {
+
+            let cliente = {
+
+                NomeUsuario: NomeUsuario, 
+                CPF: cpfUsuario,
+                Email: emailUsuario,
+                Senha: senhaUsuario
+
+            }
+            console.log(cliente)
+
+            const r = await axios.post('http://localhost:5000/cliente', cliente)
+            toast.success(`Cadastro realizado com sucesso!`)
+
+
+            setNomeUsuario('')
+            setemailUsuario('')
+            setcpfUsuario('')
+            setsenhaUsuario('')
+
+        } catch (err) {
+            toast.error(err.response.data.erro)
+        }
+    }
+
 
     async function Logar() {
 
@@ -36,8 +76,9 @@ export function Header() {
                 email: email,
                 senha: senha
             });
+
             setUsuario(resp.data.NM_USUARIO)
-            toast.success(`Login efetuado com sucesso, ${usuario}!`)
+            toast.success(`Seja bem-vindo, ${resp.data.NM_USUARIO} !`)
             setIsLogged(true)
             setShowModal(false)
             setUserPopUp(false)
@@ -50,18 +91,6 @@ export function Header() {
 
     return (
         <section className='header-main'>
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-            />
             <ToastContainer />
             <section className="secao-header">
                 <img src='/assets/images/logoTCC.png' />
@@ -151,21 +180,21 @@ export function Header() {
                                     <h2 className="title">Cadastre-se</h2>
                                     <div className="input-field">
                                         <i className="fas fa-user"></i>
-                                        <input type="text" placeholder="Usuário" />
+                                        <input type="text" placeholder="Usuário"  value={NomeUsuario}  onChange={e => setNomeUsuario(e.target.value)}/>
                                     </div>
                                     <div className="input-field">
                                         <i className="fas fa-envelope"></i>
-                                        <input type="email" placeholder="E-mail" />
+                                        <input type="email" placeholder="E-mail" value={emailUsuario}  onChange={e => setemailUsuario(e.target.value)}/>
                                     </div>
                                     <div className="input-field">
                                         <i className="fas fa-envelope"></i>
-                                        <input type="text" placeholder="CPF" />
+                                        <input type="text" placeholder="CPF"  value={cpfUsuario}  onChange={e => setcpfUsuario(e.target.value)}/>
                                     </div>
                                     <div className="input-field">
                                         <i className="fas fa-lock"></i>
-                                        <input type="password" placeholder="Senha" />
+                                        <input type="password" placeholder="Senha" value={senhaUsuario}  onChange={e => setsenhaUsuario(e.target.value)}/>
                                     </div>
-                                    <input type="submit" className="btn" value="Cadastre-se" />
+                                    <input type="submit" className="btn" value="Cadastre-se" onClick={CadastrarCliente}/>
                                     <p className="social-text">Ou cadastre-se com suas redes sociais</p>
                                     <div className="social-media">
                                         <a className="social-icon">
