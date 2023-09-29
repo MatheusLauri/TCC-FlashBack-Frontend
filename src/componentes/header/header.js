@@ -34,28 +34,11 @@ export function Header() {
     const [handleMenu, toggle] = useState(false)
     const [userModal, setUserModal] = useState(false)
     const [userPopUp, setUserPopUp] = useState(false)
-//  Função para renderização condicional
+//  Variável para renderização condicional
     const [uptadeUser,setUpdateUser] = useState(false)
-// Funções para modivicação de estado de modal
-    function Sair(){
-        setIsLogged(false)
-        setUserModal(false)
-    }
-    function FecharPopUp(){
-        setUserModal(!userModal)
-        setUserPopUp(!userPopUp)
-    }
-// Função para modificação da barra de usuário
+// Variável para modificação da barra de usuário
     const [userBar,setUserBar] = useState(false)
     const [userRightBar,setUserRightBar] = useState(false)
-    function UserBarLeft(){
-        setUserBar(true)
-        setUserRightBar(true)
-    }
-    function UserBarRight(){
-        setUserBar(false)
-        setUserRightBar(false)
-    }
 // Função de cadastro com API
     async function CadastrarCliente () {
         try {
@@ -144,12 +127,12 @@ export function Header() {
                                 </div>
                                 <div className='user-option' style={userPopUp ? {display:'flex'} : {display: 'none'}}>
                                     <div className='baloon'></div>
-                                    <div className='user-option-row' onClick={() => FecharPopUp()}
+                                    <div className='user-option-row' onClick={() => {setUserModal(!userModal); setUserPopUp(!userPopUp)}}
                                     >
                                         <img src='./assets/images/info.svg'/>
                                         <a>Informações da conta</a>
                                     </div>
-                                    <div className='user-option-row' onClick={() => Sair()}>
+                                    <div className='user-option-row' onClick={() => {setIsLogged(false); setUserModal(false)}}>
                                         <img src='./assets/images/sair.svg'/>
                                         <a>Sair</a>
                                     </div>
@@ -271,11 +254,11 @@ export function Header() {
             >
                 <section className='user-modal-main'>
                     <section className='user-option-select'>
-                        <div className='user-option' onClick={() => UserBarLeft()}>
+                        <div className='user-option' onClick={() => {setUserBar(true); setUserRightBar(true)}}>
                             <i class="fas fa-paste"></i>
                             <a>Meus Pedidos</a>
                         </div>
-                        <div className='user-option' onClick={() => UserBarRight()}>
+                        <div className='user-option' onClick={() => {setUserBar(false); setUserRightBar(false)}}>
                             <i className="fas fa-user"></i>
                             <a>Informações da Conta</a>
                         </div>
@@ -304,7 +287,12 @@ export function Header() {
                                 </div>
                                 <div className='info-input-div'>
                                     <label>Genêro</label>
-                                    <input type='text' />
+                                    <select>
+                                        <option>Selecione --</option>
+                                        <option>Homem</option>
+                                        <option>Mulher</option>
+                                        <option>Filho do diabo</option>
+                                    </select>
                                 </div>
                                 <div className='info-input-div'>
                                     <label>Celular</label>
@@ -329,12 +317,12 @@ export function Header() {
                             {uptadeUser 
                             ? 
                                 <div className='user-info-button'>
-                                    <a>Fechar</a>
+                                    <a onClick={() => setUserPopUp(false)}>Fechar</a>
                                     <a>Atualizar</a>
                                 </div>
                             :
                                 <div className='user-info-button'>
-                                    <a>Fechar</a>
+                                    <a onClick={() => setUserPopUp(false)}>Fechar</a>
                                 </div>
                             }
                         </section>
