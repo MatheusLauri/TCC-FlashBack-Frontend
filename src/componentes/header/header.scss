@@ -537,14 +537,18 @@
         }
     }
     .right-side{
+        height: 100%;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         padding: 10px;
         .info-part{
+            height: 100%;
             width: 60%;
             display: flex;
             flex-direction: column;
             gap: 20px;
+            align-items: center;
+            justify-content: center;
             h1{
                 width: 100%;
                 text-align: center;
@@ -587,6 +591,34 @@
                         border: none;
                     }
                 }
+            }
+            .user-info-button{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-evenly;
+                width: 100%;
+                a{
+                    min-width: 20%;
+                    padding: 5px 10px;
+                    border-radius: 10px;
+                    color: white;
+                    text-align: center;
+                    background-color: #520DA9;
+                }
+                a:first-child{
+                    background-color: red !important;
+                }
+            }
+        }
+        .image-part{
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            img{
+                width: 90%;
             }
         }
     }

@@ -12,6 +12,12 @@ export function Header() {
     const [showModal, setShowModal] = useState(false)
     const [isLogged, setIsLogged] = useState(false)
 // Variáveis de informação do usuário
+    const [userCPF,setUserCPF] = useState('')
+    const [userEmail,setUserEmail] = useState('')
+    const [userSenha,setUserSenha] = useState('')
+    const [userTelefone,setUserTelefone] = useState('')
+    const [userNome,setUserNome] = useState('')
+    const [userSobrenome,setUserSobrenome] = useState('')
     const [usuario, setUsuario] = useState('')
 // Variáveis de Cadastro do usuário
     const [NomeUsuario, setNomeUsuario] = useState('');
@@ -28,7 +34,8 @@ export function Header() {
     const [handleMenu, toggle] = useState(false)
     const [userModal, setUserModal] = useState(false)
     const [userPopUp, setUserPopUp] = useState(false)
-
+//  Função para renderização condicional
+    const [uptadeUser,setUpdateUser] = useState(false)
 // Funções para modivicação de estado de modal
     function Sair(){
         setIsLogged(false)
@@ -87,13 +94,20 @@ export function Header() {
                 email: email,
                 senha: senha
             });
-
+            // Armazenar informações do usuário
+            setUserCPF(resp.data.DS_CPF)
+            setUserEmail(resp.data.DS_EMAIL)
+            setUserSenha(resp.data.DS_SENHA)
+            setUserTelefone(resp.data.DS_TELEFONE)
+            setUserNome(resp.data.NM_CLIENTE)
+            setUserSobrenome(resp.data.NM_SOBRENOME)
             setUsuario(resp.data.NM_USUARIO)
+            // Alert de sucesso para o usuário
             toast.success(`Seja bem-vindo, ${resp.data.NM_USUARIO} !`)
+            // Realizar alterações na renderização dos modais
             setIsLogged(true)
             setShowModal(false)
             setUserPopUp(false)
-
         } catch (err) {
             toast.error(err.response.data.erro)
         }
@@ -269,7 +283,8 @@ export function Header() {
                     </section>
                     {userRightBar
                     ?
-                    <section className='left-side'>Esquerda</section>
+                    <section className='left-side'>
+                    </section>
                     :
                     <section className='right-side'>
                         <section className='info-part'>
@@ -277,11 +292,11 @@ export function Header() {
                             <div className='info-form-div'>
                                 <div className='info-input-div'>
                                     <label>Nome </label>
-                                    <input type='text'/>
+                                    <input type='text' value={userNome} onChange={(e) => {setUserNome(e.target.value); setUpdateUser(true)}}/>
                                 </div>
                                 <div className='info-input-div'>
                                     <label>Sobrenome</label>
-                                    <input type='text'/>
+                                    <input type='text' value={userSobrenome} onChange={(e) => {setUserSobrenome(e.target.value); setUpdateUser(true)}}/>
                                 </div>
                                 <div className='info-input-div'>
                                     <label>Data de nascimento</label>
@@ -289,28 +304,42 @@ export function Header() {
                                 </div>
                                 <div className='info-input-div'>
                                     <label>Genêro</label>
-                                    <input type='text'/>
+                                    <input type='text' />
                                 </div>
                                 <div className='info-input-div'>
                                     <label>Celular</label>
-                                    <input type='tel'/>
+                                    <input type='tel' value={userTelefone} onChange={(e) => {setUserTelefone(e.target.value); setUpdateUser(true) }}/>
                                 </div>
                                 <div className='info-input-div'>
                                     <label>CPF</label>
-                                    <input type='text'/>
+                                    <input type='text' value={userCPF} onChange={(e) => {setUserCPF(e.target.value); setUpdateUser(true)}}/>
                                 </div>
                             </div>
                             <h1>Dados de Login</h1>
                             <div className='info-form-div'>
                                 <div className='info-input-div'>
                                     <label>E-mail</label>
-                                    <input type='email'/>
+                                    <input type='email' value={userEmail} onChange={(e) => {setEmail(e.target.value); setUpdateUser(true)}}/>
                                 </div>
                                 <div className='info-input-div'>
                                     <label>Senha</label>
-                                    <input type='text'/>
+                                    <input type='password' value={userSenha} onChange={(e) => {setUserSenha(e.target.value); setUpdateUser(true)}}/>
                                 </div>
                             </div>
+                            {uptadeUser 
+                            ? 
+                                <div className='user-info-button'>
+                                    <a>Fechar</a>
+                                    <a>Atualizar</a>
+                                </div>
+                            :
+                                <div className='user-info-button'>
+                                    <a>Fechar</a>
+                                </div>
+                            }
+                        </section>
+                        <section className='image-part'>
+                            <img src='./assets/images/bguserinfo.png'/>
                         </section>
                     </section>
                     }
