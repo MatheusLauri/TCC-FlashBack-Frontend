@@ -11,14 +11,7 @@ export function Header() {
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false)
     const [isLogged, setIsLogged] = useState(false)
-// Variáveis de informação do usuário
-    const [userCPF,setUserCPF] = useState('')
-    const [userEmail,setUserEmail] = useState('')
-    const [userSenha,setUserSenha] = useState('')
-    const [userTelefone,setUserTelefone] = useState('')
-    const [userNome,setUserNome] = useState('')
-    const [userSobrenome,setUserSobrenome] = useState('')
-    const [usuario, setUsuario] = useState('')
+
 // Variáveis de Cadastro do usuário
     const [NomeUsuario, setNomeUsuario] = useState('');
     const [cpfUsuario, setcpfUsuario] = useState('');
@@ -66,7 +59,15 @@ export function Header() {
             toast.error(err.response.data.erro)
         }
     }
-
+// Variáveis de informação do usuário
+    const [userId,setUserId] = useState('')
+    const [userCPF,setUserCPF] = useState('')
+    const [userEmail,setUserEmail] = useState('')
+    const [userSenha,setUserSenha] = useState('')
+    const [userTelefone,setUserTelefone] = useState('')
+    const [userNome,setUserNome] = useState('')
+    const [userSobrenome,setUserSobrenome] = useState('')
+    const [usuario, setUsuario] = useState('')
 // Função de Login com API
     async function Logar() {
 
@@ -78,6 +79,7 @@ export function Header() {
                 senha: senha
             });
             // Armazenar informações do usuário
+            setUserId(resp.data.ID_CLIENTE)
             setUserCPF(resp.data.DS_CPF)
             setUserEmail(resp.data.DS_EMAIL)
             setUserSenha(resp.data.DS_SENHA)
