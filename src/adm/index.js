@@ -249,7 +249,7 @@ export default function AdmPage() {
                                     closeTimeoutMS={500}
                                 >
                                     <section className='logout-modal-content'>
-                                        <h1>Você tem certeza que quer sair?</h1>
+                                        <h1>Você tem certeza que deseja sair?</h1>
                                         <a onClick={() => setIsLogged(false)}>Sim</a>
                                     </section>
                                 </Modal>
