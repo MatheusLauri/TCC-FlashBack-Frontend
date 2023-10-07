@@ -65,8 +65,8 @@ export default function AdmPage() {
 
             let response = await axios.post('http://localhost:5000/ingresso', dados)
             console.log(response)
-        } catch (error) {
-            console.error("Erro ao fazer a solicitação:", error);
+        } catch (err) {
+            toast.error(err.response.data.erro);
         }
 
     }
@@ -223,14 +223,14 @@ export default function AdmPage() {
                                                             <input type='text' placeholder='Adicionar descrição' value={descricao} onChange={(e) => setDescricao(e.target.value)} />
                                                         </div>
                                                         <div>
-                                                            <input type='radio' name={destaque} value={true} onChange={(e) => setDestaque(e.target.value)} />
+                                                            <input type='radio' name="Destaque" value={true} onChange={() => setDestaque(true)} />
                                                             <label>Sim</label>
                                                         </div>
                                                         <div>
-                                                            <input type='radio' name={destaque} value={false} onChange={(e) => (e.target.value)} />
+                                                            <input type='radio' name="Destaque" value={false} onChange={() => setDestaque(false)} />
                                                             <label>Não</label>
                                                         </div>
-                                                        <button onClick={() => addIngresso()}>Adicionar ingresso</button>
+                                                        <button onClick={addIngresso}>Adicionar ingresso</button>
                                                     </div>
                                                     <div className='divisor'></div>
                                                     <div className={showMenu ? 'type-controller-clicked' : 'type-controller'} onClick={() => setShowMenu(!showMenu)}>
