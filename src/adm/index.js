@@ -64,7 +64,7 @@ export default function AdmPage() {
             console.log(destaque)
 
             let response = await axios.post('http://localhost:5000/ingresso', dados)
-            console.log(response)
+            toast.success("Ingresso Cadastrado!")
         } catch (err) {
             toast.error(err.response.data.erro);
         }
@@ -223,13 +223,10 @@ export default function AdmPage() {
                                                             <input type='text' placeholder='Adicionar descrição' value={descricao} onChange={(e) => setDescricao(e.target.value)} />
                                                         </div>
                                                         <div>
-                                                            <input type='radio' name="Destaque" value={true} onChange={() => setDestaque(true)} />
-                                                            <label>Sim</label>
+                                                            <input type='checkbox' name="Destaque" onChange={(e) => setDestaque(e.target.checked)} />
+                                                            <label>Destaque?</label>
                                                         </div>
-                                                        <div>
-                                                            <input type='radio' name="Destaque" value={false} onChange={() => setDestaque(false)} />
-                                                            <label>Não</label>
-                                                        </div>
+                                                        
                                                         <button onClick={addIngresso}>Adicionar ingresso</button>
                                                     </div>
                                                     <div className='divisor'></div>
