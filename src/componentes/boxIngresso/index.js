@@ -18,7 +18,11 @@ export default function BoxIngresso(props){
     }
     let resultado = diaDaSemana + ", " + diaDoMes + " de " + mes + " - " + hora + ":" + minutos;
     console.log(teste)
+    console.log(props.categoria)
+  
     return(
+
+        
         <div className='box-ingresso-main'>
             <div className='box-ingresso-bgbox'>
                 <img className='box-ingresso-bg' src={teste}/>
@@ -27,7 +31,7 @@ export default function BoxIngresso(props){
                 <div className='box-ingresso-adress'><h1>{resultado}</h1></div>
                 <div className='box-ingresso-name'>
                     <h1>{props.nome}</h1>
-                    <p>{props.local}</p>
+                    <p>{}</p>
                 </div>
             </div>
         </div>
