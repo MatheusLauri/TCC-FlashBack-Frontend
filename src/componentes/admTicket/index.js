@@ -7,7 +7,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.scss'
 
-export default function AdmTicket() {
+export default function AdmTicket(props) {
     const [showType,setShowType] = useState(false)
 
 
@@ -15,7 +15,7 @@ export default function AdmTicket() {
         <div className={showType ? 'adm-ticket-grow' : 'adm-ticket'}>
             <div className='ticket-upper-info'>
                 <p>ID: <span>1</span></p>
-                <h1>Numanice</h1>
+                <h1>{props.nomeEvento}</h1>
                 <div className='ticket-controller'>
                     <img src='../assets/images/edit.svg'/>
                     <img src='../assets/images/delete.svg'/>

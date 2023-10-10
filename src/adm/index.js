@@ -10,11 +10,13 @@ import Modal from 'react-modal'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 export default function AdmPage() {
+
     const [graphicChosen, setGraphicChosen] = useState(1)
     const [menu, setMenu] = useState(1)
     const [showMenu, setShowMenu] = useState(false)
     const [isLogged, setIsLogged] = useState(false)
     const [logOutModal, setLogOutModal] = useState(true)
+
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
 
@@ -25,6 +27,8 @@ export default function AdmPage() {
     const [descricao, setDescricao] = useState('')
     const [dtInicio, setDtInicio] = useState('')
     const [dtTermino, setDtTermino] = useState('')
+
+    const [listarIngressos, setListarIngressos] = useState([])
 
 
     async function Logar() {
@@ -69,6 +73,17 @@ export default function AdmPage() {
             toast.error(err.response.data.erro);
         }
 
+    }
+
+
+   
+
+    async function ListarIngressos () {
+
+        const r = await axios.get(`http://localhost:5000/ingresso`)
+
+        setListarIngressos(r.data)
+        console.log(listarIngressos)
     }
 
 
@@ -183,10 +198,15 @@ export default function AdmPage() {
                                                 <input type='text' placeholder='Ex: Numanice, The town...' />
                                             </div>
                                             <div className='ticket-wrapper'>
+
+                                                {listarIngressos.map(item =>
+                                                    <AdmTicket nomeEvento={item.NM_EVENTO} />
+
+                                                    )}
                                                 <AdmTicket />
                                                 <AdmTicket />
                                                 <AdmTicket />
-                                                <AdmTicket />
+                                                
                                             </div>
                                         </section>
                                     </>

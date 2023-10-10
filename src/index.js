@@ -5,9 +5,9 @@ import LandingPage from './landingpage/index.js'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AdmPage from './adm';
 import Empresa from './empresa/index'
-import Pix from '../src/tp-pagamentos/Pix/pix.js';
-import PixQRcode from '../src/tp-pagamentos/Pix-QRcode/pixQRcode.js';
-import Boleto from '../src/tp-pagamentos/Boleto/boleto.js';
+import Pix from '../src/telas-pagamento/Pix/pix.js';
+import PixQRcode from '../src/telas-pagamento/Pix-QRcode/pixQRcode.js';
+import Boleto from '../src/telas-pagamento/Boleto/boleto.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

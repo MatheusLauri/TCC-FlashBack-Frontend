@@ -61,6 +61,7 @@ export function Header() {
     }
 // Variáveis de informação do usuário
     const [userId,setUserId] = useState('')
+    const [userNomeDeUsuario, setUserNomeDeUsuario] = useState('')
     const [userCPF,setUserCPF] = useState('')
     const [userEmail,setUserEmail] = useState('')
     const [userSenha,setUserSenha] = useState('')
@@ -68,7 +69,30 @@ export function Header() {
     const [userNome,setUserNome] = useState('')
     const [userSobrenome,setUserSobrenome] = useState('')
     const [usuario, setUsuario] = useState('')
+  
 // Função de Login com API
+
+
+
+    async function AlterarCadastro(){
+
+
+        const InfoAdicionais = {
+            Nome: userNome,
+            Sobrenome:userSobrenome,
+            CPF: userCPF,
+            Telefone: userTelefone,
+            NomeUsuario: userNomeDeUsuario,
+            Email: userEmail,
+            Senha: userSenha  
+        }
+
+        const url = await axios.put(`http://localhost:5000/cliente/alterarInfos/${userId}`, InfoAdicionais)
+        toast.success(`Cadastro feito!`)
+
+    }
+
+
     async function Logar() {
 
         try {
@@ -78,8 +102,11 @@ export function Header() {
                 email: email,
                 senha: senha
             });
+
+
             // Armazenar informações do usuário
             setUserId(resp.data.ID_CLIENTE)
+            setUserNomeDeUsuario(resp.data.NM_USUARIO)
             setUserCPF(resp.data.DS_CPF)
             setUserEmail(resp.data.DS_EMAIL)
             setUserSenha(resp.data.DS_SENHA)
@@ -271,10 +298,14 @@ export function Header() {
                     <section className='left-side'>
                     </section>
                     :
-                    <section className='right-side'>
+                    <section className='right-side'> 
                         <section className='info-part'>
                             <h1>Dados Pessoais</h1>
                             <div className='info-form-div'>
+                                <div className='info-input-div'>
+                                    <label>Nome de usuário</label>
+                                    <input type='text' value={userNomeDeUsuario} onChange={(e) => {setUserNomeDeUsuario(e.target.value); setUpdateUser(true)}}/>
+                                </div>
                                 <div className='info-input-div'>
                                     <label>Nome </label>
                                     <input type='text' value={userNome} onChange={(e) => {setUserNome(e.target.value); setUpdateUser(true)}}/>
@@ -320,7 +351,7 @@ export function Header() {
                             ? 
                                 <div className='user-info-button'>
                                     <a onClick={() => setUserPopUp(false)}>Fechar</a>
-                                    <a>Atualizar</a>
+                                    <a onClick={AlterarCadastro}>Atualizar</a>
                                 </div>
                             :
                                 <div className='user-info-button'>
