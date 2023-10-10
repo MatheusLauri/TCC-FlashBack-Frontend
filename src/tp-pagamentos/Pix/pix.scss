@@ -1,0 +1,308 @@
+.Pages-pix{
+    display: flex;
+    background-color: #f3f3f3;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+
+
+
+.card-meio-pix{
+    display: flex;
+    background-color: white;
+    flex-direction: row;
+    margin-left: 3em;
+    height: 40em;
+    width: 74em;
+}
+
+
+
+
+
+////// ordem da tela do meio //////
+.ordem-dos-objetos{
+    display: flex;
+    flex-direction: column;
+    width: 100em;
+}
+
+
+.img-sacola{
+    display: flex;
+    height: 4.5em;
+    margin-left: 3.5em;
+    margin-top: 3em;
+
+}
+////// fim //////
+
+
+
+
+
+
+
+
+
+////// titulo //////
+.titulo{
+    display: flex;
+    color: #50525F;  
+    font-family: 'semibold';
+    margin-left: 0.5em;
+    margin-top: 0.6em;
+}
+////// fin - titulo //////
+
+
+
+
+
+
+
+
+
+////// Como pagar com o Pix? //////
+.sub-titulo{
+    display: flex;
+    font-family: 'semibold';
+    font-size: 26px;
+    margin-left: 2.2em;
+    margin-top: 1.5em;
+}
+////// fin - Como pagar com o Pix? ////// 
+
+
+
+
+
+
+
+
+////// texto sobre pagamento //////
+.texto-pix{
+    display: flex;
+    margin-left: 3.5em;
+    margin-top: 3em;
+    width: 36em;
+}
+
+#texto-ex{
+    display: flex;
+    flex-direction: row;
+    color: #4D576B;
+    font-family: 'regular';
+    font-size: 18px;
+    width: 32em;
+}
+
+
+#linha-do-text{
+    display: flex;
+    margin-left: 2.8em;
+    margin-top: 2em;
+}
+///// fin - texto sobre pagamento  //////
+
+
+
+
+
+
+
+
+
+////// tp-pagamento //////
+.titulo-de-pagamento-pix{
+    display: flex;
+    flex-direction: row;
+    margin-left: 3em;
+    margin-top: 2.1em;
+}
+
+
+#tp-documento{
+    color: #50525F;
+    font-family: 'semibold';
+    margin-top:0.4em;
+    font-size: 20px;
+
+}
+
+
+#cpf-pix{
+    color: #50525F;
+    font-family: 'semibold';
+    margin-top: 0.5em;
+    margin-left: 2em;
+    font-size: 20px;
+}
+
+
+#astedisco-pix{
+    display: flex;
+    margin-left: 0.3em;
+    margin-top: 1em;
+}
+////// fin - tp-pagamento //////
+
+
+
+
+
+
+
+
+
+////// Bolinhas //////
+.Bolinhas-de-selecao-pix{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 3em;
+    margin-top: 1em;
+    margin-left: 3.2em;
+}
+
+
+.radio-pix{
+    
+    font-family: 'semibold';
+    font-size: 18.5px;
+    font-weight: 500;
+    text-transform: capitalize;
+    display: inline-block;
+    vertical-align: middle;
+    color: #4D576B;
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+}
+
+.radio-pix + .radio-pix{
+    margin-left: 20px;
+}
+
+.radio-pix input[type="radio"]{
+    display: none;
+}
+
+.radio-pix span{
+    margin-top: -0.3em;
+    height: 20.6px;
+    width: 20.6px;
+    border-radius: 50%;
+    border: 2.3px solid #520DA9;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 7px;
+}
+
+
+.radio-pix span:after{
+    content: "";
+    height: 14.4px;
+    width: 14.4px;
+    background: #520DA9;
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50%;
+    transition: 300ms ease-in-out 0s;
+}
+
+
+.radio-pix input[type="radio"]:checked ~ span:after{
+    transform: translate(-50%, -50%) scale(1);
+}
+////// fim - Bolinhas //////
+
+
+
+
+
+
+
+
+
+
+
+
+//////  INPUT-selecionado //////
+.escolha-de-pagamento{
+    display: flex;
+}
+
+#INPUT-NR-CPF-CNPJ{
+    display: flex;
+    margin-left: 2em;
+    align-items: center;
+    height: 2.6em;
+    width: 18em;
+    font-size: 16px;
+    color: #4D576B;
+    border-width: 0.1.1.0em;
+}
+////// fim - INPUT-selcinado //////
+
+
+
+
+
+
+
+
+
+
+
+////// botao de finalizar //////
+.botao-finalizar-info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #520DA9;
+    height: 3.56em;
+    width: 8em;
+    
+    
+    border-radius: 0.3em;
+    border: 10px;
+    
+    margin-top: 3.5em;
+    margin-left: 15em;
+}
+
+#texto-finalizar{
+    display: flex;
+    font-family: 'semibold';
+    color: #f3f3f3;
+}
+
+////// fim - botao de finalizar //////
+
+
+
+
+
+
+
+
+
+
+////// img-pagemento //////
+.img-pagamento{
+    display: flex;
+    position: none;
+    height: 30em;
+    width: 30em;
+    margin-right: 3em;
+    margin-top: 5em;
+}
+////// fim - img-pagamento //////

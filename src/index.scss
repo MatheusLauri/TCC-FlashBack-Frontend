@@ -28,3 +28,18 @@ a{
 .ReactModal__Overlay--before-close{
   opacity: 0;
 }
+
+@font-face {
+  font-family: 'semibold';
+  src: url(./assets/fonts/Inter-SemiBold.ttf);
+}
+
+@font-face {
+  font-family: 'regular';
+  src: url(./assets/fonts/Inter-Regular.ttf);
+}
+
+@font-face { 
+  font-family: 'Bold';
+  src: url(./assets/fonts/Inter-Bold.ttf);
+}
