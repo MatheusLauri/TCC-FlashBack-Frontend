@@ -1,8 +1,16 @@
+
 import { useState } from 'react';
+import axios from 'axios';
+
+
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './index.scss'
 
 export default function AdmTicket() {
     const [showType,setShowType] = useState(false)
+
+
     return (
         <div className={showType ? 'adm-ticket-grow' : 'adm-ticket'}>
             <div className='ticket-upper-info'>
