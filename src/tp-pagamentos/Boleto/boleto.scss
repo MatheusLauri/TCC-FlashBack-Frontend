@@ -1,0 +1,275 @@
+.pages-boleto{
+    display: flex;
+    background-color: #f3f3f3;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.card-meio-boleto{
+    display: flex;
+    background-color: white;
+    flex-direction: row;
+    margin-left: 3em;
+    height: 40em;
+    width: 74em;
+}
+
+.ordem-dos-objetos{
+    display: flex;
+    flex-direction: column;
+    width: 100em;
+}
+
+
+.img-sacola{
+    display: flex;
+    height: 4.5em;
+    margin-left: 3.5em;
+    margin-top: 3em;
+
+}
+
+
+.titulo{
+    display: flex;
+    color: #50525F;  
+    font-family: 'semibold';
+    margin-left: 0.5em;
+    margin-top: 0.6;
+    
+}
+
+
+
+
+
+
+//// gerar nome do usuario ////
+.nome-input{
+    flex-direction: column;
+    margin-left: 3.6em;
+    height: 6.2em;
+}
+
+#titulo-nm{
+    display: flex;
+    font-size: 19px;
+    font-family: 'semibold';
+    color: #50525F;
+    margin-top: 2em;
+}
+
+#astedisco{
+    margin-left: 0.3em;
+}
+
+#input-nm-usuario{
+    border-color: solid #DDE0E4;
+    font-size: 16px;
+    height: 2.4em;
+    width: 25em;
+    margin-top: 0.5em;
+    outline: none;
+}
+
+/// Fim - gerar nome do usuario ///
+
+
+
+
+
+
+
+
+/// texto de seleção de pagamento ///
+.titulo-de-pagamento{
+    display: flex;
+    flex-direction: row;
+    margin-left: 3.6em;
+    margin-top: 0.6em;
+}
+
+
+#tp-documento-boleto{
+    display: flex;
+    color: #50525F;
+    font-family: 'semibold';
+    margin-top: 2.5em;
+    font-size: 20px;
+
+}
+
+
+#cpf{
+    display: flex;
+    color: #50525F;
+    font-family: 'semibold';
+    margin-top: 2.5em;
+    margin-left: 2em;
+    font-size: 20px;
+}
+/// Fim - texto de selação de pagamento
+
+
+
+
+
+
+////// Seleção de Pagamento ////////
+
+.Bolinhas-de-selecao{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 3em;
+    margin-top: 1em;
+    margin-left: 3.6em;
+}
+
+
+.radio{
+    
+    font-family: 'semibold';
+    font-size: 19px;
+    font-weight: 500;
+    text-transform: capitalize;
+    display: inline-block;
+    vertical-align: middle;
+    color: #4D576B;
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+}
+
+.radio + .radio{
+    margin-left: 20px;
+}
+
+.radio input[type="radio"]{
+    display: none;
+}
+
+.radio span{
+    margin-top: -0.3em;
+    height: 20.7px;
+    width: 20.7px;
+    border-radius: 50%;
+    border: 2.3px solid #520DA9;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 7px;
+}
+
+
+.radio span:after{
+    content: "";
+    height: 14.4px;
+    width: 14.4px;
+    background: #520DA9;
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50%;
+    transition: 300ms ease-in-out 0s;
+}
+
+
+.radio input[type="radio"]:checked ~ span:after{
+    transform: translate(-50%, -50%) scale(1);
+}
+
+//////////FIM - SeleÇão de documento//////////////
+
+
+
+
+
+//// Informação do documento escolhido //////
+.escolha-de-pagamento-blt{
+    display: flex;
+    align-items: center;
+    margin-left: 4.8em;
+}
+
+#input-NR-CPF-CNPJ{
+    display: flex;
+    font-size: 16px;
+    border-color: solid #DDE0E4;
+    height: 2.6em;
+    width: 18em;
+    outline: none;
+}
+
+///// Fim - Informação do documento escolhido //////
+
+
+
+
+
+
+/// Endereço - CEP ///
+.Endereco{
+    flex-direction: column;
+    margin-left: 3.6em;
+}
+
+#titulo-endereco{
+    display: flex;
+    font-size: 19px;
+    font-family: 'semibold';
+    color: #50525F;
+    margin-top: 2em;
+}
+
+
+#astedisco-endereco{
+    margin-left: 0.3em;
+}
+
+
+#input-endereco{
+    border-color: solid #DDE0E4;
+    font-size: 16px;
+    height: 2.4em;
+    width: 25em;
+    margin-top: 0.5em;
+    outline: none;
+}
+
+/// Fim - Endereço - CEP ///
+
+
+
+
+
+
+/// botão de finalizar por boleto ///
+.botao-finalizar-info-boleto{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #520DA9;
+    height: 3.5em;
+    width: 8em;
+    
+    
+    border-radius: 0.3em;
+    border: 10px;
+    
+    margin-top: 3.5em;
+    margin-left: 15em;
+}
+
+#texto-finalizar{
+    display: flex;
+    font-size: 16.5px;
+    font-family: 'semibold';
+    color: #f3f3f3;
+}
+
+/// Fim - botão de finalizar por boleto ///
