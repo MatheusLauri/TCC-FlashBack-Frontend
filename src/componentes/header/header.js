@@ -4,6 +4,7 @@ import './header.scss'
 import Modal from 'react-modal'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -78,6 +79,7 @@ export function Header() {
 
 
         const InfoAdicionais = {
+
             Nome: userNome,
             Sobrenome:userSobrenome,
             CPF: userCPF,
@@ -85,9 +87,11 @@ export function Header() {
             NomeUsuario: userNomeDeUsuario,
             Email: userEmail,
             Senha: userSenha  
+
         }
 
         const url = await axios.put(`http://localhost:5000/cliente/alterarInfos/${userId}`, InfoAdicionais)
+        setUsuario(userNomeDeUsuario)
         toast.success(`Cadastro feito!`)
 
     }
@@ -125,6 +129,7 @@ export function Header() {
         }
 
     }
+
 
     return (
         <section className='header-main'>
