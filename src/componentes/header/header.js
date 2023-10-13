@@ -70,6 +70,10 @@ export function Header() {
     const [userNome,setUserNome] = useState('')
     const [userSobrenome,setUserSobrenome] = useState('')
     const [usuario, setUsuario] = useState('')
+
+
+
+    const [busca, setBusca] = useState('')
   
 // Função de Login com API
 
@@ -128,6 +132,20 @@ export function Header() {
             toast.error(err.response.data.erro)
         }
 
+    }
+
+    async function BuscarIngresso() {
+        try {
+            
+            let url = 'http://localhost:5000/tipo/busca?Nome=' + busca
+            let response = await axios.put(url)
+            
+
+            //comecei falta terminar (só comecei a função)
+
+        } catch (error) {
+            console.error('Erro ao buscar:', error);
+        }
     }
 
 
