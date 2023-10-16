@@ -20,6 +20,7 @@ export default function AdmPage() {
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
 
+    const [idIngresso, setIdIngresso] = useState(0)
     const [category, setCategory] = useState(1)
     const [nomeEvento, setNomeEvento] = useState('')
     const [local, setLocal] = useState('')
@@ -27,6 +28,8 @@ export default function AdmPage() {
     const [descricao, setDescricao] = useState('')
     const [dtInicio, setDtInicio] = useState('')
     const [dtTermino, setDtTermino] = useState('')
+
+    const[imgIngresso, setImgIngresso] = useState()
 
     const [listarIngressos, setListarIngressos] = useState([])
 
@@ -56,19 +59,24 @@ export default function AdmPage() {
     async function addIngresso() {
         
         try {
-            let dados = {
-            Categoria:category,
-            Empresa:1,
-            NomeEvento:nomeEvento,
-            Descricao:descricao,
-            DataComeco:dtInicio,
-            DataFim:dtTermino,
-            Destaque:destaque
+            let infosIngresso = {
+                Categoria:category,
+                Empresa:1,
+                NomeEvento:nomeEvento,
+                Descricao:descricao,
+                DataComeco:dtInicio,
+                DataFim:dtTermino,
+                Destaque:destaque
             }
-            console.log(destaque)
+            
 
-            let response = await axios.post('http://localhost:5000/ingresso', dados)
+            let response = await axios.post('http://localhost:5000/ingresso', infosIngresso)
             toast.success("Ingresso Cadastrado!")
+
+            setIdIngresso(response.data.ID)
+            const testeId = response.data.ID;
+            uploadImagem(testeId)
+
         } catch (err) {
             toast.error(err.response.data.erro);
         }
@@ -76,6 +84,23 @@ export default function AdmPage() {
     }
 
 
+    async function uploadImagem(id) {
+        const formData = new FormData();
+        formData.append('capa', imgIngresso)
+
+        const reposta = await  axios.put(`http://localhost:5000/ingresso/${idIngresso}/capa`, formData, {
+
+            headers: {
+                "Content-Type": "multipart/form-data"
+            },
+
+        })
+    }
+
+
+    function escolherImagem () {
+        document.getElementById('imagemCapa').click();
+    }
    
 
     async function ListarIngressos () {
@@ -221,8 +246,8 @@ export default function AdmPage() {
                                             <div className='add-range'>
                                                 <TitleRange text='Informações do evento' />
                                                 <div className='add-input-main'>
-                                                    <div className='file-input-box'>
-                                                        <input type='file' />
+                                                    <div className='file-input-box' onClick={escolherImagem}>
+                                                        <input type='file' id='imagemCapa' onChange={e => setImgIngresso(e.target.files[0])}/>
                                                     </div>
                                                     <div className='divisor'></div>
                                                     <div className='text-inputs-box' >
