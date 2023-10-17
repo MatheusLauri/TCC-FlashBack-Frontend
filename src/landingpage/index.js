@@ -32,6 +32,7 @@ function LandingPage() {
 
    }
    
+  
    setListarCategoria(listagem)
 
   }
@@ -41,6 +42,9 @@ console.log(listarCategoria)
   useEffect(() => {
     ListarCategorias();
   }, []);
+  
+
+
 
   return (
     <div className="body">
