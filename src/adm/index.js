@@ -31,8 +31,9 @@ export default function AdmPage() {
     const [dtTermino, setDtTermino] = useState('')
 
     const[imgIngresso, setImgIngresso] = useState()
-
-    const [listarIngressos, setListarIngressos] = useState([])
+    //variáveis para a tela de pesquisa de ingressos
+    const [listarIngressos, setListarIngressos] = useState()
+    const [pesquisa,setPesquisa] = useState('')
 
     async function Logar() {
 
@@ -48,6 +49,32 @@ export default function AdmPage() {
             toast.error(err.response.data.erro)
         }
     }
+
+    async function ListarIngressos() {
+        const listagem = []
+
+        try {
+            if(pesquisa.length){
+                const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome=${pesquisa}`)
+                listagem.push(resp.data)
+                setListarIngressos(listagem[0])
+                console.log(listarIngressos)
+            }
+            else{
+                const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome`)
+                listagem.push(resp.data)
+                setListarIngressos(listagem[0])
+                console.log(listarIngressos)
+            }
+
+        } catch (err) {
+            toast.error(err)
+        }
+    }
+
+    useEffect(() => {
+        ListarIngressos()
+    },[pesquisa]);
 
     function MenuPage(pagedata) {
         setMenu(pagedata)
@@ -90,7 +117,10 @@ export default function AdmPage() {
 
     }
 
-
+    async function AdicionarIngresso(){
+        addIngresso()
+        await ListarIngressos()
+    }
     async function uploadImagem(id) {
        
 
@@ -119,17 +149,6 @@ export default function AdmPage() {
 
     }
 
-
-    
-   
-
-    async function ListarIngressos () {
-
-        const r = await axios.get(`http://localhost:5000/ingresso`)
-
-        setListarIngressos(r.data)
-        console.log(listarIngressos)
-    }
 
 
     return (
@@ -240,14 +259,19 @@ export default function AdmPage() {
                                         <section className='search-content'>
                                             <div className='input-div'>
                                                 <img src='../assets/images/search.png' />
-                                                <input type='text' placeholder='Ex: Numanice, The town...' />
+                                                <input type='text' placeholder='Ex: Numanice, The town...' value={pesquisa} onChange={(e) => setPesquisa(e.target.value)}/>
                                             </div>
                                             <div className='ticket-wrapper'>
-
-                                                {listarIngressos.map(item =>
-                                                    <AdmTicket nomeEvento={item.NM_EVENTO} />
-
-                                                    )}
+                                                {listarIngressos.map((item,index) => (
+                                                    <>
+                                                     <AdmTicket 
+                                                        id={index}
+                                                        nome={item.NM_EVENTO}
+                                                        data={item.DT_COMECO}
+                                                        imagem={item.IMAGEM_INGRESSO}
+                                                    />
+                                                    </>
+                                                ))}
                                                 <AdmTicket />
                                                 <AdmTicket />
                                                 <AdmTicket />
@@ -302,7 +326,7 @@ export default function AdmPage() {
                                                             <label>Destaque?</label>
                                                         </div>
                                                         
-                                                        <button onClick={addIngresso}>Adicionar ingresso</button>
+                                                        <button onClick={() => AdicionarIngresso()}>Adicionar ingresso</button>
                                                     </div>
                                                     <div className='divisor'></div>
                                                     <div className={showMenu ? 'type-controller-clicked' : 'type-controller'} onClick={() => setShowMenu(!showMenu)}>

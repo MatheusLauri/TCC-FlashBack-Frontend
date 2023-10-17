@@ -363,7 +363,7 @@ export function Header() {
                             <div className='info-form-div'>
                                 <div className='info-input-div'>
                                     <label>E-mail</label>
-                                    <input type='email' value={userEmail} onChange={(e) => {setEmail(e.target.value); setUpdateUser(true)}}/>
+                                    <input type='email' value={userEmail} onChange={(e) => {setUserEmail(e.target.value); setUpdateUser(true)}}/>
                                 </div>
                                 <div className='info-input-div'>
                                     <label>Senha</label>
