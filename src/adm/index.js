@@ -9,6 +9,7 @@ import AdmTicket from '../componentes/admTicket';
 import Modal from 'react-modal'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Await } from 'react-router-dom';
 export default function AdmPage() {
 
     const [graphicChosen, setGraphicChosen] = useState(1)
@@ -32,7 +33,6 @@ export default function AdmPage() {
     const[imgIngresso, setImgIngresso] = useState()
 
     const [listarIngressos, setListarIngressos] = useState([])
-
 
     async function Logar() {
 
@@ -59,6 +59,9 @@ export default function AdmPage() {
     async function addIngresso() {
         
         try {
+            if (!imgIngresso) 
+                throw new Error ('Insira uma imagem!')
+
             let infosIngresso = {
                 Categoria:category,
                 Empresa:1,
@@ -71,36 +74,53 @@ export default function AdmPage() {
             
 
             let response = await axios.post('http://localhost:5000/ingresso', infosIngresso)
-            toast.success("Ingresso Cadastrado!")
+           
 
             setIdIngresso(response.data.ID)
-            const testeId = response.data.ID;
-            uploadImagem(testeId)
+            const idIngresso = response.data.ID;
+            const r = await uploadImagem(idIngresso)
+            toast.success("Ingresso Cadastrado!")
 
         } catch (err) {
-            toast.error(err.response.data.erro);
+            if(err.response) 
+                toast.error(err.response.data.erro);
+            else
+                toast.error(err.message);
         }
 
     }
 
 
     async function uploadImagem(id) {
-        const formData = new FormData();
-        formData.append('capa', imgIngresso)
+       
 
-        const reposta = await  axios.put(`http://localhost:5000/ingresso/${idIngresso}/capa`, formData, {
+            const formData = new FormData();
+            formData.append('capa', imgIngresso)
+
+            const reposta = await  axios.put(`http://localhost:5000/ingresso/${id}/capa`, formData, {
 
             headers: {
                 "Content-Type": "multipart/form-data"
             },
 
         })
+        
+        
     }
 
 
     function escolherImagem () {
         document.getElementById('imagemCapa').click();
     }
+
+
+    function mostrarImagem () {
+        return URL.createObjectURL(imgIngresso)
+
+    }
+
+
+    
    
 
     async function ListarIngressos () {
@@ -247,6 +267,16 @@ export default function AdmPage() {
                                                 <TitleRange text='Informações do evento' />
                                                 <div className='add-input-main'>
                                                     <div className='file-input-box' onClick={escolherImagem}>
+                                                        
+                                                        {!imgIngresso &&
+                                                             <img src='../assets/images/imgUpload.svg'/>
+                                                        }
+                                                       
+                                                       {imgIngresso &&
+                                                            <img className='imgCapaIngresso' src={mostrarImagem()}/> 
+                                                        }
+                                                    
+
                                                         <input type='file' id='imagemCapa' onChange={e => setImgIngresso(e.target.files[0])}/>
                                                     </div>
                                                     <div className='divisor'></div>

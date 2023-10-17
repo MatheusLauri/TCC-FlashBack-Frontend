@@ -9,7 +9,7 @@ export default function CategorySection(props) {
 
     return (
         <div className='secao-category'>
-            <a className='category-btn' style={props.valor == 1? {color: `#520DA9`, borderRight: `3px solid #520DA9`} : {color: `#C2C2C2`}} onClick={() => props.funcao(1)}>
+            <a className='category-btn' style={props.valor == 1? {color: `#520DA9`, borderRight: `3px solid #520DA9`} : {color: `#C2C2C2`}} onClick={() => props.funcao(1)} >
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="26" viewBox="0 0 28 26" fill="none">
                     <g clip-path="url(#clip0_663_192)">
                         <path d="M1.72209 24.0095V2.92773H0V24.0095V25.9999H1.72209H28V24.0095H1.72209Z" fill={props.valor == 1 ? "#520DA9" : "#C2C2C2"} />
