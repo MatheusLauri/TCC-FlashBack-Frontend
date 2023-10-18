@@ -265,16 +265,17 @@ export default function AdmPage() {
                                                 {listarIngressos.map((item,index) => (
                                                     <>
                                                      <AdmTicket 
-                                                        id={index}
+                                                        id={item.ID_INGRESSO}
                                                         nome={item.NM_EVENTO}
                                                         data={item.DT_COMECO}
                                                         imagem={item.IMAGEM_INGRESSO}
+                                                        qtd={item.QTD_TIPO_INGRESSO}
+                                                        valor={item.VL_PRECO_TIPO}
+                                                        nomeTipo={item.NM_TIPO_INGRESSO}
                                                     />
                                                     </>
                                                 ))}
-                                                <AdmTicket />
-                                                <AdmTicket />
-                                                <AdmTicket />
+                                                
                                                 
                                             </div>
                                         </section>
