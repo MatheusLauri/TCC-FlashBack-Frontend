@@ -75,6 +75,8 @@ export function Header() {
 
     const [busca, setBusca] = useState('')
     const [listagembusca, setlistagemBusca] = useState([])
+    const [listagembuscaMostrarDialog, setlistagembuscaMostrarDialog] = useState(false)
+
   
 // Função de Login com API
 
@@ -140,14 +142,20 @@ export function Header() {
             
             let response = await axios.get(`http://localhost:5000/ingresso/busca?nome=${busca}`)
             setlistagemBusca(response)
-            console.log(listagembusca)
+            console.log(response)
+            if(response.status === 200){
+                setlistagembuscaMostrarDialog(true)
+            }
+           
+            
            
 
         } catch (err) {
             toast.error(err.response.data.erro);
         }
     }
-
+     
+    
 
 
     return (
@@ -158,6 +166,11 @@ export function Header() {
                 <div className='secao-header-input-div'>
                     <img src='/assets/images/lupa.svg'  onClick={BarraDePesquisaIngresso} />
                     <input type='text' placeholder='Pesquisar eventos, shows, teatros, festas...' />
+
+                    {listagembuscaMostrarDialog &&
+                        <dialog open className='infos-Barra_de_pesquisa-header'>oioiiii</dialog>
+                    }
+                    
                 </div>
                 <div className='secao-header-menu'>
                     <div className='menu-select'>
