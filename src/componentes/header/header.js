@@ -74,6 +74,7 @@ export function Header() {
 
 
     const [busca, setBusca] = useState('')
+    const [listagembusca, setlistagemBusca] = useState([])
   
 // Função de Login com API
 
@@ -134,19 +135,19 @@ export function Header() {
 
     }
 
-    async function BuscarIngresso() {
+    async function BarraDePesquisaIngresso() {
         try {
             
-            let url = 'http://localhost:5000/tipo/busca?Nome=' + busca
-            let response = await axios.put(url)
-            
+            let response = await axios.get(`http://localhost:5000/ingresso/busca?nome=${busca}`)
+            setlistagemBusca(response)
+            console.log(listagembusca)
+           
 
-            //comecei falta terminar (só comecei a função)
-
-        } catch (error) {
-            console.error('Erro ao buscar:', error);
+        } catch (err) {
+            toast.error(err.response.data.erro);
         }
     }
+
 
 
     return (
@@ -155,7 +156,7 @@ export function Header() {
             <section className="secao-header">
                 <img src='/assets/images/logoTCC.png' />
                 <div className='secao-header-input-div'>
-                    <img src='/assets/images/lupa.svg' />
+                    <img src='/assets/images/lupa.svg'  onClick={BarraDePesquisaIngresso} />
                     <input type='text' placeholder='Pesquisar eventos, shows, teatros, festas...' />
                 </div>
                 <div className='secao-header-menu'>
