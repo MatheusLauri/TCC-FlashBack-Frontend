@@ -25,6 +25,7 @@
         border: 4px solid #FFF;
         background: #FFF;
         gap: 15px;
+        position: relative;
         >img{
             height: 80%;
             width: auto;
@@ -38,8 +39,23 @@
         }
 
         .infos-Barra_de_pesquisa-header {
-            width: 627px;
-            height: 40px;
+            opacity: 100%;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            position: absolute;
+            top: 40px;
+            width: 100%;
+            height: auto;
+            min-height: 200px;
+            max-height: 500px;
+            appearance: none;
+            outline: none;
+            border: none;
+            background-color: pink;
+            h1{
+                font-size: 20px;
+                color: white;
+            }
         }
         
     }
@@ -344,6 +360,7 @@
             background-color: $background-color_4;
         }
     }
+    
 
     .panels-container {
         position: absolute;

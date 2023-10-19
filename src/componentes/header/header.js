@@ -60,7 +60,8 @@ export function Header() {
             toast.error(err.response.data.erro)
         }
     }
-// Variáveis de informação do usuário
+
+    // Variáveis de informação do usuário
     const [userId,setUserId] = useState('')
     const [userNomeDeUsuario, setUserNomeDeUsuario] = useState('')
     const [userCPF,setUserCPF] = useState('')
@@ -70,8 +71,6 @@ export function Header() {
     const [userNome,setUserNome] = useState('')
     const [userSobrenome,setUserSobrenome] = useState('')
     const [usuario, setUsuario] = useState('')
-
-
 
     const [busca, setBusca] = useState('')
     const [listagembusca, setlistagemBusca] = useState([])
@@ -136,22 +135,24 @@ export function Header() {
         }
 
     }
-
+    const cardsPequenos = []
+    useEffect(() => {
+        BarraDePesquisaIngresso()
+    }, [busca])
     async function BarraDePesquisaIngresso() {
         try {
-            
             let response = await axios.get(`http://localhost:5000/ingresso/busca?nome=${busca}`)
-            setlistagemBusca(response)
-            console.log(response)
-            if(response.status === 200){
+            cardsPequenos.push(response.data)
+            setlistagemBusca(cardsPequenos)
+            console.log(listagembusca)
+            if(busca.length > 0)
                 setlistagembuscaMostrarDialog(true)
+            else{
+                setlistagembuscaMostrarDialog(false)
             }
-           
-            
-           
-
         } catch (err) {
             toast.error(err.response.data.erro);
+            setlistagembuscaMostrarDialog(false)
         }
     }
      
@@ -164,11 +165,15 @@ export function Header() {
             <section className="secao-header">
                 <img src='/assets/images/logoTCC.png' />
                 <div className='secao-header-input-div'>
-                    <img src='/assets/images/lupa.svg'  onClick={BarraDePesquisaIngresso} />
-                    <input type='text' placeholder='Pesquisar eventos, shows, teatros, festas...' />
+                    <img src='/assets/images/lupa.svg'/>
+                    <input type='text' placeholder='Pesquisar eventos, shows, teatros, festas...'   onChange={(e) => setBusca(e.target.value)} />
 
                     {listagembuscaMostrarDialog &&
-                        <dialog open className='infos-Barra_de_pesquisa-header'>oioiiii</dialog>
+                        <dialog open className='infos-Barra_de_pesquisa-header'>
+                            {listagembusca.map(item => {
+                                <p>oi</p>
+                            })}
+                        </dialog>
                     }
                     
                 </div>
