@@ -142,7 +142,7 @@ export function Header() {
     async function BarraDePesquisaIngresso() {
         try {
             let response = await axios.get(`http://localhost:5000/ingresso/busca?nome=${busca}`)
-            cardsPequenos.push(response.data)
+            cardsPequenos.push(response)
             setlistagemBusca(cardsPequenos)
             console.log(listagembusca)
             if(busca.length > 0)
@@ -166,17 +166,21 @@ export function Header() {
                 <img src='/assets/images/logoTCC.png' />
                 <div className='secao-header-input-div'>
                     <img src='/assets/images/lupa.svg'/>
+                    
                     <input type='text' placeholder='Pesquisar eventos, shows, teatros, festas...'   onChange={(e) => setBusca(e.target.value)} />
 
                     {listagembuscaMostrarDialog &&
                         <dialog open className='infos-Barra_de_pesquisa-header'>
-                            {listagembusca.map(item => {
-                                <p>oi</p>
+                            {listagembusca.map((item) => {
+                                <>
+                                    <p>oi</p>
+                                </>
                             })}
                         </dialog>
                     }
                     
                 </div>
+                
                 <div className='secao-header-menu'>
                     <div className='menu-select'>
                         <img src='/assets/images/local.svg' />
