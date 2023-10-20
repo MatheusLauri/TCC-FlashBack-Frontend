@@ -33,7 +33,14 @@ export default function AdmPage() {
     const[imgIngresso, setImgIngresso] = useState()
     //variáveis para a tela de pesquisa de ingressos
     const [listarIngressos, setListarIngressos] = useState()
-    const [pesquisa,setPesquisa] = useState('')
+    const [pesquisa, setPesquisa] = useState('')
+
+    const [nomeTipo, setNomeTipo] = useState('')
+    const [qtdTipo, setQtdTipo] = useState(0)
+    const [precoTipo, setPrecoTipo] = useState(0)
+
+    const [vetorTipo, setVetorTipo] = useState([])
+
 
     async function Logar() {
 
@@ -150,6 +157,11 @@ export default function AdmPage() {
     }
 
 
+    function inserirTipo() {
+
+        vetorTipo.push(nomeTipo, qtdTipo, precoTipo)
+        setVetorTipo([...vetorTipo])
+    }
 
     return (
         <>
@@ -337,12 +349,22 @@ export default function AdmPage() {
                                                         </div>
                                                         <div className='body'>
                                                             <div className='input-row'>
-                                                                <input type='text' placeholder='Nome' />
-                                                                <input type='text' placeholder='Qtd' />
-                                                                <input type='text' placeholder='R$ 0,00' />
-                                                                <a>Adicionar</a>
+                                                                <input type='text' placeholder='Nome' value={nomeTipo} onchange={(e) => setNomeTipo(e.target.value)}/>
+                                                                <input type='text' placeholder='Qtd' value={qtdTipo} onchange={(e) => setQtdTipo(e.target.value)}/>
+                                                                <input type='text' placeholder='R$ 0,00' value={precoTipo} onchange={(e) => setPrecoTipo(e.target.value)}/>
+                                                                <a onClick={inserirTipo}>Adicionar</a>
                                                             </div>
                                                             <div className='body-table'>
+                                                                    {vetorTipo.map((item =>
+                                                                        <div className='body-table-row'>
+                                                                        <span>{item[0]}</span>
+                                                                        <span>15 Un</span>
+                                                                        <div className='divisor'></div>
+                                                                        <span>R$ 150,00</span>
+                                                                        <a>Remover</a>
+                                                                        <a>Alterar</a>
+                                                                    </div>
+                                                                    ))}
                                                                 <div className='body-table-row'>
                                                                     <span>Front Stage</span>
                                                                     <span>15 Un</span>
