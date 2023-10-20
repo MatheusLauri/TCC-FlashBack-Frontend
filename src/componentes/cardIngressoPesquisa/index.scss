@@ -1,0 +1,15 @@
+.Card-Ingresso-Main{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    p,h1{
+        color: black;
+
+    }
+    img{
+        width: 100px;
+        height: auto;
+        border-radius: 10px;
+    }
+}

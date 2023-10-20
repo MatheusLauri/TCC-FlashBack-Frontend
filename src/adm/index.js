@@ -9,7 +9,6 @@ import AdmTicket from '../componentes/admTicket';
 import Modal from 'react-modal'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Await } from 'react-router-dom';
 export default function AdmPage() {
 
     const [graphicChosen, setGraphicChosen] = useState(1)
@@ -63,14 +62,14 @@ export default function AdmPage() {
         try {
             if(pesquisa.length){
                 const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome=${pesquisa}`)
-                listagem.push(resp.data)
-                setListarIngressos(listagem[0])
+                listagem.push(...resp.data)
+                setListarIngressos(listagem)
                 console.log(listarIngressos)
             }
             else{
                 const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome`)
-                listagem.push(resp.data)
-                setListarIngressos(listagem[0])
+                listagem.push(...resp.data)
+                setListarIngressos(listagem)
                 console.log(listarIngressos)
             }
 

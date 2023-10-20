@@ -26,11 +26,16 @@ export default function AdmTicket(props) {
     const [click,setClick] = useState(false)
     const [ListarTipos,setListarTipos] = useState([])
     async function ListarTipoIngresso(){
-        let r = `http://localhost:5000/tipoIngresso/${props.id}`
-        let response = await axios.get(r)
-        Tipos.push(response)
-        setListarTipos(Tipos)
-        console.log(ListarTipos)
+        try {
+            let r = `http://localhost:5000/tipoIngresso/${props.id}`
+            let response = await axios.get(r)
+            Tipos.push(response)
+            setListarTipos(Tipos)
+            console.log(ListarTipos)
+        } catch (error) {
+            toast.error(error)
+        }
+        
     }
     useEffect(() => {
         ListarTipoIngresso()

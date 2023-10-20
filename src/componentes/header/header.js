@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { CardIngresso } from '../cardIngressoPesquisa';
 
 export function Header() {
     const navigate = useNavigate();
@@ -142,7 +143,7 @@ export function Header() {
     async function BarraDePesquisaIngresso() {
         try {
             let response = await axios.get(`http://localhost:5000/ingresso/busca?nome=${busca}`)
-            cardsPequenos.push(response)
+            cardsPequenos.push(...response.data)
             setlistagemBusca(cardsPequenos)
             console.log(listagembusca)
             if(busca.length > 0)
@@ -171,11 +172,14 @@ export function Header() {
 
                     {listagembuscaMostrarDialog &&
                         <dialog open className='infos-Barra_de_pesquisa-header'>
-                            {listagembusca.map((item) => {
-                                <>
-                                    <p>oi</p>
-                                </>
-                            })}
+                            {listagembusca.map((item,index) => (
+                                <CardIngresso 
+                                    NomeEvento={item.NM_EVENTO} 
+                                    imagem={item.IMAGEM_INGRESSO}
+                                    descricao={item.DS_EVENTO}
+                                    data={item.DT_COMECO}
+                                />
+                            ))}
                         </dialog>
                     }
                     
