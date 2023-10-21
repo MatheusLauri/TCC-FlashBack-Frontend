@@ -25,15 +25,28 @@ export function Header() {
     const [senha, setSenha] = useState('');
 
 // Variáveis de abertura de modal
-
     const [handleMenu, toggle] = useState(false)
     const [userModal, setUserModal] = useState(false)
     const [userPopUp, setUserPopUp] = useState(false)
+
+
 //  Variável para renderização condicional
     const [uptadeUser,setUpdateUser] = useState(false)
+
+
 // Variável para modificação da barra de usuário
     const [userBar,setUserBar] = useState(false)
     const [userRightBar,setUserRightBar] = useState(false)
+
+
+
+// Variavel de estado barra de pesquisa
+    const cardsPequenos = []
+    const [busca, setBusca] = useState('')
+    const [listagembusca, setlistagemBusca] = useState([])
+    const [listagembuscaMostrarDialog, setlistagembuscaMostrarDialog] = useState(false)
+
+
 // Função de cadastro com API
     async function CadastrarCliente () {
         try {
@@ -62,7 +75,7 @@ export function Header() {
         }
     }
 
-    // Variáveis de informação do usuário
+// Variáveis de informação do usuário
     const [userId,setUserId] = useState('')
     const [userNomeDeUsuario, setUserNomeDeUsuario] = useState('')
     const [userCPF,setUserCPF] = useState('')
@@ -72,15 +85,8 @@ export function Header() {
     const [userNome,setUserNome] = useState('')
     const [userSobrenome,setUserSobrenome] = useState('')
     const [usuario, setUsuario] = useState('')
-
-    const [busca, setBusca] = useState('')
-    const [listagembusca, setlistagemBusca] = useState([])
-    const [listagembuscaMostrarDialog, setlistagembuscaMostrarDialog] = useState(false)
-
   
 // Função de Login com API
-
-
 
     async function AlterarCadastro(){
 
@@ -125,21 +131,29 @@ export function Header() {
             setUserNome(resp.data.NM_CLIENTE)
             setUserSobrenome(resp.data.NM_SOBRENOME)
             setUsuario(resp.data.NM_USUARIO)
+
             // Alert de sucesso para o usuário
             toast.success(`Seja bem-vindo, ${resp.data.NM_USUARIO} !`)
+
             // Realizar alterações na renderização dos modais
             setIsLogged(true)
             setShowModal(false)
             setUserPopUp(false)
+
         } catch (err) {
             toast.error(err.response.data.erro)
         }
 
     }
-    const cardsPequenos = []
+
+
+
+// função barra de pesquisa
+
     useEffect(() => {
         BarraDePesquisaIngresso()
     }, [busca])
+
     async function BarraDePesquisaIngresso() {
         try {
             let response = await axios.get(`http://localhost:5000/ingresso/busca?nome=${busca}`)
