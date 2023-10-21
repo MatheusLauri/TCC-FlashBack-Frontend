@@ -341,16 +341,16 @@ export default function AdmPage() {
                                                         <button onClick={() => AdicionarIngresso()}>Adicionar ingresso</button>
                                                     </div>
                                                     <div className='divisor'></div>
-                                                    <div className={showMenu ? 'type-controller-clicked' : 'type-controller'} onClick={() => setShowMenu(!showMenu)}>
-                                                        <div className='header'>
+                                                    <div className={showMenu ? 'type-controller-clicked' : 'type-controller'}>
+                                                        <div className='header' onClick={() => setShowMenu(!showMenu)}>
                                                             <h1>Tipos de ingresso, quantidade e preço</h1>
-                                                            <img src='../assets/images/arrow.svg' />
+                                                            <img src='../assets/images/arrow.svg'/>
                                                         </div>
                                                         <div className='body'>
                                                             <div className='input-row'>
                                                                 <input type='text' placeholder='Nome' value={nomeTipo} onchange={(e) => setNomeTipo(e.target.value)}/>
-                                                                <input type='text' placeholder='Qtd' value={qtdTipo} onchange={(e) => setQtdTipo(e.target.value)}/>
-                                                                <input type='text' placeholder='R$ 0,00' value={precoTipo} onchange={(e) => setPrecoTipo(e.target.value)}/>
+                                                                <input type='number' placeholder='Qtd' value={qtdTipo} onchange={(e) => setQtdTipo(e.target.value)}/>
+                                                                <input type='number' placeholder='R$ 0,00' value={precoTipo} onchange={(e) => setPrecoTipo(e.target.value)}/>
                                                                 <a onClick={inserirTipo}>Adicionar</a>
                                                             </div>
                                                             <div className='body-table'>
