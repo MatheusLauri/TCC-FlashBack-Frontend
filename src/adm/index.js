@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import './index.scss'
+
 import MenuAdm from '../componentes/menu-adm'
 import CategorySection from '../componentes/categoryBtn';
+
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+
 import TitleRange from '../componentes/titleRange/index'
 import AdmTicket from '../componentes/admTicket';
+
 import Modal from 'react-modal'
+
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+
 export default function AdmPage() {
 
     const [graphicChosen, setGraphicChosen] = useState(1)
@@ -19,6 +26,8 @@ export default function AdmPage() {
 
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
+
+    //Variáveis de cadastro do ingresso 
 
     const [idIngresso, setIdIngresso] = useState(0)
     const [category, setCategory] = useState(1)
@@ -34,11 +43,20 @@ export default function AdmPage() {
     const [listarIngressos, setListarIngressos] = useState()
     const [pesquisa, setPesquisa] = useState('')
 
+    //variaveis de tipo Ingresso
     const [nomeTipo, setNomeTipo] = useState('')
     const [qtdTipo, setQtdTipo] = useState(0)
     const [precoTipo, setPrecoTipo] = useState(0)
 
+    const precoTipoFormatado = Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(precoTipo)
+
     const [vetorTipo, setVetorTipo] = useState([])
+
+
+    //variáveis de local do evento
+    
+    const [infosLocal, setInfosLocal] = useState()
+    const[CEP, setCEP] = useState()
 
 
     async function Logar() {
@@ -78,22 +96,36 @@ export default function AdmPage() {
         }
     }
 
+
     useEffect(() => {
+
         ListarIngressos()
-    },[pesquisa]);
+
+    }, [pesquisa]);
+
 
     function MenuPage(pagedata) {
+
         setMenu(pagedata)
+
         if (pagedata == 5) {
+
             setLogOutModal(true)
+
         }
+
     }
 
     async function addIngresso() {
         
         try {
+
             if (!imgIngresso) 
                 throw new Error ('Insira uma imagem!')
+
+            if(vetorTipo.length === 0)
+                throw new Error('Insira ao menos um tipo de ingresso!')
+            
 
             let infosIngresso = {
                 Categoria:category,
@@ -110,8 +142,13 @@ export default function AdmPage() {
            
 
             setIdIngresso(response.data.ID)
-            const idIngresso = response.data.ID;
+
+            const idIngresso = response.data.ID
+
             const r = await uploadImagem(idIngresso)
+
+            const r2 = await cadastrarTipo(idIngresso)
+
             toast.success("Ingresso Cadastrado!")
 
         } catch (err) {
@@ -123,10 +160,13 @@ export default function AdmPage() {
 
     }
 
+
     async function AdicionarIngresso(){
         addIngresso()
         await ListarIngressos()
     }
+
+
     async function uploadImagem(id) {
        
 
@@ -156,10 +196,61 @@ export default function AdmPage() {
     }
 
 
-    function inserirTipo() {
+    function inserirTipoModal() {
 
-        vetorTipo.push(nomeTipo, qtdTipo, precoTipo)
-        setVetorTipo([...vetorTipo])
+        try {
+
+            const infosTipo = {
+                nome: nomeTipo,
+                qtd: qtdTipo,
+                preco: precoTipoFormatado
+            }
+    
+            if(!infosTipo.nome)
+                throw new Error("Insira o nome do tipo!")
+    
+            if (!infosTipo.qtd) 
+                throw new Error("Insira a quantidade!")
+    
+         
+            vetorTipo.push(infosTipo)
+            setVetorTipo([...vetorTipo])
+    
+        
+        } catch (err) {
+
+            toast.error(err.message)
+
+        }
+        
+       
+    }
+
+
+    async function cadastrarTipo (idDoIngresso) {
+
+
+        for (let item of vetorTipo) {
+
+            const reposta = await  axios.post(`http://localhost:5000/tipoIngresso`, {
+                Ingresso: idDoIngresso,
+                Tipo: item.nome,
+                Quantidade: item.qtd,
+                Preco: precoTipo
+            })
+
+        }
+
+        
+    } 
+
+
+
+    async function buscarInfosLocal() {
+
+        const r = await axios.get(`https://viacep.com.br/ws/${CEP}/json/`)
+
+        setInfosLocal(r.data)
     }
 
     return (
@@ -314,25 +405,51 @@ export default function AdmPage() {
                                                     
 
                                                         <input type='file' id='imagemCapa' onChange={e => setImgIngresso(e.target.files[0])}/>
+        
                                                     </div>
                                                     <div className='divisor'></div>
                                                     <div className='text-inputs-box' >
                                                         <div className='text-input-box'>
                                                             <input type='text' placeholder='Nome do Evento' value={nomeEvento} onChange={(e) => setNomeEvento(e.target.value)} />
                                                         </div>
+
                                                         <div className='text-input-box'>
-                                                            <input type='text' placeholder='Local' value={local} onChange={(e) => setLocal(e.target.value)} />
+                                                            <input type='text' placeholder='CEP'  onBlur={buscarInfosLocal} value={CEP} onChange={(e) => setCEP(e.target.value)} />
                                                             <img src='' />
                                                         </div>
+
+                                                        <div className='text-input-box'>
+                                                            <input type='text' placeholder='Logradouro' value={local} onChange={(e) => setLocal(e.target.value)} />
+                                                            <img src='' />
+                                                        </div>
+
+                                                        <div className='text-input-box'>
+                                                            <input type='text' placeholder='Bairro' value={local} onChange={(e) => setLocal(e.target.value)} />
+                                                            <img src='' />
+                                                        </div>
+
+                                                        <div className='text-input-box'>
+                                                            <input type='text' placeholder='Localidade' value={local} onChange={(e) => setLocal(e.target.value)} />
+                                                            <img src='' />
+                                                        </div>
+
+                                                        <div className='text-input-box'>
+                                                            <input type='text' placeholder='UF' value={local} onChange={(e) => setLocal(e.target.value)} />
+                                                            <img src='' />
+                                                        </div>
+
                                                         <div className='text-input-box'>
                                                             <input type='datetime-local' placeholder='Data e Hora de Início' value={dtInicio} onChange={(e) => setDtInicio(e.target.value)} />
                                                         </div>
+
                                                         <div className='text-input-box'>
                                                             <input type='datetime-local' placeholder='Data e Hora de Termino' value={dtTermino} onChange={(e) => setDtTermino(e.target.value)} />
                                                         </div>
+
                                                         <div className='text-input-box'>
                                                             <input type='text' placeholder='Adicionar descrição' value={descricao} onChange={(e) => setDescricao(e.target.value)} />
                                                         </div>
+
                                                         <div>
                                                             <input type='checkbox' name="Destaque" onChange={(e) => setDestaque(e.target.checked)} />
                                                             <label>Destaque?</label>
@@ -348,54 +465,27 @@ export default function AdmPage() {
                                                         </div>
                                                         <div className='body'>
                                                             <div className='input-row'>
-                                                                <input type='text' placeholder='Nome' value={nomeTipo} onchange={(e) => setNomeTipo(e.target.value)}/>
-                                                                <input type='number' placeholder='Qtd' value={qtdTipo} onchange={(e) => setQtdTipo(e.target.value)}/>
-                                                                <input type='number' placeholder='R$ 0,00' value={precoTipo} onchange={(e) => setPrecoTipo(e.target.value)}/>
-                                                                <a onClick={inserirTipo}>Adicionar</a>
+                                                                <input type='text' placeholder='Nome' value={nomeTipo} onChange={(e) => setNomeTipo(e.target.value)}/>
+                                                                <input type='number' placeholder='Qtd' value={qtdTipo} onChange={(e) => setQtdTipo(e.target.value)}/>
+                                                                <input type='number' placeholder='R$ 0,00' value={precoTipo} onChange={(e) => setPrecoTipo(e.target.value)}/>
+                                                                <a onClick={inserirTipoModal}>Adicionar</a>
                                                             </div>
                                                             <div className='body-table'>
-                                                                    {vetorTipo.map((item =>
-                                                                        <div className='body-table-row'>
-                                                                        <span>{item[0]}</span>
-                                                                        <span>15 Un</span>
-                                                                        <div className='divisor'></div>
-                                                                        <span>R$ 150,00</span>
-                                                                        <a>Remover</a>
-                                                                        <a>Alterar</a>
-                                                                    </div>
-                                                                    ))}
-                                                                <div className='body-table-row'>
-                                                                    <span>Front Stage</span>
-                                                                    <span>15 Un</span>
-                                                                    <div className='divisor'></div>
-                                                                    <span>R$ 150,00</span>
-                                                                    <a>Remover</a>
-                                                                    <a>Alterar</a>
-                                                                </div>
-                                                                <div className='body-table-row'>
-                                                                    <span>Camarote</span>
-                                                                    <span>15 Un</span>
-                                                                    <div className='divisor'></div>
-                                                                    <span>R$ 150,00</span>
-                                                                    <a>Remover</a>
-                                                                    <a>Alterar</a>
-                                                                </div>
-                                                                <div className='body-table-row'>
-                                                                    <span>Pista</span>
-                                                                    <span>15 Un</span>
-                                                                    <div className='divisor'></div>
-                                                                    <span>R$ 150,00</span>
-                                                                    <a>Remover</a>
-                                                                    <a>Alterar</a>
-                                                                </div>
-                                                                <div className='body-table-row'>
-                                                                    <span>VIP</span>
-                                                                    <span>15 Un</span>
-                                                                    <div className='divisor'></div>
-                                                                    <span>R$ 150,00</span>
-                                                                    <a>Remover</a>
-                                                                    <a>Alterar</a>
-                                                                </div>
+                                                                {vetorTipo && 
+                                                                    <>
+                                                                        {vetorTipo.map((item =>
+                                                                            <div className='body-table-row'>
+                                                                            <span>{item.nome}</span>
+                                                                            <span> {item.qtd} Un</span>
+                                                                            <div className='divisor'></div>
+                                                                            <span>{item.preco}</span>
+                                                                            <a>Remover</a>
+                                                                            <a>Alterar</a>
+                                                                        </div>
+                                                                        ))}
+                                                                    </>
+                                                                }
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
