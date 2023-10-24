@@ -31,7 +31,7 @@ export default function BoxIngresso(props){
                 <div className='box-ingresso-adress'><h1>{resultado}</h1></div>
                 <div className='box-ingresso-name'>
                     <h1>{props.nome}</h1>
-                    <p>{}</p>
+                    <p>{props.logradouro} - {props.cidade}, {props.uf}</p>
                 </div>
             </div>
         </div>

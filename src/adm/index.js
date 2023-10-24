@@ -5,7 +5,7 @@ import MenuAdm from '../componentes/menu-adm'
 import CategorySection from '../componentes/categoryBtn';
 
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 import TitleRange from '../componentes/titleRange/index'
 import AdmTicket from '../componentes/admTicket';
@@ -29,6 +29,7 @@ export default function AdmPage() {
 
     //Variáveis de cadastro do ingresso 
 
+    const [idLocal, setIdLocal] = useState(0)
     const [idIngresso, setIdIngresso] = useState(0)
     const [category, setCategory] = useState(1)
     const [nomeEvento, setNomeEvento] = useState('')
@@ -125,11 +126,26 @@ export default function AdmPage() {
 
             if(vetorTipo.length === 0)
                 throw new Error('Insira ao menos um tipo de ingresso!')
-            
 
+
+            //Cadastro Local do evento
+            const responseLocal = await axios.post(`http://localhost:5000/local`, {
+        
+                CEP: infosLocal.cep,
+                Logradouro: infosLocal.logradouro,
+                Bairro: infosLocal.bairro,
+                Localidade: infosLocal.localidade ,
+                UF: infosLocal.uf
+                  
+            })
+
+            const Id_Local = responseLocal.data.ID
+            
+            //Cadastro Infos Ingresso
             let infosIngresso = {
                 Categoria:category,
-                Empresa:1,
+                Empresa: 1,
+                Local: Id_Local,
                 NomeEvento:nomeEvento,
                 Descricao:descricao,
                 DataComeco:dtInicio,
@@ -138,16 +154,18 @@ export default function AdmPage() {
             }
             
 
-            let response = await axios.post('http://localhost:5000/ingresso', infosIngresso)
+            const responseInfosIngresso = await axios.post('http://localhost:5000/ingresso', infosIngresso)
            
 
-            setIdIngresso(response.data.ID)
+            setIdIngresso(responseInfosIngresso.data.ID)
 
-            const idIngresso = response.data.ID
+            const idIngresso = responseInfosIngresso.data.ID
 
-            const r = await uploadImagem(idIngresso)
+            //Envio de imagem
+            const responseImagem = await uploadImagem(idIngresso)
 
-            const r2 = await cadastrarTipo(idIngresso)
+            //Cadastro Tipo de Ingresso(s)
+            const responseTipo = await cadastrarTipo(idIngresso)
 
             toast.success("Ingresso Cadastrado!")
 
@@ -248,9 +266,42 @@ export default function AdmPage() {
 
     async function buscarInfosLocal() {
 
-        const r = await axios.get(`https://viacep.com.br/ws/${CEP}/json/`)
+        try {
 
-        setInfosLocal(r.data)
+            const r = await axios.get(`https://viacep.com.br/ws/${CEP}/json/`)
+
+            if(r.code === "ERR_NETWORK"
+            )
+                throw new Error('Endereço não encontrado')
+
+            setInfosLocal(r.data)
+
+            console.log(r.data)
+
+            
+        } catch (err) {
+            toast.error(err.message)
+        }
+
+        
+       
+    }
+
+
+    async function cadastrarLocal() {
+
+        const response = await axios.post(`http://localhost:5000/local`, {
+            
+            CEP: infosLocal.cep,
+            Logradouro: infosLocal.logradouro,
+            Bairro: infosLocal.bairro,
+            Localidade: infosLocal.localidade ,
+            UF: infosLocal.uf
+              
+        })
+
+        
+        setIdLocal(response.data.ID)
     }
 
     return (
@@ -413,30 +464,67 @@ export default function AdmPage() {
                                                             <input type='text' placeholder='Nome do Evento' value={nomeEvento} onChange={(e) => setNomeEvento(e.target.value)} />
                                                         </div>
 
-                                                        <div className='text-input-box'>
-                                                            <input type='text' placeholder='CEP'  onBlur={buscarInfosLocal} value={CEP} onChange={(e) => setCEP(e.target.value)} />
-                                                            <img src='' />
-                                                        </div>
+                                                        {infosLocal && 
+                                                            <>
+                                                                <div className='text-input-box'>
+                                                                    <input type='text' placeholder='CEP'  onBlur={buscarInfosLocal} value={CEP} onChange={(e) => setCEP(e.target.value)} />
+                                                                    <img src='' />
+                                                                </div>
 
-                                                        <div className='text-input-box'>
-                                                            <input type='text' placeholder='Logradouro' value={local} onChange={(e) => setLocal(e.target.value)} />
-                                                            <img src='' />
-                                                        </div>
+                                                                <div className='text-input-box'>
+                                                                    <input type='text' placeholder='Logradouro' value={infosLocal.logradouro} onChange={(e) => setLocal(e.target.value)} />
+                                                                    <img src='' />
+                                                                </div>
 
-                                                        <div className='text-input-box'>
-                                                            <input type='text' placeholder='Bairro' value={local} onChange={(e) => setLocal(e.target.value)} />
-                                                            <img src='' />
-                                                        </div>
+                                                                <div className='text-input-box'>
+                                                                    <input type='text' placeholder='Bairro' value={infosLocal.bairro} onChange={(e) => setLocal(e.target.value)} />
+                                                                    <img src='' />
+                                                                </div>
 
-                                                        <div className='text-input-box'>
-                                                            <input type='text' placeholder='Localidade' value={local} onChange={(e) => setLocal(e.target.value)} />
-                                                            <img src='' />
-                                                        </div>
+                                                                <div className='text-input-box'>
+                                                                    <input type='text' placeholder='Localidade' value={infosLocal.localidade} onChange={(e) => setLocal(e.target.value)} />
+                                                                    <img src='' />
+                                                                </div>
 
-                                                        <div className='text-input-box'>
-                                                            <input type='text' placeholder='UF' value={local} onChange={(e) => setLocal(e.target.value)} />
-                                                            <img src='' />
-                                                        </div>
+                                                                <div className='text-input-box'>
+                                                                    <input type='text' placeholder='UF' value={infosLocal.uf} onChange={(e) => setLocal(e.target.value)} />
+                                                                    <img src='' />
+                                                                </div>
+
+                                                            </>
+                                                        }
+
+                                                        {!infosLocal && 
+
+                                                            <>
+                                                                <div className='text-input-box'>
+                                                                    <input type='text' placeholder='CEP'  onBlur={buscarInfosLocal} value={CEP} onChange={(e) => setCEP(e.target.value)} />
+                                                                    <img src='' />
+                                                                </div>
+
+                                                                <div className='text-input-box'>
+                                                                    <input type='text' placeholder='Logradouro' />
+                                                                    <img src='' />
+                                                                </div>
+
+                                                                <div className='text-input-box'>
+                                                                    <input type='text' placeholder='Bairro'  />
+                                                                    <img src='' />
+                                                                </div>
+
+                                                                <div className='text-input-box'>
+                                                                    <input type='text' placeholder='Localidade' />
+                                                                    <img src='' />
+                                                                </div>
+
+                                                                <div className='text-input-box'>
+                                                                    <input type='text' placeholder='UF'/>
+                                                                    <img src='' />
+                                                                </div>
+                                                            </>
+
+                                                        }
+
 
                                                         <div className='text-input-box'>
                                                             <input type='datetime-local' placeholder='Data e Hora de Início' value={dtInicio} onChange={(e) => setDtInicio(e.target.value)} />

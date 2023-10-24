@@ -105,7 +105,7 @@ console.log(listarCategoria)
                 </div>
                 <div className='carrosel'>
                   {item.data.map((item,index) => (
-                    <BoxIngresso nome={item.NM_EVENTO} data={item.DT_COMECO} imagem={item.IMAGEM_INGRESSO}/>
+                    <BoxIngresso nome={item.NM_EVENTO} data={item.DT_COMECO} imagem={item.IMAGEM_INGRESSO} logradouro={item.DS_LOGRADOURO} cidade={item.DS_LOCALIDADE} uf={item.DS_UF}/>
                   ))}
                 </div>
               </div>
