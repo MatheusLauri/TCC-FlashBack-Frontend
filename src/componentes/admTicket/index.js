@@ -10,6 +10,9 @@ import './index.scss'
 export default function AdmTicket(props) {
     const [showType,setShowType] = useState(false)
 
+    //FORMATAR ENDEREÇO
+    let endereco = props.rua + ' - ' + props.cidade + ', ' + props.estado
+
     //FORMATAR DATETIME
     const data = new Date(props.data);
     const dia = String(data.getDate()).padStart(2, '0');
@@ -22,16 +25,18 @@ export default function AdmTicket(props) {
     //IMAGEM
     const urlImagem = `http://localhost:5000/${props.imagem}`
 
-    const Tipos = []
     const [click,setClick] = useState(false)
+    const listagem = []
     const [ListarTipos,setListarTipos] = useState([])
     async function ListarTipoIngresso(){
         try {
+
             let r = `http://localhost:5000/tipoIngresso/${props.id}`
             let response = await axios.get(r)
-            Tipos.push(response)
-            setListarTipos(Tipos)
+            listagem.push(...response.data)
+            setListarTipos(listagem)
             console.log(ListarTipos)
+
         } catch (error) {
             toast.error(error)
         }
@@ -39,12 +44,12 @@ export default function AdmTicket(props) {
     }
     useEffect(() => {
         ListarTipoIngresso()
-    }, [click])
+    }, [props.busca])
 
     return (
         <div className={showType ? 'adm-ticket-grow' : 'adm-ticket'}>
             <div className='ticket-upper-info'>
-                <p>ID: <span>{props.id}</span></p>
+                <p onClick={() => console.log(ListarTipos)}>ID: <span>{props.id}</span></p>
                 <h1 onClick={() => ListarTipoIngresso()}>{props.nome}</h1>
                 <div className='ticket-controller'>
                     <img src='../assets/images/edit.svg'/>
@@ -54,7 +59,7 @@ export default function AdmTicket(props) {
             <div className='ticket-bottom-info'>
                 <div className='left-part'>
                     <p>Data/hora: <span>{dataFormatada}</span></p>
-                    <p className='last-child'>Local: <span>Teatro Municipal - São Paulo, SP</span></p>
+                    <p className='last-child'>Local: <span>{endereco}</span></p>
                     <div className={showType ? 'ticket-type-clicked' : 'ticket-type'}>
                         <div className='header'>
                             <a onClick={() => {setShowType(!showType); setClick(!click)}}>Tipos Ingresso, qtd e valor</a>
@@ -62,13 +67,11 @@ export default function AdmTicket(props) {
                         </div>
                         <div className='body'>
                             {ListarTipos.map(item => {
-                                <div className='body-row'>
-                                    <span>{props.nomeTipo}</span>
-                                    <span>{props.qtd} Un</span>
-                                    <div></div>
-                                    <span>R$ {props.valor}</span>
-                                </div>
+                                <p>
+                                    oi
+                                </p>
                             })}
+                            
                         </div>
                     </div>
                 </div>

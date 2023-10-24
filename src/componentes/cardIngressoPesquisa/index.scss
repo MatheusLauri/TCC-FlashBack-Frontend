@@ -1,15 +1,39 @@
 .Card-Ingresso-Main{
-    width: 100%;
+    width: 98%;
+    height: 150px;
     display: flex;
     flex-direction: row;
     gap: 10px;
-    p,h1{
-        color: black;
-
-    }
+    border-bottom: 1px solid rgba(0, 0, 0, 0.349);
+    padding: 5px 0px;
+    
     img{
         width: 100px;
         height: auto;
         border-radius: 10px;
+    }
+    .info-div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        p,h1{
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical; 
+            width: 100%;
+            overflow: hidden;
+        }
+        h1{
+            font-size: 17px;
+            color: #520AD9;
+        }
+        .descricao{
+            display: flex;
+            flex-direction: column;
+            p{
+                font-size: 15px;
+            }
+        }
     }
 }

@@ -23,8 +23,10 @@ export function CardIngresso(props) {
             <img src={URLimagem}/>
             <div className='info-div'>
                 <h1>{props.NomeEvento}</h1>
-                <p>{props.descricao}</p>
-                <p>{resultado}</p>
+                <div className='descricao'>
+                    <p>{props.descricao}</p>
+                    <p>{resultado}</p>
+                </div>
             </div>
         </div>
     )

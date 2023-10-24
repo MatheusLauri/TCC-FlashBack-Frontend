@@ -38,6 +38,7 @@ export default function AdmPage() {
     const [descricao, setDescricao] = useState('')
     const [dtInicio, setDtInicio] = useState('')
     const [dtTermino, setDtTermino] = useState('')
+    const [numeroEvento,setNumeroEvento] = useState('')
 
     const[imgIngresso, setImgIngresso] = useState()
     //variáveis para a tela de pesquisa de ingressos
@@ -46,8 +47,8 @@ export default function AdmPage() {
 
     //variaveis de tipo Ingresso
     const [nomeTipo, setNomeTipo] = useState('')
-    const [qtdTipo, setQtdTipo] = useState(0)
-    const [precoTipo, setPrecoTipo] = useState(0)
+    const [qtdTipo, setQtdTipo] = useState(Number())
+    const [precoTipo, setPrecoTipo] = useState(Number())
 
     const precoTipoFormatado = Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(precoTipo)
 
@@ -83,7 +84,6 @@ export default function AdmPage() {
                 const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome=${pesquisa}`)
                 listagem.push(...resp.data)
                 setListarIngressos(listagem)
-                console.log(listarIngressos)
             }
             else{
                 const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome`)
@@ -163,6 +163,7 @@ export default function AdmPage() {
 
             //Envio de imagem
             const responseImagem = await uploadImagem(idIngresso)
+            
 
             //Cadastro Tipo de Ingresso(s)
             const responseTipo = await cadastrarTipo(idIngresso)
@@ -425,6 +426,10 @@ export default function AdmPage() {
                                                         qtd={item.QTD_TIPO_INGRESSO}
                                                         valor={item.VL_PRECO_TIPO}
                                                         nomeTipo={item.NM_TIPO_INGRESSO}
+                                                        rua={item.DS_LOGRADOURO}
+                                                        cidade={item.DS_LOCALIDADE}
+                                                        estado={item.DS_UF}
+                                                        busca={pesquisa}
                                                     />
                                                     </>
                                                 ))}
@@ -444,25 +449,45 @@ export default function AdmPage() {
                                             <div className='add-range'>
                                                 <TitleRange text='Informações do evento' />
                                                 <div className='add-input-main'>
-                                                    <div className='file-input-box' onClick={escolherImagem}>
+                                                    <div className='text-file-inputs-box'>
+                                                        <div className='file-input-box' onClick={escolherImagem}>
+                                                            
+                                                            {!imgIngresso &&
+                                                                <img src='../assets/images/imgUpload.svg'/>
+                                                            }
                                                         
-                                                        {!imgIngresso &&
-                                                             <img src='../assets/images/imgUpload.svg'/>
-                                                        }
-                                                       
-                                                       {imgIngresso &&
-                                                            <img className='imgCapaIngresso' src={mostrarImagem()}/> 
-                                                        }
-                                                    
+                                                        {imgIngresso &&
+                                                                <img className='imgCapaIngresso' src={mostrarImagem()}/> 
+                                                            }
+                                                        
+                                                            
+                                                            <input type='file' id='imagemCapa' onChange={e => setImgIngresso(e.target.files[0])}/>
+            
+                                                        </div>
 
-                                                        <input type='file' id='imagemCapa' onChange={e => setImgIngresso(e.target.files[0])}/>
-        
-                                                    </div>
-                                                    <div className='divisor'></div>
-                                                    <div className='text-inputs-box' >
                                                         <div className='text-input-box'>
                                                             <input type='text' placeholder='Nome do Evento' value={nomeEvento} onChange={(e) => setNomeEvento(e.target.value)} />
                                                         </div>
+                                                        
+
+                                                        <div className='text-input-box'>
+                                                            <input type='datetime-local' placeholder='Data e Hora de Início' value={dtInicio} onChange={(e) => setDtInicio(e.target.value)} />
+                                                        </div>
+
+                                                        <div className='text-input-box'>
+                                                            <input type='datetime-local' placeholder='Data e Hora de Termino' value={dtTermino} onChange={(e) => setDtTermino(e.target.value)} />
+                                                        </div>
+
+                                                        
+                                                        <div className='text-input-box'>
+                                                            <input type='text' placeholder='Adicionar descrição' value={descricao} onChange={(e) => setDescricao(e.target.value)} />
+                                                        </div>
+
+                                                        
+                                                    </div>
+                                                    <div className='divisor'></div>
+                                                    <div className='text-inputs-box' >
+                                                        
 
                                                         {infosLocal && 
                                                             <>
@@ -524,26 +549,17 @@ export default function AdmPage() {
                                                             </>
 
                                                         }
-
-
+                                                        
                                                         <div className='text-input-box'>
-                                                            <input type='datetime-local' placeholder='Data e Hora de Início' value={dtInicio} onChange={(e) => setDtInicio(e.target.value)} />
-                                                        </div>
-
-                                                        <div className='text-input-box'>
-                                                            <input type='datetime-local' placeholder='Data e Hora de Termino' value={dtTermino} onChange={(e) => setDtTermino(e.target.value)} />
-                                                        </div>
-
-                                                        <div className='text-input-box'>
-                                                            <input type='text' placeholder='Adicionar descrição' value={descricao} onChange={(e) => setDescricao(e.target.value)} />
+                                                            <input type='text' placeholder='Número' value={numeroEvento} onChange={(e) => setNumeroEvento(e.target.value)} />
                                                         </div>
 
                                                         <div>
                                                             <input type='checkbox' name="Destaque" onChange={(e) => setDestaque(e.target.checked)} />
-                                                            <label>Destaque?</label>
+                                                            <label> Destaque?</label>
                                                         </div>
                                                         
-                                                        <button onClick={() => AdicionarIngresso()}>Adicionar ingresso</button>
+                                                        
                                                     </div>
                                                     <div className='divisor'></div>
                                                     <div className={showMenu ? 'type-controller-clicked' : 'type-controller'}>
@@ -567,8 +583,8 @@ export default function AdmPage() {
                                                                             <span> {item.qtd} Un</span>
                                                                             <div className='divisor'></div>
                                                                             <span>{item.preco}</span>
-                                                                            <a>Remover</a>
-                                                                            <a>Alterar</a>
+                                                                            <a><img src='../assets/images/edit.svg'/></a>
+                                                                            <a><img src='../assets/images/delete.svg'/></a>
                                                                         </div>
                                                                         ))}
                                                                     </>
@@ -577,6 +593,10 @@ export default function AdmPage() {
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div className='button-controller'>
+                                                    <button onClick={() => AdicionarIngresso()}>Adicionar ingresso</button>
+                                                    <button>Limpar campos</button>
                                                 </div>
                                             </div>
                                         </section>
