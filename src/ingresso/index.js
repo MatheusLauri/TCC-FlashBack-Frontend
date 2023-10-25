@@ -23,9 +23,9 @@ export default function IngressoPage(){
     
     useEffect(() => {
         ListarIngressos()
-    },[])
+    },[ingressos])
     let url = `http://localhost:5000/${ingressos.IMAGEM_INGRESSO}`
-
+    
     //FORMATAR DATETIME
     const datetime = new Date(ingressos.DT_COMECO);
     const monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
@@ -45,7 +45,7 @@ export default function IngressoPage(){
                     <div className='ingresso-descricao-column'>
                         <div className='ingresso-descricao-row'>
                             <img src={local}/>
-                            <h1>{`${ingressos.DS_LOGRADOURO}`}</h1>
+                            <h1>{`${ingressos.DS_LOGRADOURO}, ${ingressos.DS_NUM}`}</h1>
                         </div>
                         <p>{`${ingressos.DS_LOCALIDADE}, ${ingressos.DS_UF}`}</p>
                     </div>

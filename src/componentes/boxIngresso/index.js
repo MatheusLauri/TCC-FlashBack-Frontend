@@ -1,4 +1,6 @@
 import './index.scss'
+import { Link, useNavigate } from 'react-router-dom';
+
 
 export default function BoxIngresso(props){
     const teste = 'http://localhost:5000/' + props.imagem
@@ -17,13 +19,11 @@ export default function BoxIngresso(props){
     minutos = "0" + minutos;
     }
     let resultado = diaDaSemana + ", " + diaDoMes + " de " + mes + " - " + hora + ":" + minutos;
-    console.log(teste)
-    console.log(props.categoria)
   
     return(
 
         
-        <div className='box-ingresso-main'>
+        <Link className='box-ingresso-main' to={`/ingresso/${props.id}`}>
             <div className='box-ingresso-bgbox'>
                 <img className='box-ingresso-bg' src={teste}/>
             </div>
@@ -31,9 +31,9 @@ export default function BoxIngresso(props){
                 <div className='box-ingresso-adress'><h1>{resultado}</h1></div>
                 <div className='box-ingresso-name'>
                     <h1>{props.nome}</h1>
-                    <p>{props.logradouro} - {props.cidade}, {props.uf}</p>
+                    <p>{props.logradouro}, {props.num}<br/>{props.cidade}, {props.uf}</p>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }

@@ -23,7 +23,7 @@ export function CardIngresso(props) {
     let resultado = diaDaSemana + ", " + diaDoMes + " de " + mes + " - " + hora + ":" + minutos;
     
     return (
-        <Link to={`/ingresso/${props.id}`} className="Card-Ingresso-Main" onClick={() => console.log('teste')}>
+        <Link to={`/ingresso/${props.id}`} className="Card-Ingresso-Main">
             <img src={URLimagem}/>
             <div className='info-div'>
                 <h1>{props.NomeEvento}</h1>
