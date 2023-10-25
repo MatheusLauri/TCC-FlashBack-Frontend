@@ -1,7 +1,10 @@
+import { Link, useNavigate } from 'react-router-dom';
 import './index.scss'
 
 export function CardIngresso(props) {  
+
     let URLimagem = `http://localhost:5000/${props.imagem}`
+
     //FORMATAR DATETIME
     let diasDaSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
     let meses = ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
@@ -18,8 +21,9 @@ export function CardIngresso(props) {
     minutos = "0" + minutos;
     }
     let resultado = diaDaSemana + ", " + diaDoMes + " de " + mes + " - " + hora + ":" + minutos;
+    
     return (
-        <div className="Card-Ingresso-Main">
+        <Link to={`/ingresso/${props.id}`} className="Card-Ingresso-Main" onClick={() => console.log('teste')}>
             <img src={URLimagem}/>
             <div className='info-div'>
                 <h1>{props.NomeEvento}</h1>
@@ -28,6 +32,6 @@ export function CardIngresso(props) {
                     <p>{resultado}</p>
                 </div>
             </div>
-        </div>
+        </Link>
     )
 }

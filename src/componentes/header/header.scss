@@ -51,7 +51,6 @@
             appearance: none;
             outline: none;
             overflow: hidden;
-            padding: 5px;
             border: none;
             background-color: rgb(255, 255, 255);
             box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -67,7 +66,7 @@
                 background-color: transparent;
             }
             .listagem::-webkit-scrollbar {
-                width: 6px;
+                width: 0px;
                 
             }
             .listagem::-webkit-scrollbar-thumb {
