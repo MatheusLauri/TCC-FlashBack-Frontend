@@ -439,7 +439,7 @@ export default function AdmPage() {
                             <section className='adm-home'>
                                 {menu == 1 &&
                                     <>
-                                        <CategorySection funcao={setCategory} valor={category} />
+                                        <CategorySection funcao={setCategory} valor={category} page='home'/>
                                         <section className='home-content'>
                                             <TitleRange text='Gráfico de vendas:' />
                                             <div className='home-grafico'>
@@ -650,6 +650,7 @@ export default function AdmPage() {
                                                                         {vetorTipo.map((item =>
                                                                             <div className='body-table-row'>
                                                                             <span>{item.nome}</span>
+                                                                            <div className='divisor'></div>
                                                                             <span> {item.qtd} Un</span>
                                                                             <div className='divisor'></div>
                                                                             <span>{item.preco}</span>

@@ -170,9 +170,6 @@ export function Header() {
         }
     }
      
-    
-
-
     return (
         <section className='header-main'>
             <ToastContainer />
@@ -181,13 +178,14 @@ export function Header() {
                 <div className='secao-header-input-div'>
                     <img src='/assets/images/lupa.svg'/>
                     
-                    <input type='text' placeholder='Pesquisar eventos, shows, teatros, festas...'   onChange={(e) => setBusca(e.target.value)} />
+                    <input type='text' placeholder='Pesquisar eventos, shows, teatros, festas...' onChange={(e) => setBusca(e.target.value)} />
 
                     {listagembuscaMostrarDialog &&
                         <dialog open className='infos-Barra_de_pesquisa-header'>
                             <div className='listagem'>
                                 {listagembusca.map((item,index) => (
                                     <CardIngresso 
+                                        id={item.ID_INGRESSO}
                                         NomeEvento={item.NM_EVENTO} 
                                         imagem={item.IMAGEM_INGRESSO}
                                         descricao={item.DS_EVENTO}
@@ -196,6 +194,7 @@ export function Header() {
                                 ))}
                             </div>
                         </dialog>
+
                     }
                     
                 </div>
