@@ -33,12 +33,10 @@ export default function AdmPage() {
     const [idIngresso, setIdIngresso] = useState(0)
     const [category, setCategory] = useState(1)
     const [nomeEvento, setNomeEvento] = useState('')
-    const [local, setLocal] = useState('')
     const [destaque, setDestaque] = useState(false)
     const [descricao, setDescricao] = useState('')
     const [dtInicio, setDtInicio] = useState('')
     const [dtTermino, setDtTermino] = useState('')
-    const [numeroEvento,setNumeroEvento] = useState('')
 
     const[imgIngresso, setImgIngresso] = useState()
     //variáveis para a tela de pesquisa de ingressos
@@ -46,9 +44,11 @@ export default function AdmPage() {
     const [pesquisa, setPesquisa] = useState('')
 
     //variaveis de tipo Ingresso
+
+    const [idTipos, setIdTipos] = useState([])
     const [nomeTipo, setNomeTipo] = useState('')
-    const [qtdTipo, setQtdTipo] = useState(Number())
-    const [precoTipo, setPrecoTipo] = useState(Number())
+    const [qtdTipo, setQtdTipo] = useState('')
+    const [precoTipo, setPrecoTipo] = useState('')
 
     const precoTipoFormatado = Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(precoTipo)
 
@@ -56,9 +56,13 @@ export default function AdmPage() {
 
 
     //variáveis de local do evento
-    
-    const [infosLocal, setInfosLocal] = useState()
-    const[CEP, setCEP] = useState()
+
+    const [CEP, setCEP] = useState()
+    const [logradouro, setLogradouro] = useState('')
+    const [bairro, setBairro] = useState('')
+    const [cidade, setCidade] = useState('')
+    const [uf, setUf] = useState('')
+    const [numeroLocalEvento,setNumeroLocalEvento] = useState('')
 
 
     async function Logar() {
@@ -127,48 +131,94 @@ export default function AdmPage() {
             if(vetorTipo.length === 0)
                 throw new Error('Insira ao menos um tipo de ingresso!')
 
+            if(idIngresso === 0) {
 
-            //Cadastro Local do evento
-            const responseLocal = await axios.post(`http://localhost:5000/local`, {
-        
-                CEP: infosLocal.cep,
-                Logradouro: infosLocal.logradouro,
-                Bairro: infosLocal.bairro,
-                Localidade: infosLocal.localidade ,
-                UF: infosLocal.uf
+                //Cadastro Local do evento
+                const responseLocal = await axios.post(`http://localhost:5000/local`, {
+            
+                    CEP: CEP,
+                    Logradouro: logradouro,
+                    Bairro: bairro,
+                    Localidade: cidade,
+                    UF: uf,
+                    Numero: numeroLocalEvento
                   
-            })
-
-            const Id_Local = responseLocal.data.ID
+                })
+    
             
-            //Cadastro Infos Ingresso
-            let infosIngresso = {
-                Categoria:category,
-                Empresa: 1,
-                Local: Id_Local,
-                NomeEvento:nomeEvento,
-                Descricao:descricao,
-                DataComeco:dtInicio,
-                DataFim:dtTermino,
-                Destaque:destaque
+                const Id_Local = responseLocal.data.ID
+
+                setIdLocal(Id_Local)
+            
+                //Cadastro Infos Ingresso
+                let infosIngresso = {
+                    Categoria:category,
+                    Empresa: 1,
+                    Local: Id_Local,
+                    NomeEvento:nomeEvento,
+                    Descricao:descricao,
+                    DataComeco:dtInicio,
+                    DataFim:dtTermino,
+                    Destaque:destaque
+                }
+                
+
+                const responseInfosIngresso = await axios.post('http://localhost:5000/ingresso', infosIngresso)
+            
+
+                setIdIngresso(responseInfosIngresso.data.ID)
+
+                const idIngresso = responseInfosIngresso.data.ID
+
+                //Envio de imagem
+                const responseImagem = await uploadImagem(idIngresso)
+                
+
+                //Cadastro Tipo de Ingresso(s)
+                const responseTipo = await cadastrarTipo(idIngresso)
+
+                toast.success("Ingresso Cadastrado!")
+            
+            } else {
+
+                 //Cadastro Local do evento
+                 const responseLocal = await axios.put(`http://localhost:5000/local/${idLocal}`, {
+            
+                    CEP: CEP,
+                    Logradouro: logradouro,
+                    Bairro: bairro,
+                    Localidade: cidade,
+                    UF: uf,
+                    Numero: numeroLocalEvento
+               
+                })
+
+                //Alterar Infos Ingresso
+                let infosIngresso = {
+                    Categoria:category,
+                    Empresa: 1,
+                    Local: idLocal,
+                    NomeEvento:nomeEvento,
+                    Descricao:descricao,
+                    DataComeco:dtInicio,
+                    DataFim:dtTermino,
+                    Destaque:destaque
+                }
+                
+
+                const responseInfosIngresso = await axios.put(`http://localhost:5000/ingresso/${idIngresso}`, infosIngresso)
+
+                //Alterar imagem de imagem
+                const responseImagem = await uploadImagem(idIngresso)
+                
+
+                //Alterar Tipo de Ingresso(s)
+                const responseTipo = await alterarTipoIngresso()
+
+                toast.success("Ingresso Alterado!")
+
             }
-            
-
-            const responseInfosIngresso = await axios.post('http://localhost:5000/ingresso', infosIngresso)
            
-
-            setIdIngresso(responseInfosIngresso.data.ID)
-
-            const idIngresso = responseInfosIngresso.data.ID
-
-            //Envio de imagem
-            const responseImagem = await uploadImagem(idIngresso)
-            
-
-            //Cadastro Tipo de Ingresso(s)
-            const responseTipo = await cadastrarTipo(idIngresso)
-
-            toast.success("Ingresso Cadastrado!")
 
         } catch (err) {
             if(err.response) 
@@ -226,11 +276,20 @@ export default function AdmPage() {
             }
     
             if(!infosTipo.nome)
-                throw new Error("Insira o nome do tipo!")
+                throw new Error("Defina o nome do tipo!")
     
             if (!infosTipo.qtd) 
-                throw new Error("Insira a quantidade!")
-    
+                throw new Error("Defina uma quantidade!")
+
+            if (infosTipo.qtd < 0 || precoTipo < 0) 
+            throw new Error("Insira somente valores positivos!")
+
+            
+            for(let item of vetorTipo) {
+
+                if(item.nome === infosTipo.nome) 
+                    throw new Error('Tipo já cadastrado!')
+            }
          
             vetorTipo.push(infosTipo)
             setVetorTipo([...vetorTipo])
@@ -258,9 +317,11 @@ export default function AdmPage() {
                 Preco: precoTipo
             })
 
+            idTipos.push(reposta.data.ID)
+
+            setIdTipos([...idTipos])
         }
 
-        
     } 
 
 
@@ -271,13 +332,14 @@ export default function AdmPage() {
 
             const r = await axios.get(`https://viacep.com.br/ws/${CEP}/json/`)
 
-            if(r.code === "ERR_NETWORK"
-            )
+            if(r.code === "ERR_NETWORK")
                 throw new Error('Endereço não encontrado')
 
-            setInfosLocal(r.data)
 
-            console.log(r.data)
+            setLogradouro(r.data.logradouro)
+            setBairro(r.data.bairro)
+            setCidade(r.data.localidade)
+            setUf(r.data.uf)
 
             
         } catch (err) {
@@ -293,17 +355,63 @@ export default function AdmPage() {
 
         const response = await axios.post(`http://localhost:5000/local`, {
             
-            CEP: infosLocal.cep,
-            Logradouro: infosLocal.logradouro,
-            Bairro: infosLocal.bairro,
-            Localidade: infosLocal.localidade ,
-            UF: infosLocal.uf
+            CEP: CEP,
+            Logradouro: logradouro,
+            Bairro: bairro,
+            Localidade: cidade,
+            UF: uf,
+            Numero: numeroLocalEvento
               
         })
 
         
         setIdLocal(response.data.ID)
     }
+
+
+
+
+    async function alterarTipoIngresso () {
+
+        for (let item of vetorTipo) {
+
+            let cont = 0
+
+            const reposta = await  axios.put(`http://localhost:5000/tipoIngresso/${idTipos[cont]}`, {
+                Tipo: item.nome,
+                Quantidade: item.qtd,
+                Preco: precoTipo
+            })
+
+            cont++
+        }
+
+
+    }
+
+    console.log(idTipos)
+
+    async function novoIngressoClick() {
+
+        setIdIngresso(0)
+        setImgIngresso()
+        setNomeEvento('')
+        setDtInicio()
+        setDtTermino()
+        setCEP('')
+        setLogradouro('')
+        setBairro('')
+        setCidade('')
+        setUf('')
+        setNumeroLocalEvento('')
+        setNomeTipo('')
+        setQtdTipo('')
+        setPrecoTipo('')
+        setVetorTipo([])
+        setShowMenu(false)
+       
+    }
+
 
     return (
         <>
@@ -487,78 +595,40 @@ export default function AdmPage() {
                                                     </div>
                                                     <div className='divisor'></div>
                                                     <div className='text-inputs-box' >
-                                                        
-
-                                                        {infosLocal && 
-                                                            <>
-                                                                <div className='text-input-box'>
-                                                                    <input type='text' placeholder='CEP'  onBlur={buscarInfosLocal} value={CEP} onChange={(e) => setCEP(e.target.value)} />
-                                                                    <img src='' />
-                                                                </div>
-
-                                                                <div className='text-input-box'>
-                                                                    <input type='text' placeholder='Logradouro' value={infosLocal.logradouro} onChange={(e) => setLocal(e.target.value)} />
-                                                                    <img src='' />
-                                                                </div>
-
-                                                                <div className='text-input-box'>
-                                                                    <input type='text' placeholder='Bairro' value={infosLocal.bairro} onChange={(e) => setLocal(e.target.value)} />
-                                                                    <img src='' />
-                                                                </div>
-
-                                                                <div className='text-input-box'>
-                                                                    <input type='text' placeholder='Localidade' value={infosLocal.localidade} onChange={(e) => setLocal(e.target.value)} />
-                                                                    <img src='' />
-                                                                </div>
-
-                                                                <div className='text-input-box'>
-                                                                    <input type='text' placeholder='UF' value={infosLocal.uf} onChange={(e) => setLocal(e.target.value)} />
-                                                                    <img src='' />
-                                                                </div>
-
-                                                            </>
-                                                        }
-
-                                                        {!infosLocal && 
-
-                                                            <>
-                                                                <div className='text-input-box'>
-                                                                    <input type='text' placeholder='CEP'  onBlur={buscarInfosLocal} value={CEP} onChange={(e) => setCEP(e.target.value)} />
-                                                                    <img src='' />
-                                                                </div>
-
-                                                                <div className='text-input-box'>
-                                                                    <input type='text' placeholder='Logradouro' />
-                                                                    <img src='' />
-                                                                </div>
-
-                                                                <div className='text-input-box'>
-                                                                    <input type='text' placeholder='Bairro'  />
-                                                                    <img src='' />
-                                                                </div>
-
-                                                                <div className='text-input-box'>
-                                                                    <input type='text' placeholder='Localidade' />
-                                                                    <img src='' />
-                                                                </div>
-
-                                                                <div className='text-input-box'>
-                                                                    <input type='text' placeholder='UF'/>
-                                                                    <img src='' />
-                                                                </div>
-                                                            </>
-
-                                                        }
-                                                        
+                                        
                                                         <div className='text-input-box'>
-                                                            <input type='text' placeholder='Número' value={numeroEvento} onChange={(e) => setNumeroEvento(e.target.value)} />
+                                                            <input type='text' placeholder='CEP'  onBlur={buscarInfosLocal} value={CEP} onChange={(e) => setCEP(e.target.value)} />
+                                                            <img src='' />
                                                         </div>
 
+                                                        <div className='text-input-box'>
+                                                            <input type='text' placeholder='Logradouro' value={logradouro} onChange={(e) => setLogradouro(e.target.value)} />
+                                                            <img src='' />
+                                                        </div>
+
+                                                        <div className='text-input-box'>
+                                                            <input type='text' placeholder='Bairro' value={bairro} onChange={(e) => setBairro(e.target.value)} />
+                                                            <img src='' />
+                                                        </div>
+
+                                                        <div className='text-input-box'>
+                                                            <input type='text' placeholder='Localidade' value={cidade} onChange={(e) => setCidade(e.target.value)} />
+                                                            <img src='' />
+                                                        </div>
+
+                                                        <div className='text-input-box'>
+                                                            <input type='text' placeholder='UF' value={uf} onChange={(e) => setUf(e.target.value)} />
+                                                            <img src='' />
+                                                        </div>
+
+                                                        <div className='text-input-box'>
+                                                            <input type='text' placeholder='Número' value={numeroLocalEvento} onChange={(e) => setNumeroLocalEvento(e.target.value)} />
+                                                        </div>
+                                                        
                                                         <div>
                                                             <input type='checkbox' name="Destaque" onChange={(e) => setDestaque(e.target.checked)} />
                                                             <label> Destaque?</label>
                                                         </div>
-                                                        
                                                         
                                                     </div>
                                                     <div className='divisor'></div>
@@ -570,8 +640,8 @@ export default function AdmPage() {
                                                         <div className='body'>
                                                             <div className='input-row'>
                                                                 <input type='text' placeholder='Nome' value={nomeTipo} onChange={(e) => setNomeTipo(e.target.value)}/>
-                                                                <input type='number' placeholder='Qtd' value={qtdTipo} onChange={(e) => setQtdTipo(e.target.value)}/>
-                                                                <input type='number' placeholder='R$ 0,00' value={precoTipo} onChange={(e) => setPrecoTipo(e.target.value)}/>
+                                                                <input type='number' placeholder='Qtd' value={qtdTipo} onChange={(e) => setQtdTipo(Number(e.target.value))}/>
+                                                                <input type='number' placeholder='R$ 0,00' value={precoTipo} onChange={(e) => setPrecoTipo(Number(e.target.value))}/>
                                                                 <a onClick={inserirTipoModal}>Adicionar</a>
                                                             </div>
                                                             <div className='body-table'>
@@ -595,8 +665,25 @@ export default function AdmPage() {
                                                     </div>
                                                 </div>
                                                 <div className='button-controller'>
-                                                    <button onClick={() => AdicionarIngresso()}>Adicionar ingresso</button>
-                                                    <button>Limpar campos</button>
+                                                
+                                                {idIngresso === 0 &&
+
+                                                    <>
+                                                        <button onClick={() => AdicionarIngresso()}>Adicionar ingresso</button>
+                                                        <button onClick={novoIngressoClick}>Novo Ingresso</button>
+                                                    </>
+                                            
+                                                }
+
+                                                {idIngresso > 0 &&
+
+                                                <>
+                                                    <button onClick={() => AdicionarIngresso()}>Alterar ingresso</button>
+                                                    <button onClick={novoIngressoClick}>Novo Ingresso</button>
+                                                </>
+
+                                                }
+                                                   
                                                 </div>
                                             </div>
                                         </section>
