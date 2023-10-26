@@ -91,6 +91,12 @@ export default function IngressoPage(){
                                     <p>Preços entre R$ 10,00 e R$ 100,00</p>
                                     <p>em até 12x</p>
                                 </div>
+                                
+                                <div className='time-select-box'>
+                                    <h1>Horário 23:00</h1>
+                                    <p>Preços entre R$ 10,00 e R$ 100,00</p>
+                                    <p>em até 12x</p>
+                                </div>
                                 <div className='time-select-box'>
                                     <h1>Horário 23:00</h1>
                                     <p>Preços entre R$ 10,00 e R$ 100,00</p>
