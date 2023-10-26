@@ -373,31 +373,35 @@ export default function AdmPage() {
 
     async function alterarTipoIngresso () {
 
-        for (let item of vetorTipo) {
+        if (idIngresso != 0 ) {
 
-            let cont = 0
+            for (let item of vetorTipo) {
 
-            const reposta = await  axios.put(`http://localhost:5000/tipoIngresso/${idTipos[cont]}`, {
-                Tipo: item.nome,
-                Quantidade: item.qtd,
-                Preco: precoTipo
-            })
-
-            cont++
+                let cont = 0
+    
+                const reposta = await  axios.put(`http://localhost:5000/tipoIngresso/${idTipos[cont]}`, {
+                    Tipo: item.nome,
+                    Quantidade: item.qtd,
+                    Preco: precoTipo
+                })
+    
+                cont++
+            }
+    
+            
         }
 
 
     }
 
-    console.log(idTipos)
 
     async function novoIngressoClick() {
 
         setIdIngresso(0)
         setImgIngresso()
         setNomeEvento('')
-        setDtInicio()
-        setDtTermino()
+        setDtInicio('')
+        setDtTermino('')
         setCEP('')
         setLogradouro('')
         setBairro('')
