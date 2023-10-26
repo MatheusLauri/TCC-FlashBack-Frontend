@@ -5,9 +5,8 @@ export default function Card() {
 
 return (
     <div className='primaria'>
-        <div className='mae-geral'>
             
-            <div className='left-side'>
+            <div className='card-info-img'>
                 <img src='./assets/images/farofada.png' />
 
                 <div className='informacoes-left'>
@@ -21,7 +20,7 @@ return (
                 </div>
             </div>
 
-            <div className='rigth-side'>
+            <div className='card-info'>
                 <div className='informacoes-rigth'>
                         <div className='filhos-left'>
                                 <h3>Disponivel:</h3>
@@ -36,7 +35,6 @@ return (
 
                 <button> Visualizar </button>
             </div>
-        </div>
     </div>
 );
 

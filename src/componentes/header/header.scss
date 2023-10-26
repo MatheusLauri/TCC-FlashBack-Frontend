@@ -590,8 +590,10 @@
             align-items: center;
             justify-content: center;
             h1{
+                font-size: 150%;
                 width: 100%;
                 text-align: center;
+                color: #520DA9;
             }
             .info-form-div{
                 width: 100%;
@@ -604,9 +606,9 @@
                 .info-input-div{
                     display: flex;
                     flex-direction: column;
-                    width: 45%;
+                    width: 47%;
                     height: 40px;
-                    border: 1px solid black;
+                    border: 1px solid #520DA9;
                     align-items: center;
                     border-radius: 10px;
                     padding: 5px 15px;
@@ -621,7 +623,7 @@
                         width: fit-content;
                         background-color: white;
                         font-weight: 700;
-                        color:black;
+                        color:#520DA9;
                         font-size: 13px;
                     }
                     input{
@@ -669,6 +671,24 @@
                 width: 90%;
             }
         }
+    }
+    .left-side{
+        &::-webkit-scrollbar{
+            width: 5px;
+        }
+        &::-webkit-scrollbar-track{
+            background-color: transparent;
+        }
+        &::-webkit-scrollbar-thumb{
+            background-color: #520DA9;
+            border-radius: 10px;
+        }
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 40px;
+        gap: 30px;
+        background-color: #F3F3F3;
     }
   }
 .modal-overlay {

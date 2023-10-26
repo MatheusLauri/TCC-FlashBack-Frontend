@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CardIngresso } from '../cardIngressoPesquisa';
+import Card from '../card-Meuspedidos';
 
 export function Header() {
     const navigate = useNavigate();
@@ -360,6 +361,11 @@ export function Header() {
                     {userRightBar
                     ?
                     <section className='left-side'>
+                        <Card/>
+                        <Card/>
+                        <Card/>
+                        <Card/>
+                        <Card/>
                     </section>
                     :
                     <section className='right-side'> 
@@ -383,15 +389,6 @@ export function Header() {
                                     <input type='date'/>
                                 </div>
                                 <div className='info-input-div'>
-                                    <label>Genêro</label>
-                                    <select>
-                                        <option>Selecione --</option>
-                                        <option>Homem</option>
-                                        <option>Mulher</option>
-                                        <option>Filho do diabo</option>
-                                    </select>
-                                </div>
-                                <div className='info-input-div'>
                                     <label>Celular</label>
                                     <input type='tel' value={userTelefone} onChange={(e) => {setUserTelefone(e.target.value); setUpdateUser(true) }}/>
                                 </div>
@@ -403,23 +400,25 @@ export function Header() {
                             <h1>Dados de Login</h1>
                             <div className='info-form-div'>
                                 <div className='info-input-div'>
-                                    <label>E-mail</label>
-                                    <input type='email' value={userEmail} onChange={(e) => {setUserEmail(e.target.value); setUpdateUser(true)}}/>
-                                </div>
-                                <div className='info-input-div'>
                                     <label>Senha</label>
                                     <input type='password' value={userSenha} onChange={(e) => {setUserSenha(e.target.value); setUpdateUser(true)}}/>
                                 </div>
+                                    {uptadeUser &&
+                                        <div className='info-input-div'>
+                                            <label>Confirme sua Senha</label>
+                                            <input type='password'/>
+                                        </div>
+                                    }
                             </div>
                             {uptadeUser 
                             ? 
                                 <div className='user-info-button'>
-                                    <a onClick={() => setUserPopUp(false)}>Fechar</a>
+                                    <a onClick={() => setUserModal(false)}>Fechar</a>
                                     <a onClick={AlterarCadastro}>Atualizar</a>
                                 </div>
                             :
                                 <div className='user-info-button'>
-                                    <a onClick={() => setUserPopUp(false)}>Fechar</a>
+                                    <a onClick={() => setUserModal(false)}>Fechar</a>
                                 </div>
                             }
                         </section>
