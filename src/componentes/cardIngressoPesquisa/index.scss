@@ -1,8 +1,14 @@
 .Card-Ingresso-Main{
     
     &:hover{
-        background-color: #F9DD4A;
+        background-color: #1e0145;
         cursor: pointer;
+        .info-div{
+            h1,p{
+                color: white;
+            }
+        }
+        
     }
 
     text-decoration: none;

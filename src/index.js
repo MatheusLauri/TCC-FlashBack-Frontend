@@ -9,6 +9,7 @@ import Pix from '../src/telas-pagamento/Pix/pix.js';
 import PixQRcode from '../src/telas-pagamento/Pix-QRcode/pixQRcode.js';
 import Boleto from '../src/telas-pagamento/Boleto/boleto.js';
 import IngressoPage from './ingresso';
+import Card from '../src/componentes/card-Meuspedidos/index.js'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,6 +23,7 @@ root.render(
             <Route path='/qrcode' element={<PixQRcode/>}/>
             <Route path='/boleto' element={<Boleto/>}/>
             <Route path='/ingresso/:id' element={<IngressoPage/>}/>
+            <Route path='/card' element={<Card/>} />
         </Routes>
       </BrowserRouter>
   </React.StrictMode>
