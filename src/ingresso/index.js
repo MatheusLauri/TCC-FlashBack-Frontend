@@ -14,16 +14,21 @@ export default function IngressoPage(){
     const [showDescription,setShowDescription] = useState(false)
     const [ingressos,setIngressos] = useState([]) 
     const [tipoIngressos,setTipoIngressos] = useState([]) 
-
+    
     async function ListarIngressos(){
         let url = `http://localhost:5000/ingresso/busca?nome`
         let response = await axios.get(url)
-        setIngressos(response.data[id-1])
+        let newArray = []
+        response.data.forEach((element) => {
+            newArray[element.ID_INGRESSO] = element
+        });
+        setIngressos(newArray[id])
+
     }
     
     useEffect(() => {
         ListarIngressos()
-    },[ingressos])
+    },[id])
     let url = `http://localhost:5000/${ingressos.IMAGEM_INGRESSO}`
     
     //FORMATAR DATETIME
