@@ -298,7 +298,6 @@ export default function AdmPage() {
 
             setNomeTipo('')
             setQtdTipo('')
-            setPrecoTipo('')
     
         
         } catch (err) {
