@@ -49,7 +49,7 @@ function LandingPage() {
   return (
     <div className="body">
       <Header/>
-      <section className='secao-01' onClick={() => console.log()}>
+      <section className='secao-01'>
         <h1>Explore e viva a diversão!</h1>
         <div className='secao-01-categoria'>
           <TrianguloCategoria 

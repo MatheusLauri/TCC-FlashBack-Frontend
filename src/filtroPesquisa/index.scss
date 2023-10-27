@@ -1,0 +1,45 @@
+.page-pesquisa-main{
+    display: flex;
+    flex-direction: column;
+    >p{
+        margin-top: 10px;
+        padding: 0 60px;
+        >span{
+            font-weight: 900;
+        }
+    }
+    .ticket-wrapper{
+        overflow: auto;
+        display: flex;
+        flex-direction: row;
+        padding: 50px 60px;
+        min-width: 100%;
+        height: fit-content;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    .divisor{
+        width: 100%;
+        height: 1px;
+        background-color: black;
+    }
+    .sugestao-main{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        .ticket-wrapper-suggestion{
+            overflow: auto;
+            display: flex;
+            flex-direction: row;
+            min-width: 100%;
+            padding: 50px 0px;
+            height: fit-content;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+    }
+}

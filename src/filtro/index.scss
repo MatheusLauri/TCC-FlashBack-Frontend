@@ -1,0 +1,16 @@
+.secao-pesquisa{
+    display: flex;
+    flex-direction: column;
+    .ticket-wrapper{
+        overflow: auto;
+        display: flex;
+        flex-direction: row;
+        padding: 50px 60px;
+        min-width: 100%;
+        height: fit-content;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+}

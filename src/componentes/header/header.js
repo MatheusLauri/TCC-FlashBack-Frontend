@@ -3,7 +3,7 @@ import { useState } from 'react';
 import './header.scss'
 import Modal from 'react-modal'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -110,6 +110,11 @@ export function Header() {
 
     }
 
+    function HandleEnterDown(e){
+        if (e.key === 'Enter'){
+            navigate(`/search/${busca}`)
+        }
+    }
 
     async function Logar() {
 
@@ -172,16 +177,16 @@ export function Header() {
     }
      
     return (
-        <section className='header-main'>
+        <section className='header-main' onMouseLeave={() => setlistagembuscaMostrarDialog(false)}>
             <ToastContainer />
             <section className="secao-header">
-                <img src='/assets/images/logoTCC.png' />
+                <Link className='header-img' to='/'><img src='/assets/images/logoTCC.png' /></Link>
                 <div className='secao-header-input-div'>
                     <img src='/assets/images/lupa.svg'/>
                     
-                    <input type='text' placeholder='Pesquisar eventos, shows, teatros, festas...' onChange={(e) => setBusca(e.target.value)} />
+                    <input type='text' placeholder='Pesquisar eventos, shows, teatros, festas...' onChange={(e) => setBusca(e.target.value)} onKeyDown={(e) => HandleEnterDown(e)} onClick={() => setlistagembuscaMostrarDialog(true)}/>
 
-                    {listagembuscaMostrarDialog &&
+                    {listagembuscaMostrarDialog && busca.length > 0 && 
                         <dialog open className='infos-Barra_de_pesquisa-header'>
                             <div className='listagem'>
                                 {listagembusca.map((item,index) => (
