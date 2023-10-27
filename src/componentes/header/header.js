@@ -3,7 +3,7 @@ import { useState } from 'react';
 import './header.scss'
 import Modal from 'react-modal'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -175,7 +175,7 @@ export function Header() {
         <section className='header-main'>
             <ToastContainer />
             <section className="secao-header">
-                <img src='/assets/images/logoTCC.png' />
+                <Link className='header-img' to='/'><img src='/assets/images/logoTCC.png' /></Link>
                 <div className='secao-header-input-div'>
                     <img src='/assets/images/lupa.svg'/>
                     

@@ -9,9 +9,11 @@
     width: 100%;
     height: 70px;
     background-color: #1F0145;
-    >img{
-        height: 40px;
-        width: auto;
+    .header-img{
+        img {
+            height: 40px !important;
+            width: auto !important;
+        }
     }
     .secao-header-input-div{
         padding: 0px 10px;
