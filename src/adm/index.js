@@ -54,6 +54,8 @@ export default function AdmPage() {
 
     const [vetorTipo, setVetorTipo] = useState([])
 
+    const [alterarTipo, setAlterarTipo] = useState(false)
+
 
     //variáveis de local do evento
 
@@ -104,7 +106,7 @@ export default function AdmPage() {
 
     useEffect(() => {
 
-        ListarIngressos()
+        ListarIngressos(); if(idIngresso === 0) {cadastrarTipo()}
 
     }, [pesquisa]);
 
@@ -213,7 +215,7 @@ export default function AdmPage() {
                 
 
                 //Alterar Tipo de Ingresso(s)
-                const responseTipo = await alterarTipoIngresso()
+                
 
                 toast.success("Ingresso Alterado!")
 
@@ -288,11 +290,15 @@ export default function AdmPage() {
             for(let item of vetorTipo) {
 
                 if(item.nome === infosTipo.nome) 
-                    throw new Error('Tipo já cadastrado!')
+                    throw new Error('Tipo já existente!')
             }
          
             vetorTipo.push(infosTipo)
             setVetorTipo([...vetorTipo])
+
+            setNomeTipo('')
+            setQtdTipo('')
+            setPrecoTipo('')
     
         
         } catch (err) {
@@ -332,9 +338,6 @@ export default function AdmPage() {
 
             const r = await axios.get(`https://viacep.com.br/ws/${CEP}/json/`)
 
-            if(r.code === "ERR_NETWORK")
-                throw new Error('Endereço não encontrado')
-
 
             setLogradouro(r.data.logradouro)
             setBairro(r.data.bairro)
@@ -343,7 +346,7 @@ export default function AdmPage() {
 
             
         } catch (err) {
-            toast.error(err.message)
+            toast.error('Endereço não encontrado ou CEP inválido')
         }
 
         
@@ -367,13 +370,12 @@ export default function AdmPage() {
         
         setIdLocal(response.data.ID)
     }
-
-
+    
 
 
     async function alterarTipoIngresso () {
 
-        if (idIngresso != 0 ) {
+     
 
             for (let item of vetorTipo) {
 
@@ -388,11 +390,42 @@ export default function AdmPage() {
                 cont++
             }
     
-            
-        }
+
 
 
     }
+
+
+    function alterarTipoIngresso2(idArray) {
+
+        setAlterarTipo(false)
+
+        setNomeTipo(vetorTipo[idArray].nome)
+        setQtdTipo(vetorTipo[idArray].qtd)
+
+        const vetorTiposs = vetorTipo
+
+        vetorTiposs[idArray] = {
+            nome:nomeTipo,
+            qtd: qtdTipo,
+            preco: precoTipo
+
+        }
+
+        setVetorTipo(vetorTiposs)
+        
+
+    }
+
+
+    function deletarTipo (idArray) {
+
+        vetorTipo.splice(idArray, 1)
+
+        setVetorTipo([...vetorTipo])
+    }
+
+    console.log(vetorTipo)
 
 
     async function novoIngressoClick() {
@@ -568,7 +601,7 @@ export default function AdmPage() {
                                                                 <img src='../assets/images/imgUpload.svg'/>
                                                             }
                                                         
-                                                        {imgIngresso &&
+                                                            {imgIngresso &&
                                                                 <img className='imgCapaIngresso' src={mostrarImagem()}/> 
                                                             }
                                                         
@@ -646,20 +679,24 @@ export default function AdmPage() {
                                                                 <input type='text' placeholder='Nome' value={nomeTipo} onChange={(e) => setNomeTipo(e.target.value)}/>
                                                                 <input type='number' placeholder='Qtd' value={qtdTipo} onChange={(e) => setQtdTipo(Number(e.target.value))}/>
                                                                 <input type='number' placeholder='R$ 0,00' value={precoTipo} onChange={(e) => setPrecoTipo(Number(e.target.value))}/>
-                                                                <a onClick={inserirTipoModal}>Adicionar</a>
+                                                                {alterarTipo
+
+                                                                    ?<a onClick={alterarTipoIngresso2}>Alterar</a>
+                                                                    :<a onClick={inserirTipoModal}>Adicionar</a>
+                                                                }
                                                             </div>
                                                             <div className='body-table'>
                                                                 {vetorTipo && 
                                                                     <>
-                                                                        {vetorTipo.map((item =>
+                                                                        {vetorTipo.map((item, idArray) => (
                                                                             <div className='body-table-row'>
                                                                             <span>{item.nome}</span>
                                                                             <div className='divisor'></div>
                                                                             <span> {item.qtd} Un</span>
                                                                             <div className='divisor'></div>
                                                                             <span>{item.preco}</span>
-                                                                            <a><img src='../assets/images/edit.svg'/></a>
-                                                                            <a><img src='../assets/images/delete.svg'/></a>
+                                                                            <a><img src='../assets/images/edit.svg' onClick={() => {alterarTipoIngresso2(idArray); setAlterarTipo(true)}}/></a>
+                                                                            <a><img src='../assets/images/delete.svg' onClick={() => deletarTipo(idArray)}/></a>
                                                                         </div>
                                                                         ))}
                                                                     </>
