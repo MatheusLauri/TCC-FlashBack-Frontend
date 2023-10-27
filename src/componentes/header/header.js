@@ -186,7 +186,7 @@ export function Header() {
                     
                     <input type='text' placeholder='Pesquisar eventos, shows, teatros, festas...' onChange={(e) => setBusca(e.target.value)} onKeyDown={(e) => HandleEnterDown(e)} onClick={() => setlistagembuscaMostrarDialog(true)}/>
 
-                    {listagembuscaMostrarDialog &&
+                    {listagembuscaMostrarDialog && busca.length > 0 && 
                         <dialog open className='infos-Barra_de_pesquisa-header'>
                             <div className='listagem'>
                                 {listagembusca.map((item,index) => (
