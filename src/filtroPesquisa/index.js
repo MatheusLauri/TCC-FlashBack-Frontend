@@ -13,6 +13,9 @@ export default function PageFiltroPesquisa(){
     let {nome} = useParams()
     const [ingressos,setIngressos] = useState([])
     let ticketPush = []
+    
+    const [ingressosSugestao,setIngressosSugestao] = useState([])
+    let ticketPushSugestao = []
 
     async function ListarIngressos(){
         try {
@@ -20,9 +23,12 @@ export default function PageFiltroPesquisa(){
             ticketPush.push(response.data)
             setIngressos(...ticketPush)
         } catch (error) {
-            toast.error(error)
+            setIngressos([])
+            let response = await axios.get(`http://localhost:5000/ingresso/busca?nome`)
+            ticketPushSugestao.push(response.data)
+            setIngressosSugestao(...ticketPushSugestao)
+            console.log(ingressos.length)
         }
-        
     }
     useEffect(() => {
         ListarIngressos()
@@ -67,7 +73,19 @@ export default function PageFiltroPesquisa(){
                         <BoxIngresso nome={item.NM_EVENTO} data={item.DT_COMECO} imagem={item.IMAGEM_INGRESSO} logradouro={item.DS_LOGRADOURO} cidade={item.DS_LOCALIDADE} uf={item.DS_UF} id={item.ID_INGRESSO} num={item.DS_NUM}/>
                     ))
                     ) : (
-                    <p>Nenhum Produto encontrado.</p>
+                    <>
+                        <p>Nenhum Produto encontrado.</p>
+                        <div className='divisor'></div>
+                        <div className='sugestao-main'>
+                            <h1>Eventos especiais...</h1>
+                            <p>Confira algumas sugestões!</p>
+                            <div className='ticket-wrapper-suggestion'>
+                                {ingressosSugestao.map(item => (
+                                    <BoxIngresso nome={item.NM_EVENTO} data={item.DT_COMECO} imagem={item.IMAGEM_INGRESSO} logradouro={item.DS_LOGRADOURO} cidade={item.DS_LOCALIDADE} uf={item.DS_UF} id={item.ID_INGRESSO} num={item.DS_NUM}/>
+                                ))}
+                            </div>
+                        </div>
+                    </>
                 )}
 
             </div>
