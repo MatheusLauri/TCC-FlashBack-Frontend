@@ -27,7 +27,6 @@ export default function PageFiltroPesquisa(){
             let response = await axios.get(`http://localhost:5000/ingresso/busca?nome`)
             ticketPushSugestao.push(response.data)
             setIngressosSugestao(...ticketPushSugestao)
-            console.log(ingressos.length)
         }
     }
     useEffect(() => {

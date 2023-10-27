@@ -177,14 +177,14 @@ export function Header() {
     }
      
     return (
-        <section className='header-main'>
+        <section className='header-main' onMouseLeave={() => setlistagembuscaMostrarDialog(false)}>
             <ToastContainer />
             <section className="secao-header">
                 <Link className='header-img' to='/'><img src='/assets/images/logoTCC.png' /></Link>
                 <div className='secao-header-input-div'>
                     <img src='/assets/images/lupa.svg'/>
                     
-                    <input type='text' placeholder='Pesquisar eventos, shows, teatros, festas...' onChange={(e) => setBusca(e.target.value)} onKeyDown={(e) => HandleEnterDown(e)}/>
+                    <input type='text' placeholder='Pesquisar eventos, shows, teatros, festas...' onChange={(e) => setBusca(e.target.value)} onKeyDown={(e) => HandleEnterDown(e)} onClick={() => setlistagembuscaMostrarDialog(true)}/>
 
                     {listagembuscaMostrarDialog &&
                         <dialog open className='infos-Barra_de_pesquisa-header'>
