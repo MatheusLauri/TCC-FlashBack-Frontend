@@ -55,7 +55,6 @@ export default function PageFiltro() {
                 {ingressos.map(item => (
                     <BoxIngresso nome={item.NM_EVENTO} data={item.DT_COMECO} imagem={item.IMAGEM_INGRESSO} logradouro={item.DS_LOGRADOURO} cidade={item.DS_LOCALIDADE} uf={item.DS_UF} id={item.ID_INGRESSO} num={item.DS_NUM}/>
                 ))
-
                 }
             </div>
         </div>

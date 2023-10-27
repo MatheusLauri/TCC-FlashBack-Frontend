@@ -1,4 +1,4 @@
-.ingresso-body{
+    .ingresso-body{
     .ingresso-main{
         padding-top: 134px;
         display: flex;
@@ -26,6 +26,7 @@
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
+            gap: 30px;
             h1{
                 color: #8E8E8E;
                 text-align: center;
@@ -33,6 +34,10 @@
                 font-style: normal;
                 font-weight: 700;
                 line-height: normal;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
             }
             p{
                 color: #8E8E8E;
@@ -41,13 +46,13 @@
                 font-style: normal;
                 font-weight: 500;
                 line-height: normal;
+                text-wrap: nowrap !important;
             }
             .ingresso-descricao-row{
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 justify-content: center;
-                width: fit-content;
                 img{
                     margin-right: 5px;
                     height: 30px;

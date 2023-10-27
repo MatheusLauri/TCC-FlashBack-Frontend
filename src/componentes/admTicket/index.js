@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.scss'
 
@@ -33,8 +33,8 @@ export default function AdmTicket(props) {
 
             let r = `http://localhost:5000/tipoIngresso/${props.id}`
             let response = await axios.get(r)
-            listagem.push(...response.data)
-            setListarTipos(listagem)
+            listagem.push(response.data)
+            setListarTipos(...listagem)
             console.log(ListarTipos)
 
         } catch (error) {
@@ -66,11 +66,14 @@ export default function AdmTicket(props) {
                             <img src='../assets/images/arrow.svg' onClick={() => setShowType(!showType)}/>
                         </div>
                         <div className='body'>
-                            {ListarTipos.map(item => {
-                                <p>
-                                    oi
-                                </p>
-                            })}
+                            {ListarTipos.map(item =>
+                                <div className='body-row'>
+                                    <span>{item.NM_TIPO_INGRESSO}</span>				
+                                    <span>{item.QTD_TIPO_INGRESSO} Un</span>
+                                    <div></div>
+                                    <span>R$ {item.VL_PRECO_TIPO}</span>
+                                </div>
+                            )}
                             
                         </div>
                     </div>
