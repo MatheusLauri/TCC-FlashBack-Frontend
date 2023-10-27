@@ -6,6 +6,7 @@ import './index.scss'
 import BoxIngresso from '../componentes/boxIngresso'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 
 export default function PageFiltroPesquisa(){
@@ -14,9 +15,14 @@ export default function PageFiltroPesquisa(){
     let ticketPush = []
 
     async function ListarIngressos(){
-        let response = await axios.get(`http://localhost:5000/ingresso/busca?nome=${nome}`)
-        ticketPush.push(response.data)
-        setIngressos(...ticketPush)
+        try {
+            let response = await axios.get(`http://localhost:5000/ingresso/busca?nome=${nome}`)
+            ticketPush.push(response.data)
+            setIngressos(...ticketPush)
+        } catch (error) {
+            toast.error(error)
+        }
+        
     }
     useEffect(() => {
         ListarIngressos()
@@ -55,9 +61,14 @@ export default function PageFiltroPesquisa(){
             <TitleTag className='titletag' text='Busca'/>
             <p>Resultado da busca por: <span>{nome}</span></p>
             <div className='ticket-wrapper'>
-                {ingressos.map(item => (
-                    <BoxIngresso nome={item.NM_EVENTO} data={item.DT_COMECO} imagem={item.IMAGEM_INGRESSO} logradouro={item.DS_LOGRADOURO} cidade={item.DS_LOCALIDADE} uf={item.DS_UF} id={item.ID_INGRESSO} num={item.DS_NUM}/>
-                ))}
+
+                {ingressos.length > 0 ? (
+                    ingressos.map((item) => (
+                        <BoxIngresso nome={item.NM_EVENTO} data={item.DT_COMECO} imagem={item.IMAGEM_INGRESSO} logradouro={item.DS_LOGRADOURO} cidade={item.DS_LOCALIDADE} uf={item.DS_UF} id={item.ID_INGRESSO} num={item.DS_NUM}/>
+                    ))
+                    ) : (
+                    <p>Nenhum Produto encontrado.</p>
+                )}
 
             </div>
         </div>
