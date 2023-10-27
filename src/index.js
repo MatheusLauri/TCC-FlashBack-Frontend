@@ -11,6 +11,7 @@ import Boleto from '../src/telas-pagamento/Boleto/boleto.js';
 import IngressoPage from './ingresso';
 import Card from '../src/componentes/card-Meuspedidos/index.js'
 import PageFiltro from './filtro';
+import PageFiltroPesquisa from './filtroPesquisa';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -25,7 +26,8 @@ root.render(
             <Route path='/boleto' element={<Boleto/>}/>
             <Route path='/ingresso/:id' element={<IngressoPage/>}/>
             <Route path='/card' element={<Card/>} />
-            <Route path='/search/:categoria' element={<PageFiltro/>} />
+            <Route path='/categoria/:categoria' element={<PageFiltro/>} />
+            <Route path='/search/:nome' element={<PageFiltroPesquisa/>} />
         </Routes>
       </BrowserRouter>
   </React.StrictMode>

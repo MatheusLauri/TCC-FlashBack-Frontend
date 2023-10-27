@@ -110,6 +110,11 @@ export function Header() {
 
     }
 
+    function HandleEnterDown(e){
+        if (e.key === 'Enter'){
+            navigate(`/search/${busca}`)
+        }
+    }
 
     async function Logar() {
 
@@ -179,7 +184,7 @@ export function Header() {
                 <div className='secao-header-input-div'>
                     <img src='/assets/images/lupa.svg'/>
                     
-                    <input type='text' placeholder='Pesquisar eventos, shows, teatros, festas...' onChange={(e) => setBusca(e.target.value)} />
+                    <input type='text' placeholder='Pesquisar eventos, shows, teatros, festas...' onChange={(e) => setBusca(e.target.value)} onKeyDown={(e) => HandleEnterDown(e)}/>
 
                     {listagembuscaMostrarDialog &&
                         <dialog open className='infos-Barra_de_pesquisa-header'>

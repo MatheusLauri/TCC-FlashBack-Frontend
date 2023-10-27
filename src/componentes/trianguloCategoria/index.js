@@ -3,7 +3,7 @@ import './index.scss'
 
 export function TrianguloCategoria(props) {
     return(
-        <Link className='box-categoria' to={`/search/${props.text}`}>
+        <Link className='box-categoria' to={`/categoria/${props.text}`}>
             <div className='triangulo-1'>
             </div>
             <div className='triangulo-2'>
