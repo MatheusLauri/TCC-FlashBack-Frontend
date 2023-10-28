@@ -1,11 +1,13 @@
 .box-ingresso-main{
     text-decoration: none;
+    appearance: none;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 270px;
     border-radius: 10px;
     transition: .5s ease-in-out;
+    margin: 0 10px 20px 10px;
     &:hover{
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         transform: translateY(10px);
@@ -50,6 +52,7 @@
             justify-content: center;
             text-align: center;
             h1{
+                color: black;
                 font-size: 16px;
                 font-style: normal;
                 width: 80%;
@@ -61,6 +64,7 @@
                 margin-bottom: 8px;
             }
             p{
+                color: black;
                 font-size: 12px;
                 font-style: normal;
                 font-weight: 500;

@@ -48,27 +48,6 @@ body{
             flex-direction: column;
             width: 100%;
             padding: 0 60px;
-            .carrosel-controller{
-                display: flex;
-                flex-direction: row;
-                width: 100%;
-                align-items: center;
-                justify-content: flex-end;
-                gap: 14px;
-                >svg:first-child{
-                    rotate: 180deg;
-                    fill: yellow;
-                    z-index: -1;
-                }
-            }
-            .carrosel{
-                gap: 5%;
-                margin-top: 17px;
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: flex-end;
-            }
         }
         .secao-03-carrosel:last-child{
             margin-bottom: 200px;
@@ -91,6 +70,7 @@ body{
                     z-index: -1;
                 }
             }
+            
             .carrosel-cidade{
                 margin-top: 17px;
                 display: flex;
