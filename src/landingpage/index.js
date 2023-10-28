@@ -147,7 +147,6 @@ function LandingPage() {
               iconRight='›'
               draggable
               hasArrows
-              hasDots
               slidesToShow={5}
               slidesToScroll={5}
             >
@@ -170,7 +169,6 @@ function LandingPage() {
                       iconRight='›'
                       draggable
                       hasArrows
-                      hasDots
                       slidesToShow={5}
                       slidesToScroll={5}
                     >
