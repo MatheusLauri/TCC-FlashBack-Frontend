@@ -13,6 +13,7 @@ import Card from '../src/componentes/card-Meuspedidos/index.js'
 import PageFiltro from './filtro';
 import PageFiltroPesquisa from './filtroPesquisa';
 import FiltroCidadePage from './filtrocidade';
+import DestaqueBox from './componentes/destaquesBox';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -30,6 +31,7 @@ root.render(
             <Route path='/categoria/:categoria' element={<PageFiltro/>} />
             <Route path='/search/:nome' element={<PageFiltroPesquisa/>} />
             <Route path='/estado/:uf/:ufExtenso' element={<FiltroCidadePage/>} />
+            <Route path='/destaque' element={<DestaqueBox/>} />
         </Routes>
       </BrowserRouter>
   </React.StrictMode>

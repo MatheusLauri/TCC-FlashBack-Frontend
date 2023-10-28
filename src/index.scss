@@ -17,15 +17,18 @@ a{
   cursor: pointer;
 }
 .ReactModal__Overlay {
+  z-index: 999;
   opacity: 0;
   transition: opacity 500ms ease-in-out;
 }
 
 .ReactModal__Overlay--after-open{
+  z-index: 999;
   opacity: 1;
 }
 
 .ReactModal__Overlay--before-close{
+  z-index: 999;
   opacity: 0;
 }
 
@@ -45,4 +48,5 @@ a{
 }
 .glider-prev,.glider-next {
   color: #530ad9 !important;
+  font-size: 70px !important;
 }

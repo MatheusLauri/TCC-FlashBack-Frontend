@@ -10,11 +10,18 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import Glider from 'react-glider';
 import "glider-js/glider.min.css";
-
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import { EffectCoverflow, Pagination, Navigation, Autoplay } from 'swiper/modules'
+import DestaqueBox from '../componentes/destaquesBox';
 
 function LandingPage() {
 
   const [listarCategoria, setListarCategoria] = useState([])
+  const [listarDestaque,setListarDestaque] = useState([])
 
   async function ListarCategorias () {
 
@@ -40,8 +47,20 @@ function LandingPage() {
    setListarCategoria(listagem)
 
   }
-
+  async function ListarDestaques () {
+    let listagem = []
+    let r =  await axios.get('http://localhost:5000/ingresso/destaque')
+    listagem = [r.data]
+    setListarDestaque(...listagem)
+    console.log(listarDestaque)
  
+  }
+  useEffect(() => {
+    ListarDestaques();
+  }, []);
+  useEffect(() => {
+    console.log(listarDestaque);
+  }, [listarDestaque]);
   useEffect(() => {
     ListarCategorias();
   }, []);
@@ -81,20 +100,63 @@ function LandingPage() {
         <h1>Eventos em Destaque</h1>
       </div>
       <section className='secao-02'>
+        <Swiper
+          effect='coverflow'
+          grabCursor={true}
+          centeredSlides={true}
+          loop={true}
+          slidesPerView='auto'
+          autoplay={{
+            delay: 2000,
+            disableOnInteraction: false,
+          }}
+          coverflowEffect={{
+            rotate: 0,
+            stretch: 0,
+            depth: 100,
+            modifier: 2.5,
+          }}
+          pagination={{el: '.swiper-pagination', clickable: true}}
+          modules={[EffectCoverflow,Pagination,Autoplay]}
+          className='swiper-container'
+        >
+          {listarDestaque.map(item =>
+            <SwiperSlide className='swiper-slide'>
+              <DestaqueBox
+                nome={item.DS_EVENTO}
+                cidade={item.DS_LOCALIDADE}
+                uf={item.DS_UF}
+                data={item.DT_COMECO}
+                imagem={item.IMAGEM_INGRESSO}
+                endereco={item.DS_LOGRADOURO}
+                id={item.ID_INGRESSO}
+              />
+            </SwiperSlide>
+          )}
+        </Swiper>
+        <div className='slider-controller'>
+          <div className='swiper-pagination'></div>
+        </div>
       </section>
       <section className='secao-03'>
         <TitleTag className='titletag' text='Explore o país!'/>
         <div className='secao-03-carrosel-cidade'>
-          <div className='carrosel-controller'>
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 32C7.16344 32 0 24.8366 0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16C32 24.8366 24.8366 32 16 32ZM16 30C23.732 30 30 23.732 30 16C30 8.26801 23.732 2 16 2C8.26801 2 2 8.26801 2 16C2 23.732 8.26801 30 16 30ZM13.9289 23.1L12.5147 21.6858L18.193 16.008L12.5147 10.3289L13.9289 8.91472L21 15.9858L20.979 16.008L21 16.0289L13.9289 23.1Z" fill="gray"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 32C7.16344 32 0 24.8366 0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16C32 24.8366 24.8366 32 16 32ZM16 30C23.732 30 30 23.732 30 16C30 8.26801 23.732 2 16 2C8.26801 2 2 8.26801 2 16C2 23.732 8.26801 30 16 30ZM13.9289 23.1L12.5147 21.6858L18.193 16.008L12.5147 10.3289L13.9289 8.91472L21 15.9858L20.979 16.008L21 16.0289L13.9289 23.1Z" fill="#520DA9"/></svg>
-          </div>
           <div className='carrosel-cidade'>
-            <BoxCity city='São Paulo' src='./assets/images/sp.png' uf='sp'/>
-            <BoxCity city='Bahia' src='./assets/images/salvador.png' uf='ba'/>
-            <BoxCity city='Rio Grande do Sul' src='./assets/images/porto.png' uf='rs'/>
-            <BoxCity city='Belo Horizonte' src='./assets/images/bh.png' uf='bh'/>
-            <BoxCity city='Rio de Janeiro' src='./assets/images/rio.png' uf='rj'/>
+            <Glider
+              iconLeft='‹'
+              iconRight='›'
+              draggable
+              hasArrows
+              hasDots
+              slidesToShow={5}
+              slidesToScroll={5}
+            >
+              <BoxCity city='São Paulo' src='./assets/images/sp.png' uf='sp'/>
+              <BoxCity city='Bahia' src='./assets/images/salvador.png' uf='ba'/>
+              <BoxCity city='Rio Grande do Sul' src='./assets/images/porto.png' uf='rs'/>
+              <BoxCity city='Belo Horizonte' src='./assets/images/bh.png' uf='bh'/>
+              <BoxCity city='Rio de Janeiro' src='./assets/images/rio.png' uf='rj'/>
+            </Glider>
           </div>
         </div>
         
@@ -104,6 +166,8 @@ function LandingPage() {
                   <TitleTag className='titletag' text={item.data[0].NM_CATEGORIA_INGRESSO} />
                   <div className='secao-03-carrosel'  >
                     <Glider
+                      iconLeft='‹'
+                      iconRight='›'
                       draggable
                       hasArrows
                       hasDots
