@@ -51,11 +51,13 @@ export default function AdmPage() {
     const [precoTipo, setPrecoTipo] = useState('')
 
     const precoTipoFormatado = Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(precoTipo)
+    const [precoTipoFormatar, setPrecoTipoFormatar] = useState()
 
     const [vetorTipo, setVetorTipo] = useState([])
 
     const [alterarTipo, setAlterarTipo] = useState(false)
 
+    const [listarTipoAtivo, setListarTipoAtivo] = useState(false)
 
     //variáveis de local do evento
 
@@ -106,7 +108,11 @@ export default function AdmPage() {
 
     useEffect(() => {
 
-        ListarIngressos(); if(idIngresso === 0) {cadastrarTipo()}
+        ListarIngressos(); 
+        if(idIngresso != 0) {
+            setListarTipoAtivo(true)
+            listarTipos()
+        }
 
     }, [pesquisa]);
 
@@ -327,8 +333,20 @@ export default function AdmPage() {
             setIdTipos([...idTipos])
         }
 
-    } 
+    }
+    
+    
 
+    async function listarTipos() {
+
+        const resposta = await axios.get(`http://localhost:5000/tipoIngresso/${idIngresso}`)
+        console.log(resposta.data)
+
+        setPrecoTipoFormatar(Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(resposta.data.VL_PRECO_TIPO))
+
+        setVetorTipo(resposta.data)
+       
+    }
 
 
     async function buscarInfosLocal() {
@@ -417,20 +435,23 @@ export default function AdmPage() {
     }
 
 
-    function deletarTipo (idArray) {
+    async function deletarTipo (idArray) {
 
-        vetorTipo.splice(idArray, 1)
+        /*if(idTipos.length === 0) {
 
-        setVetorTipo([...vetorTipo])
+            vetorTipo.splice(idArray, 1)
+
+            setVetorTipo([...vetorTipo])
+      */
+            const r = await axios.delete(`http://localhost:5000/tipoIngresso/${idArray}`)
+        
     }
 
-    console.log(vetorTipo)
 
 
     async function novoIngressoClick() {
 
         setIdIngresso(0)
-        setImgIngresso()
         setNomeEvento('')
         setDtInicio('')
         setDtTermino('')
@@ -685,20 +706,33 @@ export default function AdmPage() {
                                                                 }
                                                             </div>
                                                             <div className='body-table'>
-                                                                {vetorTipo && 
-                                                                    <>
+                                                                {listarTipoAtivo  
+                                                                    ?<>
                                                                         {vetorTipo.map((item, idArray) => (
                                                                             <div className='body-table-row'>
-                                                                            <span>{item.nome}</span>
+                                                                            <span>{item.NM_TIPO_INGRESSO}</span>
                                                                             <div className='divisor'></div>
-                                                                            <span> {item.qtd} Un</span>
+                                                                            <span> {item.QTD_TIPO_INGRESSO} Un</span>
                                                                             <div className='divisor'></div>
-                                                                            <span>{item.preco}</span>
+                                                                            <span>{precoTipoFormatar}</span>
                                                                             <a><img src='../assets/images/edit.svg' onClick={() => {alterarTipoIngresso2(idArray); setAlterarTipo(true)}}/></a>
-                                                                            <a><img src='../assets/images/delete.svg' onClick={() => deletarTipo(idArray)}/></a>
+                                                                            <a><img src='../assets/images/delete.svg' onClick={() => deletarTipo(item.ID_TIPO_INGRESSO)}/></a>
                                                                         </div>
                                                                         ))}
                                                                     </>
+                                                                    :   <>
+                                                                            {vetorTipo.map((item, idArray) => (
+                                                                                <div className='body-table-row'>
+                                                                                    <span>{item.nome}</span>
+                                                                                    <div className='divisor'></div>
+                                                                                    <span> {item.qtd} Un</span>
+                                                                                    <div className='divisor'></div>
+                                                                                    <span>{item.preco}</span>
+                                                                                    <a><img src='../assets/images/edit.svg' onClick={() => {alterarTipoIngresso2(idArray); setAlterarTipo(true)}}/></a>
+                                                                                    <a><img src='../assets/images/delete.svg' onClick={() => deletarTipo(idArray)}/></a>
+                                                                                </div>
+                                                                             ))}
+                                                                        </>
                                                                 }
                                                                 
                                                             </div>

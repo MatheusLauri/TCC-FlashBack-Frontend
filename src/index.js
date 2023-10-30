@@ -14,6 +14,7 @@ import PageFiltro from './filtro';
 import PageFiltroPesquisa from './filtroPesquisa';
 import FiltroCidadePage from './filtrocidade';
 import DestaqueBox from './componentes/destaquesBox';
+import CardPedidoCliente_Adm from './componentes/card-PedidoCliente_ADM';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -32,6 +33,7 @@ root.render(
             <Route path='/search/:nome' element={<PageFiltroPesquisa/>} />
             <Route path='/estado/:uf/:ufExtenso' element={<FiltroCidadePage/>} />
             <Route path='/destaque' element={<DestaqueBox/>} />
+            <Route path='/cardPedidoCliente' element={<CardPedidoCliente_Adm/>} />
         </Routes>
       </BrowserRouter>
   </React.StrictMode>
