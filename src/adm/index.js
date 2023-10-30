@@ -765,6 +765,14 @@ export default function AdmPage() {
                                         </section>
                                     </>
                                 }
+                                {menu == 4 && 
+
+                                    <>
+                                       <section>
+                                            <TitleRange text='Pedidos' />
+                                       </section>
+                                    </>
+                                }
                                 {menu == 5 &&
                                     <Modal
                                         className={'modal'}
