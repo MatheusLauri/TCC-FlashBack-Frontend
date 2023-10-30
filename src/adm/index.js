@@ -455,6 +455,7 @@ export default function AdmPage() {
         setNomeEvento('')
         setDtInicio('')
         setDtTermino('')
+        setDescricao('')
         setCEP('')
         setLogradouro('')
         setBairro('')
