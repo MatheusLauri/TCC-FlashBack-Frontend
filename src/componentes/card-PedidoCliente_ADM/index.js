@@ -9,8 +9,8 @@ export default function CardPedidoCliente_Adm() {
         <div className="Card-PedidoCliente-Main">
            <p>01</p>
            <p>Carlinhos Jesuitas</p>
-           <p>carlin@gmail.com</p>
            <p>048.755.121-80</p>
+           <p>carlin@gmail.com</p>
            <p>(11) 95577-3905</p>
 
            <div className='container-infosIngresso_PedidoCliente'>

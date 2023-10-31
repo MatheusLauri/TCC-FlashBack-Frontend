@@ -1,16 +1,17 @@
 
 .Card-PedidoCliente-Main {
-    margin: 10px 10px 10px 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0px 2em;
+    gap: 0px 3%;
 
-    background-color: aqua;
+    background-color: rgb(255, 255, 255);
 
-    padding: 0.7em 0px 0.5em 0px;
+    padding: 0.7em 2% 0.5em 2%;
 
     border-radius: 0.4em;
+
+    max-width: 100%;
 
     h3 {
         display: flex;

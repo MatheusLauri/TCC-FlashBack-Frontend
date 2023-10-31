@@ -3,6 +3,7 @@ import './index.scss'
 
 import MenuAdm from '../componentes/menu-adm'
 import CategorySection from '../componentes/categoryBtn';
+import CardPedidoCliente_Adm from '../componentes/card-PedidoCliente_ADM'
 
 import { useEffect, useState } from 'react';
 import axios, { AxiosError } from 'axios';
@@ -26,6 +27,9 @@ export default function AdmPage() {
 
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
+
+    const [userBar,setUserBar] = useState(false)
+    const [userRightBar,setUserRightBar] = useState(false)
 
     //Variáveis de cadastro do ingresso 
 
@@ -768,8 +772,42 @@ export default function AdmPage() {
                                 {menu == 4 && 
 
                                     <>
-                                       <section>
+                                       <section className='Pedidos-adm'>
                                             <TitleRange text='Pedidos' />
+                                            <section className='cont-options_Pedidos-adm'>
+                                                <div className='pedidos-option' onClick={() => {setUserBar(true); setUserRightBar(true)}}>
+                                                    <a>Em andamento</a>
+                                                </div>
+                                                <div className='pedidos-option' onClick={() => {setUserBar(false); setUserRightBar(false)}}>
+                                                    <a>Concluídos</a>
+                                                </div>
+                                                <div className={userBar ? 'bar-left' : 'bar-right'}></div>
+                                            </section>
+                                            <div className='contInfosPedido_Pedidos-adm'>
+                                                <div>
+                                                    <h3>ID</h3>
+                                                    <h3>Nome</h3>
+                                                    <h3>CPF</h3>
+                                                    <h3>E-mail</h3>
+                                                    <h3>Telefone</h3>
+                                                    <h3>Ingresso</h3>
+                                                </div>
+                                                <div>
+                                                    <h3>Parcelas</h3>
+                                                    <h3>Total</h3>
+                                                </div>
+                                            </div>
+                                            <div className='listar-cards_Pedidos-adm'>
+                                                <CardPedidoCliente_Adm/>
+                                                <CardPedidoCliente_Adm/>
+                                                <CardPedidoCliente_Adm/>
+                                                <CardPedidoCliente_Adm/>
+                                                <CardPedidoCliente_Adm/>
+                                                <CardPedidoCliente_Adm/>
+                                                <CardPedidoCliente_Adm/>
+                                                <CardPedidoCliente_Adm/>
+                                                
+                                            </div>
                                        </section>
                                     </>
                                 }

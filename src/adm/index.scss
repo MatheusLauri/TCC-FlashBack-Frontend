@@ -618,7 +618,123 @@
                     }
                 }
             }
-            
+
+            .Pedidos-adm {
+                display: flex;
+                flex-direction: column;
+
+                gap: 2em 0px;
+
+                .cont-options_Pedidos-adm{
+                    display: flex;
+                    flex-direction: row;
+                    width: 50%;
+                    position: relative;
+                    background-color: white;
+
+                    border-radius: 0.3em;
+                    .pedidos-option{
+                        position: relative;
+                        padding: 10px 0;
+                        cursor: pointer;
+                        width: 50%;
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 10px;
+                        &::after{
+                            transition: all .5 ease-in-out;
+                            position: absolute;
+                            top: calc(100% - 20px);
+                            height: 20px;
+                            width: 90%;
+                            border-radius:5px;
+                            border-bottom: 5px solid #3333336b;
+                            content: '';
+                            transform-origin: center;
+                            transform: scaleX(0);
+                        }
+                        &:hover::after{
+                            transform-origin: center;
+                            transform: scaleX(1);
+                        }
+                        i{
+                            color: #520DA9;
+                        }
+                        a{
+                            font-weight: 700;
+                        }
+                    }
+                    .bar-left{
+                        position: absolute;
+                        width: 45%;
+                        top: calc(100% - 15px);
+                        height: 20px;
+                        transform: translateX(5%);
+                        border-radius:5px;
+                        border-bottom: 5px solid #520DA9;
+                        transition: all .5s ease-in-out;
+                    }
+                    .bar-right{
+                        position: absolute;
+                        width: 45%;
+                        top: calc(100% - 15px);
+                        height: 20px;
+                        border-radius:5px;
+                        border-bottom: 5px solid #520DA9;
+                        transition: all .5s ease-in-out;
+                        transform: translateX(117%);
+                    }
+                }
+
+                .contInfosPedido_Pedidos-adm {
+                    display: flex;
+                    gap: 0px 10%;
+
+                    padding: 0px 0px 0px 2em;
+                }
+
+                .contInfosPedido_Pedidos-adm > div:nth-child(1) {
+                    display: flex;
+                    gap: 0px 3em;
+                }
+
+                .contInfosPedido_Pedidos-adm > div:nth-child(2) {
+                    display: flex;
+                    gap: 0px 5em;
+                }
+
+                .contInfosPedido_Pedidos-adm  h3 {
+                    font-size: 17px;
+                    font-weight: 700;
+                }
+
+                .listar-cards_Pedidos-adm {
+                    display: flex;
+                    flex-direction: column;
+
+                    gap: 1em 0px;
+
+                    overflow: auto;
+
+                    padding-right: 1em;
+
+                    height: 450px;
+                }
+
+                .listar-cards_Pedidos-adm::-webkit-scrollbar {
+                    width: 5px;
+                   
+                }
+
+                .listar-cards_Pedidos-adm::-webkit-scrollbar-thumb {
+                    background-color: #520DA9;
+                    border-radius: 6px;
+                    
+                }
+            }
+
         }
     }
 }
