@@ -105,25 +105,27 @@ function LandingPage() {
           grabCursor={true}
           centeredSlides={true}
           loop={true}
-          slidesPerView='auto'
+          spaceBetween={true}
+          slidesPerView='2'
           autoplay={{
             delay: 2000,
             disableOnInteraction: false,
           }}
           coverflowEffect={{
-            rotate: 0,
+            rotate: 20,
             stretch: 0,
-            depth: 100,
-            modifier: 2.5,
+            depth: 200,
+            modifier: 1, 
           }}
-          pagination={{el: '.swiper-pagination', clickable: true}}
+          
+          pagination={{el: '.swiper-pagination', clickable: true, dynamicBullets:true,}}
           modules={[EffectCoverflow,Pagination,Autoplay]}
           className='swiper-container'
         >
           {listarDestaque.map(item =>
             <SwiperSlide className='swiper-slide'>
               <DestaqueBox
-                nome={item.DS_EVENTO}
+                nome={item.NM_EVENTO}
                 cidade={item.DS_LOCALIDADE}
                 uf={item.DS_UF}
                 data={item.DT_COMECO}
@@ -147,8 +149,8 @@ function LandingPage() {
               iconRight='›'
               draggable
               hasArrows
-              slidesToShow={5}
-              slidesToScroll={5}
+              slidesToShow={4}
+              slidesToScroll={4}
             >
               <BoxCity city='São Paulo' src='./assets/images/sp.png' uf='sp'/>
               <BoxCity city='Bahia' src='./assets/images/salvador.png' uf='ba'/>
@@ -169,8 +171,8 @@ function LandingPage() {
                       iconRight='›'
                       draggable
                       hasArrows
-                      slidesToShow={5}
-                      slidesToScroll={5}
+                      slidesToShow={4}
+                      slidesToScroll={4}
                     >
                       {item.data.map((item,index) => (
                         <BoxIngresso nome={item.NM_EVENTO} data={item.DT_COMECO} imagem={item.IMAGEM_INGRESSO} logradouro={item.DS_LOGRADOURO} cidade={item.DS_LOCALIDADE} uf={item.DS_UF} id={item.ID_INGRESSO} num={item.DS_NUM}/>
