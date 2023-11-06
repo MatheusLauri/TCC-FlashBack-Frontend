@@ -3,7 +3,6 @@ import './index.scss'
 
 import MenuAdm from '../componentes/menu-adm'
 import CategorySection from '../componentes/categoryBtn';
-import CardPedidoCliente_Adm from '../componentes/card-PedidoCliente_ADM'
 
 import { useEffect, useState } from 'react';
 import axios, { AxiosError } from 'axios';
@@ -73,6 +72,11 @@ export default function AdmPage() {
     const [numeroLocalEvento,setNumeroLocalEvento] = useState('')
 
 
+    //variaveis listagem pedido
+
+    const[listarPedido, setListarpedido] = useState([])
+
+
     async function Logar() {
 
         try {
@@ -116,7 +120,7 @@ export default function AdmPage() {
         if(idIngresso != 0) {
             setListarTipoAtivo(true)
             listarTipos()
-        }
+        }; ListarPedidos()
 
     }, [pesquisa]);
 
@@ -475,6 +479,22 @@ export default function AdmPage() {
     }
 
 
+    async function ListarPedidos () {
+        try {
+            const resp = await axios.get(`http://localhost:5000/listarPedido`)
+
+            setListarpedido(resp.data)
+            console.log(resp)
+            
+        } catch (err) {
+            
+            toast.error(err.response.data.erro)
+            
+        }
+       
+    }
+
+
     return (
         <>
             <ToastContainer
@@ -784,28 +804,78 @@ export default function AdmPage() {
                                                 <div className={userBar ? 'bar-left' : 'bar-right'}></div>
                                             </section>
                                             <div className='contInfosPedido_Pedidos-adm'>
-                                                <div>
-                                                    <h3>ID</h3>
-                                                    <h3>Nome</h3>
-                                                    <h3>CPF</h3>
-                                                    <h3>E-mail</h3>
-                                                    <h3>Telefone</h3>
-                                                    <h3>Ingresso</h3>
-                                                </div>
-                                                <div>
-                                                    <h3>Parcelas</h3>
-                                                    <h3>Total</h3>
-                                                </div>
+                                                <table className='bu'>
+                                                    <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    <h3>ID</h3>
+                                                                </th>
+                                                                <th>
+                                                                    <h3>Nome</h3>
+                                                                </th>
+                                                                <th>
+                                                                    <h3>CPF</h3>
+                                                                </th>
+                                                                <th>
+                                                                    <h3>E-mail</h3>
+                                                                </th>
+                                                                <th>
+                                                                    <h3>Telefone</h3>
+                                                                </th>
+                                                                <th>
+                                                                    <h3>Ingresso</h3>
+                                                                </th>
+                                                                <th>
+                                                                    <h3>Parcelas</h3>
+                                                                </th>
+                                                                <th>
+                                                                    <h3>Total</h3>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                        {listarPedido.map((item, idArray) => (
+                                                                <>
+                                                                <tr>
+                                                                    <td>{item.ID_PEDIDO}</td>
+                                                                    <td>{item.NM_CLIENTE} {item.NM_SOBRENOME}</td>
+                                                                    <td>{item.DS_CPF}</td>
+                                                                    <td>{item.DS_EMAIL}</td>
+                                                                    <td>{item.DS_TELEFONE}</td>
+                                                                <td>
+                                                                    <div className='container-infosIngresso_PedidoCliente'>
+                                                                        <div>
+                                                                            <img className='container-imgEvento_PedidoCliente'src='/assets/images/numanice.JPG'></img>
+                                                                        </div>
+                                                                        <div className='sub-container-infosIngresso_PedidoCliente'>
+                                                                            <div className='valorqtd-infosIngresso_PedidoCliente'>
+                                                                                <h3>Valor:<p>{item.VL_PRECO_TIPO}</p></h3>
+                                                                                <h3>Qtd:<p>{item.QTD_ITENS}</p></h3>
+                                                                            </div>
+                                                                            <p>{item.NM_TIPO_INGRESSO}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div className='containerParcela-infosIngresso_PedidoCliente'>
+                                                                        <p>6x (5 restantes)</p>
+                                                                        <h3>Valor:<p>199,99</p></h3>
+                                                                    </div>
+                                                                </td>
+                                                                <td>399,99</td>
+                                                            </tr>
+
+                                                            </>
+                                                        ))}
+                                                            
+
+                                                        </tbody>
+
+                                                </table>
                                             </div>
                                             <div className='listar-cards_Pedidos-adm'>
-                                                <CardPedidoCliente_Adm/>
-                                                <CardPedidoCliente_Adm/>
-                                                <CardPedidoCliente_Adm/>
-                                                <CardPedidoCliente_Adm/>
-                                                <CardPedidoCliente_Adm/>
-                                                <CardPedidoCliente_Adm/>
-                                                <CardPedidoCliente_Adm/>
-                                                <CardPedidoCliente_Adm/>
+                                                
                                                 
                                             </div>
                                        </section>

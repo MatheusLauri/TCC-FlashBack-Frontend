@@ -22,7 +22,7 @@
         width: 93%;
         height: 100vh;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: center;
 
         .adm-home {
             overflow: hidden;
@@ -689,50 +689,109 @@
                 }
 
                 .contInfosPedido_Pedidos-adm {
-                    display: flex;
-                    gap: 0px 10%;
 
-                    padding: 0px 0px 0px 2em;
-                }
+                    table {
+                        border-collapse: collapse;
+                        text-align: left;
+                
+                        width: 100%;
+                
+                        h3 {
+                
+                            display: flex;
+                            align-items: end;
+                            gap: 0px 0.4em;
+                
+                            font-size: 16px;
+                            color: #520DA9;
+                        }
+                
+                        td, p {
+                            font-size: 14px;
+                            font-family: inter;
+                            font-weight: 400;
+                            color: #8E8E8E;
+                        }
+                
+                        thead {
+                
+                            background-color: #F3F3F3;
+                
+                            th {
 
-                .contInfosPedido_Pedidos-adm > div:nth-child(1) {
-                    display: flex;
-                    gap: 0px 3em;
-                }
-
-                .contInfosPedido_Pedidos-adm > div:nth-child(2) {
-                    display: flex;
-                    gap: 0px 5em;
-                }
-
-                .contInfosPedido_Pedidos-adm  h3 {
-                    font-size: 17px;
-                    font-weight: 700;
-                }
-
-                .listar-cards_Pedidos-adm {
-                    display: flex;
-                    flex-direction: column;
-
-                    gap: 1em 0px;
-
-                    overflow: auto;
-
-                    padding-right: 1em;
-
-                    height: 450px;
-                }
-
-                .listar-cards_Pedidos-adm::-webkit-scrollbar {
-                    width: 5px;
-                   
-                }
-
-                .listar-cards_Pedidos-adm::-webkit-scrollbar-thumb {
-                    background-color: #520DA9;
-                    border-radius: 6px;
+                                padding: 10px;
                     
+                                h3 {
+                                    
+                                    font-size: 17px;
+                                    font-weight: 700;
+                                    color: black;
+                    
+                                }
+                            }
+                        }
+                
+                        tbody {
+                          
+         
+                            tr {
+                
+                                background-color: rgb(255, 255, 255);
+                        
+                                border-top: 15px solid #F3F3F3;
+                     
+                                td {
+                                    
+                                    padding: 10px;
+                 
+                                   .container-infosIngresso_PedidoCliente {
+                                        display: flex;
+                                        gap: 0px 1.5em;
+                        
+                                        .container-imgEvento_PedidoCliente {
+                                            border-radius: 0.3em 0.3em 0px 0px;
+                                            max-width: 90px;
+                                        }
+                        
+                                        .sub-container-infosIngresso_PedidoCliente {
+                        
+                                            display: flex;
+                                            flex-direction: column;
+                                            gap: 1em 0px;
+                                        
+                                            .valorqtd-infosIngresso_PedidoCliente {
+                                                display: flex;
+                                                gap: 0px 1.3em;
+                                            }
+                                        
+                                        }
+                                    }
+                        
+                                    .containerParcela-infosIngresso_PedidoCliente {
+                                        display: flex;
+                                        flex-direction: column;
+                                        gap: 1em 0px;
+                        
+                                    }
+                                     
+                                }
+                    
+                            }
+                
+                        }
+                       
+                    }
+
+                    table::-webkit-scrollbar {
+                        width: 5px;
+                    }
+
+                    table::-webkit-scrollbar-thumb {
+                        background-color: #520DA9;
+                        border-radius: 6px;
+                    }
                 }
+
             }
 
         }
