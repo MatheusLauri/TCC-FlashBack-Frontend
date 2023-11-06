@@ -804,7 +804,7 @@ export default function AdmPage() {
                                                 <div className={userBar ? 'bar-left' : 'bar-right'}></div>
                                             </section>
                                             <div className='contInfosPedido_Pedidos-adm'>
-                                                <table className='bu'>
+                                                <table >
                                                     <thead>
                                                             <tr>
                                                                 <th>
@@ -835,7 +835,7 @@ export default function AdmPage() {
                                                         </thead>
                                                         <tbody>
 
-                                                        {listarPedido.map((item, idArray) => (
+                                                        {listarPedido.map((item) => (
                                                                 <>
                                                                 <tr>
                                                                     <td>{item.ID_PEDIDO}</td>
@@ -846,7 +846,7 @@ export default function AdmPage() {
                                                                 <td>
                                                                     <div className='container-infosIngresso_PedidoCliente'>
                                                                         <div>
-                                                                            <img className='container-imgEvento_PedidoCliente'src='/assets/images/numanice.JPG'></img>
+                                                                            <img className='container-imgEvento_PedidoCliente'src={`http://localhost:5000/${item.IMAGEM_INGRESSO}`}></img>
                                                                         </div>
                                                                         <div className='sub-container-infosIngresso_PedidoCliente'>
                                                                             <div className='valorqtd-infosIngresso_PedidoCliente'>
