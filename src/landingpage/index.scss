@@ -43,6 +43,21 @@ body{
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        .mySwiper{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: fit-content;
+            align-items: center;
+            justify-content: center;
+        }
+        .swiper-slide{
+            padding: 30px 0;
+            height: fit-content;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         .swiper-pagination {
             position: relative;
             .swiper-pagination-bullet {
@@ -52,17 +67,9 @@ body{
                 background: #520ad9;
             }
         }
-        .swiper-container {
-            width: 100%;
-            height: fit-content;
-            padding: 2rem 0;
-            position: relative;
-        }
+       
         
-        .swiper-slide-shadow-left,
-        .swiper-slide-shadow-right {
-            display: none;
-        }
+        
 
         .slider-controler {
             position: relative;
@@ -71,6 +78,7 @@ body{
             align-items: center;
             justify-content: center;
             .swiper-button-next {
+                transform: rotate(18deg) !important;
                 left: 58% !important;
                 transform: translateX(-58%) !important;
             }

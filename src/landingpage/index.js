@@ -12,11 +12,11 @@ import Glider from 'react-glider';
 import "glider-js/glider.min.css";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { EffectCoverflow, Pagination, Navigation, Autoplay } from 'swiper/modules'
+import { EffectCoverflow, Pagination, Navigation, Autoplay, EffectCreative, EffectFade } from 'swiper/modules'
 import DestaqueBox from '../componentes/destaquesBox';
+import 'swiper/css/effect-fade';
 
 function LandingPage() {
 
@@ -100,26 +100,17 @@ function LandingPage() {
       </div>
       <section className='secao-02'>
         <Swiper
-          effect='coverflow'
-          grabCursor={true}
-          centeredSlides={true}
+          draggable={true}
           loop={true}
-          spaceBetween={true}
-          slidesPerView='3'
+          spaceBetween={30}
+          effect={'fade'}
           autoplay={{
             delay: 2000,
             disableOnInteraction: false,
           }}
-          coverflowEffect={{
-            rotate: 20,
-            stretch: 0,
-            depth: 200,
-            modifier: 1, 
-          }}
-          
           pagination={{el: '.swiper-pagination', clickable: true, dynamicBullets:true,}}
-          modules={[EffectCoverflow,Pagination,Autoplay]}
-          className='swiper-container'
+          modules={[EffectFade, Pagination, Autoplay]}
+          className="mySwiper"
         >
           {listarDestaque.map(item =>
             <SwiperSlide className='swiper-slide'>
@@ -127,7 +118,8 @@ function LandingPage() {
                 nome={item.NM_EVENTO}
                 cidade={item.DS_LOCALIDADE}
                 uf={item.DS_UF}
-                data={item.DT_COMECO}
+                dataC={item.DT_COMECO}
+                dataF={item.DT_FIM}
                 imagem={item.IMAGEM_INGRESSO}
                 endereco={item.DS_LOGRADOURO}
                 id={item.ID_INGRESSO}
@@ -148,8 +140,8 @@ function LandingPage() {
               iconRight='›'
               draggable
               hasArrows
-              slidesToShow={4}
-              slidesToScroll={4}
+              slidesToShow='auto'
+              slidesToScroll='auto'
             >
               <BoxCity city='São Paulo' src='./assets/images/sp.png' uf='sp'/>
               <BoxCity city='Bahia' src='./assets/images/salvador.png' uf='ba'/>
