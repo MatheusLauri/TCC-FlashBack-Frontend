@@ -24,46 +24,47 @@ function LandingPage() {
   const [listarDestaque,setListarDestaque] = useState([])
 
   async function ListarCategorias () {
+    try {
+      const nomeCategorias = [];
+      const listagem = []; 
+      let r =  await axios.get('http://localhost:5000/categoria')
 
-   const nomeCategorias = [];
-   const listagem = []; 
-   let r =  await axios.get('http://localhost:5000/categoria')
+      for (let cont = 0; cont < r.data.length; cont++) {
 
-   for (let cont = 0; cont < r.data.length; cont++) {
+        nomeCategorias[cont] = r.data[cont].NM_CATEGORIA_INGRESSO
 
-    nomeCategorias[cont] = r.data[cont].NM_CATEGORIA_INGRESSO
+      }
 
-   }
+      for (let item of nomeCategorias) {
 
+        r = await axios.get(`http://localhost:5000/ingresso/categoria?categoria=${item}`)
+        listagem.push(r)
 
-   for (let item of nomeCategorias) {
-
-    r = await axios.get(`http://localhost:5000/ingresso/categoria?categoria=${item}`)
-    listagem.push(r)
-
-   }
+      }
+      
+      setListarCategoria(listagem)
+    } catch (error) {
+      
+    }
    
-  
-   setListarCategoria(listagem)
 
   }
   async function ListarDestaques () {
-    let listagem = []
-    let r =  await axios.get('http://localhost:5000/ingresso/destaque')
-    listagem = [r.data]
-    setListarDestaque(...listagem)
-    console.log(listarDestaque)
- 
+    try {
+      let listagem = []
+      let r =  await axios.get('http://localhost:5000/ingresso/destaque')
+      listagem = [r.data]
+      setListarDestaque(...listagem)
+    } catch (error) {
+      
+    }
+    
   }
   useEffect(() => {
     ListarDestaques();
+    ListarCategorias()
   }, []);
-  useEffect(() => {
-    console.log(listarDestaque);
-  }, [listarDestaque]);
-  useEffect(() => {
-    ListarCategorias();
-  }, []);
+
   
 
   const [handleCarrosel, toggle] = useState(0)
@@ -106,7 +107,7 @@ function LandingPage() {
           centeredSlides={true}
           loop={true}
           spaceBetween={true}
-          slidesPerView='2'
+          slidesPerView='3'
           autoplay={{
             delay: 2000,
             disableOnInteraction: false,
@@ -161,7 +162,7 @@ function LandingPage() {
           </div>
         </div>
         
-        {listarCategoria && 
+        {listarCategoria.length > 0 ?
             listarCategoria.map((item, index) => (
                 <>
                   <TitleTag className='titletag' text={item.data[0].NM_CATEGORIA_INGRESSO} />
@@ -181,7 +182,12 @@ function LandingPage() {
                   </div>
                   
                 </>
-            ))}
+            ))
+          : 
+          <div>
+            <p>Desculpe! Não encontramos nenhum ingresso. Tente em um outro momento.</p>
+          </div>
+        }
       </section>
       <Rodape/>
     </div>

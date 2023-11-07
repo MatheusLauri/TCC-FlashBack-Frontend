@@ -14,6 +14,9 @@ import PageFiltro from './filtro';
 import PageFiltroPesquisa from './filtroPesquisa';
 import FiltroCidadePage from './filtrocidade';
 import DestaqueBox from './componentes/destaquesBox';
+import PageCarrinho from './Carrinho';
+import Bdcartao from './dadoscartao';
+import AdmLogin from './admLogin';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,17 +24,20 @@ root.render(
       <BrowserRouter>
         <Routes>
             <Route path='/' element={<LandingPage/>}/>
-            <Route path='/adm' element={<AdmPage/>}/>
+            <Route path='/empresas/home' element={<AdmPage/>}/>
+            <Route path='/empresas/login' element={<AdmLogin/>}/>
             <Route path='/empresa' element={<Empresa/>}/>
             <Route path='/pix' element={< Pix/>}/>
             <Route path='/qrcode' element={<PixQRcode/>}/>
-            <Route path='/boleto' element={<Boleto/>}/>
+            <Route path='/boleto' element={<PageCarrinho/>}/>
             <Route path='/ingresso/:id' element={<IngressoPage/>}/>
             <Route path='/card' element={<Card/>} />
             <Route path='/categoria/:categoria' element={<PageFiltro/>} />
             <Route path='/search/:nome' element={<PageFiltroPesquisa/>} />
             <Route path='/estado/:uf/:ufExtenso' element={<FiltroCidadePage/>} />
             <Route path='/destaque' element={<DestaqueBox/>} />
+            <Route path='/carrinho' element={<PageCarrinho/>}/>
+            <Route path='/bdcartao' element={<Bdcartao/>}/>
         </Routes>
       </BrowserRouter>
   </React.StrictMode>

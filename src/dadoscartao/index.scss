@@ -1,0 +1,438 @@
+.ordem-pages-bdcartao{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100vw;
+}
+
+
+
+.info-bdcartao{
+    flex-direction: column;
+    height: 40em;
+    width: 35em;
+}
+
+
+
+.cabecalho-bdcartao{
+    height: 4.4em;
+}
+
+
+.pages-bdcartao{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    height: 45em;
+}
+
+
+.bd-cartao{
+    background:white;
+    box-shadow: 5px 5px 10px #8f8f8f8f,
+    5px 5px 10px #ffffff;
+    height: 32em;
+    width: 70em;
+}
+
+.ordem-bdcartao{
+    display: flex;
+    flex-direction: row;
+}
+
+
+#titulo-bdcartao{
+    display: flex;
+    align-items: center;
+    width: 18em;
+    height: 2.5em;
+    margin-left: 1em;
+    color: #50525F;
+}
+
+
+.tp-pg-bdcartao-txt{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    height: 3.5em;
+    width: 35em;
+
+}
+
+#img-cartao-bdcartao{
+    margin-left: 1.2em;
+}
+
+
+#ttl-cartao{
+    font-family: 'Semibold';
+    font-size: 18px;
+    margin-left: 1em;
+}
+
+.txt-parcelamento-bdcartao{
+    
+    height: 3em;
+    width: 25em;
+}//<--- coloca background aquiiiii
+
+#txt-parcelamento{
+    margin-left: 1.2em;
+    font-size: 15px;
+    font-family: 'medium';
+}
+
+
+.ordem-txt-tp-parcela{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#icone-esclamacao{
+    margin: 0px;
+}
+
+.ordem-txt-tp-parcela > #pt1-tp, #pt2-tp{
+    margin: 6px;
+    font-size: 12px;
+    font-family: 'medium';
+}
+
+#pt1-tp{
+    color: #858C9B;
+}
+
+
+#pt2-tp{
+    color: #520DA9;
+}
+
+
+
+.selecao-valores-bd{
+    display: flex;
+    flex-direction: row;
+    margin-left: 1em;
+    height: 11em;
+    ///colocar-background///
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+.selecoes-click{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+
+    
+    height: 11em;
+    width: 2em;
+}
+
+
+.click-selecao{
+    display: flex;
+    margin-top: 0.9em;//<--- espaço de txt = click...
+    align-items: center;
+}
+
+.click{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    cursor: pointer;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+
+
+    border-radius: 50%;
+    border: 2px solid#520DA9;
+    position: relative;
+}////
+
+
+
+
+
+///////
+.click ~label{
+    cursor: pointer;
+    margin-top: 0.8em;
+
+}///margin-txt-'1,2,3,4,5'
+
+
+
+
+.click::before{
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: #520DA9;
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 100ms ease-in-out;
+}
+
+
+
+.click:checked::before{
+    opacity: 1;
+}///////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+.valores-click{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 11em;
+    width:14em;
+}//<---colocar-background//
+
+
+.valores-txt{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#ordem-vl-juros{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+#vl-total{
+    margin-right: 5em;
+    margin-top: 1em;
+}
+
+#vl{
+    margin-top: 0.8em;
+}
+
+
+#juros{
+    margin-left: 1em;
+    margin-top: 0.7em;
+}
+
+
+.valor-total-click{
+    display: flex;
+    height: 12em;
+    width: 18em;
+}
+
+
+
+.caixa-vl-total{
+    display: flex;
+    margin-top: 3.2em;
+    margin-left: 4em;
+    height: 7em;
+    width: 14em;
+
+    border-radius: 6px;
+    background:white;
+    box-shadow: 1px 1px 4px #520DA9,
+    1px 4px 10px #520DA9;
+}
+
+
+.ordem-caixa-vl{
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+    height: 6em;
+    width: 15em;
+}
+
+
+#txt-ttl-vl-caixa1{
+    color: #4D576B;
+    font-family: 'Medium';
+    height: 2.3em;
+    width: 8em;
+    margin-top: 1.1em;
+    margin-left: 4em;
+}
+
+
+
+
+#txt-ttl-vl-caixa2{
+    color: black;
+    font-family: 'Medium'
+
+}
+
+#txt-juros-caixa{
+    font-family: 'Medium';
+    color: #520DA9;
+    margin-left: 0.4em;
+}
+
+
+
+.validade-compra-ingresso{
+    display: flex;
+    flex-direction: column;
+    
+    height: 4.7em;
+    width: 35em;
+}
+
+
+
+
+.txt-validade-ingresso-cliente{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 2em;
+    width: 35em;
+}
+
+.txt-validade-ingresso-cliente a{
+    font-family: 'Medium';
+    font-size: 13px;
+}
+
+
+#nr-cartao-ingresso{
+    margin-left: 1.8em;
+}
+
+#dt-validade-ingresso{
+    margin-left: 6em;
+}
+
+#codigo-seguranca-ingresso{
+    margin-left: 5em
+}
+
+
+#astedisco-validade-ingresso{
+    height: 0.6em;
+}
+
+
+
+.ordem-inputs-validade{
+    display: flex;
+    flex-direction: row;
+    height: 2.7em;
+    width: 35em;
+    
+}//background-color
+
+
+.input-vl{
+}
+
+.input-vl3{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+#vl-input1{
+    outline: none;
+
+    margin-left: 1.6em;
+    height: 3.3em;
+    width: 12em;
+
+    text-align: center;
+}
+
+#vl-input2{
+    outline: none;
+
+    margin-left: 3.5em;
+    width: 10em;
+    height: 3.3em;
+
+    text-align: center;
+}
+
+#vl-input3{
+    outline: none;
+
+    width: 11.2em;
+    margin-left: 3.7em;
+    height: 3.3em;
+
+    text-align: center;
+
+}
+
+#icone-chave-input3{
+    height: 1em;
+    position: relative;
+    right: 30px;
+}//arrumar.,.,.,.,.,.////////////////////
+
+
+.botao-finalizar-validade{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    height: 4.8em;
+    width: 35em;
+}//background-color
+
+
+.botao-validade{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #520DA9;
+    height: 3em;
+    width: 8em;
+
+    border-radius: 0.4em;
+}
+
+#font-botao-validade {
+    font-family: 'Medium';
+    color: white;
+}
+
+
+
+
+.img-bdcartao{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 32em;
+    width: 35em;
+}
+
+
+
+
+.rodape-bdcartao{
+    background-color: black;
+    height:14em;
+}

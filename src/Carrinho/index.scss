@@ -1,0 +1,426 @@
+.ordem-pages-pedidos{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #ffff;
+    
+}
+
+
+///---cabeçalho---///
+.cabecalho-pedidos{
+    height: 5.3em;
+}///---fim---///
+
+
+
+
+
+
+////---texto-Meuspedidos---////
+.txt-pedidos{
+    display: flex;
+    
+    flex-direction: row;
+    align-items: center;
+    height: 12em;
+    margin-left: 2em;
+}
+
+
+#barra-pedidos {
+    display: flex;
+    height:1.4em;
+    width: 1em;
+    
+}//<---img-do-txt
+
+.txt-pedidos > p{
+    font-family: 'semibold';
+    font-size: 1.3em;
+}////---fim-txt---////
+
+
+
+
+
+
+
+.pages-pedidos{
+    display: flex;
+    height: 45em;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+
+
+
+
+
+.ingresso-pedidos{
+    display: flex;
+    height: 7em;
+    width: 60em;
+    flex-direction: row;
+    border-radius: 9px;
+    background: #ffff;
+    box-shadow: 5px 5px 5px #8f8f8f, 
+    -5px -5px 10px #ffffff;
+}//<---ingresso-todo
+
+
+.ingresso-pedidos > #alok{
+    height: 7em;
+}//<---img-alok
+
+
+.ordem-ingresso-pedidos{
+    display: flex;
+    height: 7em;
+    width: 46em;
+    flex-direction: row;
+}//<---ordem-divs-info
+
+
+
+
+
+
+.nome-ingresso{
+    display: flex;
+    flex-direction: column;
+    margin-left: 2em;
+    line-height: 1.4em;
+    height: 7em;
+    width: 17em;
+}//<--colordivred
+
+#horario{
+    margin-top: 7px;
+    font-family: 'Lato medium';
+    color: #520DA9;
+}
+
+#artista{
+    margin-top: 8px;
+    font-family: 'Lato semibold';
+    font-size: 1.2em;
+}
+
+
+#local-ingresso{
+    margin-top: 4px;
+    font-family: 'Lato medium';
+}
+
+
+
+
+.local-qtd-ingresso{
+    display: flex;
+    height: 7em;
+    width: 19em;
+    align-items: center;
+}//<---colordivgreen
+
+#reserva-ingresso{
+    font-family: 'Lato semibold';
+    width: 9.5em;
+    height: 6em;
+
+
+    background: white; 
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px #8f8f8f,
+    5px 5px 10px #ffffff;
+}//<---color-whitediv
+
+
+#txt-r-i{
+    font-family: 'Lato semibold';
+}
+
+
+
+
+
+#qtd-ingresso{
+    display: flex;
+    margin-left: 1em;
+    height: 6em;
+    width: 9.5em;
+    flex-direction: column;
+}//<--colordiv
+
+
+#qtd{
+  font-family: 'Lato semibold';  
+}
+
+
+#valor-ingresso{
+    font-family: 'Lato semibold';
+    margin-top: 3em;
+}
+
+
+
+
+
+
+.editar-qtd-ingresso{
+    height: 7em;
+    width: 8em;
+}//<---colordivblue
+
+#icone-lixeira{
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 0.5em;
+    margin-right: 1em;
+    height: 1.3em;
+}
+
+#ordem-editar-qtd{
+    display: flex;
+    margin-top: 2em;
+    flex-direction: row;   
+}
+
+
+#icone-menos{
+    margin-left: 1em;
+}
+
+
+#qtd-ingresso-container{
+    margin-left: 1em;
+}
+
+
+#icone-mais{
+    margin-left: 1em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.tp-pagamento-pedidos{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 12em;
+    height: 16em;
+    width: 60em;
+    border-radius: 9px;
+    background: #ffff;
+    box-shadow: 5px 5px 10px #8f8f8f, 
+    -5px -5px 10px #ffffff;
+}
+
+
+.ordem-cartao-pix{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 6em;
+    width: 50em;
+    
+}
+
+
+///txt-tppagamento e taixas/// 
+#tl-pagamento{
+    font-family: 'Regular';
+}
+
+#tp-de-pg{
+    font-family: 'Regular';
+    font-size: 0.7em;
+    color: #520DA9;
+}
+
+#valor-cor-roxo{
+    color: #520DA9;
+    font-family: 'Lato semibold';
+    margin-left: 3px;
+}/// fim ///
+
+
+.cartao-pedidos{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    height: 3em;
+    width: 22em;
+
+    border-radius: 2px;
+    background: #ffffff;
+    box-shadow: 5px 5px 10px #8f8f8f, 
+    -5px -5px 10px #ffffff;
+}
+
+#img-cartao-pedidos{
+    display: flex;
+    justify-content: center;
+    height: 2em;
+    width: 3em;
+}
+
+#txt-cartao-pedidos{
+    display: flex;
+    flex-direction: column;
+}
+
+.cartao-parcelas-pedidos{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3em;
+    width: 11em;
+}
+
+#parcelas-cartao{
+    font-family: 'Lato semibold';
+}
+
+
+
+
+
+.pix-pedidos{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+
+    margin-left: 1em;
+    height: 3em;
+    width: 22em;
+
+    border-radius: 2px;
+    background: #ffffff;
+    box-shadow: 5px 5px 10px #8f8f8f, 
+    -5px -5px 10px #ffffff;
+}
+
+#img-pix-pedidos {
+    display: flex;
+    justify-content: center;
+    width: 3em;
+    height: 2em;
+}
+
+#img-pix-pedidos > img{
+    height: 2em;
+}
+
+#txt-pix-pedidos{
+    display: flex;
+    flex-direction: column;
+}
+
+.pix-parcelas-pedidos{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3em;
+    width: 9em;
+}
+
+#parcelas-pix{
+    font-family: 'Lato semibold';
+}
+
+
+
+
+.ordem-boleto-botao{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height:7em;
+    width:40em;
+}//<---divcolorblue
+
+
+.boleto-pedidos{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 3em;
+    width: 23em;
+
+    border-radius: 2px;
+    background: #ffffff;
+    box-shadow: 5px 5px 10px #8f8f8f, 
+    -5px -5px 10px #ffffff;
+}
+
+#img-boleto-pedidos{
+    display: flex;
+    justify-content: center;
+    height: 2em;
+    width: 3.7em;
+}
+
+#img-boleto-pedidos > img{
+    height: 1.6em;
+}
+
+#txt-boleto-pedidos{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.boleto-parcelas-pedidos{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2em;
+    width: 11em;
+}
+
+#parcelas-boleto{
+    font-family: 'Lato semibold';
+}
+
+
+
+
+.botao-flz-pedidos{
+    display: flex;
+    margin-top: 1.5em;
+    justify-content: center;
+    align-items: center;
+    height: 2.5em;
+    width: 13em;
+    
+    background: #520DA9;
+    border-radius: 2em;
+}
+
+.botao-flz-pedidos > a{
+    color: white;
+    font-size: 14px;
+    font-family: 'Extra bold';
+}
+
+
+
+
+
