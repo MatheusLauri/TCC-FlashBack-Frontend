@@ -105,7 +105,7 @@ export default function AdmPage() {
                 const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome`)
                 listagem.push(...resp.data)
                 setListarIngressos(listagem)
-                console.log(listarIngressos)
+                
             }
 
         } catch (err) {
@@ -116,13 +116,20 @@ export default function AdmPage() {
 
     useEffect(() => {
 
-        ListarIngressos(); 
+        if(listarIngressos) {
+            ListarIngressos();
+        }
+        
+        if (listarPedido.length != 0) {
+            ListarPedidos()
+        };
+        
         if(idIngresso != 0) {
-            setListarTipoAtivo(true)
             listarTipos()
-        }; ListarPedidos()
+        }
+        
 
-    }, [pesquisa]);
+    }, [pesquisa, listarIngressos]);
 
 
     function MenuPage(pagedata) {
@@ -193,11 +200,13 @@ export default function AdmPage() {
                 //Cadastro Tipo de Ingresso(s)
                 const responseTipo = await cadastrarTipo(idIngresso)
 
+                setListarTipoAtivo(true)
+
                 toast.success("Ingresso Cadastrado!")
             
             } else {
 
-                 //Cadastro Local do evento
+                 //alterar Local do evento
                  const responseLocal = await axios.put(`http://localhost:5000/local/${idLocal}`, {
             
                     CEP: CEP,
@@ -344,7 +353,7 @@ export default function AdmPage() {
     }
     
     
-
+    
     async function listarTipos() {
 
         const resposta = await axios.get(`http://localhost:5000/tipoIngresso/${idIngresso}`)
@@ -445,14 +454,16 @@ export default function AdmPage() {
 
     async function deletarTipo (idArray) {
 
-        /*if(idTipos.length === 0) {
+        if(idIngresso === 0) {
 
             vetorTipo.splice(idArray, 1)
 
             setVetorTipo([...vetorTipo])
-      */
-            const r = await axios.delete(`http://localhost:5000/tipoIngresso/${idArray}`)
-        
+        } else {
+
+          const r = await axios.delete(`http://localhost:5000/tipoIngresso/${idArray}`)
+
+        }
     }
 
 
@@ -480,19 +491,13 @@ export default function AdmPage() {
 
 
     async function ListarPedidos () {
-        try {
-            const resp = await axios.get(`http://localhost:5000/listarPedido`)
 
-            setListarpedido(resp.data)
-            console.log(resp)
-            
-        } catch (err) {
-            
-            toast.error(err.response.data.erro)
-            
-        }
-       
+        const resp = await axios.get(`http://localhost:5000/listarPedido`)
+
+        setListarpedido(resp.data)
+    
     }
+
 
 
     return (
@@ -606,22 +611,23 @@ export default function AdmPage() {
                                                 <input type='text' placeholder='Ex: Numanice, The town...' value={pesquisa} onChange={(e) => setPesquisa(e.target.value)}/>
                                             </div>
                                             <div className='ticket-wrapper'>
-                                                {listarIngressos.map((item,index) => (
-                                                    <>
-                                                     <AdmTicket 
-                                                        id={item.ID_INGRESSO}
-                                                        nome={item.NM_EVENTO}
-                                                        data={item.DT_COMECO}
-                                                        imagem={item.IMAGEM_INGRESSO}
-                                                        qtd={item.QTD_TIPO_INGRESSO}
-                                                        valor={item.VL_PRECO_TIPO}
-                                                        nomeTipo={item.NM_TIPO_INGRESSO}
-                                                        rua={item.DS_LOGRADOURO}
-                                                        cidade={item.DS_LOCALIDADE}
-                                                        estado={item.DS_UF}
-                                                        busca={pesquisa}
-                                                    />
-                                                    </>
+                                                {listarIngressos &&
+                                                    listarIngressos.map((item,index) => (
+                                                        <>
+                                                        <AdmTicket 
+                                                            id={item.ID_INGRESSO}
+                                                            nome={item.NM_EVENTO}
+                                                            data={item.DT_COMECO}
+                                                            imagem={item.IMAGEM_INGRESSO}
+                                                            qtd={item.QTD_TIPO_INGRESSO}
+                                                            valor={item.VL_PRECO_TIPO}
+                                                            nomeTipo={item.NM_TIPO_INGRESSO}
+                                                            rua={item.DS_LOGRADOURO}
+                                                            cidade={item.DS_LOCALIDADE}
+                                                            estado={item.DS_UF}
+                                                            busca={pesquisa}
+                                                        />
+                                                        </>
                                                 ))}
                                                 
                                                 
@@ -731,20 +737,20 @@ export default function AdmPage() {
                                                                 }
                                                             </div>
                                                             <div className='body-table'>
-                                                                {listarTipoAtivo  
-                                                                    ?<>
-                                                                        {vetorTipo.map((item, idArray) => (
-                                                                            <div className='body-table-row'>
-                                                                            <span>{item.NM_TIPO_INGRESSO}</span>
-                                                                            <div className='divisor'></div>
-                                                                            <span> {item.QTD_TIPO_INGRESSO} Un</span>
-                                                                            <div className='divisor'></div>
-                                                                            <span>{precoTipoFormatar}</span>
-                                                                            <a><img src='../assets/images/edit.svg' onClick={() => {alterarTipoIngresso2(idArray); setAlterarTipo(true)}}/></a>
-                                                                            <a><img src='../assets/images/delete.svg' onClick={() => deletarTipo(item.ID_TIPO_INGRESSO)}/></a>
-                                                                        </div>
-                                                                        ))}
-                                                                    </>
+                                                                {idIngresso != 0  
+                                                                    ?   <>
+                                                                            {vetorTipo.map((item) => (
+                                                                                <div className='body-table-row'>
+                                                                                    <span>{item.NM_TIPO_INGRESSO}</span>
+                                                                                    <div className='divisor'></div>
+                                                                                    <span> {item.QTD_TIPO_INGRESSO} Un</span>
+                                                                                    <div className='divisor'></div>
+                                                                                    <span>{precoTipoFormatar}</span>
+                                                                                    <a><img src='../assets/images/edit.svg'/></a>
+                                                                                    <a><img src='../assets/images/delete.svg' onClick={() => deletarTipo(item.ID_TIPO_INGRESSO)}/></a>
+                                                                                </div>
+                                                                            ))}
+                                                                        </>
                                                                     :   <>
                                                                             {vetorTipo.map((item, idArray) => (
                                                                                 <div className='body-table-row'>
@@ -756,7 +762,7 @@ export default function AdmPage() {
                                                                                     <a><img src='../assets/images/edit.svg' onClick={() => {alterarTipoIngresso2(idArray); setAlterarTipo(true)}}/></a>
                                                                                     <a><img src='../assets/images/delete.svg' onClick={() => deletarTipo(idArray)}/></a>
                                                                                 </div>
-                                                                             ))}
+                                                                            ))}
                                                                         </>
                                                                 }
                                                                 

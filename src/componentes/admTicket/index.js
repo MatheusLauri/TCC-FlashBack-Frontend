@@ -28,6 +28,7 @@ export default function AdmTicket(props) {
     const [click,setClick] = useState(false)
     const listagem = []
     const [ListarTipos,setListarTipos] = useState([])
+
     async function ListarTipoIngresso(){
         try {
 
@@ -42,18 +43,35 @@ export default function AdmTicket(props) {
         }
         
     }
+
+    //Deltar Ingresso
+
+    async function deletarIngresso (id) {
+
+        try {
+
+            const resp = await axios.delete(`http://localhost:5000/ingresso/${id}`)
+            
+        } catch (err) {
+
+            toast.error(err.response.data.erro)
+            
+        }
+    }
     useEffect(() => {
         ListarTipoIngresso()
     }, [props.busca])
 
     return (
         <div className={showType ? 'adm-ticket-grow' : 'adm-ticket'}>
-            <div className='ticket-upper-info'>
+            {props &&
+                <>
+                     <div className='ticket-upper-info'>
                 <p onClick={() => console.log(ListarTipos)}>ID: <span>{props.id}</span></p>
                 <h1 onClick={() => ListarTipoIngresso()}>{props.nome}</h1>
                 <div className='ticket-controller'>
                     <img src='../assets/images/edit.svg'/>
-                    <img src='../assets/images/delete.svg'/>
+                    <img src='../assets/images/delete.svg' onClick={() => deletarIngresso(props.id)}/>
                 </div>
             </div>
             <div className='ticket-bottom-info'>
@@ -80,6 +98,9 @@ export default function AdmTicket(props) {
                 </div>
                 <img className='right-part' src={urlImagem}/>
             </div>
+                </>
+            }
+           
         </div>
     );
 }

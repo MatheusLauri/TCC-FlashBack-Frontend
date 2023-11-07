@@ -695,7 +695,7 @@
                         text-align: left;
                 
                         width: 100%;
-                
+
                         h3 {
                 
                             display: flex;
@@ -719,6 +719,8 @@
                 
                             th {
 
+                                
+
                                 padding: 10px;
                     
                                 h3 {
@@ -732,14 +734,28 @@
                         }
                 
                         tbody {
+                           
+                            td:nth-child(n) {
+                                margin-top: 10px;
+                            }
                           
+                            td:first-child{
+                                border-bottom-left-radius: 6px;
+                                border-top-left-radius: 6px;
+                              
+                            }
+
+                            td:last-child{
+                                border-bottom-right-radius: 6px;
+                                border-top-right-radius: 6px;
+                              
+                            }
          
                             tr {
-                
+                                
                                 background-color: rgb(255, 255, 255);
-                        
-                                border-top: 15px solid #F3F3F3;
-                     
+                                
+
                                 td {
                                     
                                     padding: 10px;
