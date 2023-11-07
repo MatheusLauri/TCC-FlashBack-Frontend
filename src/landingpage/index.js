@@ -65,8 +65,6 @@ function LandingPage() {
     ListarCategorias()
   }, []);
 
-  
-
   const [handleCarrosel, toggle] = useState(0)
 
   return (
