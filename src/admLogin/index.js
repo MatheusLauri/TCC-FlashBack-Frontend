@@ -1,31 +1,61 @@
 import './index.scss'
 
-import { useState } from 'react';
+import LoadingBar from 'react-top-loading-bar';
+import storage from 'local-storage'
+
+import { useNavigate } from 'react-router-dom';
+import { useState, useRef } from 'react';
+
 import axios from 'axios';
+
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function AdmLogin() {
 
+    const [email, setEmail] = useState('')
+    const [senha, setSenha] = useState('')
+
+    const navigate = useNavigate();
+    const ref = useRef();
+
+    const[carregando, setCarregando] = useState(false)
+
     async function Logar() {
 
+        ref.current.continuousStart();
+        setCarregando(true)
+
         try {
-            const resp = await axios.post('http://localhost:5000/adm/login', {
+
+            const resp = await axios.post('http://localhost:5000/empresa/login', {
                 email: email,
                 senha: senha
             });
-            toast.success(`Login efetuado com sucesso, ${email}!`)
+
+            storage('empresa-logada', resp)
+
+            setTimeout(() => {
+
+                navigate('/empresas/home')
+
+            }, 3000)
+           
+            
+            
 
         } catch (err) {
+            ref.current.complete();
+            setCarregando(false)
+
             toast.error(err.response.data.erro)
         }
     }
 
-    const [email, setEmail] = useState('')
-    const [senha, setSenha] = useState('')
 
     return (
     <>
+        <LoadingBar color='#520DA9' ref={ref}/>
         <ToastContainer
             position="top-right"
             autoClose={5000}
@@ -53,7 +83,7 @@ export default function AdmLogin() {
                                 <i className="fas fa-lock"></i>
                                 <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
                             </div>
-                            <input type="submit" value="Entrar" className="btn solid" onClick={Logar} />
+                            <input type="submit" value="Entrar" className="btn solid" onClick={Logar} disabled={carregando}/>
                         </div>
 
                     </div>

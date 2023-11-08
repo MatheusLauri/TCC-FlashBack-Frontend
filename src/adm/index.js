@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './index.scss'
 
+import storage from 'local-storage'
+import { useNavigate } from 'react-router-dom';
+
 import MenuAdm from '../componentes/menu-adm'
 import CategorySection from '../componentes/categoryBtn';
 
@@ -28,6 +31,10 @@ export default function AdmPage() {
 
     const [userBar,setUserBar] = useState(false)
     const [userRightBar,setUserRightBar] = useState(false)
+
+    //Variáveis de login empresa
+
+    const navigate = useNavigate();
 
     //Variáveis de cadastro do ingresso 
 
@@ -104,7 +111,9 @@ export default function AdmPage() {
 
     useEffect(() => {
 
-            ListarIngressos();
+        if(listarIngressos) {
+            ListarIngressos()
+        }
         
         if (listarPedido.length != 0) {
             ListarPedidos()
@@ -485,6 +494,11 @@ export default function AdmPage() {
     }
 
 
+    function SairClickEmpresa () {
+
+        storage.remove('empresa-logada')
+        navigate('/empresas/login')
+    }
 
     return (
         <>
