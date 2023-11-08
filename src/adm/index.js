@@ -93,14 +93,11 @@ export default function AdmPage() {
                 const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome=${pesquisa}`)
                 listagem.push(...resp.data)
                 setListarIngressos(listagem)
-                console.log(resp)
             }
             else{
                 const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome`)
                 listagem.push(...resp.data)
                 setListarIngressos(listagem)
-                console.log(resp)
-                
             }
 
         } catch (err) {
@@ -111,10 +108,6 @@ export default function AdmPage() {
 
     useEffect(() => {
 
-        if(listarIngressos) {
-            ListarIngressos()
-        }
-        
         if (listarPedido.length != 0) {
             ListarPedidos()
         };
@@ -126,6 +119,9 @@ export default function AdmPage() {
 
     }, [pesquisa, listarIngressos, menu]);
 
+    useEffect(() => {
+        ListarIngressos()
+    }, [menu])
 
     function MenuPage(pagedata) {
 

@@ -39,7 +39,7 @@ export default function AdmLogin() {
 
                 navigate('/empresas/home')
 
-            }, 3000)
+            }, 4000)
            
             
             
