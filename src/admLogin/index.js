@@ -39,7 +39,7 @@ export default function AdmLogin() {
 
                 navigate('/empresas/home')
 
-            }, 4000)
+            }, 3000)
            
             
             
@@ -52,10 +52,15 @@ export default function AdmLogin() {
         }
     }
 
+    function HandleEnterDown(e){
+        if (e.key === 'Enter'){
+            Logar()
+        }
+    }
 
     return (
     <>
-        <LoadingBar color='#520DA9' ref={ref}/>
+        <LoadingBar color='#F9DD4A' ref={ref}/>
         <ToastContainer
             position="top-right"
             autoClose={5000}
@@ -77,13 +82,13 @@ export default function AdmLogin() {
                             <h2 className="title">Entrar</h2>
                             <div className="input-field">
                                 <i className="fas fa-user"></i>
-                                <input type="text" placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                <input type="text" placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} onKeyDown={(e) => HandleEnterDown(e)}/>
                             </div>
                             <div className="input-field">
                                 <i className="fas fa-lock"></i>
-                                <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
+                                <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} onKeyDown={(e) => HandleEnterDown(e)}/>
                             </div>
-                            <input type="submit" value="Entrar" className="btn solid" onClick={Logar} disabled={carregando}/>
+                            <input type="submit" value="Entrar" className="btn solid" onClick={Logar}  disabled={carregando}/>
                         </div>
 
                     </div>
@@ -94,7 +99,7 @@ export default function AdmLogin() {
                             <h3>Bem-vindo ao Painel do Administrador</h3>
                             <p>Este é o centro de controle, onde você tem o poder de moldar a experiência dos visitantes do site.</p>
                         </div>
-                        <img src="./assets/images/log.svg" className="image" alt="" />
+                        <img src="../assets/images/log.svg" className="image" alt="" />
                     </div>
                 </div>
             </div>
