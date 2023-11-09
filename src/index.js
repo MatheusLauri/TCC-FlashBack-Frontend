@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
+
 import LandingPage from './landingpage/index.js'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AdmPage from './adm';
@@ -16,6 +17,8 @@ import DestaqueBox from './componentes/destaquesBox';
 import PageCarrinho from './Carrinho';
 import Bdcartao from './dadoscartao';
 import AdmLogin from './admLogin';
+import AdmPanel from './componentes/admPanel';
+import AdmDashboard from './admDashboard';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -23,6 +26,7 @@ root.render(
       <BrowserRouter>
         <Routes>
             <Route path='/' element={<LandingPage/>}/>
+            <Route path='/adm' element={<AdmDashboard/>}/>
             <Route path='/empresas/home' element={<AdmPage/>}/>
             <Route path='/empresas/login' element={<AdmLogin/>}/>
             <Route path='/pix' element={< Pix/>}/>

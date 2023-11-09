@@ -1,0 +1,87 @@
+.adm-side-panel{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 20%;
+    overflow: hidden;
+    height: 100vh;
+    max-width: 250px;
+    padding: 40px 15px;
+    svg,a{
+        color: gray;
+    }
+    .side-panel-menu{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        >div{
+            position: relative;
+            padding: 15px 0px 15px 40px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            height: 50px;
+            transition: .5s ease-in-out;
+            &:hover{
+                background-color: #520ad90e;
+                svg,a{
+                    color: #520AD9;
+                }
+            }
+            &:before{
+                content: '';
+                width: 5px;
+                height: 100%;
+                background-color: #520AD9;
+                position: absolute;
+                left: 0px;
+                transition: .5s ease-in-out;
+                transform: scaleX(0);
+            }
+            &:hover:before{
+                transform: scaleX(1);
+            }
+        }
+        >img{
+            width: 80px;
+            height: auto;
+            margin-bottom: 50px;
+        }
+
+    }
+    >div:last-child{
+        position: relative;
+        padding: 15px 0px 15px 40px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        height: 50px;
+        transition: .5s ease-in-out;
+        &:hover{
+            background-color: #520ad90e;
+            svg,a{
+                color: #520AD9;
+            }
+        }
+        &:before{
+            content: '';
+            width: 5px;
+            height: 100%;
+            background-color: #520AD9;
+            position: absolute;
+            left: 0px;
+            transition: .5s ease-in-out;
+            transform: scaleX(0);
+        }
+        &:hover:before{
+            transform: scaleX(1);
+        }
+    }
+    
+}

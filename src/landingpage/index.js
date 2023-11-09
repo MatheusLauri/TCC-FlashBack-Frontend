@@ -140,8 +140,8 @@ function LandingPage() {
               iconRight='›'
               draggable
               hasArrows
-              slidesToShow='auto'
-              slidesToScroll='auto'
+              slidesToShow='5'
+              slidesToScroll='5'
             >
               <BoxCity city='São Paulo' src='./assets/images/sp.png' uf='sp'/>
               <BoxCity city='Bahia' src='./assets/images/salvador.png' uf='ba'/>
