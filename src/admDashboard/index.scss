@@ -2,7 +2,273 @@
     display: flex;
     flex-direction: row;
     width: 100vw;
-    .painel{
+    background-color: #f6f6f9;
+    .painel-main{
+        padding: 20px;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        .painel-row{
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            .painel{
+                width: 70%;
+                .input-time-controller{
+                    display: flex;
+                    flex-direction: row;
+                    gap: 10px;
+                    >div{
+                        display: flex;
+                        width: 150px;
+                        flex-direction: row;
+                        position: relative;
+                        padding: 10px 20px;
+                        border: 2px solid #520ad9;
+                        border-radius: 10px;
+                        
+                        input{
+                            width: 100%;
+                            appearance: none;
+                            outline: none;
+                            border-radius: 10px;
+                            border: none;
+                            background-color: transparent;
+                        }
+                        label{
+                            font-size: 13px;
+                            font-weight: 700;
+                            position: absolute;
+                            top:-9px;
+                            left: 4px;
+                            background-color: #f6f6f9;
+                            padding: 0 10px;
+                        }
+                    }
+                    
+                
+                }
+                .insights-bar{
+                    display: flex;
+                    flex-direction: row;
+                    margin-top: 1rem;
+                    width: 100%;
+                    justify-content: space-between;
+                    gap: 1rem;
+                    .insight{
+                        box-shadow: 0 2rem 3rem rgba(132,139,200,0.18);
+                        transition: all .5s ease-in-out;
+                        background-color: white;
+                        width: 33%;
+                        padding: 10px 20px;
+                        border-radius: 25px;
+                        >svg{
+                            background: #520ad9;
+                            padding: 0.5rem;
+                            border-radius: 50%;
+                            color: white;
+                            font-size: 3rem;
+                        }
+                        .middle{
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-between;
+                            .left{
+                                display: flex;
+                                flex-direction: column;
+                                h1{
+                                    margin-top: 1rem;
+                                    font-weight: 700;
+                                    font-size: 1rem;
+                                    color: rgb(78, 78, 78);
+                                }
+                                span{
+                                    font-size: 30px;
+                                    color: rgb(78, 78, 78);
+                                    font-weight: 900;
+                                }
+                            }
+                            .progress{
+                                width: 7rem;
+                                height: 7rem;
+                                position: relative;
+
+                                >svg{
+                                    width: 100%;
+                                    height: 100%;
+                                    circle{
+                                        fill: none;
+                                        stroke: #520ad9;
+                                        stroke-width: 14;
+                                        stroke-linecap: round;
+                                        transform: translate(5px,5px);
+                                        stroke-dasharray: 110;
+                                        stroke-dashoffset: 92;
+                                    }
+                                }
+                                p{
+                                    color:  rgb(78, 78, 78);
+                                    font-weight: 700;
+                                    font-size: 12px;
+                                    position: absolute;
+                                    top: 2rem;
+                                    left: 2rem;
+
+                                }
+
+                            }
+                        }
+                    }
+                    .insight:hover{
+                        box-shadow: none;
+                    }
+                }
+                .table{
+                    padding: 0px 10px;
+                    margin-top: 2rem;
+                    display: flex;
+                    flex-direction: column;
+                    h1{
+                        font-size: 25px;
+                    }
+                    table{
+                        margin-top: 1rem;
+                        background-color: white;
+                        border-radius: 25px;
+                        padding: 1.8rem;
+                        width: 100%;
+                        text-align: left;
+                        box-shadow: 0 2rem 3rem rgba(132,139,200,0.18);
+                        transition: all .5s ease-in-out;
+                        text-align: center;
+                        td{
+                            height: 2.8rem;
+                            border-bottom: 1px solid #f6f6f9;
+                        }
+                        tr:last-child td{
+                            border: none;
+                        }
+                    }
+                    table:hover{
+                        box-shadow: none;
+                    }
+                    a{
+                        text-align: center;
+                        margin-top: 1rem;
+                        color: #520ad9;
+                    }
+                }
+            }
+            .painel-right{
+                width: 30%;
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                >h1:first-child{
+                    font-size: 25px;
+                    margin-bottom: 28px;
+                }
+                .cadastros{
+                    width: 100%;
+                    height: 200px;
+                    overflow: auto;
+                    display: flex;
+                    flex-direction: column;
+                    background-color: white;
+                    border-radius: 25px;
+                    padding: 1.8rem;
+                    gap: 10px;
+                    height: 30%;
+                    &::-webkit-scrollbar-track
+                    {
+                        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+                        border-radius: 10px;
+                        background-color: transparent;
+                    }
+
+                    &::-webkit-scrollbar
+                    {
+                        width: 0px;
+                        background-color: transparent;
+                    }
+
+                    &::-webkit-scrollbar-thumb
+                    {
+                        border-radius: 10px;
+                        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+                        background-color: transparent;
+                    }
+                    >div{
+                        display: flex;
+                        flex-direction: column;
+                        border-bottom: 2px solid #f6f6f9;
+                        padding: 0 0 10px 0 ;
+                        span{
+                            span{
+                                font-weight: 800;
+                            }
+                        }
+                    }
+                }
+                .analise-h1{
+                    font-size: 25px;
+                    margin-top: 1rem;
+                    margin-bottom: 1rem;
+                }
+                .analise-wrapper{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    height: 70%;
+                    overflow: auto;
+                    .analise-box{
+                        background-color: white;
+                        border-radius: 25px;
+                        padding: 10px 25px;
+                        display: flex;
+                        flex-direction: row;
+                        .info-main{
+                            display: flex;
+                            flex-direction: row;
+                            gap: 20px;
+                            svg{
+                                font-size: 50px;
+                                border-radius: 50%;
+                                color: white;
+                                background-color: #520ad9;
+                                padding: 10px;
+                            }
+                            >div{
+                                display: flex;
+                                flex-direction: column;
+                                align-items: flex-start;
+                                justify-content: flex-start;
+                                h1{
+                                    font-size: 20px;
+                                    color: rgb(78, 78, 78);
+                                }
+                            }
+                        }
+                        span{
+                            font-weight: 900;
+                            margin-left: auto;
+                        }
+                    }
+                    .add-card{
+                        border: 2px dashed #520ad9;
+                        min-height: 60px;
+                        border-radius: 25px;
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+        }
+            
     }
+        
+    
 }

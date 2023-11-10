@@ -3,9 +3,19 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    h1{
+        font-size: 25px;
+    }
     >div{
         width: fit-content;
         display: flex;
         flex-direction: column;
+        align-items: flex-end;
+    }
+    span{
+        width: fit-content;
+        >span{
+            font-weight: 900;
+        }
     }
 }

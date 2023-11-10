@@ -7,7 +7,7 @@
     overflow: hidden;
     height: 100vh;
     max-width: 250px;
-    padding: 40px 15px;
+    padding: 40px 10px 40px 10px;
     svg,a{
         color: gray;
     }
@@ -18,7 +18,7 @@
         width: 100%;
         >div{
             position: relative;
-            padding: 15px 0px 15px 40px;
+            padding: 15px 0px 15px 30px;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -55,7 +55,7 @@
     }
     >div:last-child{
         position: relative;
-        padding: 15px 0px 15px 40px;
+        padding: 15px 0px 15px 30px;
         display: flex;
         flex-direction: row;
         align-items: center;
