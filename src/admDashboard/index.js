@@ -14,6 +14,7 @@ import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
+import AdmTicket from '../componentes/admTicket';
 
 export default function AdmDashboard() {
     //Variáveis de controle de menu
@@ -396,6 +397,19 @@ export default function AdmDashboard() {
                         <SearchIcon/>
                         <input type='text' placeholder='Pesquise por eventos...'/>
                     </div>
+                    <div className='wrapper'>
+                        <AdmTicket/>
+                        <AdmTicket/>
+                        <AdmTicket/>
+                        <AdmTicket/>
+                    </div>
+                    
+                </section>
+            }
+            {menu == 7 &&
+                <section className='ingresso-main'>
+                    <AdmUser page='Adicionar Ingressos' user='Flashback' funcao='Admin' />
+                    
                     
                 </section>
             }

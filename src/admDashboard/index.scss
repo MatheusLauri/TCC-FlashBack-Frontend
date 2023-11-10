@@ -514,6 +514,65 @@
         width: 100%;
         height: 100%;
         padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        .search-bar{
+            margin-top: 1rem;
+            border-radius: 25px;
+            width: 80%;
+            height: 60px;
+            background-color: white;
+            padding: 1rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            svg{
+                font-size: 40px;
+                border-radius: 50%;
+                color: white;
+                background-color: #520ad9;
+                padding: 10px;
+            }
+            input{
+                width: 100%;
+                height: 100%;
+                appearance: none;
+                outline: none;
+                border: none;
+            }
+        }
+        .wrapper{
+            margin-top: 1rem;
+            gap: 20px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 100%;
+            height: fit-content;
+            overflow: auto;
+            align-items: flex-start;
+            justify-content: space-evenly;
+        }
+        /* width */
+        .wrapper::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        /* Track */
+        .wrapper::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 10px;
+        }
+        
+        /* Handle */
+        .wrapper::-webkit-scrollbar-thumb {
+            background: #520ad9;
+            border-radius: 10px;
+        }
     }
     
 }
