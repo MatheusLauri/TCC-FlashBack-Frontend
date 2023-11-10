@@ -46,6 +46,31 @@
                 transform: scaleX(1);
             }
         }
+        .clicked{
+            position: relative;
+            padding: 15px 0px 15px 30px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            height: 50px;
+            transition: .5s ease-in-out;
+            background-color: #520ad90e;
+            svg,a{
+                color: #520AD9;
+            }
+            &:before{
+                content: '';
+                width: 5px;
+                height: 100%;
+                background-color: #520AD9;
+                position: absolute;
+                left: 0px;
+                transition: .5s ease-in-out;
+                transform: scaleX(1);
+            }
+        }
         >img{
             width: 80px;
             height: auto;
