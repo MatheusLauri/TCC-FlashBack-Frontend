@@ -1,0 +1,11 @@
+.empresa-main{
+    width: 100vw;
+    height: 100vh;
+    .secao-01{
+        width: 100%;
+        height: 100%;
+        background-image: url(../../public/assets/images/auditorio.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+}
