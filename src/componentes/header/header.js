@@ -269,8 +269,7 @@ export function Header() {
                                         <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
                                     </div>
                                     <input type="submit" value="Fazer Login" className="btn solid" onClick={Logar} />
-                                    <p className="social-text">Ou entre com suas redes sociais.</p>
-                                    
+                                                                       
                                 </div>
                                 {page == 1 &&
                                     <div className="sign-up-form">
