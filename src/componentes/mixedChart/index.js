@@ -52,21 +52,26 @@ export default function MixedChart(props) {
           data: [440, 505, 414, 671, 227]
         }],
         options: {
+          fill: {
+            colors: ['#520ad9']
+          },
           chart: {
             height: 350,
             type: 'line',
+            
           },
           stroke: {
-            width: [0, 4]
+            width: [0, 4],
+            colors: ['#F9DD4A'],
           },
           title: {
             text: 'Controle de Cadastros'
           },
           dataLabels: {
             enabled: true,
-            enabledOnSeries: [0,1],
+            enabledOnSeries: [1],
             style: {
-                colors: ['#520ad9', '#F9DD4A']
+                colors: ['#F9DD4A', '#520ad9' ]
             }
           },
           labels: listagemData,
@@ -75,13 +80,13 @@ export default function MixedChart(props) {
           },
           yaxis: [{
             title: {
-              text: 'Cadastro de Clientes',
+              text: '',
             },
           
           }, {
             opposite: true,
             title: {
-              text: 'Cadastro de Empresas'
+              text: ''
             }
           }]
         },
