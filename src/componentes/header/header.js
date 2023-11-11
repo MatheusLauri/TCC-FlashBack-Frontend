@@ -47,6 +47,8 @@ export function Header() {
     const [listagembusca, setlistagemBusca] = useState([])
     const [listagembuscaMostrarDialog, setlistagembuscaMostrarDialog] = useState(false)
 
+// Variavel de paginação de Cadastro
+    const [page,setPage] = useState(1)
 
 // Função de cadastro com API
     async function CadastrarCliente () {
@@ -267,57 +269,52 @@ export function Header() {
                                         <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} />
                                     </div>
                                     <input type="submit" value="Fazer Login" className="btn solid" onClick={Logar} />
-                                    <p className="social-text">Ou entre com suas redes sociais.</p>
-                                    <div className="social-media">
-                                        <a className="social-icon">
-                                            <i className="fab fa-facebook-f"></i>
-                                        </a>
-                                        <a className="social-icon">
-                                            <i className="fab fa-twitter"></i>
-                                        </a>
-                                        <a className="social-icon">
-                                            <i className="fab fa-google"></i>
-                                        </a>
-                                        <a className="social-icon">
-                                            <i className="fab fa-linkedin-in"></i>
-                                        </a>
-                                    </div>
+                                                                       
                                 </div>
-                                <div className="sign-up-form">
-                                    <h2 className="title">Cadastre-se</h2>
-                                    <div className="input-field">
-                                        <i className="fas fa-user"></i>
-                                        <input type="text" placeholder="Usuário"  value={NomeUsuario}  onChange={e => setNomeUsuario(e.target.value)}/>
+                                {page == 1 &&
+                                    <div className="sign-up-form">
+                                        <h2 className="title">Cadastre-se</h2>
+                                        <div className="input-field">
+                                            <i className="fas fa-user"></i>
+                                            <input type="text" placeholder="Usuário"  value={NomeUsuario}  onChange={e => setNomeUsuario(e.target.value)}/>
+                                        </div>
+                                        <div className="input-field">
+                                            <i className="fas fa-envelope"></i>
+                                            <input type="email" placeholder="E-mail" value={emailUsuario}  onChange={e => setemailUsuario(e.target.value)}/>
+                                        </div>
+                                        <div className="input-field">
+                                            <i className="fas fa-envelope"></i>
+                                            <input type="text" placeholder="CPF"  value={cpfUsuario}  onChange={e => setcpfUsuario(e.target.value)}/>
+                                        </div>
+                                        <div className="input-field">
+                                            <i className="fas fa-lock"></i>
+                                            <input type="password" placeholder="Senha" value={senhaUsuario}  onChange={e => setsenhaUsuario(e.target.value)}/>
+                                        </div>
+                                        <input type="submit" className="btn" value="Prosseguir" onClick={() => setPage(2)}/>
+                                        
+                                       
                                     </div>
-                                    <div className="input-field">
-                                        <i className="fas fa-envelope"></i>
-                                        <input type="email" placeholder="E-mail" value={emailUsuario}  onChange={e => setemailUsuario(e.target.value)}/>
+                                }
+                                {page == 2 &&
+                                    <div className="sign-up-form">
+                                        <h2 className="title">Estamos quase terminando...</h2>
+                                        <div className="input-field">
+                                            <i className="fas fa-user"></i>
+                                            <input type="text" placeholder="Nome"  value={NomeUsuario}  onChange={e => setNomeUsuario(e.target.value)}/>
+                                        </div>
+                                        <div className="input-field">
+                                            <i className="fas fa-user"></i>
+                                            <input type="text" placeholder="Sobrenome"  value={NomeUsuario}  onChange={e => setNomeUsuario(e.target.value)}/>
+                                        </div>
+                                        <div className="input-field">
+                                            <i className="fas fa-user"></i>
+                                            <input type="date" placeholder="Data de Nascimento"  value={NomeUsuario}  onChange={e => setNomeUsuario(e.target.value)}/>
+                                        </div>
+                                        
+                                        <input type="submit" className="btn" value="Cadastre-se" onClick={CadastrarCliente}/>
                                     </div>
-                                    <div className="input-field">
-                                        <i className="fas fa-envelope"></i>
-                                        <input type="text" placeholder="CPF"  value={cpfUsuario}  onChange={e => setcpfUsuario(e.target.value)}/>
-                                    </div>
-                                    <div className="input-field">
-                                        <i className="fas fa-lock"></i>
-                                        <input type="password" placeholder="Senha" value={senhaUsuario}  onChange={e => setsenhaUsuario(e.target.value)}/>
-                                    </div>
-                                    <input type="submit" className="btn" value="Cadastre-se" onClick={CadastrarCliente}/>
-                                    <p className="social-text">Ou cadastre-se com suas redes sociais</p>
-                                    <div className="social-media">
-                                        <a className="social-icon">
-                                            <i className="fab fa-facebook-f"></i>
-                                        </a>
-                                        <a className="social-icon">
-                                            <i className="fab fa-twitter"></i>
-                                        </a>
-                                        <a className="social-icon">
-                                            <i className="fab fa-google"></i>
-                                        </a>
-                                        <a className="social-icon">
-                                            <i className="fab fa-linkedin-in"></i>
-                                        </a>
-                                    </div>
-                                </div>
+                                }
+                                
                             </div>
                         </div>
 

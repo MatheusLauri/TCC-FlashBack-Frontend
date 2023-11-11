@@ -11,7 +11,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useState } from 'react';
 import { useEffect } from 'react';
 export default function AdmPanel(props) {
-    const [menu,setMenu] = useState(3)
+    const [menu,setMenu] = useState(1)
 
     function HandleMenu(e) {
         setMenu(e)
