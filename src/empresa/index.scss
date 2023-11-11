@@ -1,11 +1,41 @@
 .empresa-main{
     width: 100vw;
     height: 100vh;
-    .secao-01{
+    .header{
+        position: fixed;
+        z-index: 10;
+        height: 70px;
+        width: 100%;
+        background-color: #1e01456e;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0px 20px;
+        img{
+            height: 40px;
+            width: auto;
+        }
+    }
+    .secao-inicial{
+        padding: 134px;
         width: 100%;
         height: 100%;
         background-image: url(../../public/assets/images/auditorio.jpg);
         background-size: cover;
         background-repeat: no-repeat;
+        >div{
+            backdrop-filter: blur(10px);
+            >h1{
+                color: white;
+                font-size: 100px;
+                border-radius: 25px;
+            }
+            >p{
+                color: white;
+                font-size: 20px;
+                border-radius: 25px;
+            }
+        }
+        
     }
 }
