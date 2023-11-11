@@ -13,19 +13,163 @@ import FamilyRestroomIcon from '@mui/icons-material/FamilyRestroom';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AdmTicket from '../componentes/admTicket';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import MixedChart from '../componentes/mixedChart';
 
 export default function AdmDashboard() {
     //Variáveis de controle de menu
-    const [menu, setMenu] = useState(3)
+    const [menu, setMenu] = useState(1)
+
+    //Variáveis de Listagem de Usuários
+    const [listarUser,setListarUser] = useState([])
+
+    //Variáveis de Listagem de Empresas
+    const [listarEmpresas,setListarEmpresas] = useState([])
+
 
     //Função para controle de menu
     function HandleMenu(e) {
         setMenu(e)
     }
 
+    async function ListarUsuarios(){
+        try {
+            let url = `http://localhost:5000/cliente`
+            let response = await axios.get(url)
+            setListarUser(response.data)
+        } catch (error) {
+            toast.error(error)
+        }
+    }
+
+    async function ListarEmpresas(){
+        try {
+            let url = `http://localhost:5000/empresas`
+            let response = await axios.get(url)
+            setListarEmpresas(response.data)
+        } catch (error) {
+            toast.error(error)
+        }
+    }
+
+
+    // Variáveis de Cadastro do usuário
+    const [NomeUsuario, setNomeUsuario] = useState('');
+    const [cpfUsuario, setcpfUsuario] = useState('');
+    const [emailUsuario, setemailUsuario] = useState('');
+    const [senhaUsuario, setsenhaUsuario] = useState();
+
+    function FormatarData(data){
+        const dataEvento = new Date(data);
+
+        // Data e hora atuais
+        const dataAtual = new Date();
+
+        // Calculando a diferença em milissegundos
+        const diferencaEmMilissegundos = dataAtual - dataEvento;
+
+        // Convertendo a diferença para minutos e horas
+        const diferencaEmMinutos = diferencaEmMilissegundos / (1000 * 60);
+        const diferencaEmHoras = diferencaEmMinutos / 60;
+        let ago = ''
+        if (diferencaEmHoras >= 1) {
+
+        // Exibir a diferença em horas atrás
+            ago = `${Math.floor(diferencaEmHoras)} horas atrás`;
+
+        } else {
+
+        // Exibir a diferença em minutos atrás
+            ago = `${Math.floor(diferencaEmMinutos)} minutos atrás`
+
+        }
+
+        return ago
+    }
+    // Variáveis de Cadastro do usuário
+    const [NomeEmpresa, setNomeEmpresa] = useState('');
+    const [cnpjEmpresa, setcnpjEmpresa] = useState('');
+    const [emailEmpresa, setemailEmpresa] = useState('');
+    const [senhaEmpresa, setsenhaEmpresa] = useState();
+
+    // Função de cadastro de empresa com API
+    async function CadastrarEmpresa () {
+        try {
+
+            let empresa = {
+
+                CNPJ: NomeEmpresa, 
+                RazaoSocial: cnpjEmpresa,
+                Email: emailEmpresa,
+                Senha: senhaEmpresa
+
+            }
+
+            const r = await axios.post('http://localhost:5000/empresa', empresa)
+            toast.success(`Cadastro realizado com sucesso!`)
+        
+            setNomeEmpresa('')
+            setemailEmpresa('')
+            setcnpjEmpresa('')
+            setsenhaEmpresa('')
+            ListarEmpresas()
+        } catch (err) {
+            toast.error(err.response.data.erro)
+        }
+    }
+
+    // Função de cadastro de usuário com API
+    async function CadastrarCliente () {
+        try {
+
+            let cliente = {
+
+                NomeUsuario: NomeUsuario, 
+                CPF: cpfUsuario,
+                Email: emailUsuario,
+                Senha: senhaUsuario
+
+            }
+            console.log(cliente)
+
+            const r = await axios.post('http://localhost:5000/cliente', cliente)
+            toast.success(`Cadastro realizado com sucesso!`)
+        
+            setNomeUsuario('')
+            setemailUsuario('')
+            setcpfUsuario('')
+            setsenhaUsuario('')
+            ListarUsuarios()
+        } catch (err) {
+            toast.error(err.response.data.erro)
+        }
+    }
+
+    useEffect(() => {
+        if (menu == 1 || menu == 2 || menu == 5){
+            ListarUsuarios()
+        }
+        if (menu == 3 || menu == 5){
+            ListarEmpresas()
+        }
+    }, [menu])
+
     return (
+    <>
+        <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            draggable
+            theme="light"
+        />
+        <ToastContainer />
         <section className='secao-adm-dashboard'>
             <AdmPanel f={HandleMenu} />
             {menu == 1 &&
@@ -151,18 +295,12 @@ export default function AdmDashboard() {
                         <section className='painel-right'>
                             <h1>Cadastros recentes</h1>
                             <div className='cadastros'>
-                                <div>
-                                    <span><span>João Paulo</span> se cadastrou na flashback.</span>
-                                    <small>2 minutos atrás</small>
-                                </div>
-                                <div>
-                                    <span><span>João Paulo</span> se cadastrou na flashback.</span>
-                                    <small>2 minutos atrás</small>
-                                </div>
-                                <div>
-                                    <span><span>João Paulo</span> se cadastrou na flashback.</span>
-                                    <small>2 minutos atrás</small>
-                                </div>
+                                {listarUser.map(item => 
+                                    <div>
+                                        <span><span>{`${item.NM_CLIENTE} ${item.NM_SOBRENOME} (${item.NM_USUARIO})`}</span> se cadastrou na flashback.</span>
+                                        <small>{FormatarData(item.DT_CADASTRO)}</small>
+                                    </div>
+                                )}
                             </div>
                             <h1 className='analise-h1'>Análise de Vendas</h1>
                             <div className='analise-wrapper'>
@@ -252,24 +390,24 @@ export default function AdmDashboard() {
                             </div>
                             <div>
                                 <label>CPF</label>
-                                <input type='text' placeholder='XXX.XXX.XXX-XX'/>
+                                <input type='text' placeholder='XXX.XXX.XXX-XX' value={cpfUsuario} onChange={(e) => setcpfUsuario(e.target.value)}/>
                             </div>
                             <div>
                                 <label>Usuário</label>
-                                <input type='text' placeholder='nasccjp'/>
+                                <input type='text' placeholder='nasccjp' value={NomeUsuario} onChange={(e) => setNomeUsuario(e.target.value)}/>
                             </div>
                             <div>
                                 <label>E-mail</label>
-                                <input type='text' placeholder='joao.paulo@email.com'/>
+                                <input type='text' placeholder='joao.paulo@email.com' value={emailUsuario} onChange={(e) => setemailUsuario(e.target.value)}/>
                             </div>
                             <div>
                                 <label>Senha</label>
-                                <input type='text' placeholder='Joao_123'/>
+                                <input type='text' placeholder='Joao_123' value={senhaUsuario} onChange={(e) => setsenhaUsuario(e.target.value)}/>
                             </div>
                         </div>
                         <div className='add-btn'>
                             <AddIcon />
-                            <a>Adicionar usuário</a>
+                            <a onClick={() => CadastrarCliente()}>Adicionar usuário</a>
                         </div>
                     </div>
                     <div className='table'>
@@ -281,43 +419,72 @@ export default function AdmDashboard() {
                                     <th>Sobrenome</th>
                                     <th>Usuário</th>
                                     <th>CPF</th>
+                                    <th>Data de Cadastro</th>
                                     <th>E-mail</th>
                                     <th>Senha</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>João</td>
-                                    <td>Paulo</td>
-                                    <td>nascJP</td>
-                                    <td>495.426.828-16</td>
-                                    <td>nascc.joao@gmail.com</td>
-                                    <td>jp101205</td>
-                                </tr>
-                                <tr>
-                                    <td>João</td>
-                                    <td>Paulo</td>
-                                    <td>nascJP</td>
-                                    <td>495.426.828-16</td>
-                                    <td>nascc.joao@gmail.com</td>
-                                    <td>jp101205</td>
-                                </tr>
-                                <tr>
-                                    <td>João</td>
-                                    <td>Paulo</td>
-                                    <td>nascJP</td>
-                                    <td>495.426.828-16</td>
-                                    <td>nascc.joao@gmail.com</td>
-                                    <td>jp101205</td>
-                                </tr>
-                                <tr>
-                                    <td>João</td>
-                                    <td>Paulo</td>
-                                    <td>nascJP</td>
-                                    <td>495.426.828-16</td>
-                                    <td>nascc.joao@gmail.com</td>
-                                    <td>jp101205</td>
-                                </tr>
+                                {listarUser.map(item =>
+                                    <tr>
+
+                                        {item.NM_CLIENTE != null
+                                            ?
+                                                <td>{item.NM_CLIENTE}</td>
+                                            :
+                                                <td style={{color: `red`}}>Não Preenchido</td>
+                                        }
+                                    
+                                        
+                                        {item.NM_SOBRENOME != null
+                                            ?
+                                                <td>{item.NM_SOBRENOME}</td>
+                                            :
+                                                <td style={{color: `red`}}>Não Preenchido</td>
+                                        }
+                                    
+                                        
+                                        {item.NM_USUARIO != null
+                                            ?
+                                                <td>{item.NM_USUARIO}</td>
+                                            :
+                                                <td style={{color: `red`}}>Não Preenchido</td>
+                                        }
+                                    
+                                        
+                                        {item.DS_CPF != null
+                                            ?
+                                                <td>{item.DS_CPF}</td>
+                                            :
+                                                <td style={{color: `red`}}>Não Preenchido</td>
+                                        }
+                                    
+                                        
+                                        {item.DT_CADASTRO != null
+                                            ?
+                                                <td>{FormatarData(item.DT_CADASTRO)}</td>
+                                            :
+                                                <td style={{color: `red`}}>Não Preenchido</td>
+                                        }
+                                    
+                                        
+                                        {item.DS_EMAIL != null
+                                            ?
+                                                <td>{item.DS_EMAIL}</td>
+                                            :
+                                                <td style={{color: `red`}}>Não Preenchido</td>
+                                        }
+                                    
+                                        
+                                        {item.DS_SENHA != null
+                                            ?
+                                                <td>{item.DS_SENHA}</td>
+                                            :
+                                                <td style={{color: `red`}}>Não Preenchido</td>
+                                        }
+                                        
+                                    </tr>
+                                )}
                             </tbody>
                         </table>
                     </div>
@@ -334,24 +501,24 @@ export default function AdmDashboard() {
                         <div className='wrapper'>
                             <div>
                                 <label>Empresa/Razão Social</label>
-                                <input type='text' placeholder='Flashback Ltda.'/>
+                                <input type='text' placeholder='Flashback Ltda.' value={NomeEmpresa} onChange={(e) => setNomeEmpresa(e.target.value)}/>
                             </div>
                             <div>
                                 <label>CNPJ</label>
-                                <input type='text' placeholder='XX. XXX. XXX/0001-XX'/>
+                                <input type='text' placeholder='XX. XXX. XXX/0001-XX' value={cnpjEmpresa} onChange={(e) => setcnpjEmpresa(e.target.value)}/>
                             </div>
                             <div>
                                 <label>E-mail</label>
-                                <input type='text' placeholder='vendas@flashback.com.br'/>
+                                <input type='text' placeholder='vendas@flashback.com.br' value={emailEmpresa} onChange={(e) => setemailEmpresa(e.target.value)}/>
                             </div>
                             <div>
                                 <label>Senha</label>
-                                <input type='text' placeholder='flashback@123'/>
+                                <input type='text' placeholder='flashback@123' value={senhaEmpresa} onChange={(e) => setsenhaEmpresa(e.target.value)}/>
                             </div>
                         </div>
                         <div className='add-btn'>
                             <AddIcon />
-                            <a>Adicionar empresa</a>
+                            <a onClick={() => CadastrarEmpresa()}>Adicionar empresa</a>
                         </div>
                     </div>
                     <div className='table'>
@@ -366,28 +533,25 @@ export default function AdmDashboard() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Flashback</td>
-                                    <td>XX. XXX. XXX/0001-XX</td>
-                                    <td>admin@flashback.com.br</td>
-                                    <td>jp101205</td>
-                                </tr>
-                                <tr>
-                                    <td>Flashback</td>
-                                    <td>XX. XXX. XXX/0001-XX</td>
-                                    <td>admin@flashback.com.br</td>
-                                    <td>jp101205</td>
-                                </tr>
-                                <tr>
-                                    <td>Flashback</td>
-                                    <td>XX. XXX. XXX/0001-XX</td>
-                                    <td>admin@flashback.com.br</td>
-                                    <td>jp101205</td>
-                                </tr>
+                                {listarEmpresas.map(item =>
+                                    <tr>
+                                        <td>{item.NM_RAZAO_SOCIAL}</td>
+                                        <td>{item.DS_CNPJ}</td>
+                                        <td>{item.DS_EMAIL_EMPRESA}</td>
+                                        <td>{item.DS_SENHA_EMPRESA}</td>
+                                    </tr>
+                                )}
                             </tbody>
                         </table>
                         <a>Ver todos</a>
                     </div>
+                </section>
+            }
+            {menu == 5 &&
+                <section className='chart-main'>
+                    <AdmUser page='Gráficos' user='Flashback' funcao='Admin' />
+                    <MixedChart empresa={listarEmpresas} usuario={listarUser}/>
+                    
                 </section>
             }
             {menu == 6 &&
@@ -417,5 +581,6 @@ export default function AdmDashboard() {
 
 
         </section>
+    </>
     )
 }
