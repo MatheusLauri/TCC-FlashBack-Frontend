@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ReactApexChart from "react-apexcharts";
-
+import './index.scss'
 
 export default function MixedChart(props) {
     const [userData,setUserData] = useState([...props.usuario])
@@ -41,20 +41,30 @@ export default function MixedChart(props) {
 
 
     let state = {
+            
         series: [{
           name: 'Cadastro de Clientes',
           type: 'column',
-          data: listagemQtd
+          data: listagemQtd,
+          colors: ['#520ad9'],
+          fill: {
+            colors: ['#520ad9']
+          },
+          style: {
+            colors: ['#F9DD4A', '#520ad9' ]
+          }
         },
          {
           name: 'Cadastro de Empresas',
           type: 'line',
           data: [440, 505, 414, 671, 227]
         }],
+        colors: ['#F9DD4A'],
         options: {
           fill: {
             colors: ['#520ad9']
           },
+         
           chart: {
             height: 350,
             type: 'line',
@@ -66,6 +76,9 @@ export default function MixedChart(props) {
           },
           title: {
             text: 'Controle de Cadastros'
+          },
+          markers: {
+            colors: ['#F9DD4A', '#520ad9']
           },
           dataLabels: {
             enabled: true,

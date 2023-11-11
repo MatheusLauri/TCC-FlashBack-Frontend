@@ -1,0 +1,25 @@
+.apexcharts-toolbar{
+    .apexcharts-zoomin-icon,.apexcharts-zoomout-icon,.apexcharts-zoom-icon,.apexcharts-pan-icon,.apexcharts-reset-icon,.apexcharts-menu-icon{
+        svg{
+            fill: #520ad9;
+            stroke: none;
+        }
+    }
+    .apexcharts-zoom-icon.apexcharts-selected,.apexcharts-pan-icon.apexcharts-selected{
+        svg{
+            fill: gray !important;
+            stroke: none;
+        }
+    }
+    .apexcharts-legend-marker{
+        background-color: #530ad9 !important;
+    }
+}
+.apexcharts-title-text{
+    font-family: 'inter' !important ;
+    color: black !important;
+     
+}
+.apexcharts-canvas{
+    margin-top: 1rem;
+}
