@@ -3,12 +3,14 @@ import { useState } from 'react';
 import './header.scss'
 import Modal from 'react-modal'
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CardIngresso } from '../cardIngressoPesquisa';
 import Card from '../card-Meuspedidos';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import RoomIcon from '@mui/icons-material/Room';
 
 export function Header() {
     const navigate = useNavigate();
@@ -154,6 +156,7 @@ export function Header() {
 
     }
 
+    const [ShowUfModal,setShowUfModal] = useState(false)
 
 
 // função barra de pesquisa
@@ -208,17 +211,12 @@ export function Header() {
                 </div>
                 
                 <div className='secao-header-menu'>
-                    <div className='menu-select'>
+                    <div className='menu-select' onClick={() => setShowUfModal(true)}>
                         <img src='/assets/images/local.svg' />
-                        <select>
-                            <option>Escolha um local</option>
-                            <option>Map-api</option>
-                        </select>
+                        <a>Escolha um local</a>
+                        <KeyboardArrowDownIcon/>
                     </div>
-                    <div className='menu-carrinho'>
-                        <img src='/assets/images/carrinho.svg' />
-                        <span>0</span>
-                    </div>
+                    <Link className='revendedor' to={'/empresas/login'}>Seja um revendedor!</Link>
                     {isLogged
                         ?   <>
                             <div className='user-div'>
@@ -247,6 +245,63 @@ export function Header() {
                         </div>
 
             </section>
+            <Modal
+                className="ufmodal"
+                overlayClassName="modal-overlay"
+                closeTimeoutMS={500}
+                isOpen={ShowUfModal}
+                onRequestClose={() => setShowUfModal(false)}
+            >
+                <div className='uf-main'>
+                    <h1>Localização</h1>
+                    <input placeholder='Pesquise por estados...'/>
+                    <div className='my-loc'>
+                        <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.93126 12.1308C1.9261 12.1308 1.63559 10.7247 2.55465 10.308L20 2.49992C21 1.99995 22 3 21.5 4L13.8527 21.4417C13.4379 22.3727 12.0765 22.0698 12.0765 21.0465L10 14L2.93126 12.1308Z"></path></svg>
+                        <div>
+                            <h1>Usar minha localização atual</h1>
+                            <small>Encontre eventos perto de você</small>
+                        </div>
+                    </div>
+                    <div className='wrapper'>
+                        <div>
+                            <RoomIcon/>
+                            <a>São Paulo</a>
+                        </div>
+                        <div>
+                            <RoomIcon/>
+                            <a>Rio de Janeiro</a>
+                        </div>
+                        <div>
+                            <RoomIcon/>
+                            <a>Belo Horizonte</a>
+                        </div>
+                        <div>
+                            <RoomIcon/>
+                            <a>São Paulo</a>
+                        </div>
+                        <div>
+                            <RoomIcon/>
+                            <a>Rio de Janeiro</a>
+                        </div>
+                        <div>
+                            <RoomIcon/>
+                            <a>Belo Horizonte</a>
+                        </div>
+                        <div>
+                            <RoomIcon/>
+                            <a>São Paulo</a>
+                        </div>
+                        <div>
+                            <RoomIcon/>
+                            <a>Rio de Janeiro</a>
+                        </div>
+                        <div>
+                            <RoomIcon/>
+                            <a>Belo Horizonte</a>
+                        </div>
+                    </div>
+                </div>
+            </Modal>
             <Modal
                 className="modal"
                 overlayClassName="modal-overlay"
