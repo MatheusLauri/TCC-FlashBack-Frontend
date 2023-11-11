@@ -216,7 +216,7 @@ export function Header() {
                         <a>Escolha um local</a>
                         <KeyboardArrowDownIcon/>
                     </div>
-                    <Link className='revendedor' to={'/empresas/login'}>Seja um revendedor!</Link>
+                    <Link className='revendedor' to={'/empresas'}>Seja um revendedor!</Link>
                     {isLogged
                         ?   <>
                             <div className='user-div'>
