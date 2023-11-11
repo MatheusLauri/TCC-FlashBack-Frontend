@@ -172,8 +172,8 @@ export default function AdmPage() {
                     NomeEvento:nomeEvento,
                     Descricao:descricao,
                     DataComeco:dtInicio,
-                    DataFim:dtTermino,
-                    Destaque:destaque
+                    // DataFim:dtTermino,
+                    // Destaque:destaque
                 }
                 
 
@@ -216,8 +216,8 @@ export default function AdmPage() {
                     Local: idLocal,
                     NomeEvento:nomeEvento,
                     Descricao:descricao,
-                    DataComeco:dtInicio,
-                    DataFim:dtTermino,
+                    // DataComeco:dtInicio,
+                    // DataFim:dtTermino,
                     Destaque:destaque
                 }
                 
