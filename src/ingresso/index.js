@@ -137,7 +137,7 @@ export default function IngressoPage(){
 
                             {listarDatas.map((item) => (
 
-                                <div onClick={() => {ListarHorario(item.Id)}}  className='data-box'>
+                                <div onClick={() => ListarHorario(item.Id)}  className='data-box'>
                                     <h1>{item.Dia_Semana}</h1>
                                     <p>{item.Dia_Mes} {item.mes}</p>
                                 </div>
