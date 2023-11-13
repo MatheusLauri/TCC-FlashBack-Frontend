@@ -185,34 +185,35 @@
                     display: flex;
                     flex-direction: column;
                     justify-content: flex-end;
-                    .data-box:first-child{
-                        width: 100%;
-                        height: 120px;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        justify-content: center;
-                        border-radius: 2px;
-                        border-top: 0.6px solid #C2C2C2;
-                        border-bottom: 0.6px solid #C2C2C2;
-                        background: #520DA9;
-                        h1{
-                            color: #FFF;
-                            text-align: center;
-                            font-size: 14px;
-                            font-style: normal;
-                            font-weight: 500;
-                            line-height: normal;
-                        }
-                        p{
-                            color: #FFF;
-                            text-align: center;
-                            font-size: 14px;
-                            font-style: normal;
-                            font-weight: 700;
-                            line-height: normal;
-                        }
-                    }
+                     .data-box:first-child{
+                         width: 100%;
+                         height: 120px;
+                         display: flex;
+                         flex-direction: column;
+                         align-items: center;
+                         justify-content: center;
+                         border-radius: 2px;
+                         border-top: 0.6px solid #C2C2C2;
+                         border-bottom: 0.6px solid #C2C2C2;
+                         background: #520DA9;
+                         cursor: pointer;
+                         h1{
+                             color: #FFF;
+                             text-align: center;
+                             font-size: 14px;
+                             font-style: normal;
+                             font-weight: 500;
+                             line-height: normal;
+                         }
+                         p{
+                             color: #FFF;
+                             text-align: center;
+                             font-size: 14px;
+                             font-style: normal;
+                             font-weight: 700;
+                             line-height: normal;
+                         }
+                     }
                     .data-box{
                         width: 100%;
                         height: 120px;
@@ -224,6 +225,7 @@
                         border-top: 0.6px solid #C2C2C2;
                         border-bottom: 0.6px solid #C2C2C2;
                         background-color: white;
+                        cursor: pointer;
                         h1{
                             color: #8E8E8E;
                             text-align: center;

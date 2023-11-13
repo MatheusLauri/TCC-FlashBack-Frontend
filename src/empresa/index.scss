@@ -6,26 +6,41 @@
         z-index: 10;
         height: 70px;
         width: 100%;
-        background-color: #1e01456e;
+        background-color: #0000006e;
         display: flex;
         flex-direction: row;
         align-items: center;
         padding: 0px 20px;
-        img{
-            height: 40px;
-            width: auto;
+        a{
+            outline: none;
+            color: white;
+            text-decoration: none;
+            font-weight: 800;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            img{
+                height: 40px;
+                width: auto;
+            }
         }
+        
     }
     .secao-inicial{
-        padding: 134px;
         width: 100%;
         height: 100%;
         background-image: url(../../public/assets/images/auditorio.jpg);
         background-size: cover;
         background-repeat: no-repeat;
         >div{
-            backdrop-filter: blur(10px);
+            padding: 134px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(1px);
             >h1{
+                line-height: 6rem;
                 color: white;
                 font-size: 100px;
                 border-radius: 25px;
@@ -34,8 +49,41 @@
                 color: white;
                 font-size: 20px;
                 border-radius: 25px;
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+            }
+            >a{
+                color: #F9DD4A;
+                width: fit-content;
+                padding: 10px 20px;
+                border-radius: 25px;
+                font-weight: 700;
+                margin-top: 5px;
+                border: 2px dashed #F9DD4A;
             }
         }
         
+    }
+    .secao-dashboard{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 60%;
+        align-items: center;
+        gap: 35px;
+        justify-content: center;
+        >h1{
+            font-weight: 200;
+            color: #520AD9;
+            font-size: 50px;
+            width: 90%;
+            text-align: center;
+        }
+        >p{
+            font-weight: 800;
+            font-size: 50px;
+            width: 90%;
+            text-align: center;
+        }
     }
 }

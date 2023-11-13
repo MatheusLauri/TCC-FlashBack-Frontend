@@ -20,8 +20,7 @@ export default function IngressoPage(){
     //variaveis listagem data
 
     const [listarDatas, setListarDatas] = useState([]) 
-    // const [idDatas, setIdDatas] = useState([]) 
-    const [idDatas, setIdDatas] = useState(1) 
+    const [idDatas, setIdDatas] = useState() 
     const [listarHorarios, setListarHorarios] = useState([]) 
 
     
@@ -37,43 +36,68 @@ export default function IngressoPage(){
     }
     
     useEffect(() => {
-        ListarIngressos()
-        ListarData_Comprar()
+        ListarIngressos();
+        ListarData_Comprar();
+      
     },[id])
+
     let url = `http://localhost:5000/${ingressos.IMAGEM_INGRESSO}`
-    
+
     //FORMATAR DATETIME
     const datetime = new Date(ingressos.DT_COMECO);
     const monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
     const formattedDate = `${datetime.getDate()} ${monthNames[datetime.getMonth()]} - ${datetime.getFullYear()} | ${datetime.getHours()}:${datetime.getMinutes()}`;
 
+    //Formatar datas Compra
+    let diasDaSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+    let meses = ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+    
+     function formatDt (data) {
+
+        let datetimeCompra = new Date(data.DT_INGRESSO);
+        let diaDaSemana = diasDaSemana[datetimeCompra.getUTCDay()];
+        let diaDoMes = datetimeCompra.getUTCDate();
+        let mes = meses[datetimeCompra.getUTCMonth()];
+        
+
+        let resultado = {
+            Id: data.ID_DATA_INGRESSO,
+            Dia_Semana: diaDaSemana,
+            Dia_Mes: diaDoMes,
+            mes: mes
+        } 
+
+        return resultado
+     }
+    
 
     //Listar Datas e horarios do Ingresso
 
     async function ListarData_Comprar () {
         const resp = await axios.get(`http://localhost:5000/data/compra/${id}`)
 
-        
-        setListarDatas(resp.data)
+        let arrayDataFormat = [];
 
-    //     const guardarDatas = []
+        for (let item of resp.data) {
+            
+            let dataFormat = formatDt(item);
+            arrayDataFormat.push(dataFormat);
+        }
         
-    //     for(let item of resp.data) {
-    //         guardarDatas.push(item.ID_DATA_INGRESSO)
-    //     }
- 
-    //    setIdDatas(guardarDatas)
+        setListarDatas(arrayDataFormat)
+        
+
     }
 
-    
     async function ListarHorario (idData) {
 
-        const resp = await axios.get(`http://localhost:5000/horario/compra/${idData}`)
-    
-        setListarHorarios(resp.data)
+        if(idData > 0){
+            const resp = await axios.get(`http://localhost:5000/horario/compra/${idData}`)
+        
+            setListarHorarios(resp.data)
 
+        }
     }
-
 
 
     return (
@@ -113,9 +137,9 @@ export default function IngressoPage(){
 
                             {listarDatas.map((item) => (
 
-                                <div onClick={() => {setIdDatas(item.ID_DATA_INGRESSO); ListarHorario(idDatas); console.log(idDatas)}}  className='data-box'>
-                                    <h1>{item.DT_INGRESSO}</h1>
-                                    <p>12 set</p>
+                                <div onClick={() => ListarHorario(item.Id)}  className='data-box'>
+                                    <h1>{item.Dia_Semana}</h1>
+                                    <p>{item.Dia_Mes} {item.mes}</p>
                                 </div>
                             ))}
                             
@@ -124,7 +148,7 @@ export default function IngressoPage(){
                             <h1>Selecione um horário</h1>
                             <div className='ticket-wrapper'>
 
-                                {idDatas &&
+                                {idDatas != 0 &&
                                     <>
                                         {listarHorarios.map((item) => (
                                             <div className='time-select-box'>
