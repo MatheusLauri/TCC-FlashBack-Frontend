@@ -44,7 +44,7 @@ export default function MixedChart(props) {
             
         series: [{
           name: 'Cadastro de Clientes',
-          type: 'column',
+          type: 'line',
           data: listagemQtd,
           colors: ['#520ad9'],
           fill: {
@@ -56,8 +56,8 @@ export default function MixedChart(props) {
         },
          {
           name: 'Cadastro de Empresas',
-          type: 'line',
-          data: [440, 505, 414, 671, 227]
+          type: 'column',
+          data: [440, 505]
         }],
         colors: ['#F9DD4A'],
         options: {
