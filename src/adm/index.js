@@ -27,10 +27,11 @@ export default function AdmPage() {
     const [isLogged, setIsLogged] = useState(false)
     const [logOutModal, setLogOutModal] = useState(true)
 
-    
+    const [toggleCondicional, setToggleCondicional] = useState(1)
+    const [addPage, setAddPage] = useState(1)
 
-    const [userBar,setUserBar] = useState(false)
-    const [userRightBar,setUserRightBar] = useState(false)
+    const [userBar, setUserBar] = useState(false)
+    const [userRightBar, setUserRightBar] = useState(false)
 
     //Variáveis de login empresa
 
@@ -47,7 +48,7 @@ export default function AdmPage() {
     const [dtInicio, setDtInicio] = useState('')
     const [dtTermino, setDtTermino] = useState('')
 
-    const[imgIngresso, setImgIngresso] = useState()
+    const [imgIngresso, setImgIngresso] = useState()
     //variáveis para a tela de pesquisa de ingressos
     const [listarIngressos, setListarIngressos] = useState()
     const [pesquisa, setPesquisa] = useState('')
@@ -59,7 +60,7 @@ export default function AdmPage() {
     const [qtdTipo, setQtdTipo] = useState('')
     const [precoTipo, setPrecoTipo] = useState('')
 
-    const precoTipoFormatado = Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(precoTipo)
+    const precoTipoFormatado = Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' }).format(precoTipo)
     const [precoTipoFormatar, setPrecoTipoFormatar] = useState()
 
     const [vetorTipo, setVetorTipo] = useState([])
@@ -75,26 +76,26 @@ export default function AdmPage() {
     const [bairro, setBairro] = useState('')
     const [cidade, setCidade] = useState('')
     const [uf, setUf] = useState('')
-    const [numeroLocalEvento,setNumeroLocalEvento] = useState('')
+    const [numeroLocalEvento, setNumeroLocalEvento] = useState('')
 
 
     //variaveis listagem pedido
 
-    const[listarPedido, setListarpedido] = useState([])
+    const [listarPedido, setListarpedido] = useState([])
 
 
-    
+
 
     async function ListarIngressos() {
         const listagem = []
 
         try {
-            if(pesquisa.length){
+            if (pesquisa.length) {
                 const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome=${pesquisa}`)
                 listagem.push(...resp.data)
                 setListarIngressos(listagem)
             }
-            else{
+            else {
                 const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome`)
                 listagem.push(...resp.data)
                 setListarIngressos(listagem)
@@ -111,11 +112,11 @@ export default function AdmPage() {
         if (listarPedido.length != 0) {
             ListarPedidos()
         };
-        
-        if(idIngresso != 0) {
+
+        if (idIngresso != 0) {
             listarTipos()
         }
-        
+
 
     }, [pesquisa, listarIngressos, menu]);
 
@@ -136,49 +137,49 @@ export default function AdmPage() {
     }
 
     async function addIngresso() {
-        
+
         try {
 
-            if (!imgIngresso) 
-                throw new Error ('Insira uma imagem!')
+            if (!imgIngresso)
+                throw new Error('Insira uma imagem!')
 
-            if(vetorTipo.length === 0)
+            if (vetorTipo.length === 0)
                 throw new Error('Insira ao menos um tipo de ingresso!')
 
-            if(idIngresso === 0) {
+            if (idIngresso === 0) {
 
                 //Cadastro Local do evento
                 const responseLocal = await axios.post(`http://localhost:5000/local`, {
-            
+
                     CEP: CEP,
                     Logradouro: logradouro,
                     Bairro: bairro,
                     Localidade: cidade,
                     UF: uf,
                     Numero: numeroLocalEvento
-                  
+
                 })
-    
-            
+
+
                 const Id_Local = responseLocal.data.ID
 
                 setIdLocal(Id_Local)
-            
+
                 //Cadastro Infos Ingresso
                 let infosIngresso = {
-                    Categoria:category,
+                    Categoria: category,
                     Empresa: 1,
                     Local: Id_Local,
-                    NomeEvento:nomeEvento,
-                    Descricao:descricao,
-                    DataComeco:dtInicio,
+                    NomeEvento: nomeEvento,
+                    Descricao: descricao,
+                    DataComeco: dtInicio,
                     // DataFim:dtTermino,
                     // Destaque:destaque
                 }
-                
+
 
                 const responseInfosIngresso = await axios.post('http://localhost:5000/ingresso', infosIngresso)
-            
+
 
                 setIdIngresso(responseInfosIngresso.data.ID)
 
@@ -186,7 +187,7 @@ export default function AdmPage() {
 
                 //Envio de imagem
                 const responseImagem = await uploadImagem(idIngresso)
-                
+
 
                 //Cadastro Tipo de Ingresso(s)
                 const responseTipo = await cadastrarTipo(idIngresso)
@@ -194,50 +195,50 @@ export default function AdmPage() {
                 setListarTipoAtivo(true)
 
                 toast.success("Ingresso Cadastrado!")
-            
+
             } else {
 
-                 //alterar Local do evento
-                 const responseLocal = await axios.put(`http://localhost:5000/local/${idLocal}`, {
-            
+                //alterar Local do evento
+                const responseLocal = await axios.put(`http://localhost:5000/local/${idLocal}`, {
+
                     CEP: CEP,
                     Logradouro: logradouro,
                     Bairro: bairro,
                     Localidade: cidade,
                     UF: uf,
                     Numero: numeroLocalEvento
-               
+
                 })
 
                 //Alterar Infos Ingresso
                 let infosIngresso = {
-                    Categoria:category,
+                    Categoria: category,
                     Empresa: 1,
                     Local: idLocal,
-                    NomeEvento:nomeEvento,
-                    Descricao:descricao,
+                    NomeEvento: nomeEvento,
+                    Descricao: descricao,
                     // DataComeco:dtInicio,
                     // DataFim:dtTermino,
-                    Destaque:destaque
+                    Destaque: destaque
                 }
-                
+
 
                 const responseInfosIngresso = await axios.put(`http://localhost:5000/ingresso/${idIngresso}`, infosIngresso)
 
                 //Alterar imagem de imagem
                 const responseImagem = await uploadImagem(idIngresso)
-                
+
 
                 //Alterar Tipo de Ingresso(s)
-                
+
 
                 toast.success("Ingresso Alterado!")
 
             }
-           
+
 
         } catch (err) {
-            if(err.response) 
+            if (err.response)
                 toast.error(err.response.data.erro);
             else
                 toast.error(err.message);
@@ -246,36 +247,36 @@ export default function AdmPage() {
     }
 
 
-    async function AdicionarIngresso(){
+    async function AdicionarIngresso() {
         addIngresso()
         await ListarIngressos()
     }
 
 
     async function uploadImagem(id) {
-       
 
-            const formData = new FormData();
-            formData.append('capa', imgIngresso)
 
-            const reposta = await  axios.put(`http://localhost:5000/ingresso/${id}/capa`, formData, {
+        const formData = new FormData();
+        formData.append('capa', imgIngresso)
+
+        const reposta = await axios.put(`http://localhost:5000/ingresso/${id}/capa`, formData, {
 
             headers: {
                 "Content-Type": "multipart/form-data"
             },
 
         })
-        
-        
+
+
     }
 
 
-    function escolherImagem () {
+    function escolherImagem() {
         document.getElementById('imagemCapa').click();
     }
 
 
-    function mostrarImagem () {
+    function mostrarImagem() {
         return URL.createObjectURL(imgIngresso)
 
     }
@@ -290,46 +291,46 @@ export default function AdmPage() {
                 qtd: qtdTipo,
                 preco: precoTipoFormatado
             }
-    
-            if(!infosTipo.nome)
+
+            if (!infosTipo.nome)
                 throw new Error("Defina o nome do tipo!")
-    
-            if (!infosTipo.qtd) 
+
+            if (!infosTipo.qtd)
                 throw new Error("Defina uma quantidade!")
 
-            if (infosTipo.qtd < 0 || precoTipo < 0) 
-            throw new Error("Insira somente valores positivos!")
+            if (infosTipo.qtd < 0 || precoTipo < 0)
+                throw new Error("Insira somente valores positivos!")
 
-            
-            for(let item of vetorTipo) {
 
-                if(item.nome === infosTipo.nome) 
+            for (let item of vetorTipo) {
+
+                if (item.nome === infosTipo.nome)
                     throw new Error('Tipo já existente!')
             }
-         
+
             vetorTipo.push(infosTipo)
             setVetorTipo([...vetorTipo])
 
             setNomeTipo('')
             setQtdTipo('')
-    
-        
+
+
         } catch (err) {
 
             toast.error(err.message)
 
         }
-        
-       
+
+
     }
 
 
-    async function cadastrarTipo (idDoIngresso) {
+    async function cadastrarTipo(idDoIngresso) {
 
 
         for (let item of vetorTipo) {
 
-            const reposta = await  axios.post(`http://localhost:5000/tipoIngresso`, {
+            const reposta = await axios.post(`http://localhost:5000/tipoIngresso`, {
                 Ingresso: idDoIngresso,
                 Tipo: item.nome,
                 Quantidade: item.qtd,
@@ -342,18 +343,18 @@ export default function AdmPage() {
         }
 
     }
-    
-    
-    
+
+
+
     async function listarTipos() {
 
         const resposta = await axios.get(`http://localhost:5000/tipoIngresso/${idIngresso}`)
         console.log(resposta.data)
 
-        setPrecoTipoFormatar(Intl.NumberFormat('pt-br', {style: 'currency', currency: 'BRL'}).format(resposta.data.VL_PRECO_TIPO))
+        setPrecoTipoFormatar(Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' }).format(resposta.data.VL_PRECO_TIPO))
 
         setVetorTipo(resposta.data)
-       
+
     }
 
 
@@ -369,52 +370,52 @@ export default function AdmPage() {
             setCidade(r.data.localidade)
             setUf(r.data.uf)
 
-            
+
         } catch (err) {
             toast.error('Endereço não encontrado ou CEP inválido')
         }
 
-        
-       
+
+
     }
 
 
     async function cadastrarLocal() {
 
         const response = await axios.post(`http://localhost:5000/local`, {
-            
+
             CEP: CEP,
             Logradouro: logradouro,
             Bairro: bairro,
             Localidade: cidade,
             UF: uf,
             Numero: numeroLocalEvento
-              
+
         })
 
-        
+
         setIdLocal(response.data.ID)
     }
-    
 
 
-    async function alterarTipoIngresso () {
 
-     
+    async function alterarTipoIngresso() {
 
-            for (let item of vetorTipo) {
 
-                let cont = 0
-    
-                const reposta = await  axios.put(`http://localhost:5000/tipoIngresso/${idTipos[cont]}`, {
-                    Tipo: item.nome,
-                    Quantidade: item.qtd,
-                    Preco: precoTipo
-                })
-    
-                cont++
-            }
-    
+
+        for (let item of vetorTipo) {
+
+            let cont = 0
+
+            const reposta = await axios.put(`http://localhost:5000/tipoIngresso/${idTipos[cont]}`, {
+                Tipo: item.nome,
+                Quantidade: item.qtd,
+                Preco: precoTipo
+            })
+
+            cont++
+        }
+
 
 
 
@@ -431,28 +432,28 @@ export default function AdmPage() {
         const vetorTiposs = vetorTipo
 
         vetorTiposs[idArray] = {
-            nome:nomeTipo,
+            nome: nomeTipo,
             qtd: qtdTipo,
             preco: precoTipo
 
         }
 
         setVetorTipo(vetorTiposs)
-        
+
 
     }
 
 
-    async function deletarTipo (idArray) {
+    async function deletarTipo(idArray) {
 
-        if(idIngresso === 0) {
+        if (idIngresso === 0) {
 
             vetorTipo.splice(idArray, 1)
 
             setVetorTipo([...vetorTipo])
         } else {
 
-          const r = await axios.delete(`http://localhost:5000/tipoIngresso/${idArray}`)
+            const r = await axios.delete(`http://localhost:5000/tipoIngresso/${idArray}`)
 
         }
     }
@@ -477,20 +478,20 @@ export default function AdmPage() {
         setPrecoTipo('')
         setVetorTipo([])
         setShowMenu(false)
-       
+
     }
 
 
-    async function ListarPedidos () {
+    async function ListarPedidos() {
 
         const resp = await axios.get(`http://localhost:5000/listarPedido`)
 
         setListarpedido(resp.data)
-    
+
     }
 
 
-    function SairClickEmpresa () {
+    function SairClickEmpresa() {
 
         storage.remove('empresa-logada')
         navigate('/empresas/login')
@@ -519,7 +520,7 @@ export default function AdmPage() {
                     <section className='adm-home'>
                         {menu == 1 &&
                             <>
-                                <CategorySection funcao={setCategory} valor={category} page='home'/>
+                                <CategorySection funcao={setCategory} valor={category} page='home' />
                                 <section className='home-content'>
                                     <TitleRange text='Gráfico de vendas:' />
                                     <div className='home-grafico'>
@@ -601,29 +602,29 @@ export default function AdmPage() {
                                 <section className='search-content'>
                                     <div className='input-div'>
                                         <img src='../assets/images/search.png' />
-                                        <input type='text' placeholder='Ex: Numanice, The town...' value={pesquisa} onChange={(e) => setPesquisa(e.target.value)}/>
+                                        <input type='text' placeholder='Ex: Numanice, The town...' value={pesquisa} onChange={(e) => setPesquisa(e.target.value)} />
                                     </div>
                                     <div className='ticket-wrapper'>
                                         {listarIngressos &&
-                                            listarIngressos.map((item,index) => (
+                                            listarIngressos.map((item, index) => (
                                                 <>
-                                                <AdmTicket 
-                                                    id={item.ID_INGRESSO}
-                                                    nome={item.NM_EVENTO}
-                                                    data={item.DT_COMECO}
-                                                    imagem={item.IMAGEM_INGRESSO}
-                                                    qtd={item.QTD_TIPO_INGRESSO}
-                                                    valor={item.VL_PRECO_TIPO}
-                                                    nomeTipo={item.NM_TIPO_INGRESSO}
-                                                    rua={item.DS_LOGRADOURO}
-                                                    cidade={item.DS_LOCALIDADE}
-                                                    estado={item.DS_UF}
-                                                    busca={pesquisa}
-                                                />
+                                                    <AdmTicket
+                                                        id={item.ID_INGRESSO}
+                                                        nome={item.NM_EVENTO}
+                                                        data={item.DT_COMECO}
+                                                        imagem={item.IMAGEM_INGRESSO}
+                                                        qtd={item.QTD_TIPO_INGRESSO}
+                                                        valor={item.VL_PRECO_TIPO}
+                                                        nomeTipo={item.NM_TIPO_INGRESSO}
+                                                        rua={item.DS_LOGRADOURO}
+                                                        cidade={item.DS_LOCALIDADE}
+                                                        estado={item.DS_UF}
+                                                        busca={pesquisa}
+                                                    />
                                                 </>
-                                        ))}
-                                        
-                                        
+                                            ))}
+
+
                                     </div>
                                 </section>
                             </>
@@ -637,167 +638,241 @@ export default function AdmPage() {
                                     </div>
                                     <div className='add-range'>
                                         <TitleRange text='Informações do evento' />
-                                        <div className='add-input-main'>
-                                            <div className='text-file-inputs-box'>
-                                                <div className='file-input-box' onClick={escolherImagem}>
-                                                    
-                                                    {!imgIngresso &&
-                                                        <img src='../assets/images/imgUpload.svg'/>
-                                                    }
-                                                
-                                                    {imgIngresso &&
-                                                        <img className='imgCapaIngresso' src={mostrarImagem()}/> 
-                                                    }
-                                                
-                                                    
-                                                    <input type='file' id='imagemCapa' onChange={e => setImgIngresso(e.target.files[0])}/>
-    
-                                                </div>
+                                        {addPage == 1 ?
+                                            <div className='add-input-main-1'>
+                                                <div className='text-file-inputs-box'>
 
-                                                <div className='text-input-box'>
-                                                    <input type='text' placeholder='Nome do Evento' value={nomeEvento} onChange={(e) => setNomeEvento(e.target.value)} />
-                                                </div>
-                                                
+                                                    <div className='file-input-box' onClick={escolherImagem}>
 
-                                                <div className='text-input-box'>
-                                                    <input type='datetime-local' placeholder='Data e Hora de Início' value={dtInicio} onChange={(e) => setDtInicio(e.target.value)} />
-                                                </div>
-
-                                                <div className='text-input-box'>
-                                                    <input type='datetime-local' placeholder='Data e Hora de Termino' value={dtTermino} onChange={(e) => setDtTermino(e.target.value)} />
-                                                </div>
-
-                                                
-                                                <div className='text-input-box'>
-                                                    <input type='text' placeholder='Adicionar descrição' value={descricao} onChange={(e) => setDescricao(e.target.value)} />
-                                                </div>
-
-                                                
-                                            </div>
-                                            <div className='divisor'></div>
-                                            <div className='text-inputs-box' >
-                                
-                                                <div className='text-input-box'>
-                                                    <input type='text' placeholder='CEP'  onBlur={buscarInfosLocal} value={CEP} onChange={(e) => setCEP(e.target.value)} />
-                                                    <img src='' />
-                                                </div>
-
-                                                <div className='text-input-box'>
-                                                    <input type='text' placeholder='Logradouro' value={logradouro} onChange={(e) => setLogradouro(e.target.value)} />
-                                                    <img src='' />
-                                                </div>
-
-                                                <div className='text-input-box'>
-                                                    <input type='text' placeholder='Bairro' value={bairro} onChange={(e) => setBairro(e.target.value)} />
-                                                    <img src='' />
-                                                </div>
-
-                                                <div className='text-input-box'>
-                                                    <input type='text' placeholder='Localidade' value={cidade} onChange={(e) => setCidade(e.target.value)} />
-                                                    <img src='' />
-                                                </div>
-
-                                                <div className='text-input-box'>
-                                                    <input type='text' placeholder='UF' value={uf} onChange={(e) => setUf(e.target.value)} />
-                                                    <img src='' />
-                                                </div>
-
-                                                <div className='text-input-box'>
-                                                    <input type='text' placeholder='Número' value={numeroLocalEvento} onChange={(e) => setNumeroLocalEvento(e.target.value)} />
-                                                </div>
-                                                
-                                                <div>
-                                                    <input type='checkbox' name="Destaque" onChange={(e) => setDestaque(e.target.checked)} />
-                                                    <label> Destaque?</label>
-                                                </div>
-                                                
-                                            </div>
-                                            <div className='divisor'></div>
-                                            <div className={showMenu ? 'type-controller-clicked' : 'type-controller'}>
-                                                <div className='header' onClick={() => setShowMenu(!showMenu)}>
-                                                    <h1>Tipos de ingresso, quantidade e preço</h1>
-                                                    <img src='../assets/images/arrow.svg'/>
-                                                </div>
-                                                <div className='body'>
-                                                    <div className='input-row'>
-                                                        <input type='text' placeholder='Nome' value={nomeTipo} onChange={(e) => setNomeTipo(e.target.value)}/>
-                                                        <input type='number' placeholder='Qtd' value={qtdTipo} onChange={(e) => setQtdTipo(Number(e.target.value))}/>
-                                                        <input type='number' placeholder='R$ 0,00' value={precoTipo} onChange={(e) => setPrecoTipo(Number(e.target.value))}/>
-                                                        {alterarTipo
-
-                                                            ?<a onClick={alterarTipoIngresso2}>Alterar</a>
-                                                            :<a onClick={inserirTipoModal}>Adicionar</a>
+                                                        {!imgIngresso &&
+                                                            <img src='../assets/images/imgUpload.svg' />
                                                         }
+
+                                                        {imgIngresso &&
+                                                            <img className='imgCapaIngresso' src={mostrarImagem()} />
+                                                        }
+
+
+                                                        <input type='file' id='imagemCapa' onChange={e => setImgIngresso(e.target.files[0])} />
+
                                                     </div>
-                                                    <div className='body-table'>
-                                                        {idIngresso != 0  
-                                                            ?   <>
-                                                                    {vetorTipo.map((item) => (
-                                                                        <div className='body-table-row'>
-                                                                            <span>{item.NM_TIPO_INGRESSO}</span>
-                                                                            <div className='divisor'></div>
-                                                                            <span> {item.QTD_TIPO_INGRESSO} Un</span>
-                                                                            <div className='divisor'></div>
-                                                                            <span>{precoTipoFormatar}</span>
-                                                                            <a><img src='../assets/images/edit.svg'/></a>
-                                                                            <a><img src='../assets/images/delete.svg' onClick={() => deletarTipo(item.ID_TIPO_INGRESSO)}/></a>
-                                                                        </div>
-                                                                    ))}
-                                                                </>
-                                                            :   <>
-                                                                    {vetorTipo.map((item, idArray) => (
-                                                                        <div className='body-table-row'>
-                                                                            <span>{item.nome}</span>
-                                                                            <div className='divisor'></div>
-                                                                            <span> {item.qtd} Un</span>
-                                                                            <div className='divisor'></div>
-                                                                            <span>{item.preco}</span>
-                                                                            <a><img src='../assets/images/edit.svg' onClick={() => {alterarTipoIngresso2(idArray); setAlterarTipo(true)}}/></a>
-                                                                            <a><img src='../assets/images/delete.svg' onClick={() => deletarTipo(idArray)}/></a>
-                                                                        </div>
-                                                                    ))}
-                                                                </>
-                                                        }
-                                                        
+
+
+
+
+                                                </div>
+                                                <div className='divisor'></div>
+                                                <div className='text-inputs-box' >
+
+                                                    <div className='text-input-box'>
+                                                        <input type='text' placeholder='Nome do Evento' value={nomeEvento} onChange={(e) => setNomeEvento(e.target.value)} />
+                                                    </div>
+
+
+                                                    <div className='text-input-box-desc'>
+                                                        <textarea type='text' placeholder='Adicionar descrição' value={descricao} onChange={(e) => setDescricao(e.target.value)} />
+                                                    </div>
+
+
+                                                    <div>
+                                                        <input type='checkbox' name="Destaque" onChange={(e) => setDestaque(e.target.checked)} />
+                                                        <label> Destaque?</label>
+                                                    </div>
+
+                                                </div>
+                                                <div className='divisor'></div>
+                                                <div className='text-inputs-box' >
+                                                    <div className='text-input-box'>
+                                                        <input type='text' placeholder='CEP' onBlur={buscarInfosLocal} value={CEP} onChange={(e) => setCEP(e.target.value)} />
+                                                        <img src='' />
+                                                    </div>
+
+                                                    <div className='text-input-box'>
+                                                        <input type='text' placeholder='Logradouro' value={logradouro} onChange={(e) => setLogradouro(e.target.value)} />
+                                                        <img src='' />
+                                                    </div>
+
+                                                    <div className='text-input-box'>
+                                                        <input type='text' placeholder='Bairro' value={bairro} onChange={(e) => setBairro(e.target.value)} />
+                                                        <img src='' />
+                                                    </div>
+
+                                                    <div className='text-input-box'>
+                                                        <input type='text' placeholder='Localidade' value={cidade} onChange={(e) => setCidade(e.target.value)} />
+                                                        <img src='' />
+                                                    </div>
+
+                                                    <div className='text-input-box'>
+                                                        <input type='text' placeholder='UF' value={uf} onChange={(e) => setUf(e.target.value)} />
+                                                        <img src='' />
+                                                    </div>
+
+                                                    <div className='text-input-box'>
+                                                        <input type='text' placeholder='Número' value={numeroLocalEvento} onChange={(e) => setNumeroLocalEvento(e.target.value)} />
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            :
+                                            <div className='add-input-main'>
+                                                <div className='text-inputs-box' >
+
+                                                    <div className='text-input-box'>
+                                                        <input type='date' />
+                                                        <img src='' />
+                                                    </div>
+                                                    <a>Adicionar data</a>
+                                                    <p>Clique na caixa de data para adicionar os horários</p>
+                                                    <a onClick={() => setToggleCondicional(1)}>Adicionar Tipo Ingresso</a>
+
+                                                </div>
+                                                <div className='divisor'></div>
+                                                <div className='data-boxes' >
+                                                    <div className='data-box' onClick={() => setToggleCondicional(2)}>
+                                                        <p>09/11/22</p>
                                                     </div>
                                                 </div>
+                                                <div className='divisor'></div>
+                                                {toggleCondicional == 1 ?
+                                                    <div className={showMenu ? 'type-controller-clicked' : 'type-controller'}>
+                                                        <div className='header' onClick={() => setShowMenu(!showMenu)}>
+                                                            <h1>Tipos de ingresso, quantidade e preço</h1>
+                                                            <img src='../assets/images/arrow.svg' />
+                                                        </div>
+                                                        <div className='body'>
+                                                            <div className='input-row'>
+                                                                <input type='text' placeholder='Nome' value={nomeTipo} onChange={(e) => setNomeTipo(e.target.value)} />
+                                                                <input type='number' placeholder='Qtd' value={qtdTipo} onChange={(e) => setQtdTipo(Number(e.target.value))} />
+                                                                <input type='number' placeholder='R$ 0,00' value={precoTipo} onChange={(e) => setPrecoTipo(Number(e.target.value))} />
+                                                                {alterarTipo
+
+                                                                    ? <a onClick={alterarTipoIngresso2}>Alterar</a>
+                                                                    : <a onClick={inserirTipoModal}>Adicionar</a>
+                                                                }
+                                                            </div>
+                                                            <div className='body-table'>
+                                                                {idIngresso != 0
+                                                                    ? <>
+                                                                        {vetorTipo.map((item) => (
+                                                                            <div className='body-table-row'>
+                                                                                <span>{item.NM_TIPO_INGRESSO}</span>
+                                                                                <div className='divisor'></div>
+                                                                                <span> {item.QTD_TIPO_INGRESSO} Un</span>
+                                                                                <div className='divisor'></div>
+                                                                                <span>{precoTipoFormatar}</span>
+                                                                                <a><img src='../assets/images/edit.svg' /></a>
+                                                                                <a><img src='../assets/images/delete.svg' onClick={() => deletarTipo(item.ID_TIPO_INGRESSO)} /></a>
+                                                                            </div>
+                                                                        ))}
+                                                                    </>
+                                                                    : <>
+                                                                        {vetorTipo.map((item, idArray) => (
+                                                                            <div className='body-table-row'>
+                                                                                <span>{item.nome}</span>
+                                                                                <div className='divisor'></div>
+                                                                                <span> {item.qtd} Un</span>
+                                                                                <div className='divisor'></div>
+                                                                                <span>{item.preco}</span>
+                                                                                <a><img src='../assets/images/edit.svg' onClick={() => { alterarTipoIngresso2(idArray); setAlterarTipo(true) }} /></a>
+                                                                                <a><img src='../assets/images/delete.svg' onClick={() => deletarTipo(idArray)} /></a>
+                                                                            </div>
+                                                                        ))}
+                                                                    </>
+                                                                }
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    :
+
+                                                    <div className={showMenu ? 'type-controller-clicked' : 'type-controller'}>
+                                                        <div className='header' onClick={() => setShowMenu(!showMenu)}>
+                                                            <h1>Horários de ingresso</h1>
+                                                            <img src='../assets/images/arrow.svg' />
+                                                        </div>
+                                                        <div className='body'>
+                                                            <div className='input-row'>
+                                                                <input type='time' placeholder='Horário' />
+                                                                <a>Adicionar</a>
+                                                            </div>
+                                                            <div className='body-table'>
+                                                                {idIngresso != 0
+                                                                    ? <>
+                                                                        {vetorTipo.map((item) => (
+                                                                            <div className='body-table-row'>
+                                                                                <span>{item.NM_TIPO_INGRESSO}</span>
+                                                                                <div className='divisor'></div>
+                                                                                <span> {item.QTD_TIPO_INGRESSO} Un</span>
+                                                                                <div className='divisor'></div>
+                                                                                <span>{precoTipoFormatar}</span>
+                                                                                <a><img src='../assets/images/edit.svg' /></a>
+                                                                                <a><img src='../assets/images/delete.svg' onClick={() => deletarTipo(item.ID_TIPO_INGRESSO)} /></a>
+                                                                            </div>
+                                                                        ))}
+                                                                    </>
+                                                                    : <>
+                                                                        {vetorTipo.map((item, idArray) => (
+                                                                            <div className='body-table-row'>
+                                                                                <span>{item.nome}</span>
+                                                                                <div className='divisor'></div>
+                                                                                <span> {item.qtd} Un</span>
+                                                                                <div className='divisor'></div>
+                                                                                <span>{item.preco}</span>
+                                                                                <a><img src='../assets/images/edit.svg' onClick={() => { alterarTipoIngresso2(idArray); setAlterarTipo(true) }} /></a>
+                                                                                <a><img src='../assets/images/delete.svg' onClick={() => deletarTipo(idArray)} /></a>
+                                                                            </div>
+                                                                        ))}
+                                                                    </>
+                                                                }
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                }
+
                                             </div>
-                                        </div>
+
+                                        }
                                         <div className='button-controller'>
-                                        
-                                        {idIngresso === 0 &&
+                                            {addPage == 2 &&
 
-                                            <>
+                                                <button onClick={() => setAddPage(1)}>Voltar</button>
+
+                                            }
+
+                                            <div>
                                                 <button onClick={() => AdicionarIngresso()}>Adicionar ingresso</button>
-                                                <button onClick={novoIngressoClick}>Novo Ingresso</button>
-                                            </>
-                                    
-                                        }
+                                                {addPage == 1 ?
 
-                                        {idIngresso > 0 &&
+                                                    <button onClick={() => setAddPage(2)}>Prosseguir</button>
 
-                                        <>
-                                            <button onClick={() => AdicionarIngresso()}>Alterar ingresso</button>
-                                            <button onClick={novoIngressoClick}>Novo Ingresso</button>
-                                        </>
+                                                    :
 
-                                        }
-                                            
+                                                    <button onClick={novoIngressoClick}>Novo Ingresso</button>
+
+                                                }
+                                            </div>
+
+
                                         </div>
                                     </div>
                                 </section>
                             </>
                         }
-                        {menu == 4 && 
+                        {menu == 4 &&
 
                             <>
                                 <section className='Pedidos-adm'>
                                     <TitleRange text='Pedidos' />
                                     <section className='cont-options_Pedidos-adm'>
-                                        <div className='pedidos-option' onClick={() => {setUserBar(true); setUserRightBar(true)}}>
+                                        <div className='pedidos-option' onClick={() => { setUserBar(true); setUserRightBar(true) }}>
                                             <a>Em andamento</a>
                                         </div>
-                                        <div className='pedidos-option' onClick={() => {setUserBar(false); setUserRightBar(false)}}>
+                                        <div className='pedidos-option' onClick={() => { setUserBar(false); setUserRightBar(false) }}>
                                             <a>Concluídos</a>
                                         </div>
                                         <div className={userBar ? 'bar-left' : 'bar-right'}></div>
@@ -805,77 +880,77 @@ export default function AdmPage() {
                                     <div className='contInfosPedido_Pedidos-adm'>
                                         <table >
                                             <thead>
-                                                    <tr>
-                                                        <th>
-                                                            <h3>ID</h3>
-                                                        </th>
-                                                        <th>
-                                                            <h3>Nome</h3>
-                                                        </th>
-                                                        <th>
-                                                            <h3>CPF</h3>
-                                                        </th>
-                                                        <th>
-                                                            <h3>E-mail</h3>
-                                                        </th>
-                                                        <th>
-                                                            <h3>Telefone</h3>
-                                                        </th>
-                                                        <th>
-                                                            <h3>Ingresso</h3>
-                                                        </th>
-                                                        <th>
-                                                            <h3>Parcelas</h3>
-                                                        </th>
-                                                        <th>
-                                                            <h3>Total</h3>
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                                                <tr>
+                                                    <th>
+                                                        <h3>ID</h3>
+                                                    </th>
+                                                    <th>
+                                                        <h3>Nome</h3>
+                                                    </th>
+                                                    <th>
+                                                        <h3>CPF</h3>
+                                                    </th>
+                                                    <th>
+                                                        <h3>E-mail</h3>
+                                                    </th>
+                                                    <th>
+                                                        <h3>Telefone</h3>
+                                                    </th>
+                                                    <th>
+                                                        <h3>Ingresso</h3>
+                                                    </th>
+                                                    <th>
+                                                        <h3>Parcelas</h3>
+                                                    </th>
+                                                    <th>
+                                                        <h3>Total</h3>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
 
                                                 {listarPedido.map((item) => (
-                                                        <>
+                                                    <>
                                                         <tr>
                                                             <td>{item.ID_PEDIDO}</td>
                                                             <td>{item.NM_CLIENTE} {item.NM_SOBRENOME}</td>
                                                             <td>{item.DS_CPF}</td>
                                                             <td>{item.DS_EMAIL}</td>
                                                             <td>{item.DS_TELEFONE}</td>
-                                                        <td>
-                                                            <div className='container-infosIngresso_PedidoCliente'>
-                                                                <div>
-                                                                    <img className='container-imgEvento_PedidoCliente'src={`http://localhost:5000/${item.IMAGEM_INGRESSO}`}></img>
-                                                                </div>
-                                                                <div className='sub-container-infosIngresso_PedidoCliente'>
-                                                                    <div className='valorqtd-infosIngresso_PedidoCliente'>
-                                                                        <h3>Valor:<p>{item.VL_PRECO_TIPO}</p></h3>
-                                                                        <h3>Qtd:<p>{item.QTD_ITENS}</p></h3>
+                                                            <td>
+                                                                <div className='container-infosIngresso_PedidoCliente'>
+                                                                    <div>
+                                                                        <img className='container-imgEvento_PedidoCliente' src={`http://localhost:5000/${item.IMAGEM_INGRESSO}`}></img>
                                                                     </div>
-                                                                    <p>{item.NM_TIPO_INGRESSO}</p>
+                                                                    <div className='sub-container-infosIngresso_PedidoCliente'>
+                                                                        <div className='valorqtd-infosIngresso_PedidoCliente'>
+                                                                            <h3>Valor:<p>{item.VL_PRECO_TIPO}</p></h3>
+                                                                            <h3>Qtd:<p>{item.QTD_ITENS}</p></h3>
+                                                                        </div>
+                                                                        <p>{item.NM_TIPO_INGRESSO}</p>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div className='containerParcela-infosIngresso_PedidoCliente'>
-                                                                <p>6x (5 restantes)</p>
-                                                                <h3>Valor:<p>199,99</p></h3>
-                                                            </div>
-                                                        </td>
-                                                        <td>399,99</td>
-                                                    </tr>
+                                                            </td>
+                                                            <td>
+                                                                <div className='containerParcela-infosIngresso_PedidoCliente'>
+                                                                    <p>6x (5 restantes)</p>
+                                                                    <h3>Valor:<p>199,99</p></h3>
+                                                                </div>
+                                                            </td>
+                                                            <td>399,99</td>
+                                                        </tr>
 
                                                     </>
                                                 ))}
-                                                    
 
-                                                </tbody>
+
+                                            </tbody>
 
                                         </table>
                                     </div>
                                     <div className='listar-cards_Pedidos-adm'>
-                                        
-                                        
+
+
                                     </div>
                                 </section>
                             </>
