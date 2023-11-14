@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './index.scss'
-
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import storage from 'local-storage'
 import { useNavigate } from 'react-router-dom';
 
@@ -17,6 +17,7 @@ import Modal from 'react-modal'
 
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 
 export default function AdmPage() {
@@ -732,6 +733,7 @@ export default function AdmPage() {
                                                 <div className='data-boxes' >
                                                     <div className='data-box' onClick={() => setToggleCondicional(2)}>
                                                         <p>09/11/22</p>
+                                                        <DeleteForeverIcon/>
                                                     </div>
                                                 </div>
                                                 <div className='divisor'></div>
