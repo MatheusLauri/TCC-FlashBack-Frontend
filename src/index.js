@@ -19,6 +19,8 @@ import Bdcartao from './dadoscartao';
 import AdmLogin from './admLogin';
 import AdmDashboard from './admDashboard';
 import Empresa from './empresa/index.js';
+import Resumo from '../src/telas-pagamento/Resumo/index.js'
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -41,6 +43,7 @@ root.render(
             <Route path='/destaque' element={<DestaqueBox/>} />
             <Route path='/carrinho' element={<PageCarrinho/>}/>
             <Route path='/bdcartao' element={<Bdcartao/>}/>
+            <Route path='/resumo' element={<Resumo/>}/>
         </Routes>
       </BrowserRouter>
   </React.StrictMode>

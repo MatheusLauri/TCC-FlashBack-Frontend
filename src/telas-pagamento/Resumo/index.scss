@@ -1,0 +1,116 @@
+.mae-todas{ 
+    display:  flex;
+    justify-content: center;
+    background-color: #f6f6f6;
+
+    flex-direction: column;
+    justify-content: space-between;
+
+
+    height: 100vh;
+    width: 100vw;
+
+    .content-center{
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        background-color: rgb(128, 125, 125);
+        width: 100vw;
+
+
+        .top{
+
+            display: flex;
+            flex-direction: column;
+            
+            background-color: rgb(255, 255, 255);
+            
+            
+            justify-content: center;
+            align-items: center;
+            
+            width: 60%;
+            height: 40vh;
+
+            .cima{
+                display: flex;
+                width: 100%;
+                
+                
+                justify-content: space-around;
+                
+                align-items: center;
+
+                .resumo{
+                    display: flex;
+                    flex-direction: column;
+                   
+                    height: 50px;
+                    justify-content: space-between;
+                }
+            }
+
+
+            .linha{
+                
+                margin-top: 15px;
+                width: 60%;
+                border: solid 1px #50525F;
+            }   
+
+
+            .meio {
+               
+                display: flex;
+                width: 60%;
+                height: 13vh;
+
+               
+                flex-direction: column;
+                
+                justify-content: space-around;
+
+
+                .tipo{
+                    display: flex;
+                    
+                    justify-content: space-between;
+                    width: 100%;
+                }
+
+                .taxa{
+                    display: flex;
+
+                    justify-content:  space-between;
+                    width: 100%; 
+                }
+            }
+
+            .baixo{
+                margin-top: 15px;
+                
+                display: flex;
+                width: 60%;
+                flex-direction: column;
+
+
+                .cima-baixo{
+                    display: flex;
+                    width: 100%;
+
+                    justify-content: space-between;
+                }
+
+                .parcela{
+                    margin-top: 20px;
+                    display: flex;
+                    width: 100%;
+                    
+                    justify-content: flex-end;
+                }
+            }
+        }
+    }
+}
