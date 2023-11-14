@@ -24,27 +24,21 @@ export default function IngressoPage(){
     }
 
     
-    const qtd = [0]
+    const qtd = []
     const [qtds, setQtds] = useState([])
-    const listagem = []
 
-    function condicionalConst(id,opcao){
-        if (qtd[id] == undefined){
-            qtd[id] = 0
-            console.log(qtd[id])
-        }
+    function condicionalConst(idTp,opcao){
+        let atual = Number(qtd[idTp])
         if (opcao == 'ad'){
-            qtd[id] =  qtd[id] + 1
-        }
-        else if (opcao == 'sub'){
-            if (qtd[id] > 0){
-                qtd[id] =  qtd[id] - 1
-            }
+            qtd[idTp] = atual + 1
             
         }
-        setQtds(qtd[id])
-        
-
+        else if (opcao == 'sub'){
+            qtd[idTp] = qtd[idTp] - 1
+        }
+        let listagem = []
+        setQtds(qtd)
+        console.log(listagem)
     }
 
     //variaveis listagem data
@@ -78,8 +72,11 @@ export default function IngressoPage(){
     async function ListarTipoIngressos(id) {
         let url = `http://localhost:5000/tipoIngresso/${id}`
         let response = await axios.get(url)
-        console.log(response)
         setTipoIngressos(response.data)
+        response.data.forEach((item) => {
+            qtd[item.ID_TIPO_INGRESSO] = 0
+        })
+        setQtds(qtd)
     }
 
     async function ListarIngressos(){
@@ -202,7 +199,7 @@ export default function IngressoPage(){
                             
                         </div>
                         <div className='time-select'>
-                            <h1>{title}</h1>
+                            <h1 onClick={()  => console.log(qtds)}>{title}</h1>
                             <div className='ticket-wrapper'>
                                 {show == 'data' &&
                                     null
@@ -223,10 +220,11 @@ export default function IngressoPage(){
                                             <p>{FormatPreco(item.VL_PRECO_TIPO)}</p>
                                             <p>Em até 10x</p>
                                             <div>
-                                                <a onClick={() => condicionalConst(id,'sub')} >
+                                                <a onClick={() => condicionalConst(item.ID_TIPO_INGRESSO,'sub')} >
                                                     <RemoveCircleOutlineIcon/>
                                                 </a>
-                                                <a onClick={() => condicionalConst(id,'ad') }>
+                                                <span>{qtds[item.ID_TIPO_INGRESSO]}</span>
+                                                <a onClick={() => condicionalConst(item.ID_TIPO_INGRESSO,'ad') }>
                                                     <ControlPointIcon/>
                                                 </a>
                                             </div>
