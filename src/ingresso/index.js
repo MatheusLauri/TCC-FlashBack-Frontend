@@ -26,7 +26,7 @@ export default function IngressoPage(){
     const [qtds, setQtds] = useState([])
     const listagem = []
     function condicionalConst(id,opcao){
-        
+
         if (opcao == 'ad'){
             if (!qtd[id]) {
                 qtd[id] = 0
@@ -51,6 +51,7 @@ export default function IngressoPage(){
         console.log(listagem)
 
     }
+
     //variaveis listagem data
     const [listarDatas, setListarDatas] = useState([]) 
     const [listarHorarios, setListarHorarios] = useState([]) 
@@ -133,7 +134,6 @@ export default function IngressoPage(){
         return resultado
      }
     
-
     //Listar Datas e horarios do Ingresso
 
     async function ListarData_Comprar () {
