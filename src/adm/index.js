@@ -756,15 +756,15 @@ export default function AdmPage() {
                                                         <img src='' />
                                                     </div>
                                                     <a onClick={CadastrarData}>Adicionar data</a>
-                                                    <p>Clique na caixa de data para adicionar os horários</p>
+                                                    <p onClick={() => console.log(listarHorarios)}>Clique na caixa de data para adicionar os horários</p>
                                                     <a onClick={() => setToggleCondicional(1)}>Adicionar Tipo Ingresso</a>
 
                                                 </div>
                                                 <div className='divisor'></div>
                                                 <div className='data-boxes' >
 
-                                                    {listarDatas.map((item) => (
-                                                        <div className='data-box' onClick={() => {setToggleCondicional(2) ; setIdData(item.ID)}}>
+                                                    {listarDatas.map((item) => ( 
+                                                        <div className='data-box' onClick={() => {setToggleCondicional(2) ; setIdData(item.ID); console.log(item.ID)}}>
                                                         <p>{item.Data}</p>
                                                         <DeleteForeverIcon/>
                                                     </div>
@@ -824,11 +824,6 @@ export default function AdmPage() {
                                                                 {listarHorarios.map((item) => (
                                                                     <div className='body-table-row'>
                                                                         <span>{item.Horario}</span>
-                                                                        {/* <div className='divisor'></div>
-                                                                        <span> {item.QTD_TIPO_INGRESSO} Un</span>
-                                                                        <div className='divisor'></div>
-                                                                        <span>{precoTipoFormatar}</span>
-                                                                        <a><img src='../assets/images/edit.svg' /></a> */}
                                                                         <a><img src='../assets/images/delete.svg'/></a>
                                                                     </div>
                                                                 ))}
