@@ -6,19 +6,22 @@
         z-index: 10;
         height: 70px;
         width: 100%;
-        background-color: #0000006e;
         display: flex;
         flex-direction: row;
         align-items: center;
-        padding: 0px 20px;
         a{
+            height: 100%;
+            box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.356);
+            padding: 0px 20px;
+            background-color: white;
             outline: none;
-            color: white;
+            color: #520AD9;
             text-decoration: none;
             font-weight: 800;
             display: flex;
             flex-direction: row;
             align-items: center;
+            border-bottom-right-radius: 25px;
             img{
                 height: 40px;
                 width: auto;
@@ -38,7 +41,7 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            backdrop-filter: blur(1px);
+            backdrop-filter: blur(2px);
             >h1{
                 line-height: 6rem;
                 color: white;
@@ -86,4 +89,196 @@
             text-align: center;
         }
     }
+    .secao-preco{
+        padding: 30px 20px;
+        display: flex;
+        flex-direction: column;
+        background-color: #f6f6f6;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        >h1{
+            font-size: 42px;
+        }
+        .planos-row{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            .plano{
+                padding: 40px;
+                width: 20%;
+                border-radius: 25px;
+                display: flex;
+                flex-direction: column;
+                height: 80%;
+                background-color: white;
+                justify-content: space-between;
+                align-items: center;
+                ul{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                    margin-top: 1rem;
+                    margin-left: 1.5rem;
+                    >li{
+                        font-size: 12px;
+                    }
+                }
+                .head{
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    >p{
+                        padding: 10px 20px;
+                        width: fit-content;
+                        font-size: 12px;
+                        font-weight: 800;
+                        border-radius: 25px;
+                        margin-bottom: 1rem;
+                    }
+                    >h1{
+                        font-size: 30px;
+                    }
+                    >small{
+                        font-style: italic;
+                        margin-bottom: 1rem;
+                    }
+                    >a{
+                        color: white;
+                        background-color: #520AD9;
+                        padding: 10px 20px;
+                        width: fit-content;
+                        border-radius: 25px;
+                        margin-bottom: 1rem;
+                    }
+                    .divisor{
+                       width: 100%;
+                       height: 1px;
+                       background-color: #dddddd;
+                       margin-bottom: 1rem;
+                    }
+                    >span{
+                        font-weight: 700;
+                        font-size: 12px;
+                    }
+                    
+                }
+                .bottom{
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+        }
+    }
+    .secao-screen{
+        width: 100%;
+        height: fit-content;
+        padding: 80px 160px;
+        align-items: center;
+        justify-content: space-evenly;
+        display: flex;
+        flex-direction: column;
+        gap: 10em;
+        .row{
+            width: 100%;
+            height: fit-content;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+            img{
+                border-radius: 25px;
+                box-shadow: 0 2rem 3rem rgba(132,139,200,0.18);
+                width: 50%;
+                height: auto;
+            }
+            div{
+                width: 50%;
+                display: flex;
+                flex-direction: column;
+                h1{
+                    color: #520AD9;
+                    font-size: 50px;
+                    margin-bottom: 1rem;
+                }
+                p{
+                    font-size: 20px
+                }
+            }
+        }
+        .row:last-child{
+            img{
+                box-shadow: none;
+            }
+        }
+    }
+    .secao-plataforma{
+        padding: 50px 30px;
+        width: 100%;
+        height: 70%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+        .head{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            width: 100%;
+            >h1{
+                font-weight: 500;
+                color: #520AD9;
+                font-size: 60px;
+                margin-bottom: 2rem;
+            }
+            >div{
+                display: flex;
+                flex-direction: row;
+                gap: 20px;
+                text-align: center;
+                >div{
+                    display: flex;
+                    flex-direction: column;
+                    p{
+                        color: #520AD9;
+                        font-weight: 900;
+                        font-size: 70px;
+                    }
+                    span{
+                        font-weight: 600;
+                    }
+                }
+            }
+            a{
+                padding: 10px 20px;
+                background-color: #520AD9;
+                color: white;
+                border-radius: 25px;
+            
+        }
+        }
+        .bottom{
+            height: fit-content;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            img{
+                height: auto;
+                width: 150px;
+            }
+        }
+    }
+
 }
