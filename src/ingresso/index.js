@@ -26,6 +26,7 @@ export default function IngressoPage(){
     const [qtds, setQtds] = useState([])
     const listagem = []
     function condicionalConst(id,opcao){
+        
         if (opcao == 'ad'){
             if (!qtd[id]) {
                 qtd[id] = 0
