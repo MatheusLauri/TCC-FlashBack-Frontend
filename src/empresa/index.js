@@ -24,10 +24,6 @@ export default function Empresa(){
     const [cep,setCep] = useState('')
     const [logradouro,setLogradouro] = useState('')
 
-    function CnpjVerifier(e) {
-        setCnpj(e)
-    }
-
     async function ListarCnpj() {
         let url = `https://www.receitaws.com.br/v1/cnpj/${cnpj}`
         let response = await axios.get(url)
@@ -49,7 +45,7 @@ export default function Empresa(){
                         <small><b>Preencha o formulário:</b></small>
                         <div className='wrapper'>
 
-                            <input type='text' placeholder='Insira o CPNJ' value={cnpj} onChange={(e) => CnpjVerifier(e.target.value)} onBlur={() => ListarCnpj()} />
+                            <input type='text' placeholder='Insira o CPNJ' value={cnpj} onChange={(e) => setCnpj(e.target.value)} onBlur={() => ListarCnpj()} />
                             <input type='text' placeholder='Nome Fantasia' value={nmFantasia}/>
                             <input type='text' placeholder='Razão Social' value={razaoSocial}/>
                             <input type='text' placeholder='E-mail' value={email}/>
