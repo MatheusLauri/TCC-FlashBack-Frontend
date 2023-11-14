@@ -23,6 +23,7 @@ export default function IngressoPage(){
         return precoTipoFormatado
     }
 
+    
     const qtd = [0]
     const [qtds, setQtds] = useState([])
     const listagem = []
