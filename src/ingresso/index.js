@@ -22,33 +22,27 @@ export default function IngressoPage(){
         const precoTipoFormatado = Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' }).format(vl)
         return precoTipoFormatado
     }
-    const qtd = []
+
+    const qtd = [0]
     const [qtds, setQtds] = useState([])
     const listagem = []
-    function condicionalConst(id,opcao){
 
+    function condicionalConst(id,opcao){
+        if (qtd[id] == undefined){
+            qtd[id] = 0
+            console.log(qtd[id])
+        }
         if (opcao == 'ad'){
-            if (!qtd[id]) {
-                qtd[id] = 0
-                
-            }
             qtd[id] =  qtd[id] + 1
         }
         else if (opcao == 'sub'){
-            if (!qtd[id]) {
-                qtd[id] = 0
-
-            }
-            else if (qtd[id] > 1){
-                qtd[id] =  qtd[id] - 1
-                setQtds(qtd)
-            }
-            else if (qtd[id] == 1){
+            if (qtd[id] > 0){
                 qtd[id] =  qtd[id] - 1
             }
+            
         }
-        listagem.push(qtd)
-        console.log(listagem)
+        setQtds(qtd[id])
+        
 
     }
 
@@ -78,7 +72,6 @@ export default function IngressoPage(){
         let array = []
         array[id_tipo_ingresso] = objeto
         setDadosIngresso(array)
-        console.log(dadosIngresso)
     }
 
     async function ListarTipoIngressos(id) {
@@ -229,11 +222,10 @@ export default function IngressoPage(){
                                             <p>{FormatPreco(item.VL_PRECO_TIPO)}</p>
                                             <p>Em até 10x</p>
                                             <div>
-                                                <a onClick={() => condicionalConst(item.ID_TIPO_INGRESSO,'sub')} >
+                                                <a onClick={() => condicionalConst(id,'sub')} >
                                                     <RemoveCircleOutlineIcon/>
                                                 </a>
-                                                <span>{listagem[item.ID_TIPO_INGRESSO]}</span>
-                                                <a onClick={() => condicionalConst(item.ID_TIPO_INGRESSO,'ad') }>
+                                                <a onClick={() => condicionalConst(id,'ad') }>
                                                     <ControlPointIcon/>
                                                 </a>
                                             </div>
