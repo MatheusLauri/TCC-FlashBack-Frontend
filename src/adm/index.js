@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './index.scss'
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import storage from 'local-storage'
-import { useNavigate } from 'react-router-dom';
+import { Await, useNavigate } from 'react-router-dom';
 
 import MenuAdm from '../componentes/menu-adm'
 import CategorySection from '../componentes/categoryBtn';
@@ -63,6 +63,7 @@ export default function AdmPage() {
 
     const precoTipoFormatado = Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' }).format(precoTipo)
     const [precoTipoFormatar, setPrecoTipoFormatar] = useState()
+    const [precoTipoCadastrar, setPrecoTipoCadastrar] = useState()
 
     const [vetorTipo, setVetorTipo] = useState([])
 
@@ -85,7 +86,17 @@ export default function AdmPage() {
     const [listarPedido, setListarpedido] = useState([])
 
 
+    //variaveis de cadastro de data e horario
+    
+    const[dataIngresso, setDataIngresso] = useState()
+    const[listarDatas, setlistarDatas] = useState([])
 
+    const[idData,  setIdData] = useState()
+    
+    const[horarioIngresso, setHorarioIngresso] = useState()
+    const[listarHorarios, setListarHorarios] = useState([])
+
+    const[idHorario, setIdHorario] = useState()
 
     async function ListarIngressos() {
         const listagem = []
@@ -114,9 +125,9 @@ export default function AdmPage() {
             ListarPedidos()
         };
 
-        if (idIngresso != 0) {
-            listarTipos()
-        }
+        // if (idIngresso != 0) {
+        //     listarTipos()
+        // }
 
 
     }, [pesquisa, listarIngressos, menu]);
@@ -147,96 +158,7 @@ export default function AdmPage() {
             if (vetorTipo.length === 0)
                 throw new Error('Insira ao menos um tipo de ingresso!')
 
-            if (idIngresso === 0) {
-
-                //Cadastro Local do evento
-                const responseLocal = await axios.post(`http://localhost:5000/local`, {
-
-                    CEP: CEP,
-                    Logradouro: logradouro,
-                    Bairro: bairro,
-                    Localidade: cidade,
-                    UF: uf,
-                    Numero: numeroLocalEvento
-
-                })
-
-
-                const Id_Local = responseLocal.data.ID
-
-                setIdLocal(Id_Local)
-
-                //Cadastro Infos Ingresso
-                let infosIngresso = {
-                    Categoria: category,
-                    Empresa: 1,
-                    Local: Id_Local,
-                    NomeEvento: nomeEvento,
-                    Descricao: descricao,
-                    DataComeco: dtInicio,
-                    // DataFim:dtTermino,
-                    // Destaque:destaque
-                }
-
-
-                const responseInfosIngresso = await axios.post('http://localhost:5000/ingresso', infosIngresso)
-
-
-                setIdIngresso(responseInfosIngresso.data.ID)
-
-                const idIngresso = responseInfosIngresso.data.ID
-
-                //Envio de imagem
-                const responseImagem = await uploadImagem(idIngresso)
-
-
-                //Cadastro Tipo de Ingresso(s)
-                const responseTipo = await cadastrarTipo(idIngresso)
-
-                setListarTipoAtivo(true)
-
-                toast.success("Ingresso Cadastrado!")
-
-            } else {
-
-                //alterar Local do evento
-                const responseLocal = await axios.put(`http://localhost:5000/local/${idLocal}`, {
-
-                    CEP: CEP,
-                    Logradouro: logradouro,
-                    Bairro: bairro,
-                    Localidade: cidade,
-                    UF: uf,
-                    Numero: numeroLocalEvento
-
-                })
-
-                //Alterar Infos Ingresso
-                let infosIngresso = {
-                    Categoria: category,
-                    Empresa: 1,
-                    Local: idLocal,
-                    NomeEvento: nomeEvento,
-                    Descricao: descricao,
-                    // DataComeco:dtInicio,
-                    // DataFim:dtTermino,
-                    Destaque: destaque
-                }
-
-
-                const responseInfosIngresso = await axios.put(`http://localhost:5000/ingresso/${idIngresso}`, infosIngresso)
-
-                //Alterar imagem de imagem
-                const responseImagem = await uploadImagem(idIngresso)
-
-
-                //Alterar Tipo de Ingresso(s)
-
-
-                toast.success("Ingresso Alterado!")
-
-            }
-
+            cadastrarTipo(idIngresso)
 
         } catch (err) {
             if (err.response)
@@ -245,6 +167,61 @@ export default function AdmPage() {
                 toast.error(err.message);
         }
 
+    }
+
+
+    async function AdicionarInfos_Ingresso () {
+
+        try {
+
+            if (idIngresso === 0) {
+
+                //Cadastro Local do evento
+                const responseLocal = await axios.post(`http://localhost:5000/local`, {
+    
+                    CEP: CEP,
+                    Logradouro: logradouro,
+                    Bairro: bairro,
+                    Localidade: cidade,
+                    UF: uf,
+                    Numero: numeroLocalEvento
+    
+                })
+    
+    
+                const Id_Local = responseLocal.data.ID
+    
+                setIdLocal(Id_Local)
+    
+                //Cadastro Infos Ingresso
+                let infosIngresso = {
+                    Categoria: category,
+                    Empresa: 1,
+                    Local: Id_Local,
+                    NomeEvento: nomeEvento,
+                    Descricao: descricao,
+                    Destaque:destaque
+                }
+    
+    
+                const responseInfosIngresso = await axios.post('http://localhost:5000/ingresso', infosIngresso)
+    
+    
+                setIdIngresso(responseInfosIngresso.data.ID)
+    
+                const idIngresso = responseInfosIngresso.data.ID
+    
+                //Envio de imagem
+                const responseImagem = await uploadImagem(idIngresso)
+    
+    
+                toast.success("Bilau!")
+    
+            }
+            
+        } catch (err) {
+            toast.error(err.response.data.erro)
+        }  
     }
 
 
@@ -314,6 +291,7 @@ export default function AdmPage() {
 
             setNomeTipo('')
             setQtdTipo('')
+            setPrecoTipo('')
 
 
         } catch (err) {
@@ -335,7 +313,7 @@ export default function AdmPage() {
                 Ingresso: idDoIngresso,
                 Tipo: item.nome,
                 Quantidade: item.qtd,
-                Preco: precoTipo
+                Preco: precoTipoCadastrar
             })
 
             idTipos.push(reposta.data.ID)
@@ -447,11 +425,14 @@ export default function AdmPage() {
 
     async function deletarTipo(idArray) {
 
-        if (idIngresso === 0) {
+        const r = await axios.get(`http://localhost:5000/tipoIngresso/${idIngresso}`)
+
+        if (r.data.length === 0) {
 
             vetorTipo.splice(idArray, 1)
 
             setVetorTipo([...vetorTipo])
+
         } else {
 
             const r = await axios.delete(`http://localhost:5000/tipoIngresso/${idArray}`)
@@ -460,6 +441,45 @@ export default function AdmPage() {
     }
 
 
+    async function CadastrarData() {
+
+        const resp = await axios.post(`http://localhost:5000/data`, {       
+            Ingresso: idIngresso,
+            Data: dataIngresso   
+        })
+        
+        listarDatas.push(resp.data)
+        setlistarDatas([...listarDatas])
+    }
+
+
+    async function inserirHorarioModal () {
+
+        listarHorarios.push(horarioIngresso)
+        setListarHorarios([...listarHorarios])
+
+        setHorarioIngresso()
+    
+
+    }
+
+    async function CadastrarHorario() {
+
+        const resp = await axios.post(`http://localhost:5000/horario`, {       
+            Data: idData,
+            Horario: horarioIngresso   
+        })
+        
+        listarHorarios.push(resp.data)
+        setListarHorarios([...listarHorarios])
+    }
+
+    // async function BuscarHorarios (id) {
+
+    //     const resp = await axios.get(`http://localhost:5000/horario/compra/${id}`)
+
+    //     const hours = resp.data
+    // }
 
     async function novoIngressoClick() {
 
@@ -721,20 +741,27 @@ export default function AdmPage() {
                                                 <div className='text-inputs-box' >
 
                                                     <div className='text-input-box'>
-                                                        <input type='date' />
+                                                        <input type='date' value={dataIngresso}  onChange={(e) => setDataIngresso(e.target.value)}/>
                                                         <img src='' />
                                                     </div>
-                                                    <a>Adicionar data</a>
+                                                    <a onClick={CadastrarData}>Adicionar data</a>
                                                     <p>Clique na caixa de data para adicionar os horários</p>
                                                     <a onClick={() => setToggleCondicional(1)}>Adicionar Tipo Ingresso</a>
 
                                                 </div>
                                                 <div className='divisor'></div>
                                                 <div className='data-boxes' >
-                                                    <div className='data-box' onClick={() => setToggleCondicional(2)}>
-                                                        <p>09/11/22</p>
+
+                                                    {listarDatas.map((item) => (
+                                                        <div className='data-box' onClick={() => {setToggleCondicional(2) ; setIdData(item.ID)}}>
+                                                        <p>{item.Data}</p>
                                                         <DeleteForeverIcon/>
                                                     </div>
+                                                    ))}
+                                                    {/* <div className='data-box' onClick={() => setToggleCondicional(2)}>
+                                                        <p>09/11/22</p>
+                                                        <DeleteForeverIcon/>
+                                                    </div> */}
                                                 </div>
                                                 <div className='divisor'></div>
                                                 {toggleCondicional == 1 ?
@@ -747,42 +774,23 @@ export default function AdmPage() {
                                                             <div className='input-row'>
                                                                 <input type='text' placeholder='Nome' value={nomeTipo} onChange={(e) => setNomeTipo(e.target.value)} />
                                                                 <input type='number' placeholder='Qtd' value={qtdTipo} onChange={(e) => setQtdTipo(Number(e.target.value))} />
-                                                                <input type='number' placeholder='R$ 0,00' value={precoTipo} onChange={(e) => setPrecoTipo(Number(e.target.value))} />
-                                                                {alterarTipo
-
-                                                                    ? <a onClick={alterarTipoIngresso2}>Alterar</a>
-                                                                    : <a onClick={inserirTipoModal}>Adicionar</a>
-                                                                }
+                                                                <input type='number' placeholder='R$ 0,00' value={precoTipo} onChange={(e) => {setPrecoTipo(Number(e.target.value)); setPrecoTipoCadastrar(precoTipo)}} />
+                                                             
+                                                                <a onClick={inserirTipoModal}>Adicionar</a>
+                                                                
                                                             </div>
                                                             <div className='body-table'>
-                                                                {idIngresso != 0
-                                                                    ? <>
-                                                                        {vetorTipo.map((item) => (
-                                                                            <div className='body-table-row'>
-                                                                                <span>{item.NM_TIPO_INGRESSO}</span>
-                                                                                <div className='divisor'></div>
-                                                                                <span> {item.QTD_TIPO_INGRESSO} Un</span>
-                                                                                <div className='divisor'></div>
-                                                                                <span>{precoTipoFormatar}</span>
-                                                                                <a><img src='../assets/images/edit.svg' /></a>
-                                                                                <a><img src='../assets/images/delete.svg' onClick={() => deletarTipo(item.ID_TIPO_INGRESSO)} /></a>
-                                                                            </div>
-                                                                        ))}
-                                                                    </>
-                                                                    : <>
-                                                                        {vetorTipo.map((item, idArray) => (
-                                                                            <div className='body-table-row'>
-                                                                                <span>{item.nome}</span>
-                                                                                <div className='divisor'></div>
-                                                                                <span> {item.qtd} Un</span>
-                                                                                <div className='divisor'></div>
-                                                                                <span>{item.preco}</span>
-                                                                                <a><img src='../assets/images/edit.svg' onClick={() => { alterarTipoIngresso2(idArray); setAlterarTipo(true) }} /></a>
-                                                                                <a><img src='../assets/images/delete.svg' onClick={() => deletarTipo(idArray)} /></a>
-                                                                            </div>
-                                                                        ))}
-                                                                    </>
-                                                                }
+                                                               
+                                                                {vetorTipo.map((item, idArray) => (
+                                                                    <div className='body-table-row'>
+                                                                        <span>{item.nome}</span>
+                                                                        <div className='divisor'></div>
+                                                                        <span> {item.qtd} Un</span>
+                                                                        <div className='divisor'></div>
+                                                                        <span>{item.preco}</span>
+                                                                        <a><img src='../assets/images/delete.svg' onClick={() => deletarTipo(idArray)} /></a>
+                                                                    </div>
+                                                                ))}
 
                                                             </div>
                                                         </div>
@@ -797,39 +805,23 @@ export default function AdmPage() {
                                                         </div>
                                                         <div className='body'>
                                                             <div className='input-row'>
-                                                                <input type='time' placeholder='Horário' />
-                                                                <a>Adicionar</a>
+                                                                <input type='time' placeholder='Horário' value={horarioIngresso}  onChange={(e) => setHorarioIngresso(e.target.value)} />
+                                                                <a onClick={CadastrarHorario}>Adicionar</a>
                                                             </div>
                                                             <div className='body-table'>
-                                                                {idIngresso != 0
-                                                                    ? <>
-                                                                        {vetorTipo.map((item) => (
-                                                                            <div className='body-table-row'>
-                                                                                <span>{item.NM_TIPO_INGRESSO}</span>
-                                                                                <div className='divisor'></div>
-                                                                                <span> {item.QTD_TIPO_INGRESSO} Un</span>
-                                                                                <div className='divisor'></div>
-                                                                                <span>{precoTipoFormatar}</span>
-                                                                                <a><img src='../assets/images/edit.svg' /></a>
-                                                                                <a><img src='../assets/images/delete.svg' onClick={() => deletarTipo(item.ID_TIPO_INGRESSO)} /></a>
-                                                                            </div>
-                                                                        ))}
-                                                                    </>
-                                                                    : <>
-                                                                        {vetorTipo.map((item, idArray) => (
-                                                                            <div className='body-table-row'>
-                                                                                <span>{item.nome}</span>
-                                                                                <div className='divisor'></div>
-                                                                                <span> {item.qtd} Un</span>
-                                                                                <div className='divisor'></div>
-                                                                                <span>{item.preco}</span>
-                                                                                <a><img src='../assets/images/edit.svg' onClick={() => { alterarTipoIngresso2(idArray); setAlterarTipo(true) }} /></a>
-                                                                                <a><img src='../assets/images/delete.svg' onClick={() => deletarTipo(idArray)} /></a>
-                                                                            </div>
-                                                                        ))}
-                                                                    </>
-                                                                }
-
+    
+                                                                {listarHorarios.map((item) => (
+                                                                    <div className='body-table-row'>
+                                                                        <span>{item.Horario}</span>
+                                                                        {/* <div className='divisor'></div>
+                                                                        <span> {item.QTD_TIPO_INGRESSO} Un</span>
+                                                                        <div className='divisor'></div>
+                                                                        <span>{precoTipoFormatar}</span>
+                                                                        <a><img src='../assets/images/edit.svg' /></a> */}
+                                                                        <a><img src='../assets/images/delete.svg'/></a>
+                                                                    </div>
+                                                                ))}
+        
                                                             </div>
                                                         </div>
                                                     </div>
@@ -847,14 +839,16 @@ export default function AdmPage() {
                                             }
 
                                             <div>
-                                                <button onClick={() => AdicionarIngresso()}>Adicionar ingresso</button>
+                                              
                                                 {addPage == 1 ?
 
-                                                    <button onClick={() => setAddPage(2)}>Prosseguir</button>
+                                                    <button onClick={() => {setAddPage(2); AdicionarInfos_Ingresso()}}>Prosseguir</button>
 
                                                     :
-
-                                                    <button onClick={novoIngressoClick}>Novo Ingresso</button>
+                                                    <>
+                                                        <button onClick={() => AdicionarIngresso()}>Adicionar ingresso</button>
+                                                        <button onClick={novoIngressoClick}>Novo Ingresso</button>
+                                                    </>
 
                                                 }
                                             </div>
