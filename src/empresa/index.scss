@@ -96,7 +96,7 @@
         flex-direction: column;
         background-color: #f6f6f6;
         width: 100%;
-        height: 80vh;
+        height: 100%;
         align-items: center;
         justify-content: center;
         >h1{
@@ -225,7 +225,7 @@
     .secao-plataforma{
         padding: 50px 30px;
         width: 100%;
-        height: fit-content;
+        height: 90%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -247,7 +247,7 @@
             >div{
                 display: flex;
                 flex-direction: row;
-                gap: 20px;
+                gap: 50px;
                 text-align: center;
                 >div{
                     display: flex;
@@ -255,7 +255,7 @@
                     p{
                         color: #520AD9;
                         font-weight: 900;
-                        font-size: 70px;
+                        font-size: 60px;
                     }
                     span{
                         font-weight: 600;
@@ -284,4 +284,37 @@
         }
     }
 
+}
+.cadastromodal{
+    padding: 20px;
+    border: none;
+    outline: none;
+    position: absolute;
+    background-color: white;
+    bottom: 10%;
+    top: 10%;
+    right: 10%;
+    left: 10%;
+    border-radius: 25px;
+    .cadastro-main{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        height: 100%;
+        >h1{
+            color: #520AD9;
+            font-size: 40px;
+        }
+        .wrapper{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+    }
 }

@@ -1,13 +1,70 @@
 import { Link } from 'react-router-dom'
 import Rodape from '../componentes/rodape'
+import Modal from 'react-modal'
 import { TrianguloCategoria } from '../componentes/trianguloCategoria';
 import './index.scss'
+import { ToastContainer, toast } from 'react-toastify';
+import { useState } from 'react';
+import axios from 'axios';
 
 
 export default function Empresa(){
+    const [registerModal, setRegisterModal] = useState(true)
+
+
+    //Variaveis de CNPJ
+    const [cnpj,setCnpj] = useState('')
+    const [nmFantasia,setNmFantasia] = useState('')
+    const [razaoSocial,setRazaoSocial] = useState('')
+    const [email,setEmail] = useState('')
+    const [bairro,setBairro] = useState('')
+    const [numero,setNumero] = useState('')
+    const [municipio,setMunicipio] = useState('')
+    const [uf,setUf] = useState('')
+    const [cep,setCep] = useState('')
+    const [logradouro,setLogradouro] = useState('')
+
+    function CnpjVerifier(e) {
+        setCnpj(e)
+    }
+
+    async function ListarCnpj() {
+        let url = `https://www.receitaws.com.br/v1/cnpj/${cnpj}`
+        let response = await axios.get(url)
+        console.log(response.data)
+    }
 
     return (
+        
         <div className='empresa-main'>
+            <Modal
+                    className="cadastromodal"
+                    overlayClassName="modal-overlay"
+                    closeTimeoutMS={500}
+                    isOpen={registerModal}
+                    onRequestClose={() => setRegisterModal(false)}
+            >
+                    <div className='cadastro-main'>
+                        <h1>Trabalhe conosco</h1>
+                        <small><b>Preencha o formulário:</b></small>
+                        <div className='wrapper'>
+
+                            <input type='text' placeholder='Insira o CPNJ' value={cnpj} onChange={(e) => CnpjVerifier(e.target.value)} onBlur={() => ListarCnpj()} />
+                            <input type='text' placeholder='Nome Fantasia' value={nmFantasia}/>
+                            <input type='text' placeholder='Razão Social' value={razaoSocial}/>
+                            <input type='text' placeholder='E-mail' value={email}/>
+                            <input type='text' placeholder='Bairro'  value={bairro}/>
+                            <input type='text' placeholder='Numero' value={numero}/>
+                            <input type='text' placeholder='Municipio' value={municipio}/>
+                            <input type='text' placeholder='UF' value={uf}/>
+                            <input type='text' placeholder='CEP'  value={cep}/>
+                            <input type='text' placeholder='Logradouro' value={logradouro}/>
+                            
+                        </div>
+                        <small>Agora é só <b>aguardar</b> a nossa aprovação. Entraremos em contato <b>via e-mail.</b> 🚀</small>
+                    </div>
+            </Modal>
+            <ToastContainer/>
             <section className='header'>
                 <Link className='header-img' to='/'><img src='/assets/images/logoTCC.png' />| For Business</Link>
             </section>
@@ -15,7 +72,7 @@ export default function Empresa(){
                 <div>
                     <h1>Produza eventos e conteúdos na maior plataforma do país.</h1>
                     <p>Crie agora diferentes jeitos de viver, com soluções completas para a publicação, gestão, venda e entrega das suas produções</p>
-                    <a>Comece a criar</a>
+                    <a  href='#preco'>Comece a criar</a>
                 </div>
             </section>
             <section className='secao-dashboard'>
@@ -44,7 +101,7 @@ export default function Empresa(){
                     />
                 </div>
             </section>
-            <section className='secao-preco'>
+            <section className='secao-preco' id='preco'>
                 <h1>Quanto custa?</h1>
                 <div className='planos-row'>
                     <div className='plano'>
@@ -52,7 +109,7 @@ export default function Empresa(){
                             <p style={{color: `#69af00`, border: `2px dashed #69af00`}}>Criações gratuitas</p>
                             <h1>Gratuito</h1>
                             <small>Para produtores com eventos presenciais e conteúdos digitais gratuitos.</small>
-                            <a>ESGOTADO</a>
+                            <a onClick={() => toast.error('ingresso esgotado')}>ESGOTADO</a>
                             <div className='divisor'></div>
                             <span>Presencial</span>
                             <ul>
@@ -77,7 +134,7 @@ export default function Empresa(){
                             <p style={{color: `#520AD9`, border: `2px dashed #520AD9`}}>Criações pagas</p>
                             <h1>Taxa de 10%</h1>
                             <small>Para vender na Sympla com todas as possibilidades de monetização</small>
-                            <a>COMECE AGORA</a>
+                            <a onClick={() => setRegisterModal(true)}>COMECE AGORA</a>
                             <div className='divisor'></div>
                             <span>Presencial</span>
                             <ul>
@@ -104,7 +161,7 @@ export default function Empresa(){
                             <p style={{color: `rgb(0, 151, 255)`, border: `2px dashed rgb(0, 151, 255)`}}>Criações gratuitas</p>
                             <h1>Enterprises</h1>
                             <small>Para empresas e eventos com necessidades customizadas.</small>
-                            <a>ESGOTADO</a>
+                            <a onClick={() => toast.error('ingresso esgotado')}>ESGOTADO</a>
                             <div className='divisor'></div>
                             <span>Presencial</span>
                             <ul>
@@ -176,8 +233,7 @@ export default function Empresa(){
                         </div>
 
                     </div>
-                    
-                    <a>COMECE AGORA MESMO!</a>
+                    <a href='#preco'>COMECE AGORA MESMO!</a>
                 </div>
                 <div className='bottom'>
                     <img src='./assets/images/logoTCC.png' />
