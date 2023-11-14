@@ -822,7 +822,7 @@ export default function AdmPage() {
                                                             <div className='body-table'>
     
                                                                 {listarHorarios.map((item) => (
-                                                                    idData == item.ID &&
+                                                                    idData == item.Data &&
                                                                         <div className='body-table-row'>
                                                                             <span>{item.Horario}</span>
                                                                             <a><img src='../assets/images/delete.svg'/></a>
