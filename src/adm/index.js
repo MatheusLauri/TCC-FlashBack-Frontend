@@ -822,10 +822,11 @@ export default function AdmPage() {
                                                             <div className='body-table'>
     
                                                                 {listarHorarios.map((item) => (
-                                                                    <div className='body-table-row'>
-                                                                        <span>{item.Horario}</span>
-                                                                        <a><img src='../assets/images/delete.svg'/></a>
-                                                                    </div>
+                                                                    idData == item.ID &&
+                                                                        <div className='body-table-row'>
+                                                                            <span>{item.Horario}</span>
+                                                                            <a><img src='../assets/images/delete.svg'/></a>
+                                                                        </div>
                                                                 ))}
         
                                                             </div>
