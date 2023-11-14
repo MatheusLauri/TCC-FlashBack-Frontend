@@ -39,7 +39,8 @@ export default function AdmPage() {
     const navigate = useNavigate();
 
     //Variáveis de cadastro do ingresso 
-
+    const [evento, setEvento] = useState('')
+    const [idEmpresa, setIdEmpresa] = useState()
     const [idLocal, setIdLocal] = useState(0)
     const [idIngresso, setIdIngresso] = useState(0)
     const [category, setCategory] = useState(1)
@@ -48,7 +49,6 @@ export default function AdmPage() {
     const [descricao, setDescricao] = useState('')
     const [dtInicio, setDtInicio] = useState('')
     const [dtTermino, setDtTermino] = useState('')
-
     const [imgIngresso, setImgIngresso] = useState()
     //variáveis para a tela de pesquisa de ingressos
     const [listarIngressos, setListarIngressos] = useState()
@@ -100,15 +100,15 @@ export default function AdmPage() {
 
     async function ListarIngressos() {
         const listagem = []
-
+ 
         try {
             if (pesquisa.length) {
-                const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome=${pesquisa}`)
+                const resp = await axios.get(`http://localhost:5000/IngressoPorEmpresa?id=${idEmpresa}&evento=${pesquisa}`)
                 listagem.push(...resp.data)
                 setListarIngressos(listagem)
             }
             else {
-                const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome`)
+                const resp = await axios.get(`http://localhost:5000/IngressoPorEmpresa?id=${idEmpresa}&evento=`)
                 listagem.push(...resp.data)
                 setListarIngressos(listagem)
             }
@@ -134,7 +134,18 @@ export default function AdmPage() {
 
     useEffect(() => {
         ListarIngressos()
-    }, [menu])
+    }, [menu,pesquisa])
+
+
+    useEffect(() => {
+        let empresalogged = localStorage.getItem('empresa-logada')
+        empresalogged = JSON.parse(empresalogged)
+        
+        let id_Empresa = empresalogged.data.ID_EMPRESA;
+
+        setIdEmpresa(id_Empresa)
+    
+    }, [])
 
     function MenuPage(pagedata) {
 
@@ -623,7 +634,7 @@ export default function AdmPage() {
                                 <section className='search-content'>
                                     <div className='input-div'>
                                         <img src='../assets/images/search.png' />
-                                        <input type='text' placeholder='Ex: Numanice, The town...' value={pesquisa} onChange={(e) => setPesquisa(e.target.value)} />
+                                        <input type='text' placeholder='Ex: Numanice, The town...' value={pesquisa} onChange={(e) => { setPesquisa(e.target.value); console.log(e.target.value)}} />
                                     </div>
                                     <div className='ticket-wrapper'>
                                         {listarIngressos &&
