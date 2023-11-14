@@ -23,30 +23,31 @@ export default function IngressoPage(){
         return precoTipoFormatado
     }
     const qtd = []
+    const [qtds, setQtds] = useState([])
+    const listagem = []
     function condicionalConst(id,opcao){
         if (opcao == 'ad'){
             if (!qtd[id]) {
                 qtd[id] = 0
+                
             }
             qtd[id] =  qtd[id] + 1
         }
         else if (opcao == 'sub'){
             if (!qtd[id]) {
                 qtd[id] = 0
+
             }
             else if (qtd[id] > 1){
                 qtd[id] =  qtd[id] - 1
+                setQtds(qtd)
             }
             else if (qtd[id] == 1){
                 qtd[id] =  qtd[id] - 1
             }
-            else if (qtd[id] < 1){
-                null
-            }
         }
-
-        
-        console.log(qtd[id])
+        listagem.push(qtd)
+        console.log(listagem)
 
     }
     //variaveis listagem data
@@ -230,8 +231,7 @@ export default function IngressoPage(){
                                                 <a onClick={() => condicionalConst(item.ID_TIPO_INGRESSO,'sub')} >
                                                     <RemoveCircleOutlineIcon/>
                                                 </a>
-                                                {qtd[item.ID_TIPO_INGRESSO]}
-                                                <span>{qtd[item.ID_TIPO_INGRESSO]}</span>
+                                                <span>{listagem[item.ID_TIPO_INGRESSO]}</span>
                                                 <a onClick={() => condicionalConst(item.ID_TIPO_INGRESSO,'ad') }>
                                                     <ControlPointIcon/>
                                                 </a>
