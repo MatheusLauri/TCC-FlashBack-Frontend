@@ -11,7 +11,6 @@ import axios from 'axios';
 export default function Empresa(){
     const [registerModal, setRegisterModal] = useState(true)
 
-
     //Variaveis de CNPJ
     const [cnpj,setCnpj] = useState('')
     const [nmFantasia,setNmFantasia] = useState('')
