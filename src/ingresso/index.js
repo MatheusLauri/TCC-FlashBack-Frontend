@@ -245,6 +245,7 @@ export default function IngressoPage(){
                                         </div>
                                     ))
                                 }
+                                
                                 {show == 'tipo' || show == 'subtotal' ?
                                     tipoIngressos.map(item => 
                                         <div className='type-select-box' onClick={() => {setShow('subtotal'); setTypeSelected(item.ID_TIPO_INGRESSO)}}>
