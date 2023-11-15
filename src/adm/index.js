@@ -318,6 +318,7 @@ export default function AdmPage() {
 
     }
 
+    
     console.log(vetorTipo, precoTipoCadastrar)
 
     async function cadastrarTipo(idDoIngresso) {
