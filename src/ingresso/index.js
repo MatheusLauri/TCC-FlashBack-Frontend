@@ -4,7 +4,7 @@ import { Header } from '../componentes/header/header';
 import Rodape from '../componentes/rodape/index'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import seta from '../assets/images/seta.png'
 import calendario from '../assets/images/calendar.png'
 import local from '../assets/images/local.png'
@@ -28,7 +28,10 @@ export default function IngressoPage(){
     
     
     //variaveis listagem data
-    const [listarDatas, setListarDatas] = useState([]) 
+    const [idData, setIdData] = useState()
+    const [idHorario, setIdHorario] = useState([])
+
+    const [listarDatas, setListarDatas] = useState([])  
     const [listarHorarios, setListarHorarios] = useState([]) 
     const [dataSelected, setDataSelected] = useState()
     const [typeSelected, setTypeSelected] = useState()
@@ -79,6 +82,8 @@ export default function IngressoPage(){
     //variaveis para compra 
     const [idTipos, setidTipos] = useState([])
 
+    const[listarPedidoIngresso, setlistarPedidoIngresso] = useState([])
+
 
     function condicionalConst(idTp, opcao, preco) {
         setQtds(prevQtds => {
@@ -107,7 +112,7 @@ export default function IngressoPage(){
         });
         
     }
-    
+
     useEffect(() => {
 
         let value = 0;
@@ -201,39 +206,58 @@ export default function IngressoPage(){
         const posicoesOcupadas = [];
 
         for (let pos = 0; pos < array.length; pos++) {
-          if (array[pos] !== undefined) {
+          if (array[pos] !== undefined && array[pos] > 0) {
             posicoesOcupadas.push(pos)
           }
         }
 
         return posicoesOcupadas;
     }
+
+
+    function listarQtds (array) {
+        const qtdItens = []
+        
+        for (let item of array) {
+            if(item != undefined && item > 0) {
+                array.indexOf(item)
+                qtdItens.push(item)
+            }
+        } 
+    
+  
+          return qtdItens;
+    }
    
 
     async function ClickComprar () {
 
         let idTipos = listarPosicoesOcupadas(qtds)
-        let chui = []
-        for (let item of qtds) {
-            if(item != undefined) {
-                qtds.indexOf(item)
-                chui.push(item)
-            }
-        } 
-    
-        const resp = await axios.post(`http://localhost:5000/pedidoIngresso`, {
+        let qtdItens = listarQtds(qtds)
+
+
+        for (let cont = 0; cont < idTipos.length; cont++) {
+            const resp = await axios.post(`http://localhost:5000/pedidoIngresso`, {
             
             Cliente: 1,
+            Categoria: ingressos.ID_CATEGORIA_INGRESSO,
             Local: ingressos.ID_LOCAL_EVENTO,
             Ingresso: ingressos.ID_INGRESSO,
-            Data: ingressos.ID_DATA_INGRESSO,
-            Horario: ingressos.ID_HORARIO_INGRESSO,
-            TipoIngresso: 1,
-            Itens: 10
+            Data: idData,
+            Horario: idHorario,
+            TipoIngresso: idTipos[cont],
+            Itens: qtdItens[cont]
 
-        }) 
+          
+            }) 
+
+            listarPedidoIngresso.push(resp.data)
+            setlistarPedidoIngresso([...listarPedidoIngresso])
+        }
+        
     }
-    
+
+    console.log(listarPedidoIngresso)
   
     return (
         <div className='ingresso-body'>
@@ -272,7 +296,7 @@ export default function IngressoPage(){
                         <div className='data-controller'>
 
                             {listarDatas.map((item, key) => (
-                                <div onClick={() => {ListarHorario(item.Id); AltRender('Selecione um horário','horario')}}  className={dataSelected == item.Id ? 'data-selected' : 'data-box'}>
+                                <div onClick={() => {ListarHorario(item.Id); AltRender('Selecione um horário','horario'); setIdData(item.Id)}}  className={dataSelected == item.Id ? 'data-selected' : 'data-box'}>
                                     <h1>{item.Dia_Semana}</h1>
                                     <p>{item.Dia_Mes} {item.mes}</p>
                                 </div>
@@ -287,7 +311,7 @@ export default function IngressoPage(){
                                 }
                                 {show == 'horario' &&
                                     listarHorarios.map((item) => (
-                                        <div className='time-select-box' onClick={() => {AltRender(`Horário ${item.DS_HORARIO}`,'tipo'); ListarTipoIngressos(id)}}>
+                                        <div className='time-select-box' onClick={() => {AltRender(`Horário ${item.DS_HORARIO}`,'tipo'); ListarTipoIngressos(id); setIdHorario(item.ID_HORARIO_INGRESSO)}}>
                                             <h1>Horário {item.DS_HORARIO}</h1>
                                             <p>Preços entre R$ 10,00 e R$ 100,00</p>
                                             <p>em até 12x</p>
@@ -324,7 +348,8 @@ export default function IngressoPage(){
                                         <h1 onClick={() => console.log(precos)}>Subtotal:</h1>
                                         <span>R$ {preco}</span>
                                     </div>
-                                    <a onClick={() => ClickComprar()}>Comprar ingressos</a>
+                                
+                                    <Link to={'/resumo'} onClick={ClickComprar}>Comprar ingressos</Link>
                                     
                                 </div>
                             }

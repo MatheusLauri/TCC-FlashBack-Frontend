@@ -43,6 +43,7 @@ function LandingPage() {
       }
       
       setListarCategoria(listagem)
+      console.log(listarCategoria)
     } catch (error) {
       
     }

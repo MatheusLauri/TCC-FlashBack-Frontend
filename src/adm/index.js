@@ -305,6 +305,7 @@ export default function AdmPage() {
 
             setNomeTipo('')
             setQtdTipo('')
+            setPrecoTipoCadastrar(precoTipo)
             setPrecoTipo('')
 
 
@@ -317,6 +318,7 @@ export default function AdmPage() {
 
     }
 
+    console.log(vetorTipo, precoTipoCadastrar)
 
     async function cadastrarTipo(idDoIngresso) {
 
@@ -837,7 +839,7 @@ export default function AdmPage() {
                                                             <div className='input-row'>
                                                                 <input type='text' placeholder='Nome' value={nomeTipo} onChange={(e) => setNomeTipo(e.target.value)} />
                                                                 <input type='number' placeholder='Qtd' value={qtdTipo} onChange={(e) => setQtdTipo(Number(e.target.value))} />
-                                                                <input type='number' placeholder='R$ 0,00' value={precoTipo} onChange={(e) => {setPrecoTipo(Number(e.target.value)); setPrecoTipoCadastrar(precoTipo)}} />
+                                                                <input type='number' placeholder='R$ 0,00' value={precoTipo} onChange={(e) => {setPrecoTipo(Number(e.target.value))}} />
                                                              
                                                                 <a onClick={inserirTipoModal}>Adicionar</a>
                                                                 
