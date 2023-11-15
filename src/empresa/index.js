@@ -25,7 +25,7 @@ export default function Empresa(){
     const [logradouro,setLogradouro] = useState('')
 
     async function ListarCnpj() {
-        let url = `https://www.receitaws.com.br/v1/cnpj/${cnpj}`
+        let url = ``
         let response = await axios.get(url)
         console.log(response.data)
     }
