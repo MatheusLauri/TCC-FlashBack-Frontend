@@ -8,9 +8,11 @@ import { useEffect, useState } from 'react';
 import axios, { AxiosError } from 'axios';
 import Estagio from '../../componentes/estagioCompra/index.js';
 
-function ResumoCompra() {
+function ResumoCompra(props) {
 
-
+    const InfoCompra = props.location.state ? props.location.state.listarPedidoIngresso : null
+    
+    console.log(InfoCompra)
 
 
     return (
