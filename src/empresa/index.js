@@ -8,80 +8,116 @@ import { useState } from 'react';
 import axios from 'axios';
 
 
-export default function Empresa(){
-    const [registerModal, setRegisterModal] = useState(true)
+export default function Empresa() {
+    const [solicited, setSolicited] = useState(false)
+    const [registerModal, setRegisterModal] = useState(false)
 
     //Variaveis de CNPJ
-    const [cnpj,setCnpj] = useState('')
-    const [nmFantasia,setNmFantasia] = useState('')
-    const [razaoSocial,setRazaoSocial] = useState('')
-    const [email,setEmail] = useState('')
-    const [bairro,setBairro] = useState('')
-    const [numero,setNumero] = useState('')
-    const [municipio,setMunicipio] = useState('')
-    const [uf,setUf] = useState('')
-    const [cep,setCep] = useState('')
-    const [logradouro,setLogradouro] = useState('')
-    const [senha,setSenha] = useState('')
+    const [cnpj, setCnpj] = useState('')
+    const [nmFantasia, setNmFantasia] = useState('')
+    const [razaoSocial, setRazaoSocial] = useState('')
+    const [email, setEmail] = useState('')
+    const [bairro, setBairro] = useState('')
+    const [numero, setNumero] = useState('')
+    const [municipio, setMunicipio] = useState('')
+    const [uf, setUf] = useState('')
+    const [cep, setCep] = useState('')
+    const [logradouro, setLogradouro] = useState('')
+    const [senha, setSenha] = useState('')
 
     async function ListarCnpj() {
-        let url = `http://localhost:5000/getCnpj?cnpj=${cnpj}`
-        let response = await axios.get(url)
-        setNmFantasia(response.data.fantasia)
-        setRazaoSocial(response.data.nome)
-        setEmail(response.data.email)
-        setBairro(response.data.bairro)
-        setNumero(response.data.numero)
-        setUf(response.data.uf)
-        setCep(response.data.cep)
-        setLogradouro(response.data.logradouro)
-        setMunicipio(response.data.municipio)
+        try {
+            let url = `http://localhost:5000/getCnpj?cnpj=${cnpj}`
+            let response = await axios.get(url)
+            setNmFantasia(response.data.fantasia)
+            setRazaoSocial(response.data.nome)
+            setEmail(response.data.email)
+            setBairro(response.data.bairro)
+            setNumero(response.data.numero)
+            setUf(response.data.uf)
+            setCep(response.data.cep)
+            setLogradouro(response.data.logradouro)
+            setMunicipio(response.data.municipio)
+        } catch (error) {
+            toast.error('Aguarde alguns segundos e tente novamente!')
+        }
+
     }
 
     async function RealizarForm() {
-        let url = `http://localhost:5000/postCnpj`
-        let objeto = {
-            cnpj: cnpj,
-            senha: senha
+        try {
+
+            let url = `http://localhost:5000/formulario`
+
+            let response = await axios.post(url, {
+                cnpj: cnpj,
+                senha: senha
+            })
+
+            setCnpj('')
+            setNmFantasia('')
+            setRazaoSocial('')
+            setEmail('')
+            setBairro('')
+            setNumero('')
+            setUf('')
+            setCep('')
+            setLogradouro('')
+            setMunicipio('')
+            setSolicited(true)
+            toast.success('Solicitado com sucesso!')
+
+        } catch (error) {
+            toast.error(error)
         }
-        let response = await axios.post(url,[objeto])
-        console.log(response)
-        
+
+
     }
 
     return (
-        
-        <div className='empresa-main'>
-            <Modal
-                    className="cadastromodal"
-                    overlayClassName="modal-overlay"
-                    closeTimeoutMS={500}
-                    isOpen={registerModal}
-                    onRequestClose={() => setRegisterModal(false)}
-            >
-                    <div className='cadastro-main'>
-                        <h1>Trabalhe conosco</h1>
-                        <small><b>Preencha o formulário:</b></small>
-                        <div className='wrapper'>
 
-                            <input type='text' placeholder='Insira o CNPJ' value={cnpj} onChange={(e) => setCnpj(e.target.value)} onBlur={() => ListarCnpj()} />
-                            <input type='text' placeholder='Nome Fantasia' value={nmFantasia} readOnly/>
-                            <input type='text' placeholder='Razão Social' value={razaoSocial} readOnly/>
-                            <input type='text' placeholder='E-mail' value={email} readOnly/>
-                            <input type='text' placeholder='Bairro'  value={bairro} readOnly/>
-                            <input type='text' placeholder='Numero' value={numero} readOnly/>
-                            <input type='text' placeholder='Municipio' value={municipio} readOnly/>
-                            <input type='text' placeholder='UF' value={uf} readOnly/>
-                            <input type='text' placeholder='CEP'  value={cep} readOnly/>
-                            <input type='text' placeholder='Logradouro' value={logradouro} readOnly/>
-                            <input type='text' placeholder='Senha' value={senha} onChange={(e) => setSenha(e.target.value)}/>
-                            
-                        </div>
-                        <a onClick={() => RealizarForm()}>Confirmar</a>
-                        <small>Agora é só <b>aguardar</b> a nossa aprovação. Entraremos em contato <b>via e-mail.</b> 🚀</small>
+        <div className='empresa-main'>
+            <ToastContainer />
+            <Modal
+                className="cadastromodal"
+                overlayClassName="modal-overlay"
+                closeTimeoutMS={500}
+                isOpen={registerModal}
+                onRequestClose={() => {setRegisterModal(false); setSolicited(false)}}
+            >
+                <div className='cadastro-main'>
+                    <h1>Trabalhe conosco</h1>
+                    <small><b>Preencha o formulário:</b></small>
+                    <div className='wrapper'>
+
+                        <input type='text' placeholder='Insira o CNPJ' value={cnpj} onChange={(e) => setCnpj(e.target.value)} onBlur={() => { cnpj.length > 0 && ListarCnpj() }} />
+                        <input type='text' placeholder='Nome Fantasia' value={nmFantasia} readOnly />
+                        <input type='text' placeholder='Razão Social' value={razaoSocial} readOnly />
+                        <input type='text' placeholder='E-mail' value={email} readOnly />
+                        <input type='text' placeholder='Bairro' value={bairro} readOnly />
+                        <input type='text' placeholder='Numero' value={numero} readOnly />
+                        <input type='text' placeholder='Municipio' value={municipio} readOnly />
+                        <input type='text' placeholder='UF' value={uf} readOnly />
+                        <input type='text' placeholder='CEP' value={cep} readOnly />
+                        <input type='text' placeholder='Logradouro' value={logradouro} readOnly />
+                        <input type='text' placeholder='Senha' value={senha} onChange={(e) => setSenha(e.target.value)} />
+
                     </div>
+                    <a onClick={() => RealizarForm()}>Confirmar</a>
+                    {solicited 
+                    
+                        ?
+
+                        <small>Agora é só <b>aguardar</b> a nossa aprovação. Entraremos em contato <b>via e-mail.</b> 🚀</small>
+
+                        :
+
+                        <small>Agora é só <b>solicitar</b> o seu cadastro.</small>
+
+                    }
+                </div>
             </Modal>
-            <ToastContainer/>
+            <ToastContainer />
             <section className='header'>
                 <Link className='header-img' to='/'><img src='/assets/images/logoTCC.png' />| For Business</Link>
             </section>
@@ -89,31 +125,31 @@ export default function Empresa(){
                 <div>
                     <h1>Produza eventos e conteúdos na maior plataforma do país.</h1>
                     <p>Crie agora diferentes jeitos de viver, com soluções completas para a publicação, gestão, venda e entrega das suas produções</p>
-                    <a  href='#preco'>Comece a criar</a>
+                    <a href='#preco'>Comece a criar</a>
                 </div>
             </section>
             <section className='secao-dashboard'>
                 <h1>Vários segmentos em um só lugar</h1>
                 <p>Seja em festas, teatros ou palestras a gestão do seu negócio em um só lugar</p>
                 <div>
-                    <TrianguloCategoria 
-                        src='./assets/images/teatro.svg' 
+                    <TrianguloCategoria
+                        src='./assets/images/teatro.svg'
                         text='Teatros e espetáculos'
                     />
-                    <TrianguloCategoria 
-                        src='./assets/images/junina.svg' 
+                    <TrianguloCategoria
+                        src='./assets/images/junina.svg'
                         text='Festas Juninas'
                     />
-                    <TrianguloCategoria 
-                        src='./assets/images/agenda.svg' 
+                    <TrianguloCategoria
+                        src='./assets/images/agenda.svg'
                         text='Festas e shows'
                     />
-                    <TrianguloCategoria 
-                        src='./assets/images/palestra.svg' 
+                    <TrianguloCategoria
+                        src='./assets/images/palestra.svg'
                         text='Palestras e congressos'
                     />
-                    <TrianguloCategoria 
-                        src='./assets/images/balao.svg' 
+                    <TrianguloCategoria
+                        src='./assets/images/balao.svg'
                         text='Infantil'
                     />
                 </div>
@@ -123,7 +159,7 @@ export default function Empresa(){
                 <div className='planos-row'>
                     <div className='plano'>
                         <div className='head'>
-                            <p style={{color: `#69af00`, border: `2px dashed #69af00`}}>Criações gratuitas</p>
+                            <p style={{ color: `#69af00`, border: `2px dashed #69af00` }}>Criações gratuitas</p>
                             <h1>Gratuito</h1>
                             <small>Para produtores com eventos presenciais e conteúdos digitais gratuitos.</small>
                             <a onClick={() => toast.error('ingresso esgotado')}>ESGOTADO</a>
@@ -144,11 +180,11 @@ export default function Empresa(){
                                 <li>Atendimento em nossos canais de comunicação</li>
                             </ul>
                         </div>
-                        
+
                     </div>
                     <div className='plano'>
                         <div className='head'>
-                            <p style={{color: `#520AD9`, border: `2px dashed #520AD9`}}>Criações pagas</p>
+                            <p style={{ color: `#520AD9`, border: `2px dashed #520AD9` }}>Criações pagas</p>
                             <h1>Taxa de 10%</h1>
                             <small>Para vender na Sympla com todas as possibilidades de monetização</small>
                             <a onClick={() => setRegisterModal(true)}>COMECE AGORA</a>
@@ -171,11 +207,11 @@ export default function Empresa(){
                                 <li>Atendimento em nossos canais de comunicação</li>
                             </ul>
                         </div>
-                        
+
                     </div>
                     <div className='plano'>
                         <div className='head'>
-                            <p style={{color: `rgb(0, 151, 255)`, border: `2px dashed rgb(0, 151, 255)`}}>Criações gratuitas</p>
+                            <p style={{ color: `rgb(0, 151, 255)`, border: `2px dashed rgb(0, 151, 255)` }}>Criações gratuitas</p>
                             <h1>Enterprises</h1>
                             <small>Para empresas e eventos com necessidades customizadas.</small>
                             <a onClick={() => toast.error('ingresso esgotado')}>ESGOTADO</a>
@@ -200,9 +236,9 @@ export default function Empresa(){
                                 <li>Suporte Local</li>
                             </ul>
                         </div>
-                        
+
                     </div>
-                    
+
                 </div>
             </section>
             <section className='secao-screen'>
@@ -211,10 +247,10 @@ export default function Empresa(){
                         <h1>Plataforma Advanced Flashback</h1>
                         <p>Tenha total <b>autonomia</b> para cadastrar, gerenciar e acompanhar todas as informações do seu evento ou conteúdo digital. Além de contar com o <b>suporte</b> da nossa equipe de especialistas.</p>
                     </div>
-                    <img src='./assets/images/dashboard.png'/>
+                    <img src='./assets/images/dashboard.png' />
                 </div>
                 <div className='row'>
-                    <img src='./assets/images/graficoDesempenho.jpg'/>
+                    <img src='./assets/images/graficoDesempenho.jpg' />
                     <div>
                         <h1>Tudo em tempo real!</h1>
                         <p>Vendas de ingressos e inscrições, gestão dos participantes, dados demográficos e de interesse do seu público, desempenho das suas campanhas, etc. Tudo isso você acompanha com <b>relatórios em tempo real.</b></p>
@@ -225,7 +261,7 @@ export default function Empresa(){
                         <h1>Ferramentas de marketing digital</h1>
                         <p>Integração com as principais ferramentas de marketing digital do mercado para <b>divulgar e impulsionar sua produção:</b> Google Analytics, Google Ads, Facebook Ads, RD Station e muito mais!</p>
                     </div>
-                    <img src='./assets/images/laptop.png'/>
+                    <img src='./assets/images/laptop.png' />
                 </div>
             </section>
             <section className='secao-plataforma'>
@@ -256,8 +292,8 @@ export default function Empresa(){
                     <img src='./assets/images/logoTCC.png' />
                     <small>Dúvidas? Envie um email para <b><i>SAC@flashback.com.br</i></b></small>
                 </div>
-                </section>
-            <Rodape/>
+            </section>
+            <Rodape />
         </div>
     )
 }
