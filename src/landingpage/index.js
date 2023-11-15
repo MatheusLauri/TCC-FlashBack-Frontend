@@ -65,13 +65,12 @@ function LandingPage() {
     ListarCategorias()
   }, []);
 
-  const [handleCarrosel, toggle] = useState(0)
 
   return (
     <div className="body">
       <Header/>
       <section className='secao-01'>
-        <h1>Explore e viva a diversão!</h1>
+        <h1 onClick={() => console.log(listarCategoria)}>Explore e viva a diversão!</h1>
         <div className='secao-01-categoria'>
           <TrianguloCategoria 
             src='./assets/images/teatro.svg' 
