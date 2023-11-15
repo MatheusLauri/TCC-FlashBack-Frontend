@@ -364,6 +364,8 @@
             }
         }
         .table{
+            height: 100%;
+            overflow: auto;
             padding: 0px 10px;
             margin-top: 2rem;
             display: flex;
@@ -478,6 +480,8 @@
         .table{
             padding: 0px 10px;
             margin-top: 2rem;
+            height: 100%;
+            overflow: auto;
             display: flex;
             flex-direction: column;
             h1{
@@ -516,7 +520,7 @@
         width: 100%;
         height: 100%;
         display: flex;
-        flex-direction: column;
+        flex-direction: column; 
     }
     .ingresso-main{
         width: 100%;
@@ -580,6 +584,68 @@
         .wrapper::-webkit-scrollbar-thumb {
             background: #520ad9;
             border-radius: 10px;
+        }
+    }
+    .chamados-main{
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        .table{
+            height: 100%;
+            overflow: auto;
+            padding: 0px 10px;
+            margin-top: 2rem;
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            h1{
+                font-size: 25px;
+            }
+            table{
+                margin-top: 1rem;
+                background-color: white;
+                border-radius: 25px;
+                padding: 1.8rem;
+                width: 100%;
+                text-align: left;
+                box-shadow: 0 2rem 3rem rgba(132,139,200,0.18);
+                transition: all .5s ease-in-out;
+                text-align: center;
+                
+                tr{
+                    .aprove,.reprove{
+                        cursor: pointer;
+                        color: transparent;
+                    }
+                    &:hover{
+                        .aprove{
+                            color: green;
+                        }
+                        .reprove{
+                            color: red;
+                        }
+                    }
+                }
+                td{
+                    height: 2.8rem;
+                    border-bottom: 1px solid #f6f6f9;
+                }
+                tr:last-child td{
+                    border: none;
+                }
+            }
+            table:hover{
+                box-shadow: none;
+            }
+            a{
+                text-align: center;
+                margin-top: 1rem;
+                color: #520ad9;
+            }
         }
     }
     

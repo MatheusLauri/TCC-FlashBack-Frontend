@@ -8,6 +8,7 @@ import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import AddIcon from '@mui/icons-material/Add';
 import LogoutIcon from '@mui/icons-material/Logout';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 import { useState } from 'react';
 import { useEffect } from 'react';
 export default function AdmPanel(props) {
@@ -52,6 +53,10 @@ export default function AdmPanel(props) {
                 <div onClick={() => HandleMenu(7)} className={menu == 7 ? 'clicked' : 'div'}>
                     <AddIcon/>
                     <a>Add Ingresso</a>
+                </div>
+                <div onClick={() => HandleMenu(8)} className={menu == 8 ? 'clicked' : 'div'}>
+                    <AssignmentIcon/>
+                    <a>Chamados</a>
                 </div>
             </div>
             <div>

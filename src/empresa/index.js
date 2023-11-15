@@ -64,6 +64,7 @@ export default function Empresa() {
             setCep('')
             setLogradouro('')
             setMunicipio('')
+            setSenha('')
             setSolicited(true)
             toast.success('Solicitado com sucesso!')
 
