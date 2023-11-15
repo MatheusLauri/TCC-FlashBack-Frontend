@@ -127,10 +127,6 @@ export default function IngressoPage(){
     },[id])
 
 
-    useEffect(() => {
-        ClickComprar()
-        
-    },[])
 
     let url = `http://localhost:5000/${ingressos.IMAGEM_INGRESSO}`
 
