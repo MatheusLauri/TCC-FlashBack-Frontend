@@ -233,6 +233,7 @@ export default function IngressoPage(){
 
         }) 
     }
+    
   
     return (
         <div className='ingresso-body'>
