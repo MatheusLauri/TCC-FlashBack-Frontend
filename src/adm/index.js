@@ -305,8 +305,6 @@ export default function AdmPage() {
 
             setNomeTipo('')
             setQtdTipo('')
-            setPrecoTipoCadastrar(precoTipo)
-            setPrecoTipo('')
 
 
         } catch (err) {
@@ -318,7 +316,7 @@ export default function AdmPage() {
 
     }
 
-    
+
     console.log(vetorTipo, precoTipoCadastrar)
 
     async function cadastrarTipo(idDoIngresso) {
@@ -330,7 +328,7 @@ export default function AdmPage() {
                 Ingresso: idDoIngresso,
                 Tipo: item.nome,
                 Quantidade: item.qtd,
-                Preco: precoTipoCadastrar
+                Preco: precoTipo
             })
 
             idTipos.push(reposta.data.ID)
