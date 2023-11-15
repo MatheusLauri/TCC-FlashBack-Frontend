@@ -67,6 +67,7 @@ export default function IngressoPage(){
         setPrecos(qtd)
         setQtds(qtd)
     }
+    
     //variaveis para compra
     const qtd = Array(contArray).fill(0)
     const [qtds, setQtds] = useState([])
