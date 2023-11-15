@@ -15,6 +15,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 export default function IngressoPage(){
     let {id} = useParams()
+    const [buy,setBuy] = useState(false)
 
     const [showDescription,setShowDescription] = useState(false)
     const [ingressos,setIngressos] = useState([]) 
@@ -215,7 +216,7 @@ export default function IngressoPage(){
    
 
     async function ClickComprar () {
-
+        setBuy(true)
         let idTipos = listarPosicoesOcupadas(qtds)
         let qtdItens = listarQtds(qtds)
 
@@ -247,104 +248,108 @@ export default function IngressoPage(){
         <div className='ingresso-body'>
             <Header/>
             <div className='ingresso-main'>
-                <img src={url}/>
-                <h1>{ingressos.NM_EVENTO}</h1>
-                <div className='ingresso-descricao'>
-                    <div className='ingresso-descricao-row'>
-                        <img src={calendario}/>
-                        <p>{formattedDate}</p>
-                    </div>
-                    <div className='ingresso-descricao-column'>
+                {!buy ?
+                <>
+                    <img src={url}/>
+                    <h1>{ingressos.NM_EVENTO}</h1>
+                    <div className='ingresso-descricao'>
                         <div className='ingresso-descricao-row'>
-                            <img src={local}/>
-                            <h1>{`${ingressos.DS_LOGRADOURO}, ${ingressos.DS_NUM}`}</h1>
+                            <img src={calendario}/>
+                            <p>{formattedDate}</p>
                         </div>
-                        <p>{`${ingressos.DS_LOCALIDADE}, ${ingressos.DS_UF}`}</p>
-                    </div>
-                </div>
-                <div className={showDescription ? 'descricao-controller-opened' : 'descricao-controller'}>
-                    <div className='header' onClick={() => setShowDescription(!showDescription)}>
-                        {dataSelected > 0 && 
-                            <h1>Descrição do Evento</h1>
-                        }
-                        <img src={seta}/>
-                    </div>
-                    <p>{ingressos.DS_EVENTO}</p>
-                </div>
-                <div className='time-ticket-controller'>
-                    <div className='time-ticket-row'>
-                        <div className='paginacao'>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 32C7.16344 32 0 24.8366 0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16C32 24.8366 24.8366 32 16 32ZM16 30C23.732 30 30 23.732 30 16C30 8.26801 23.732 2 16 2C8.26801 2 2 8.26801 2 16C2 23.732 8.26801 30 16 30ZM13.9289 23.1L12.5147 21.6858L18.193 16.008L12.5147 10.3289L13.9289 8.91472L21 15.9858L20.979 16.008L21 16.0289L13.9289 23.1Z" fill="gray"/></svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 32C7.16344 32 0 24.8366 0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16C32 24.8366 24.8366 32 16 32ZM16 30C23.732 30 30 23.732 30 16C30 8.26801 23.732 2 16 2C8.26801 2 2 8.26801 2 16C2 23.732 8.26801 30 16 30ZM13.9289 23.1L12.5147 21.6858L18.193 16.008L12.5147 10.3289L13.9289 8.91472L21 15.9858L20.979 16.008L21 16.0289L13.9289 23.1Z" fill="#520DA9"/></svg>
-                        </div>
-                        <div className='data-controller'>
-
-                            {listarDatas.map((item, key) => (
-                                <div onClick={() => {ListarHorario(item.Id); AltRender('Selecione um horário','horario'); setIdData(item.Id)}}  className={dataSelected == item.Id ? 'data-selected' : 'data-box'}>
-                                    <h1>{item.Dia_Semana}</h1>
-                                    <p>{item.Dia_Mes} {item.mes}</p>
-                                </div>
-                            ))}
-                            
-                        </div>
-                        <div className='time-select'>
-                            <h1 onClick={()  => console.log(qtds)}>{title}</h1>
-                            <div className='ticket-wrapper'>
-                                {show == 'data' &&
-                                    null
-                                }
-                                {show == 'horario' &&
-                                    listarHorarios.map((item) => (
-                                        <div className='time-select-box' onClick={() => {AltRender(`Horário ${item.DS_HORARIO}`,'tipo'); ListarTipoIngressos(id); setIdHorario(item.ID_HORARIO_INGRESSO)}}>
-                                            <h1>Horário {item.DS_HORARIO}</h1>
-                                            <p>Preços entre R$ 10,00 e R$ 100,00</p>
-                                            <p>em até 12x</p>
-                                        </div>
-                                    ))
-                                }
-                                
-                                {show == 'tipo' || show == 'subtotal' ?
-                                    tipoIngressos.map(item => 
-                                        <div className='type-select-box' onClick={() => {setShow('subtotal'); setTypeSelected(item.ID_TIPO_INGRESSO)}}>
-                                            <h1>{item.NM_TIPO_INGRESSO}</h1>
-                                            <p>{FormatPreco(item.VL_PRECO_TIPO)}</p>
-                                            <p>Em até 10x</p>
-                                            <div>
-                                                <a onClick={() => condicionalConst(item.ID_TIPO_INGRESSO,'sub',item.VL_PRECO_TIPO)} >
-                                                    <RemoveCircleOutlineIcon/>
-                                                </a>
-                                                <span>{qtds[item.ID_TIPO_INGRESSO]}</span>
-                                                <a onClick={() => condicionalConst(item.ID_TIPO_INGRESSO,'ad',item.VL_PRECO_TIPO) }>
-                                                    <ControlPointIcon/>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    )
-                                    : null
-                                }
-                                
-                                
-                               
+                        <div className='ingresso-descricao-column'>
+                            <div className='ingresso-descricao-row'>
+                                <img src={local}/>
+                                <h1>{`${ingressos.DS_LOGRADOURO}, ${ingressos.DS_NUM}`}</h1>
                             </div>
-                            {show == 'subtotal' &&
-                                <div  className='subtotal-box'>
-                                    <div>
-                                        <h1 onClick={() => console.log(precos)}>Subtotal:</h1>
-                                        <span>R$ {preco}</span>
-                                    </div>
-                                
-                                    <Link 
-                                    to={'/resumo'}
-                                    state={{
-                                        listarPedidoIngresso,
-                                    }}
-                                    onClick={ClickComprar}>Comprar ingressos</Link>
-                                    
-                                </div>
-                            }
+                            <p>{`${ingressos.DS_LOCALIDADE}, ${ingressos.DS_UF}`}</p>
                         </div>
                     </div>
-                </div>
+                    <div className={showDescription ? 'descricao-controller-opened' : 'descricao-controller'}>
+                        <div className='header' onClick={() => setShowDescription(!showDescription)}>
+                            {dataSelected > 0 && 
+                                <h1>Descrição do Evento</h1>
+                            }
+                            <img src={seta}/>
+                        </div>
+                        <p>{ingressos.DS_EVENTO}</p>
+                    </div>
+                    <div className='time-ticket-controller'>
+                        <div className='time-ticket-row'>
+                            <div className='paginacao'>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 32C7.16344 32 0 24.8366 0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16C32 24.8366 24.8366 32 16 32ZM16 30C23.732 30 30 23.732 30 16C30 8.26801 23.732 2 16 2C8.26801 2 2 8.26801 2 16C2 23.732 8.26801 30 16 30ZM13.9289 23.1L12.5147 21.6858L18.193 16.008L12.5147 10.3289L13.9289 8.91472L21 15.9858L20.979 16.008L21 16.0289L13.9289 23.1Z" fill="gray"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 32C7.16344 32 0 24.8366 0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16C32 24.8366 24.8366 32 16 32ZM16 30C23.732 30 30 23.732 30 16C30 8.26801 23.732 2 16 2C8.26801 2 2 8.26801 2 16C2 23.732 8.26801 30 16 30ZM13.9289 23.1L12.5147 21.6858L18.193 16.008L12.5147 10.3289L13.9289 8.91472L21 15.9858L20.979 16.008L21 16.0289L13.9289 23.1Z" fill="#520DA9"/></svg>
+                            </div>
+                            <div className='data-controller'>
+
+                                {listarDatas.map((item, key) => (
+                                    <div onClick={() => {ListarHorario(item.Id); AltRender('Selecione um horário','horario'); setIdData(item.Id)}}  className={dataSelected == item.Id ? 'data-selected' : 'data-box'}>
+                                        <h1>{item.Dia_Semana}</h1>
+                                        <p>{item.Dia_Mes} {item.mes}</p>
+                                    </div>
+                                ))}
+                                
+                            </div>
+                            <div className='time-select'>
+                                <h1 onClick={()  => console.log(qtds)}>{title}</h1>
+                                <div className='ticket-wrapper'>
+                                    {show == 'data' &&
+                                        null
+                                    }
+                                    {show == 'horario' &&
+                                        listarHorarios.map((item) => (
+                                            <div className='time-select-box' onClick={() => {AltRender(`Horário ${item.DS_HORARIO}`,'tipo'); ListarTipoIngressos(id); setIdHorario(item.ID_HORARIO_INGRESSO)}}>
+                                                <h1>Horário {item.DS_HORARIO}</h1>
+                                                <p>Preços entre R$ 10,00 e R$ 100,00</p>
+                                                <p>em até 12x</p>
+                                            </div>
+                                        ))
+                                    }
+                                    
+                                    {show == 'tipo' || show == 'subtotal' ?
+                                        tipoIngressos.map(item => 
+                                            <div className='type-select-box' onClick={() => {setShow('subtotal'); setTypeSelected(item.ID_TIPO_INGRESSO)}}>
+                                                <h1>{item.NM_TIPO_INGRESSO}</h1>
+                                                <p>{FormatPreco(item.VL_PRECO_TIPO)}</p>
+                                                <p>Em até 10x</p>
+                                                <div>
+                                                    <a onClick={() => condicionalConst(item.ID_TIPO_INGRESSO,'sub',item.VL_PRECO_TIPO)} >
+                                                        <RemoveCircleOutlineIcon/>
+                                                    </a>
+                                                    <span>{qtds[item.ID_TIPO_INGRESSO]}</span>
+                                                    <a onClick={() => condicionalConst(item.ID_TIPO_INGRESSO,'ad',item.VL_PRECO_TIPO) }>
+                                                        <ControlPointIcon/>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        )
+                                        : null
+                                    }
+                                    
+                                    
+                                
+                                </div>
+                                {show == 'subtotal' &&
+                                    <div  className='subtotal-box'>
+                                        <div>
+                                            <h1>Subtotal:</h1>
+                                            <span>R$ {preco}</span>
+                                        </div>
+                                    
+                                        <a onClick={() => ClickComprar()} >Comprar ingressos</a>
+                                        
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </>
+                :
+                <>
+                
+                </>
+                }
+                
             </div>
             <Rodape/>
         </div>
