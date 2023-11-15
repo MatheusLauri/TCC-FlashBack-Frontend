@@ -5,10 +5,11 @@
     background-color: #f6f6f6;
     flex-direction: column;
     justify-content: flex-start;
-    height: 100vh;
+    height: 110vh;
     width: 100vw;
     .content-center{
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         width: 100%;
@@ -20,12 +21,13 @@
             
             background-color: white;
             
-            
             justify-content: center;
             align-items: center;
             
             width: 60%;
-            height: 40vh;
+            height: 45vh;
+
+            color: #808080;
 
             .cima{
                 display: flex;
@@ -76,6 +78,7 @@
                 .taxa{
                     display: flex;
 
+                    color: #8D909A;
                     justify-content:  space-between;
                     width: 100%; 
                 }
@@ -101,7 +104,81 @@
                     display: flex;
                     width: 100%;
                     
+                    color: #520DA9;
                     justify-content: flex-end;
+                }
+            }
+        }
+
+
+        .down{
+            display: flex;
+            flex-direction: column;
+
+            background-color: white;
+
+            justify-content: center;
+            align-items: center;
+            
+            width: 60%;
+            height: 30vh;
+            
+            margin-top: 20px;
+
+
+            .main-down{
+                display: flex;
+
+                justify-content:center;
+                align-items: center;
+                flex-direction: column;
+                
+                justify-content: space-between;
+
+                height: 250px;
+                width: 60%;
+                
+                
+                >button{
+                    height: 46px;
+                    width: 128px;
+
+                    border-radius: 40px;
+                    border: none;
+                    color: white;
+                    background-color: #520DA9;
+                }
+
+                .forma{
+                    width: 100%;
+                    display: flex;
+                    justify-content: flex-start;
+
+                    >h3{
+                        color: #808080;
+                    }
+                }
+
+                .meio-down{ 
+                    display: flex;
+                    justify-content: space-around;
+
+                    height: 80px;
+                    width: 100%;
+
+
+
+                    .meio-meio{
+                        display: flex;
+                        flex-direction: column;
+
+                        justify-content: space-around;
+                        width: 70%;
+
+                        >p {
+                            color: #808080;
+                        }
+                    }
                 }
             }
         }

@@ -27,7 +27,7 @@ function ResumoCompra() {
                                 <p>Alok & Jefferson M.</p>
                             </div>
 
-                            <p>foto</p>
+                           <img src='./assets/images/ticketroxo.png'/>
                         </div>
 
                         <div className='linha'></div>
@@ -61,7 +61,23 @@ function ResumoCompra() {
                     </div>
 
                     <div className='down'>
+                            <div className='main-down'>
+                                <div className='forma'>
+                                <h3>Forma de entrega</h3>
+                                </div>
+                                
 
+                                <div className='meio-down'>
+                                    <img src='./assets/images/smart.png'/>
+
+                                    <div className='meio-meio'>
+                                        <h2>Disponível no celular e para Impressão</h2>
+                                        <p>Seu ingresso ficará disponível na aba “Meus Pedidos” através do site Flashback.</p>
+                                    </div>
+                                </div>
+
+                                <button>Prosseguir</button>
+                            </div>
                     </div>
                 </div>
 

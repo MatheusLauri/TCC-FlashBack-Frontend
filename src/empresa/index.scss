@@ -68,11 +68,11 @@
         
     }
     .secao-dashboard{
-        padding: 50px 0;
+        padding: 100px 0;
         display: flex;
         flex-direction: column;
         width: 100%;
-        height: fit-content;
+        height: 80%;
         align-items: center;
         gap: 35px;
         justify-content: center;
@@ -88,6 +88,7 @@
             font-size: 50px;
             width: 90%;
             text-align: center;
+            margin-bottom: auto;
         }
     }
     .secao-preco{
@@ -291,10 +292,10 @@
     outline: none;
     position: absolute;
     background-color: white;
-    bottom: 10%;
-    top: 10%;
-    right: 10%;
-    left: 10%;
+    bottom: 20%;
+    top: 20%;
+    right: 30%;
+    left: 30%;
     border-radius: 25px;
     .cadastro-main{
         display: flex;
@@ -307,6 +308,9 @@
             color: #520AD9;
             font-size: 40px;
         }
+        >small{
+            margin-bottom: 2rem;
+        }
         .wrapper{
             display: flex;
             flex-direction: row;
@@ -315,6 +319,23 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            input{
+                outline: none;
+                border: 2px solid #520AD9;
+                width: 40%;
+                padding: 10px 20px;
+                border-radius: 25px;
+            }
+        }
+        >a{
+            padding: 10px 20px;
+            margin-top: 1rem;
+            background-color: rgba(184, 184, 184, 0.205);
+            box-shadow: 0rem 2rem 3rem rgba(132, 139, 200, 0.856);
+            border-radius: 25px;
+        }
+        >small:last-child{
+            margin-top: auto;
         }
     }
 }

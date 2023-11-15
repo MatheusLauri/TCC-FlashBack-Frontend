@@ -25,9 +25,31 @@ export default function Empresa(){
     const [logradouro,setLogradouro] = useState('')
 
     async function ListarCnpj() {
-        let url = `https://www.receitaws.com.br/v1/cnpj/${cnpj}`
+        let url = `http://localhost:5000/getCnpj?cnpj=${cnpj}`
         let response = await axios.get(url)
-        console.log(response.data)
+        setNmFantasia(response.data.fantasia)
+        setRazaoSocial(response.data.nome)
+        setEmail(response.data.email)
+        setBairro(response.data.bairro)
+        setNumero(response.data.numero)
+        setUf(response.data.uf)
+        setCep(response.data.cep)
+        setLogradouro(response.data.logradouro)
+        setMunicipio(response.data.municipio)
+    }
+
+    async function RealizarForm() {
+        let url = `http://localhost:5000/getCnpj?cnpj=${cnpj}`
+        let response = await axios.get(url)
+        setNmFantasia(response.data.fantasia)
+        setRazaoSocial(response.data.nome)
+        setEmail(response.data.email)
+        setBairro(response.data.bairro)
+        setNumero(response.data.numero)
+        setUf(response.data.uf)
+        setCep(response.data.cep)
+        setLogradouro(response.data.logradouro)
+        setMunicipio(response.data.municipio)
     }
 
     return (
@@ -46,17 +68,18 @@ export default function Empresa(){
                         <div className='wrapper'>
 
                             <input type='text' placeholder='Insira o CPNJ' value={cnpj} onChange={(e) => setCnpj(e.target.value)} onBlur={() => ListarCnpj()} />
-                            <input type='text' placeholder='Nome Fantasia' value={nmFantasia}/>
-                            <input type='text' placeholder='Razão Social' value={razaoSocial}/>
-                            <input type='text' placeholder='E-mail' value={email}/>
-                            <input type='text' placeholder='Bairro'  value={bairro}/>
-                            <input type='text' placeholder='Numero' value={numero}/>
-                            <input type='text' placeholder='Municipio' value={municipio}/>
-                            <input type='text' placeholder='UF' value={uf}/>
-                            <input type='text' placeholder='CEP'  value={cep}/>
-                            <input type='text' placeholder='Logradouro' value={logradouro}/>
+                            <input type='text' placeholder='Nome Fantasia' value={nmFantasia} readOnly/>
+                            <input type='text' placeholder='Razão Social' value={razaoSocial} readOnly/>
+                            <input type='text' placeholder='E-mail' value={email} readOnly/>
+                            <input type='text' placeholder='Bairro'  value={bairro} readOnly/>
+                            <input type='text' placeholder='Numero' value={numero} readOnly/>
+                            <input type='text' placeholder='Municipio' value={municipio} readOnly/>
+                            <input type='text' placeholder='UF' value={uf} readOnly/>
+                            <input type='text' placeholder='CEP'  value={cep} readOnly/>
+                            <input type='text' placeholder='Logradouro' value={logradouro} readOnly/>
                             
                         </div>
+                        <a>Confirmar</a>
                         <small>Agora é só <b>aguardar</b> a nossa aprovação. Entraremos em contato <b>via e-mail.</b> 🚀</small>
                     </div>
             </Modal>
