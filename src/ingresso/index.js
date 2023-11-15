@@ -12,6 +12,7 @@ import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
+
 export default function IngressoPage(){
     let {id} = useParams()
 
