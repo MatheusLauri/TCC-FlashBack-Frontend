@@ -367,6 +367,9 @@ export function Header() {
                                             <i className="fas fa-user"></i>
                                             <input type="date" placeholder="Data de Nascimento"  value={aniversario}  onChange={e => SetAniversario(e.target.value)}/>
                                         </div>
+
+
+                                        
                                         
                                         <input type="submit" className="btn" value="Cadastre-se" onClick={CadastrarCliente}/>
                                     </div>
