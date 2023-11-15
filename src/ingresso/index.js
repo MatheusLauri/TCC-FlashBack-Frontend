@@ -196,7 +196,7 @@ export default function IngressoPage(){
 
         }
     }
-    
+
     function listarPosicoesOcupadas(array) {
         const posicoesOcupadas = [];
       
@@ -217,7 +217,7 @@ export default function IngressoPage(){
             <Header/>
             <div className='ingresso-main'>
                 <img src={url}/>
-                <h1 onClick={() => listarPosicoesOcupadas(qtds)}>{ingressos.NM_EVENTO}</h1>
+                <h1>{ingressos.NM_EVENTO}</h1>
                 <div className='ingresso-descricao'>
                     <div className='ingresso-descricao-row'>
                         <img src={calendario}/>
