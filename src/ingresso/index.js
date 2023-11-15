@@ -67,11 +67,12 @@ export default function IngressoPage(){
         setPrecos(qtd)
         setQtds(qtd)
     }
-    
+
     //variaveis para compra
     const qtd = Array(contArray).fill(0)
     const [qtds, setQtds] = useState([])
     const [precos, setPrecos] = useState([])
+    const [preco, setPreco] = useState()
 
     function condicionalConst(idTp, opcao, preco) {
         setQtds(prevQtds => {
@@ -88,17 +89,26 @@ export default function IngressoPage(){
         });
         setPrecos(prevPrecos => {
             const newPrecos = [...prevPrecos];
-            let atualPreco = newPrecos[idTp] || 0 * preco;
-    
+            let atualPreco = newPrecos[idTp] || 0;
+            
             if (opcao === 'ad') {
                 newPrecos[idTp] = atualPreco + 1 * preco;
             } else if (opcao === 'sub') {
-                newPrecos[idTp] = Math.max(atualPreco - 1 * preco, 0 * preco);
+                newPrecos[idTp] = Math.max(atualPreco - 1 * preco, 0);
             }
-    
+            
             return newPrecos;
         });
+        
     }
+    useEffect(() => {
+
+        let value = 0;
+        precos.forEach((item) => {
+            value += item || 0;
+        });
+        setPreco(value)
+    },[precos])
 
     async function ListarIngressos(){
         let url = `http://localhost:5000/ingresso/busca?nome`
@@ -260,7 +270,7 @@ export default function IngressoPage(){
                                 <div  className='subtotal-box'>
                                     <div>
                                         <h1 onClick={() => console.log(precos)}>Subtotal:</h1>
-                                        <span>R$ 0,00</span>
+                                        <span>R$ {preco}</span>
                                     </div>
                                     <a>Comprar ingressos</a>
                                     
