@@ -336,6 +336,7 @@ export default function IngressoPage(){
                                             <span>R$ {preco}</span>
                                         </div>
                                     
+                                    
                                         <a onClick={() => ClickComprar()} >Comprar ingressos</a>
                                         
                                     </div>
