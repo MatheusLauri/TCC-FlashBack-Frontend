@@ -90,6 +90,7 @@ export function Header() {
     const [userNome,setUserNome] = useState('')
     const [userSobrenome,setUserSobrenome] = useState('')
     const [usuario, setUsuario] = useState('')
+    const [aniversario, SetAniversario] = useState('') 
   
 // Função de Login com API
 
@@ -104,7 +105,7 @@ export function Header() {
             Telefone: userTelefone,
             NomeUsuario: userNomeDeUsuario,
             Email: userEmail,
-            Senha: userSenha  
+            Senha: userSenha 
 
         }
 
@@ -141,6 +142,7 @@ export function Header() {
             setUserNome(resp.data.NM_CLIENTE)
             setUserSobrenome(resp.data.NM_SOBRENOME)
             setUsuario(resp.data.NM_USUARIO)
+            SetAniversario(resp.data.DataNasc) // aq
 
             // Alert de sucesso para o usuário
             toast.success(`Seja bem-vindo, ${resp.data.NM_USUARIO} !`)
@@ -359,11 +361,11 @@ export function Header() {
                                         </div>
                                         <div className="input-field">
                                             <i className="fas fa-user"></i>
-                                            <input type="text" placeholder="Sobrenome"  value={NomeUsuario}  onChange={e => setNomeUsuario(e.target.value)}/>
+                                            <input type="text" placeholder="Sobrenome"  value={userSobrenome}  onChange={e => setUserSobrenome(e.target.value)}/>
                                         </div>
                                         <div className="input-field">
                                             <i className="fas fa-user"></i>
-                                            <input type="date" placeholder="Data de Nascimento"  value={NomeUsuario}  onChange={e => setNomeUsuario(e.target.value)}/>
+                                            <input type="date" placeholder="Data de Nascimento"  value={aniversario}  onChange={e => SetAniversario(e.target.value)}/>
                                         </div>
                                         
                                         <input type="submit" className="btn" value="Cadastre-se" onClick={CadastrarCliente}/>
