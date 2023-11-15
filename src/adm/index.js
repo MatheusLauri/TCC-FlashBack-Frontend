@@ -91,12 +91,12 @@ export default function AdmPage() {
     const[dataIngresso, setDataIngresso] = useState()
     const[listarDatas, setlistarDatas] = useState([])
 
-    const[idData,  setIdData] = useState()
+    const[idData, setIdData] = useState()
     
     const[horarioIngresso, setHorarioIngresso] = useState()
     const[listarHorarios, setListarHorarios] = useState([])
 
-    const[idHorario, setIdHorario] = useState()
+    const[dataHourAtv, setdataHourAtv] = useState(false)
 
     async function ListarIngressos() {
         const listagem = []
@@ -125,16 +125,19 @@ export default function AdmPage() {
             ListarPedidos()
         };
 
-        // if (idIngresso != 0) {
-        //     listarTipos()
-        // }
-
-
     }, [pesquisa, listarIngressos, menu]);
 
     useEffect(() => {
         ListarIngressos()
-    }, [menu,pesquisa])
+    }, [menu, pesquisa])
+
+
+    useEffect(() => {
+       
+        if(idData) {
+        BuscarData()
+            }
+    }, [])
 
 
     useEffect(() => {
@@ -407,8 +410,6 @@ export default function AdmPage() {
         }
 
 
-
-
     }
 
 
@@ -461,18 +462,28 @@ export default function AdmPage() {
         
         listarDatas.push(resp.data)
         setlistarDatas([...listarDatas])
-    }
-
-
-    async function inserirHorarioModal () {
-
-        listarHorarios.push(horarioIngresso)
-        setListarHorarios([...listarHorarios])
-
-        setHorarioIngresso()
-    
 
     }
+
+
+    async function BuscarData() {
+
+        try {
+
+            let resp = await axios.get(`http://localhost:5000/data/horario/${idData}`)
+      
+            let hours = resp.data.length
+
+            if(hours != 0){
+                setdataHourAtv(true)
+            }
+
+        } catch (err) {
+            
+        }
+       
+    }
+
 
     async function CadastrarHorario() {
 
@@ -485,12 +496,56 @@ export default function AdmPage() {
         setListarHorarios([...listarHorarios])
     }
 
-    // async function BuscarHorarios (id) {
 
-    //     const resp = await axios.get(`http://localhost:5000/horario/compra/${id}`)
+    async function DeletarData(id) {
 
-    //     const hours = resp.data
-    // }
+        const resp = await axios.delete(`http://localhost:5000/data/${id}`)
+
+    }
+
+    async function DeletarDataArray(idArray) {
+
+        // let ArrayHours = listarHorarios;
+        // let novoArrayHours;
+
+        // if(dataHourAtv === true) {
+        //         listarDatas.splice(idArray, 1)
+
+        //         setlistarDatas([...listarDatas])
+        //     for(let item of listarHorarios) {    
+        //      if(item.Data === idArray) {
+        //      novoArrayHours = ArrayHours.filter((horarios) => horarios.Data === idArray)
+        //        console.log(novoArrayHours)
+
+        //     }
+
+        //     setListarHorarios(novoArrayHours)
+        // }
+            
+           
+        // }else {
+           
+        // }
+
+        listarDatas.splice(idArray, 1)
+
+        setlistarDatas([...listarDatas])
+    }
+    
+    async function DeletarHorario(id) {
+
+        const resp = await axios.delete(`http://localhost:5000/horario/${id}`)
+
+    }
+
+
+    async function DeletarHorarioArray(idArray) {
+
+        listarHorarios.splice(idArray, 1)
+
+        setListarHorarios([...listarHorarios])
+
+    }
 
     async function novoIngressoClick() {
 
@@ -763,16 +818,13 @@ export default function AdmPage() {
                                                 <div className='divisor'></div>
                                                 <div className='data-boxes' >
 
-                                                    {listarDatas.map((item) => ( 
-                                                        <div className='data-box' onClick={() => {setToggleCondicional(2) ; setIdData(item.ID); console.log(item.ID)}}>
+                                                    {listarDatas.map((item, idArray) => ( 
+                                                        <div className='data-box' onClick={() => {setToggleCondicional(2) ; setIdData(item.ID)}}>
                                                         <p>{item.Data}</p>
-                                                        <DeleteForeverIcon/>
+                                                        <DeleteForeverIcon onClick={() => {DeletarData(item.ID); DeletarDataArray(idArray)}}/>
                                                     </div>
                                                     ))}
-                                                    {/* <div className='data-box' onClick={() => setToggleCondicional(2)}>
-                                                        <p>09/11/22</p>
-                                                        <DeleteForeverIcon/>
-                                                    </div> */}
+                                                   
                                                 </div>
                                                 <div className='divisor'></div>
                                                 {toggleCondicional == 1 ?
@@ -821,11 +873,11 @@ export default function AdmPage() {
                                                             </div>
                                                             <div className='body-table'>
     
-                                                                {listarHorarios.map((item) => (
+                                                                {listarHorarios.map((item, idArray) => (
                                                                     idData == item.Data &&
                                                                         <div className='body-table-row'>
                                                                             <span>{item.Horario}</span>
-                                                                            <a><img src='../assets/images/delete.svg'/></a>
+                                                                            <a><img src='../assets/images/delete.svg' onClick={() => {DeletarHorario(item.Data); DeletarHorarioArray(idArray)}}/></a>
                                                                         </div>
                                                                 ))}
         
