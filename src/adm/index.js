@@ -207,7 +207,7 @@ export default function AdmPage() {
                 //Cadastro Infos Ingresso
                 let infosIngresso = {
                     Categoria: category,
-                    Empresa: 1,
+                    Empresa:idEmpresa,
                     Local: Id_Local,
                     NomeEvento: nomeEvento,
                     Descricao: descricao,

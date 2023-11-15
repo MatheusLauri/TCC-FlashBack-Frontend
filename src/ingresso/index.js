@@ -101,6 +101,7 @@ export default function IngressoPage(){
         });
         
     }
+    
     useEffect(() => {
 
         let value = 0;
