@@ -18,6 +18,7 @@ import AdmTicket from '../componentes/admTicket';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import MixedChart from '../componentes/mixedChart';
+import emailjs from '@emailjs/browser'
 
 export default function AdmDashboard() {
     //Variáveis de controle de menu
@@ -63,13 +64,24 @@ export default function AdmDashboard() {
         setMenu(e)
     }
 
-    async function Aprovar(id) {
+    async function Aprovar(id, razao, email, senha) {
         try {
             let url = `http://localhost:5000/Aprovacao`
             let response = await axios.post(url, {
                 id: id
             })
             await ListarFormulario()
+
+            const params = {
+                from_name: "Flashback Ltda.",
+                nm_razao_social: razao,
+                ds_email: email,
+                ds_senha: senha,
+                emai_to: email,
+                reply_to: "naoresponda.flashback@gmail.com"
+            }
+            emailjs.send("GmailService","template_tscrywf", params,"o4dTb4R0Y__hwBfwK")
+            
         } catch (error) {
             toast.error(error)
         }
@@ -677,7 +689,7 @@ export default function AdmDashboard() {
                                             <td>{item.DS_EMAIL_EMPRESA}</td>
                                             <td>{item.DS_SENHA_EMPRESA}</td>
                                             <td>Criações Pagas</td>
-                                            <td className='aprove' onClick={() => Aprovar(item.ID_EMPRESA)}>Aprovar</td>
+                                            <td className='aprove' onClick={() => Aprovar(item.ID_EMPRESA, item.NM_RAZAO_SOCIAL, item.DS_EMAIL_EMPRESA, item.DS_SENHA_EMPRESA)}>Aprovar</td>
                                             <td className='reprove' onClick={() => Reprovar(item.ID_EMPRESA)}>Reprovar</td>
                                         </tr>
                                     )}
