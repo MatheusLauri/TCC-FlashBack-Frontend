@@ -10,9 +10,9 @@ import Estagio from '../../componentes/estagioCompra/index.js';
 
 function ResumoCompra(props) {
 
-    const InfoCompra = props.location.state ? props.location.state.listarPedidoIngresso : null
-    
-    console.log(InfoCompra)
+    if (props.location.state.listarPedidoIngresso) {
+        console.log(props.location.state.listarPedidoIngresso);
+    }
 
 
     return (

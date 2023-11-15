@@ -349,10 +349,11 @@ export default function IngressoPage(){
                                         <span>R$ {preco}</span>
                                     </div>
                                 
-                                    <Link to={{
-                                      pathname:"/resumo",
-                                      state:{listarPedidoIngresso}  
-                                    }} 
+                                    <Link 
+                                    to={'/resumo'}
+                                    state={{
+                                        listarPedidoIngresso,
+                                    }}
                                     onClick={ClickComprar}>Comprar ingressos</Link>
                                     
                                 </div>
