@@ -196,25 +196,28 @@ export default function IngressoPage(){
 
         }
     }
-
+    
+    function listarPosicoesOcupadas(array) {
+        const posicoesOcupadas = [];
+      
+        for (let pos = 0; pos < array.length; pos++) {
+          if (array[pos] !== undefined) {
+            posicoesOcupadas.push(pos);
+          }
+        }
+        console.log(posicoesOcupadas)
+        return posicoesOcupadas;
+    }
 
     async function ClickComprar () {
-
-        for(let item of qtds) {
-            if(item) {
-                idTipos.push(item)
-                setidTipos([...idTipos])
-            }
-        }
     }
-  console.log(idTipos)
 
     return (
         <div className='ingresso-body'>
             <Header/>
             <div className='ingresso-main'>
                 <img src={url}/>
-                <h1>{ingressos.NM_EVENTO}</h1>
+                <h1 onClick={() => listarPosicoesOcupadas(qtds)}>{ingressos.NM_EVENTO}</h1>
                 <div className='ingresso-descricao'>
                     <div className='ingresso-descricao-row'>
                         <img src={calendario}/>
