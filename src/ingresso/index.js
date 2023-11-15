@@ -27,7 +27,6 @@ export default function IngressoPage(){
 
     
     
-
     //variaveis listagem data
     const [listarDatas, setListarDatas] = useState([]) 
     const [listarHorarios, setListarHorarios] = useState([]) 
@@ -36,7 +35,7 @@ export default function IngressoPage(){
     const [title,setTitle] = useState('Selecione uma data')
     const [show,setShow] = useState('data')
 
-    const [dadosIngresso,setDadosIngresso] = useState()
+    const [dadosIngresso, setDadosIngresso] = useState()
 
     function AltRender(title, show) {
         setTitle(title)
@@ -198,20 +197,43 @@ export default function IngressoPage(){
     }
 
     function listarPosicoesOcupadas(array) {
+        
         const posicoesOcupadas = [];
-      
+
         for (let pos = 0; pos < array.length; pos++) {
           if (array[pos] !== undefined) {
-            posicoesOcupadas.push(pos);
+            posicoesOcupadas.push(pos)
           }
         }
-        console.log(posicoesOcupadas)
+
         return posicoesOcupadas;
     }
+   
 
     async function ClickComprar () {
-    }
 
+        let idTipos = listarPosicoesOcupadas(qtds)
+        let chui = []
+        for (let item of qtds) {
+            if(item != undefined) {
+                qtds.indexOf(item)
+                chui.push(item)
+            }
+        } 
+    
+        const resp = await axios.post(`http://localhost:5000/pedidoIngresso`, {
+            
+            Cliente: 1,
+            Local: ingressos.ID_LOCAL_EVENTO,
+            Ingresso: ingressos.ID_INGRESSO,
+            Data: ingressos.ID_DATA_INGRESSO,
+            Horario: ingressos.ID_HORARIO_INGRESSO,
+            TipoIngresso: 1,
+            Itens: 10
+
+        }) 
+    }
+  
     return (
         <div className='ingresso-body'>
             <Header/>
@@ -301,7 +323,7 @@ export default function IngressoPage(){
                                         <h1 onClick={() => console.log(precos)}>Subtotal:</h1>
                                         <span>R$ {preco}</span>
                                     </div>
-                                    <a>Comprar ingressos</a>
+                                    <a onClick={() => ClickComprar()}>Comprar ingressos</a>
                                     
                                 </div>
                             }
