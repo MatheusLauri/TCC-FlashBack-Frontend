@@ -14,7 +14,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { EffectCoverflow, Pagination, Navigation, Autoplay, EffectCreative, EffectFade } from 'swiper/modules'
+import { Pagination, Autoplay, EffectFade } from 'swiper/modules'
 import DestaqueBox from '../componentes/destaquesBox';
 import 'swiper/css/effect-fade';
 
