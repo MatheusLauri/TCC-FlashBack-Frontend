@@ -25,9 +25,6 @@ export default function Empresa(){
     const [logradouro,setLogradouro] = useState('')
 
     async function ListarCnpj() {
-        let url = ``
-        let response = await axios.get(url)
-        console.log(response.data)
     }
 
     return (
@@ -57,6 +54,7 @@ export default function Empresa(){
                             <input type='text' placeholder='Logradouro' value={logradouro}/>
                             
                         </div>
+                        <a>Confirmar</a>
                         <small>Agora é só <b>aguardar</b> a nossa aprovação. Entraremos em contato <b>via e-mail.</b> 🚀</small>
                     </div>
             </Modal>
