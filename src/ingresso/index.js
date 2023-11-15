@@ -45,18 +45,6 @@ export default function IngressoPage(){
         setShow(show)
     }
 
-    function ArmazenarDados(id_cliente,id_ingresso,id_tipo_ingresso,qtd) {
-        const objeto = {
-            id_cliente: id_cliente,
-            id_ingresso: id_ingresso,
-            id_tipo_ingresso: id_tipo_ingresso ,
-            qtd: qtd
-        }
-        let array = []
-        array[id_tipo_ingresso] = objeto
-        setDadosIngresso(array)
-    }
-
     let contArray = 0
 
     async function ListarTipoIngressos(id) {
