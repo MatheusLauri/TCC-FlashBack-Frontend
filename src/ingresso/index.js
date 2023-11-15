@@ -54,7 +54,9 @@ export default function IngressoPage(){
         array[id_tipo_ingresso] = objeto
         setDadosIngresso(array)
     }
+
     let contArray = 0
+
     async function ListarTipoIngressos(id) {
         let url = `http://localhost:5000/tipoIngresso/${id}`
         let response = await axios.get(url)
@@ -69,11 +71,15 @@ export default function IngressoPage(){
         setQtds(qtd)
     }
 
-    //variaveis para compra
+    //variaveis para pré compra 
     const qtd = Array(contArray).fill(0)
     const [qtds, setQtds] = useState([])
     const [precos, setPrecos] = useState([])
     const [preco, setPreco] = useState()
+
+    //variaveis para compra 
+    const [idTipos, setidTipos] = useState([])
+
 
     function condicionalConst(idTp, opcao, preco) {
         setQtds(prevQtds => {
@@ -127,6 +133,12 @@ export default function IngressoPage(){
         ListarData_Comprar();
       
     },[id])
+
+
+    useEffect(() => {
+        ClickComprar()
+        
+    },[])
 
     let url = `http://localhost:5000/${ingressos.IMAGEM_INGRESSO}`
 
@@ -185,6 +197,17 @@ export default function IngressoPage(){
         }
     }
 
+
+    async function ClickComprar () {
+
+        for(let item of qtds) {
+            if(item) {
+                idTipos.push(item)
+                setidTipos([...idTipos])
+            }
+        }
+    }
+  console.log(idTipos)
 
     return (
         <div className='ingresso-body'>
