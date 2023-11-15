@@ -23,6 +23,7 @@ export default function Empresa(){
     const [uf,setUf] = useState('')
     const [cep,setCep] = useState('')
     const [logradouro,setLogradouro] = useState('')
+    const [senha,setSenha] = useState('')
 
     async function ListarCnpj() {
         let url = `http://localhost:5000/getCnpj?cnpj=${cnpj}`
@@ -39,17 +40,14 @@ export default function Empresa(){
     }
 
     async function RealizarForm() {
-        let url = `http://localhost:5000/getCnpj?cnpj=${cnpj}`
-        let response = await axios.get(url)
-        setNmFantasia(response.data.fantasia)
-        setRazaoSocial(response.data.nome)
-        setEmail(response.data.email)
-        setBairro(response.data.bairro)
-        setNumero(response.data.numero)
-        setUf(response.data.uf)
-        setCep(response.data.cep)
-        setLogradouro(response.data.logradouro)
-        setMunicipio(response.data.municipio)
+        let url = `http://localhost:5000/postCnpj`
+        let objeto = {
+            cnpj: cnpj,
+            senha: senha
+        }
+        let response = await axios.post(url,[objeto])
+        console.log(response)
+        
     }
 
     return (
@@ -67,7 +65,7 @@ export default function Empresa(){
                         <small><b>Preencha o formulário:</b></small>
                         <div className='wrapper'>
 
-                            <input type='text' placeholder='Insira o CPNJ' value={cnpj} onChange={(e) => setCnpj(e.target.value)} onBlur={() => ListarCnpj()} />
+                            <input type='text' placeholder='Insira o CNPJ' value={cnpj} onChange={(e) => setCnpj(e.target.value)} onBlur={() => ListarCnpj()} />
                             <input type='text' placeholder='Nome Fantasia' value={nmFantasia} readOnly/>
                             <input type='text' placeholder='Razão Social' value={razaoSocial} readOnly/>
                             <input type='text' placeholder='E-mail' value={email} readOnly/>
@@ -77,9 +75,10 @@ export default function Empresa(){
                             <input type='text' placeholder='UF' value={uf} readOnly/>
                             <input type='text' placeholder='CEP'  value={cep} readOnly/>
                             <input type='text' placeholder='Logradouro' value={logradouro} readOnly/>
+                            <input type='text' placeholder='Senha' value={senha} onChange={(e) => setSenha(e.target.value)}/>
                             
                         </div>
-                        <a>Confirmar</a>
+                        <a onClick={() => RealizarForm()}>Confirmar</a>
                         <small>Agora é só <b>aguardar</b> a nossa aprovação. Entraremos em contato <b>via e-mail.</b> 🚀</small>
                     </div>
             </Modal>
