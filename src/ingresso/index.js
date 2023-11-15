@@ -251,7 +251,7 @@ export default function IngressoPage(){
                                             <p>{FormatPreco(item.VL_PRECO_TIPO)}</p>
                                             <p>Em até 10x</p>
                                             <div>
-                                                <a onClick={() => condicionalConst(item.ID_TIPO_INGRESSO,'sub')} >
+                                                <a onClick={() => condicionalConst(item.ID_TIPO_INGRESSO,'sub',item.VL_PRECO_TIPO)} >
                                                     <RemoveCircleOutlineIcon/>
                                                 </a>
                                                 <span>{qtds[item.ID_TIPO_INGRESSO]}</span>
