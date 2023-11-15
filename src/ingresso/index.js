@@ -10,6 +10,7 @@ import calendario from '../assets/images/calendar.png'
 import local from '../assets/images/local.png'
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 export default function IngressoPage(){
     let {id} = useParams()
@@ -24,22 +25,7 @@ export default function IngressoPage(){
     }
 
     
-    const qtd = []
-    const [qtds, setQtds] = useState([])
-
-    function condicionalConst(idTp,opcao){
-        let atual = Number(qtd[idTp])
-        if (opcao == 'ad'){
-            qtd[idTp] = atual + 1
-            
-        }
-        else if (opcao == 'sub'){
-            qtd[idTp] = qtd[idTp] - 1
-        }
-        let listagem = []
-        setQtds(qtd)
-        console.log(listagem)
-    }
+    
 
     //variaveis listagem data
     const [listarDatas, setListarDatas] = useState([]) 
@@ -61,22 +47,56 @@ export default function IngressoPage(){
             id_cliente: id_cliente,
             id_ingresso: id_ingresso,
             id_tipo_ingresso: id_tipo_ingresso ,
-            id_tipo_ingresso: id_tipo_ingresso,
             qtd: qtd
         }
         let array = []
         array[id_tipo_ingresso] = objeto
         setDadosIngresso(array)
     }
-
+    let contArray = 0
     async function ListarTipoIngressos(id) {
         let url = `http://localhost:5000/tipoIngresso/${id}`
         let response = await axios.get(url)
         setTipoIngressos(response.data)
         response.data.forEach((item) => {
             qtd[item.ID_TIPO_INGRESSO] = 0
+            if (item.ID_TIPO_INGRESSO > contArray){
+                contArray = item.ID_TIPO_INGRESSO
+            }
         })
+        setPrecos(qtd)
         setQtds(qtd)
+    }
+    //variaveis para compra
+    const qtd = Array(contArray).fill(0)
+    const [qtds, setQtds] = useState([])
+    const [precos, setPrecos] = useState([])
+
+    function condicionalConst(idTp, opcao, preco) {
+        setQtds(prevQtds => {
+            const newQtds = [...prevQtds];
+            let atual = newQtds[idTp] || 0;
+    
+            if (opcao === 'ad') {
+                newQtds[idTp] = atual + 1;
+            } else if (opcao === 'sub') {
+                newQtds[idTp] = Math.max(atual - 1, 0);
+            }
+    
+            return newQtds;
+        });
+        setPrecos(prevPrecos => {
+            const newPrecos = [...prevPrecos];
+            let atualPreco = newPrecos[idTp] || 0 * preco;
+    
+            if (opcao === 'ad') {
+                newPrecos[idTp] = atualPreco + 1 * preco;
+            } else if (opcao === 'sub') {
+                newPrecos[idTp] = Math.max(atualPreco - 1 * preco, 0 * preco);
+            }
+    
+            return newPrecos;
+        });
     }
 
     async function ListarIngressos(){
@@ -87,7 +107,6 @@ export default function IngressoPage(){
             newArray[element.ID_INGRESSO] = element
         });
         setIngressos(newArray[id])
-
     }
     
     useEffect(() => {
@@ -224,7 +243,7 @@ export default function IngressoPage(){
                                                     <RemoveCircleOutlineIcon/>
                                                 </a>
                                                 <span>{qtds[item.ID_TIPO_INGRESSO]}</span>
-                                                <a onClick={() => condicionalConst(item.ID_TIPO_INGRESSO,'ad') }>
+                                                <a onClick={() => condicionalConst(item.ID_TIPO_INGRESSO,'ad',item.VL_PRECO_TIPO) }>
                                                     <ControlPointIcon/>
                                                 </a>
                                             </div>
@@ -237,7 +256,13 @@ export default function IngressoPage(){
                                
                             </div>
                             {show == 'subtotal' &&
-                                <div>oi
+                                <div  className='subtotal-box'>
+                                    <div>
+                                        <h1 onClick={() => console.log(precos)}>Subtotal:</h1>
+                                        <span>R$ 0,00</span>
+                                    </div>
+                                    <a>Comprar ingressos</a>
+                                    
                                 </div>
                             }
                         </div>
