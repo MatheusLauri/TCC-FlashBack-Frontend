@@ -238,7 +238,7 @@ export default function AdmPage() {
         }  
     }
 
-
+    console.log(idIngresso)
     async function AdicionarIngresso() {
         addIngresso()
         await ListarIngressos()

@@ -1,7 +1,10 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './index.scss'
 
 export default function DestaqueBox(props) {
+
+    const navigate = useNavigate()
+
     let url = `http://localhost:5000/${props.imagem}`
     function FormatDate(e){
         let meses = ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
@@ -27,7 +30,7 @@ export default function DestaqueBox(props) {
                     <h1>{props.nome}</h1>
                     <p>{`${props.endereco} - ${props.cidade}, ${props.uf}`}</p>
                 </div>
-                <Link to={`/ingresso/${props.id}`}>Ver detalhes</Link>
+                <a onClick={() => navigate(`/ingresso/${props.id}#inicio`)}>Ver detalhes</a>
             </div>
         </div>
     )

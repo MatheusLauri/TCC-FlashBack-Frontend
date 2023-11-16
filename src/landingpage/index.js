@@ -17,8 +17,16 @@ import 'swiper/css/navigation';
 import { Pagination, Autoplay, EffectFade } from 'swiper/modules'
 import DestaqueBox from '../componentes/destaquesBox';
 import 'swiper/css/effect-fade';
+import { useRef } from 'react';
 
 function LandingPage() {
+
+  const inicioRef = useRef(null);
+
+  useEffect(() => {
+    // Scroll para o início da página
+    inicioRef.current.scrollIntoView({ behavior: 'smooth' });
+  }, []);
 
   const [listarCategoria, setListarCategoria] = useState([])
   const [listarDestaque,setListarDestaque] = useState([])
@@ -70,7 +78,7 @@ function LandingPage() {
   return (
     <div className="body">
       <Header/>
-      <section className='secao-01'>
+      <section className='secao-01' ref={inicioRef} id="inicio">
         <h1 onClick={() => console.log(listarCategoria)}>Explore e viva a diversão!</h1>
         <div className='secao-01-categoria'>
           <TrianguloCategoria 

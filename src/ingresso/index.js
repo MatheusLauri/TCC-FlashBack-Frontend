@@ -2,7 +2,7 @@ import './index.scss'
 
 import { Header } from '../componentes/header/header';
 import Rodape from '../componentes/rodape/index'
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import seta from '../assets/images/seta.png'
@@ -18,6 +18,14 @@ import ReceiptIcon from '@mui/icons-material/Receipt';
 export default function IngressoPage() {
     let { id } = useParams()
     const [buy, setBuy] = useState(false)
+
+    const inicioRef = useRef(null);
+
+    useEffect(() => {
+        // Scroll para o início da página
+        inicioRef.current.scrollIntoView({ behavior: 'smooth' });
+    }, []);
+
 
     const [showDescription, setShowDescription] = useState(false)
     const [ingressos, setIngressos] = useState([])
@@ -285,14 +293,14 @@ export default function IngressoPage() {
     return (
         <div className='ingresso-body'>
             <Header />
-            <div className='ingresso-main'>
+            <div className='ingresso-main' ref={inicioRef} id="inicio">
                 {!buy ?
                     <>
                         <img src={url} />
                         <h1>{ingressos.NM_EVENTO}</h1>
                         <div className='ingresso-descricao'>
                             <div className='ingresso-descricao-row'>
-                                <img src={calendario} />
+                                <img src={calendario}/>
                                 <p>{formattedDate}</p>
                             </div>
                             <div className='ingresso-descricao-column'>
