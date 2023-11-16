@@ -3,6 +3,7 @@ import { useState } from 'react';
 import './header.scss'
 import Modal from 'react-modal'
 import axios from 'axios';
+import storage from 'local-storage'
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
@@ -133,6 +134,7 @@ export function Header() {
                 senha: senha
             });
 
+            storage('usuario-logado', resp)
 
             // Armazenar informações do usuário
             setUserId(resp.data.ID_CLIENTE)
