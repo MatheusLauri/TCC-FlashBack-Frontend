@@ -53,13 +53,21 @@ export default function IngressoPage() {
     async function ListarTipoIngressos(id) {
         let url = `http://localhost:5000/tipoIngresso/${id}`
         let response = await axios.get(url)
+        
+        let newArray = []
+        let newArray2 = []
+
         setTipoIngressos(response.data)
         response.data.forEach((item) => {
+            newArray[item.ID_TIPO_INGRESSO] = item.NM_TIPO_INGRESSO
+            newArray2[item.ID_TIPO_INGRESSO] = item.VL_PRECO_TIPO
             qtd[item.ID_TIPO_INGRESSO] = 0
             if (item.ID_TIPO_INGRESSO > contArray) {
                 contArray = item.ID_TIPO_INGRESSO
             }
         })
+        setNmtipos(newArray)
+        setVlTipo(newArray2)
         setPrecos(qtd)
         setQtds(qtd)
     }
@@ -74,6 +82,14 @@ export default function IngressoPage() {
     const [idTipos, setidTipos] = useState([])
 
     const [listarPedidoIngresso, setlistarPedidoIngresso] = useState([])
+    const [listarPedidoIngressoEst1, setlistarPedidoIngressoEst1] = useState([])
+
+    const[nmTipos, setNmtipos] = useState([])
+
+    const [nmTipo, setNmtipo] = useState()
+    const [vlTipo, setVlTipo] = useState()
+    const [data, setData] = useState()
+    const [horario, setHorario] = useState()
 
 
     function condicionalConst(idTp, opcao, preco) {
@@ -139,22 +155,28 @@ export default function IngressoPage() {
     const formattedDate = `${datetime.getDate()} ${monthNames[datetime.getMonth()]} - ${datetime.getFullYear()} | ${datetime.getHours()}:${datetime.getMinutes()}`;
 
     //Formatar datas Compra
-    let diasDaSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
-    let meses = ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
-
+ 
     function formatDt(data) {
+
+        let diasDaSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+        let meses = ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+        let mesesCompletos = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+
 
         let datetimeCompra = new Date(data.DT_INGRESSO);
         let diaDaSemana = diasDaSemana[datetimeCompra.getUTCDay()];
         let diaDoMes = datetimeCompra.getUTCDate();
         let mes = meses[datetimeCompra.getUTCMonth()];
-
+        let mesCompleto = mesesCompletos[datetimeCompra.getUTCMonth()];
+        let ano = datetimeCompra.getFullYear()
 
         let resultado = {
             Id: data.ID_DATA_INGRESSO,
             Dia_Semana: diaDaSemana,
             Dia_Mes: diaDoMes,
-            mes: mes
+            mes: mes,
+            ano: ano,
+            mesCompleto: mesCompleto
         }
 
         return resultado
@@ -216,7 +238,7 @@ export default function IngressoPage() {
         return qtdItens;
     }
 
-    let objetoteste = {}
+
 
     async function ClickComprar() {
         setBuy(true)
@@ -239,14 +261,26 @@ export default function IngressoPage() {
 
             })
 
-            
+            let infosComplete = {
+
+                Ingresso: ingressos.NM_EVENTO,
+                Data: data,
+                Horario: horario,
+                TipoIngresso: nmTipos[idTipos[cont]],
+                VlTipo: vlTipo[idTipos[cont]],
+                Itens: qtdItens[cont]
+            }
+
+            listarPedidoIngressoEst1.push(infosComplete)
+            setlistarPedidoIngressoEst1([...listarPedidoIngressoEst1])
             listarPedidoIngresso.push(resp.data)
             setlistarPedidoIngresso([...listarPedidoIngresso])
         }
 
     }
 
-    console.log(listarPedidoIngresso)
+    console.log(listarPedidoIngressoEst1)
+    console.log(ingressos)
 
     return (
         <div className='ingresso-body'>
@@ -287,7 +321,7 @@ export default function IngressoPage() {
                                 <div className='data-controller'>
 
                                     {listarDatas.map((item, key) => (
-                                        <div onClick={() => { ListarHorario(item.Id); AltRender('Selecione um horário', 'horario'); setIdData(item.Id) }} className={dataSelected == item.Id ? 'data-selected' : 'data-box'}>
+                                        <div onClick={() => { ListarHorario(item.Id); AltRender('Selecione um horário', 'horario'); setIdData(item.Id); setData(item)}} className={dataSelected == item.Id ? 'data-selected' : 'data-box'}>
                                             <h1>{item.Dia_Semana}</h1>
                                             <p>{item.Dia_Mes} {item.mes}</p>
                                         </div>
@@ -302,7 +336,7 @@ export default function IngressoPage() {
                                         }
                                         {show == 'horario' &&
                                             listarHorarios.map((item) => (
-                                                <div className='time-select-box' onClick={() => { AltRender(`Horário ${item.DS_HORARIO}`, 'tipo'); ListarTipoIngressos(id); setIdHorario(item.ID_HORARIO_INGRESSO) }}>
+                                                <div className='time-select-box' onClick={() => { AltRender(`Horário ${item.DS_HORARIO}`, 'tipo'); ListarTipoIngressos(id); setIdHorario(item.ID_HORARIO_INGRESSO); setHorario(item.DS_HORARIO) }}>
                                                     <h1>Horário {item.DS_HORARIO}</h1>
                                                     <p>Preços entre R$ 10,00 e R$ 100,00</p>
                                                     <p>em até 12x</p>
@@ -312,7 +346,7 @@ export default function IngressoPage() {
 
                                         {show == 'tipo' || show == 'subtotal' ?
                                             tipoIngressos.map(item =>
-                                                <div className='type-select-box' onClick={() => { setShow('subtotal'); setTypeSelected(item.ID_TIPO_INGRESSO) }}>
+                                                <div className='type-select-box' onClick={() => { setShow('subtotal'); setTypeSelected(item.ID_TIPO_INGRESSO); setNmtipo(item.NM_TIPO_INGRESSO) }}>
                                                     <h1>{item.NM_TIPO_INGRESSO}</h1>
                                                     <p>{FormatPreco(item.VL_PRECO_TIPO)}</p>
                                                     <p>Em até 10x</p>
@@ -337,7 +371,7 @@ export default function IngressoPage() {
                                         <div className='subtotal-box'>
                                             <div>
                                                 <h1>Subtotal:</h1>
-                                                <span>R$ {preco}</span>
+                                                <span>{FormatPreco(preco)}</span>
                                             </div>
 
 
@@ -355,23 +389,33 @@ export default function IngressoPage() {
                         {estagio == 1 &&
                             <div className='compra-main'>
                                 <div className='box'>
+                                    
                                     <div className='box-row'>
                                         <div>
                                             <h1>Resumo da Compra</h1>
-                                            <p>Alok & Jefferson M.</p>
+                                      
+                                            <p>{ingressos.NM_EVENTO}</p>
                                         </div>
                                         <ReceiptIcon />
                                     </div>
                                     <div className='divisor'></div>
-                                    <p>Sexta-feira, 18 de agosto de 2023 às 22h00</p>
-                                    <div>
-                                        <p>1x Inteiro</p>
-                                        <p>R$ 440,00</p>
-                                    </div>
+
+                                        <p>{data.Dia_Semana}, {data.Dia_Mes} de {data.mesCompleto} de {data.ano} às {horario}</p>
+                                        
+                                        {listarPedidoIngressoEst1.map((item) => (
+
+                                            <>
+                                                <div>
+                                                    <p>{item.Itens}x {item.TipoIngresso}</p>
+                                                    <p>{FormatPreco(item.VlTipo)}</p>
+                                                </div>
+                                            </>
+                                        ))}
+                                    
                                     <div className='divisor'></div>
                                     <div>
                                         <h1>Subtotal</h1>
-                                        <h1>R$ {preco}</h1>
+                                        <h1>{FormatPreco(preco)}</h1>
                                     </div>
                                 </div>
                                 <div className='box-2'>
