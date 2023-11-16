@@ -30,7 +30,6 @@ function LandingPage() {
 
   const [listarCategoria, setListarCategoria] = useState([])
   const [listarDestaque,setListarDestaque] = useState([])
-  const listagem = []; 
 
   async function ListarCategorias () {
     try {
@@ -42,6 +41,7 @@ function LandingPage() {
         nomeCategorias[cont] = r.data[cont].NM_CATEGORIA_INGRESSO
 
       }
+      const listagem = []; 
       console.log(nomeCategorias)
       for (let item of nomeCategorias) {
         try {
@@ -49,8 +49,9 @@ function LandingPage() {
           listagem.push(r);
         } catch (error) {
         }
-
+        
       }
+      console.log(listagem)
       setListarCategoria(listagem)
       console.log(listarCategoria)
 
