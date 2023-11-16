@@ -239,6 +239,7 @@ export default function IngressoPage() {
 
             })
 
+            
             listarPedidoIngresso.push(resp.data)
             setlistarPedidoIngresso([...listarPedidoIngresso])
         }
