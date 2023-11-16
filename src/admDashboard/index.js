@@ -51,7 +51,7 @@ export default function AdmDashboard() {
                 
                 setListarIngressos(resp.data)
             }
-            
+
         } catch (err) {
             toast.error(err)
         }
@@ -234,6 +234,7 @@ export default function AdmDashboard() {
         }
     }, [menu, pesquisa])
 
+    
     return (
         <>
             <ToastContainer
