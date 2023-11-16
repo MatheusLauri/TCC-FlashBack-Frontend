@@ -146,16 +146,22 @@ export default function AdmDashboard() {
         const diferencaEmMinutos = diferencaEmMilissegundos / (1000 * 60);
         const diferencaEmHoras = diferencaEmMinutos / 60;
         let ago = ''
+        console.log(diferencaEmHoras)
+        console.log(diferencaEmMinutos)
         if (diferencaEmHoras >= 1) {
 
             // Exibir a diferença em horas atrás
             ago = `${Math.floor(diferencaEmHoras)} horas atrás`;
 
         } else {
-
-            // Exibir a diferença em minutos atrás
-            ago = `${Math.floor(diferencaEmMinutos)} minutos atrás`
-
+            if (Math.floor(diferencaEmMinutos < 1)){
+                ago = `Agora`
+            }
+            else{
+                // Exibir a diferença em minutos atrás
+                ago = `${Math.floor(diferencaEmMinutos)} minutos atrás`
+            }
+            
         }
 
         return ago
@@ -234,7 +240,7 @@ export default function AdmDashboard() {
         }
     }, [menu, pesquisa])
 
-    
+
     return (
         <>
             <ToastContainer
