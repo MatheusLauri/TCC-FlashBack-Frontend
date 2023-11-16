@@ -370,10 +370,11 @@ export function Header() {
                                             <input type="date" placeholder="Data de Nascimento"  value={aniversario}  onChange={e => SetAniversario(e.target.value)}/>
                                         </div>
 
-
-
+                                        <div style={{display: `flex`,gap: `10px`}}>
+                                            <input type="submit" className="btn" value="Voltar" onClick={() => setPage(1)}/>
+                                            <input type="submit" className="btn" value="Cadastre-se" onClick={CadastrarCliente}/>
+                                        </div>
                                         
-                                        <input type="submit" className="btn" value="Cadastre-se" onClick={CadastrarCliente}/>
                                     </div>
                                 }
                                 
@@ -404,7 +405,7 @@ export function Header() {
                 </div>
             </Modal>
             <Modal
-                className="modal"
+                className="modal-user"
                 overlayClassName="modal-overlay"
                 closeTimeoutMS={500}
                 isOpen={userModal}
