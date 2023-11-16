@@ -26,7 +26,6 @@ export default function AdmTicket(props) {
     const urlImagem = `http://localhost:5000/${props.imagem}`
 
     const [click,setClick] = useState(false)
-    const listagem = []
     const [ListarTipos,setListarTipos] = useState([])
 
     async function ListarTipoIngresso(){
@@ -34,8 +33,7 @@ export default function AdmTicket(props) {
 
             let r = `http://localhost:5000/tipoIngresso/${props.id}`
             let response = await axios.get(r)
-            listagem.push(response.data)
-            setListarTipos(...listagem)
+            setListarTipos(response.data)
             console.log(ListarTipos)
 
         } catch (error) {

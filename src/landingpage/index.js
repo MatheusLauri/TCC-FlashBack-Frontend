@@ -42,19 +42,18 @@ function LandingPage() {
         nomeCategorias[cont] = r.data[cont].NM_CATEGORIA_INGRESSO
 
       }
-
+      console.log(nomeCategorias)
       for (let item of nomeCategorias) {
         try {
           r = await axios.get(`http://localhost:5000/ingresso/categoria?categoria=${item}`)
-          if (r.data > 0) {
-            listagem.push(r.data);
-          }
+          listagem.push(r);
         } catch (error) {
         }
-        
 
       }
       setListarCategoria(listagem)
+      console.log(listarCategoria)
+
     } catch (error) {
       
     }
@@ -65,8 +64,7 @@ function LandingPage() {
     try {
       let listagem = []
       let r =  await axios.get('http://localhost:5000/ingresso/destaque')
-      listagem = [r.data]
-      setListarDestaque(...listagem)
+      setListarDestaque(r.data)
     } catch (error) {
       
     }
@@ -82,7 +80,7 @@ function LandingPage() {
     <div className="body">
       <Header/>
       <section className='secao-01' ref={homeRef} id="inicio">
-        <h1 onClick={() => console.log(listagem)}>Explore e viva a diversão!</h1>
+        <h1 onClick={() => console.log(listarCategoria)}>Explore e viva a diversão!</h1>
         <div className='secao-01-categoria'>
           <TrianguloCategoria 
             src='./assets/images/teatro.svg' 
@@ -186,7 +184,7 @@ function LandingPage() {
             ))
           : 
           <div>
-            <p>Desculpe! Não encontramos nenhum ingresso. Tente em um outro momento.</p>
+            <p>Desculpe! Não encontramos nenhum ingresso.<br/> Tente em um outro momento.</p>
           </div>
         }
       </section>
