@@ -171,6 +171,7 @@ export function Header() {
         BarraDePesquisaIngresso()
     }, [busca])
 
+    
     async function BarraDePesquisaIngresso() {
         try {
             let response = await axios.get(`http://localhost:5000/ingresso/busca?nome=${busca}`)
