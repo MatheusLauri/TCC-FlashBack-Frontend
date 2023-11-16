@@ -30,7 +30,7 @@ export default function DestaqueBox(props) {
                     <h1>{props.nome}</h1>
                     <p>{`${props.endereco} - ${props.cidade}, ${props.uf}`}</p>
                 </div>
-                <a onClick={() => navigate(`/ingresso/${props.id}#inicio`)}>Ver detalhes</a>
+                <a onClick={() => navigate(`/ingresso/${props.id}`)}>Ver detalhes</a>
             </div>
         </div>
     )

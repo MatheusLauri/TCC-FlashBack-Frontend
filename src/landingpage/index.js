@@ -21,20 +21,20 @@ import { useRef } from 'react';
 
 function LandingPage() {
 
-  const inicioRef = useRef(null);
+  const homeRef = useRef(null);
 
   useEffect(() => {
     // Scroll para o início da página
-    inicioRef.current.scrollIntoView({ behavior: 'smooth' });
+    homeRef.current.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
   const [listarCategoria, setListarCategoria] = useState([])
   const [listarDestaque,setListarDestaque] = useState([])
+  const listagem = []; 
 
   async function ListarCategorias () {
     try {
       const nomeCategorias = [];
-      const listagem = []; 
       let r =  await axios.get('http://localhost:5000/categoria')
 
       for (let cont = 0; cont < r.data.length; cont++) {
@@ -44,14 +44,17 @@ function LandingPage() {
       }
 
       for (let item of nomeCategorias) {
-
-        r = await axios.get(`http://localhost:5000/ingresso/categoria?categoria=${item}`)
-        listagem.push(r)
+        try {
+          r = await axios.get(`http://localhost:5000/ingresso/categoria?categoria=${item}`)
+          if (r.data > 0) {
+            listagem.push(r.data);
+          }
+        } catch (error) {
+        }
+        
 
       }
-      
       setListarCategoria(listagem)
-      console.log(listarCategoria)
     } catch (error) {
       
     }
@@ -78,8 +81,8 @@ function LandingPage() {
   return (
     <div className="body">
       <Header/>
-      <section className='secao-01' ref={inicioRef} id="inicio">
-        <h1 onClick={() => console.log(listarCategoria)}>Explore e viva a diversão!</h1>
+      <section className='secao-01' ref={homeRef} id="inicio">
+        <h1 onClick={() => console.log(listagem)}>Explore e viva a diversão!</h1>
         <div className='secao-01-categoria'>
           <TrianguloCategoria 
             src='./assets/images/teatro.svg' 

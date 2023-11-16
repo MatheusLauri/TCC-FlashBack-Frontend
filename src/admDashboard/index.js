@@ -43,15 +43,15 @@ export default function AdmDashboard() {
         try {
             if (pesquisa.length) {
                 const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome=${pesquisa}`)
-                listagem.push(...resp.data)
-                setListarIngressos(listagem)
+                
+                setListarIngressos(resp.data)
             }
             else {
                 const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome=`)
-                listagem.push(...resp.data)
-                setListarIngressos(listagem)
+                
+                setListarIngressos(resp.data)
             }
-
+            
         } catch (err) {
             toast.error(err)
         }

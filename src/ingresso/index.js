@@ -10,7 +10,6 @@ import calendario from '../assets/images/calendar.png'
 import local from '../assets/images/local.png'
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Estagio from '../componentes/estagioCompra';
 import DevicesIcon from '@mui/icons-material/Devices';
 import ReceiptIcon from '@mui/icons-material/Receipt';
