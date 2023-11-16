@@ -57,14 +57,15 @@ export function Header() {
         try {
 
             let cliente = {
-
                 NomeUsuario: NomeUsuario, 
                 CPF: cpfUsuario,
                 Email: emailUsuario,
-                Senha: senhaUsuario
-
+                Senha: senhaUsuario, 
+                DataNasc: aniversario,
+                Nome: userNome,
+                Sobrenome:userSobrenome
             }
-            console.log(cliente)
+        
 
             const r = await axios.post('http://localhost:5000/cliente', cliente)
             toast.success(`Cadastro realizado com sucesso!`)
@@ -102,10 +103,11 @@ export function Header() {
             Nome: userNome,
             Sobrenome:userSobrenome,
             CPF: userCPF,
+            DataNasc: aniversario,
             Telefone: userTelefone,
             NomeUsuario: userNomeDeUsuario,
             Email: userEmail,
-            Senha: userSenha 
+            Senha: userSenha,
 
         }
 
@@ -142,7 +144,7 @@ export function Header() {
             setUserNome(resp.data.NM_CLIENTE)
             setUserSobrenome(resp.data.NM_SOBRENOME)
             setUsuario(resp.data.NM_USUARIO)
-            SetAniversario(resp.data.DataNasc) // aq
+            SetAniversario(resp.data.DT_NASCIMENTO)
 
             // Alert de sucesso para o usuário
             toast.success(`Seja bem-vindo, ${resp.data.NM_USUARIO} !`)
@@ -357,7 +359,7 @@ export function Header() {
                                         <h2 className="title">Estamos quase terminando...</h2>
                                         <div className="input-field">
                                             <i className="fas fa-user"></i>
-                                            <input type="text" placeholder="Nome"  value={NomeUsuario}  onChange={e => setNomeUsuario(e.target.value)}/>
+                                            <input type="text" placeholder="Nome"  value={userNome}  onChange={e => setUserNome(e.target.value)}/>
                                         </div>
                                         <div className="input-field">
                                             <i className="fas fa-user"></i>
@@ -369,7 +371,7 @@ export function Header() {
                                         </div>
 
 
-                                        
+
                                         
                                         <input type="submit" className="btn" value="Cadastre-se" onClick={CadastrarCliente}/>
                                     </div>
