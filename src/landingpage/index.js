@@ -42,7 +42,6 @@ function LandingPage() {
 
       }
       const listagem = []; 
-      console.log(nomeCategorias)
       for (let item of nomeCategorias) {
         try {
           r = await axios.get(`http://129.148.42.252:5014/ingresso/categoria?categoria=${item}`)
@@ -51,9 +50,7 @@ function LandingPage() {
         }
         
       }
-      console.log(listagem)
       setListarCategoria(listagem)
-      console.log(listarCategoria)
 
     } catch (error) {
       
