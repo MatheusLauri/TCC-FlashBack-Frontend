@@ -227,7 +227,7 @@ export default function AdmPage() {
                 //Envio de imagem
                 const responseImagem = await uploadImagem(idIngresso)
 
-
+ 
 
                 setAddPage(2)
             }
