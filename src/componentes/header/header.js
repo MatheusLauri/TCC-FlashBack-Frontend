@@ -55,13 +55,17 @@ export function Header() {
 
     const [listarPedido, setListarPedido] = useState()
     async function ListarPedido() {
-        let user = localStorage.getItem(`usuario-logado`)
-        user = JSON.parse(user)
-        let id = user.data.ID_CLIENTE
-        let url = `http://129.148.42.252:5014/pedido?id=${id}`
-        let response = await axios.get(url)
-        setListarPedido(response.data)
-        console.log(listarPedido)
+        try {
+            let user = localStorage.getItem(`usuario-logado`)
+            user = JSON.parse(user)
+            let id = user.data.ID_CLIENTE
+            let url = `http://129.148.42.252:5014/pedido?id=${id}`
+            let response = await axios.get(url)
+            setListarPedido(response.data)
+        } catch (error) {
+            toast.error(error)
+        }
+        
     }
 
     useEffect(() => {
@@ -192,13 +196,15 @@ export function Header() {
     // }, [])
 
     useEffect(() => {
-
-        let usuariologged = localStorage.getItem('usuario-logado')
-        usuariologged = JSON.parse(usuariologged)
-    
-        setUserr(usuariologged.data.NM_USUARIO)
-    
-       
+        if( localStorage.getItem('usuario-logado')){
+            let usuariologged = localStorage.getItem('usuario-logado')
+            usuariologged = JSON.parse(usuariologged)
+        
+            setUserr(usuariologged.data.NM_USUARIO)
+        
+           
+        }
+        
     }, [])
 
     const [userr, setUserr] = useState()
@@ -276,7 +282,7 @@ export function Header() {
                             <div className='user-div'>
                                 <div className='user' onClick={() => setUserPopUp(!userPopUp)}>
                                     <i className="fas fa-user"></i>
-                                    <a>{userr}</a>
+                                    <a>{usuario}</a>
                                 </div>
                                 <div className='user-option' style={userPopUp ? {display:'flex'} : {display: 'none'}}>
                                     <div className='baloon'></div>
