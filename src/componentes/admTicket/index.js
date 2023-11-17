@@ -7,20 +7,19 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.scss'
 
+import formatHorario from '../../componentsFunctions/formatHorario';
+import formatData from '../../componentsFunctions/formatData';
+
 export default function AdmTicket(props) {
     const [showType,setShowType] = useState(false)
 
     //FORMATAR ENDEREÇO
     let endereco = props.rua + ' - ' + props.cidade + ', ' + props.estado
 
-    //FORMATAR DATETIME
-    const data = new Date(props.data);
-    const dia = String(data.getDate()).padStart(2, '0');
-    const mes = String(data.getMonth() + 1).padStart(2, '0'); // Mês começa em 0 (janeiro)
-    const ano = data.getFullYear();
-    const hora = String(data.getHours()).padStart(2, '0');
-    const minutos = String(data.getMinutes()).padStart(2, '0');
-    const dataFormatada = `${dia}/${mes}/${ano} ${hora}:${minutos}`;
+    //FORMATAR DATA
+    
+    const dataFormatada = formatData(props.data);
+    const horarioFormatado = formatHorario(props.horario)
     
     //IMAGEM
     const urlImagem = `http://localhost:5000/${props.imagem}`
@@ -74,7 +73,7 @@ export default function AdmTicket(props) {
             </div>
             <div className='ticket-bottom-info'>
                 <div className='left-part'>
-                    <p>Data/hora: <span>{dataFormatada}</span></p>
+                    <p>Data/hora: <span>{dataFormatada.Dia_Mes}, {dataFormatada.mesCompleto} de {dataFormatada.ano} - {horarioFormatado.format1}</span></p>
                     <p className='last-child'>Local: <span>{endereco}</span></p>
                     <div className={showType ? 'ticket-type-clicked' : 'ticket-type'}>
                         <div className='header'>

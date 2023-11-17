@@ -13,6 +13,8 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import Estagio from '../componentes/estagioCompra';
 import DevicesIcon from '@mui/icons-material/Devices';
 import ReceiptIcon from '@mui/icons-material/Receipt';
+import formatDatacomId from '../componentsFunctions/formatDatacomId';
+import formatHorario from '../componentsFunctions/formatHorario';
 
 export default function IngressoPage() {
     let { id } = useParams()
@@ -162,33 +164,7 @@ export default function IngressoPage() {
     const monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
     const formattedDate = `${datetime.getDate()} ${monthNames[datetime.getMonth()]} - ${datetime.getFullYear()} | ${datetime.getHours()}:${datetime.getMinutes()}`;
 
-    //Formatar datas Compra
- 
-    function formatDt(data) {
 
-        let diasDaSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
-        let meses = ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
-        let mesesCompletos = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-
-
-        let datetimeCompra = new Date(data.DT_INGRESSO);
-        let diaDaSemana = diasDaSemana[datetimeCompra.getUTCDay()];
-        let diaDoMes = datetimeCompra.getUTCDate();
-        let mes = meses[datetimeCompra.getUTCMonth()];
-        let mesCompleto = mesesCompletos[datetimeCompra.getUTCMonth()];
-        let ano = datetimeCompra.getFullYear()
-
-        let resultado = {
-            Id: data.ID_DATA_INGRESSO,
-            Dia_Semana: diaDaSemana,
-            Dia_Mes: diaDoMes,
-            mes: mes,
-            ano: ano,
-            mesCompleto: mesCompleto
-        }
-
-        return resultado
-    }
 
     //Listar Datas e horarios do Ingresso
 
@@ -199,7 +175,7 @@ export default function IngressoPage() {
 
         for (let item of resp.data) {
 
-            let dataFormat = formatDt(item);
+            let dataFormat = formatDatacomId(item);
             arrayDataFormat.push(dataFormat);
         }
 

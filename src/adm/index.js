@@ -700,6 +700,7 @@ export default function AdmPage() {
                                                         id={item.ID_INGRESSO}
                                                         nome={item.NM_EVENTO}
                                                         data={item.DT_COMECO}
+                                                        horario={item.DS_HORARIO}
                                                         imagem={item.IMAGEM_INGRESSO}
                                                         qtd={item.QTD_TIPO_INGRESSO}
                                                         valor={item.VL_PRECO_TIPO}
