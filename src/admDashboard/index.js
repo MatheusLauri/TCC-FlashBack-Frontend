@@ -631,6 +631,35 @@ export default function AdmDashboard() {
                         </div>
                     </section>
                 }
+                {menu == 4 &&
+                    <section className='pedido-main'>
+                        <AdmUser page='Controle de Pedidos' user='Flashback' funcao='Admin' />
+                        <div className='table'>
+                            <h1>Pedidos</h1>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Empresa/Razão Social</th>
+                                        <th>CNPJ</th>
+                                        <th>E-mail</th>
+                                        <th>Senha</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {listarEmpresas.map(item =>
+                                        <tr>
+                                            <td>{item.NM_RAZAO_SOCIAL}</td>
+                                            <td>{item.DS_CNPJ}</td>
+                                            <td>{item.DS_EMAIL_EMPRESA}</td>
+                                            <td>{item.DS_SENHA_EMPRESA}</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                            <a>Ver todos</a>
+                        </div>
+                    </section>
+                }
                 {menu == 5 &&
                     <section className='chart-main'>
                         <AdmUser page='Gráficos' user='Flashback' funcao='Admin' />

@@ -280,10 +280,12 @@ export default function IngressoPage() {
             Cvv: cvv
         })
         let url2 = `http://localhost:5000/Pagamento`
-        let response2 = await axios.post(url2,response.data.ID)
+        let response2 = await axios.post(url2, {
+            FormaDePag: response.data.ID
+        })
         let url3 = `http://localhost:5000/pedido`
         let response3 = await axios.post(url3,{
-            PedidoIngresso: listarPedidoIngresso[0].Ingresso,
+            PedidoIngresso: listarPedidoIngresso[0].ID,
             FormaPagamento: response2.data.ID
         })
         console.log(response,response2,response3)

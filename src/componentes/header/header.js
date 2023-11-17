@@ -53,6 +53,21 @@ export function Header() {
 // Variavel de paginação de Cadastro
     const [page,setPage] = useState(1)
 
+    const [listarPedido, setListarPedido] = useState()
+    async function ListarPedido() {
+        let user = localStorage.getItem(`usuario-logado`)
+        user = JSON.parse(user)
+        let id = user.data.ID_CLIENTE
+        let url = `http://localhost:5000/pedido?id=${id}`
+        let response = await axios.get(url)
+        setListarPedido(response.data)
+        console.log(listarPedido)
+    }
+
+    useEffect(() => {
+        ListarPedido()
+    }, [userRightBar])
+
 // Função de cadastro com API
     async function CadastrarCliente () {
         try {
@@ -435,11 +450,13 @@ export function Header() {
                     {userRightBar
                     ?
                     <section className='left-side'>
-                        <Card/>
-                        <Card/>
-                        <Card/>
-                        <Card/>
-                        <Card/>
+                        {listarPedido ?
+                                listarPedido.map(item => (
+                                    <Card imagem={item.IMAGEM_INGRESSO} evento={item.NM_EVENTO} rua={item.DS_LOGRADOURO} data={item.DT_INGRESSO} situacao={item.BT_SITUACAO}/>
+                                ))
+                            :
+                                <p>É necessário realizar uma compra para visualizar seus pedidos</p>
+                        }
                     </section>
                     :
                     <section className='right-side'> 
