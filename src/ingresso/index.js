@@ -557,15 +557,15 @@ export default function IngressoPage() {
                         }
                         {estagio == 4 &&
                             <div className='compra-main'>
-                                <div className='box-dados'>
+                                <div className='box-final'>
                                     <h1>Compra realizada com sucesso</h1>
+                                    <CheckCircleIcon/>
+
                                     <div>
                                         <DevicesIcon />
-                                        <CheckCircleIcon/>
-                                        
                                         <div>
-                                            <h1>Disponível no celular e para Impressão</h1>
-                                            <p>Seu ingresso ficará disponível na aba “Meus Pedidos” através do site Flashback.</p>
+                                            <h1>Verifique a aba "Meus Pedidos"</h1>
+                                            <p>Seu ingresso ficará disponível para visualização na aba “Meus Pedidos” através do site Flashback.</p>
                                         </div>
                                     </div>
                                 </div>
