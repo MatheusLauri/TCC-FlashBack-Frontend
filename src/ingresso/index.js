@@ -460,7 +460,9 @@ export default function IngressoPage() {
                                                 </div>
                                             </div>
                                         </div>
-                                        
+                                        <img src='./assets/images/dinheiro.png'/>
+
+
                                     </div>
                                     
                                 </div>
