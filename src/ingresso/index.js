@@ -55,7 +55,17 @@ export default function IngressoPage() {
     const [title, setTitle] = useState('Selecione uma data')
     const [show, setShow] = useState('data')
 
-    const [dadosIngresso, setDadosIngresso] = useState()
+    const [numeroCartao, setNumeroCartao] = useState()
+    const [validade, setValidade] = useState()
+    const [cvv, setCvv] = useState()
+    async function FinalizarCompra() {
+        let url = `http://localhost:5000/cartao`
+        let response = axios.post (url,{
+            Numero: numeroCartao,
+            Validade: validade,
+            Cvv: cvv
+        })
+    }
 
     function AltRender(title, show) {
         setTitle(title)
