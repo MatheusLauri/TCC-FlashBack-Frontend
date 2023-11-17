@@ -195,7 +195,7 @@ export default function Empresa() {
                         <div className='head'>
                             <p style={{ color: `#520AD9`, border: `2px dashed #520AD9` }}>Criações pagas</p>
                             <h1>Taxa de 10%</h1>
-                            <small>Para vender na Sympla com todas as possibilidades de monetização</small>
+                            <small>Para vender na Flashback com todas as possibilidades de monetização</small>
                             <a onClick={() => setRegisterModal(true)}>COMECE AGORA</a>
                             <div className='divisor'></div>
                             <span>Presencial</span>
