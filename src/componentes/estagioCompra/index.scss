@@ -20,9 +20,34 @@
     h1:first-child{
         padding: 10px 22.5px;
     }
-    >svg{
-        font-size: 65px;
+    >h1{
+        position: relative;
+        svg{
+            position: absolute;
+            color: #520ad9;
+            bottom: -11px;
+            right: 0px;
+        }
+    }
+    >div:last-child{
+        max-width: 66px ;
         padding: 10px;
-        color: black;
+        max-height: 77px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        border: 2px solid #808080;
+        border-radius: 50%;
+        >svg:first-child{
+            font-size: 45px;
+        }
+        >svg:last-child{
+            bottom: -11px;
+            right: 0px;
+            position: absolute;
+            color:#520ad9;
+
+        }
     }
 }

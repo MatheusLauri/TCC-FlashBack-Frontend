@@ -19,11 +19,13 @@ export default function IngressoPage() {
     const [buy, setBuy] = useState(false)
 
     const inicioRef = useRef(null);
+    const [estagio, setEstagio] = useState(1)
+    const [concluido, setConcluido] = useState(0)
 
     useEffect(() => {
         // Scroll para o início da página
         inicioRef.current.scrollIntoView({ behavior: 'smooth' });
-    }, []);
+    }, [estagio]);
 
 
     const [showDescription, setShowDescription] = useState(false)
@@ -35,7 +37,6 @@ export default function IngressoPage() {
         return precoTipoFormatado
     }
 
-    const [estagio, setEstagio] = useState(1)
 
     //variaveis listagem data
     const [idData, setIdData] = useState()
@@ -392,7 +393,7 @@ export default function IngressoPage() {
                     </>
                     :
                     <>
-                        <Estagio />
+                        <Estagio estagio={estagio} concluido={concluido}/>
                         {estagio == 1 &&
                             <div className='compra-main'>
                                 <div className='box'>
@@ -434,13 +435,36 @@ export default function IngressoPage() {
                                             <p>Seu ingresso ficará disponível na aba “Meus Pedidos” através do site Flashback.</p>
                                         </div>
                                     </div>
-                                    <a onClick={() => setEstagio(2)}>Prosseguir</a>
+                                    <a onClick={() => {setEstagio(2); setConcluido(1)}}>Prosseguir</a>
                                 </div>
                             </div>
                         }
                         {estagio == 2 &&
                             <div className='compra-main'>
-                                
+                                <div className='box-info'>
+                                    <h1>Informações de Pagamento</h1>
+                                    <div>
+                                        <img/>
+                                        <div>
+                                            <p>Cartão de crédito</p>
+                                            <small>Pague em até 12x</small>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <img/>
+                                        <div>
+                                            <p>Pix</p>
+                                            <small>Pagamento Instântaneo</small>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <img/>
+                                        <div>
+                                            <p>Boleto</p>
+                                            <small>Pagamento à vista</small>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         }
 

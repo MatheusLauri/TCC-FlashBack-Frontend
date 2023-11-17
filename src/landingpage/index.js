@@ -168,12 +168,12 @@ function LandingPage() {
                   <TitleTag className='titletag' text={item.data[0].NM_CATEGORIA_INGRESSO} />
                   <div className='secao-03-carrosel'  >
                     <Glider
-                      iconLeft='‹'
-                      iconRight='›'
-                      draggable
-                      hasArrows
-                      slidesToShow={4}
-                      slidesToScroll={4}
+                        iconLeft='‹'
+                        iconRight='›'
+                        draggable
+                        hasArrows
+                        slidesToShow={4}
+                        slidesToScroll={4}
                     >
                       {item.data.map((item,index) => (
                         <BoxIngresso nome={item.NM_EVENTO} data={item.DT_COMECO} imagem={item.IMAGEM_INGRESSO} logradouro={item.DS_LOGRADOURO} cidade={item.DS_LOCALIDADE} uf={item.DS_UF} id={item.ID_INGRESSO} num={item.DS_NUM}/>
