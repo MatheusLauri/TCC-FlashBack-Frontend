@@ -55,17 +55,7 @@ export default function IngressoPage() {
     const [title, setTitle] = useState('Selecione uma data')
     const [show, setShow] = useState('data')
 
-    const [numeroCartao, setNumeroCartao] = useState()
-    const [validade, setValidade] = useState()
-    const [cvv, setCvv] = useState()
-    async function FinalizarCompra() {
-        let url = `http://localhost:5000/cartao`
-        let response = axios.post (url,{
-            Numero: numeroCartao,
-            Validade: validade,
-            Cvv: cvv
-        })
-    }
+    
 
     function AltRender(title, show) {
         setTitle(title)
@@ -277,8 +267,27 @@ export default function IngressoPage() {
 
     }
 
-    console.log(listarPedidoIngressoEst1)
-    console.log(ingressos)
+
+    const [numeroCartao, setNumeroCartao] = useState()
+    const [validade, setValidade] = useState()
+    const [cvv, setCvv] = useState()
+    
+    async function FinalizarCompra() {
+        let url = `http://localhost:5000/cartao`
+        let response = await axios.post (url,{
+            Numero: numeroCartao,
+            Validade: validade,
+            Cvv: cvv
+        })
+        let url2 = `http://localhost:5000/Pagamento`
+        let response2 = await axios.post(url2,response.data.ID)
+        let url3 = `http://localhost:5000/pedido`
+        let response3 = await axios.post(url3,{
+            PedidoIngresso: listarPedidoIngresso[0].Ingresso,
+            FormaPagamento: response2.data.ID
+        })
+        console.log(response,response2,response3)
+    }
 
     return (
         <div className='ingresso-body'>
@@ -543,18 +552,18 @@ export default function IngressoPage() {
                                             <div className='row'>
                                                 <div>
                                                     <label>Número do cartão</label>
-                                                    <input type='text' placeholder='0000 0000 0000 0000'/>
+                                                    <input type='text' placeholder='0000 0000 0000 0000' value={numeroCartao} onChange={(e) => setNumeroCartao(e.target.value)}/>
                                                 </div>
                                                 <div>
                                                     <label>Data de validade</label>
-                                                    <input type='text' placeholder='MM/AA'/>
+                                                    <input type='text' placeholder='MM/AA' value={validade} onChange={(e) => setValidade(e.target.value)}/>
                                                 </div>
                                                 <div>
                                                     <label>Código de segurança</label>
-                                                    <input type='text' placeholder='000'/>
+                                                    <input type='text' placeholder='000' value={cvv} onChange={(e) => setCvv(e.target.value)}/>
                                                 </div>
                                             </div>
-                                            <a onClick={() => {setEstagio(4);setConcluido(3)}}>Finalizar</a>
+                                            <a onClick={() => {FinalizarCompra();setEstagio(4);setConcluido(3)}}>Finalizar</a>
                                         </div>
                                         <div className='total'>
                                             <p><b>{parcelaSelected}</b></p>
