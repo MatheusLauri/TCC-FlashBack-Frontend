@@ -482,8 +482,8 @@ export default function IngressoPage() {
                                                 <img/>
                                                 <small>Veja as condições de parcelamento</small>
                                             </div>
-                                            
-                                            
+
+                                        </div>
                                     </div>
                                     
                                 </div>
