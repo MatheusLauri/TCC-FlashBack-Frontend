@@ -16,8 +16,8 @@ import ReceiptIcon from '@mui/icons-material/Receipt';
 import formatDatacomId from '../componentsFunctions/formatDatacomId';
 import formatHorario from '../componentsFunctions/formatHorario';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
-
-
+import ErrorIcon from '@mui/icons-material/Error';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 
 export default function IngressoPage() {
@@ -32,7 +32,7 @@ export default function IngressoPage() {
         // Scroll para o início da página
         inicioRef.current.scrollIntoView({ behavior: 'smooth' });
     }, [estagio]);
-
+    const [parcelaSelected, setParcelaSelected] = useState('Selecione primeiro')
 
     const [showDescription, setShowDescription] = useState(false)
     const [ingressos, setIngressos] = useState([])
@@ -472,20 +472,101 @@ export default function IngressoPage() {
                                     <div className='box-dados-row'>
                                         <div className='box-dados-col'>
                                             <h1>Dados do cartão</h1>
-                                            <div>
+                                            <div  className='credit'>
                                                 <CreditCardIcon/>
                                                 <p>Cartão de crédito</p>
                                             </div>
-                                            <p>Parcelamento</p>
-                                            <div>
+                                            <p><b>Parcelamento</b></p>
+                                            <div className='parcela-info'>
                                                 <small>Compre em até 12 vezes</small>
-                                                <img/>
-                                                <small>Veja as condições de parcelamento</small>
+                                                <ErrorIcon/>
+                                                <small><b>Veja as condições de parcelamento</b></small>
                                             </div>
-
+                                            <div className='radios'>
+                                                <input type='radio' name='parcela' onChange={(e) => setParcelaSelected(e.target.nextSibling.textContent)}/>
+                                                <label>1x de R$ {Math.floor(preco / 1)}</label>
+                                            </div>
+                                            <div className='radios'>
+                                                <input type='radio' name='parcela' onChange={(e) => setParcelaSelected(e.target.nextSibling.textContent)} />
+                                                <label>2x de R$ {Math.floor(preco / 2)}</label>
+                                            </div>
+                                            <div className='radios'>
+                                                <input type='radio' name='parcela' onChange={(e) => setParcelaSelected(e.target.nextSibling.textContent)} />
+                                                <label>3x de R$ {Math.floor(preco / 3)}</label>
+                                            </div>
+                                            <div className='radios'>
+                                                <input type='radio' name='parcela' onChange={(e) => setParcelaSelected(e.target.nextSibling.textContent)} />
+                                                <label>4x de R$ {Math.floor(preco / 4)}</label>
+                                            </div>
+                                            <div className='radios'>
+                                                <input type='radio' name='parcela' onChange={(e) => setParcelaSelected(e.target.nextSibling.textContent)} />
+                                                <label>5x de R$ {Math.floor(preco / 5)}</label>
+                                            </div>
+                                            <div className='radios'>
+                                                <input type='radio' name='parcela' onChange={(e) => setParcelaSelected(e.target.nextSibling.textContent)} />
+                                                <label>6x de R$ {Math.floor(preco / 6)}</label>
+                                            </div>
+                                            <div className='radios'>
+                                                <input type='radio' name='parcela' onChange={(e) => setParcelaSelected(e.target.nextSibling.textContent)} />
+                                                <label>7x de R$ {Math.floor(preco / 7)}</label>
+                                            </div>
+                                            <div className='radios'>
+                                                <input type='radio' name='parcela' onChange={(e) => setParcelaSelected(e.target.nextSibling.textContent)} />
+                                                <label>8x de R$ {Math.floor(preco / 8)}</label>
+                                            </div>
+                                            <div className='radios'>
+                                                <input type='radio' name='parcela' onChange={(e) => setParcelaSelected(e.target.nextSibling.textContent)} />
+                                                <label>9x de R$ {Math.floor(preco / 9)}</label>
+                                            </div>
+                                            <div className='radios'>
+                                                <input type='radio' name='parcela' onChange={(e) => setParcelaSelected(e.target.nextSibling.textContent)} />
+                                                <label>10x de R$ {Math.floor(preco / 10)}</label>
+                                            </div>
+                                            <div className='radios'>
+                                                <input type='radio' name='parcela' onChange={(e) => setParcelaSelected(e.target.nextSibling.textContent)} />
+                                                <label>11x de R$ {Math.floor(preco / 11)}</label>
+                                            </div>
+                                            <div className='radios'>
+                                                <input type='radio' name='parcela' onChange={(e) => setParcelaSelected(e.target.nextSibling.textContent)} />
+                                                <label>12x de R$ {Math.floor(preco / 12)}</label>
+                                            </div>
+                                            <div className='row'>
+                                                <div>
+                                                    <label>Número do cartão</label>
+                                                    <input type='text' placeholder='0000 0000 0000 0000'/>
+                                                </div>
+                                                <div>
+                                                    <label>Data de validade</label>
+                                                    <input type='text' placeholder='MM/AA'/>
+                                                </div>
+                                                <div>
+                                                    <label>Código de segurança</label>
+                                                    <input type='text' placeholder='000'/>
+                                                </div>
+                                            </div>
+                                            <a onClick={() => {setEstagio(4);setConcluido(3)}}>Finalizar</a>
+                                        </div>
+                                        <div className='total'>
+                                            <p><b>{parcelaSelected}</b></p>
+                                            <p><b style={{color: `#520ad9`}}>Total:</b> R$ {preco}</p>
                                         </div>
                                     </div>
                                     
+                                </div>
+                            </div>
+                        }
+                        {estagio == 4 &&
+                            <div className='compra-main'>
+                                <div className='box-dados'>
+                                    <h1>Compra realizada com sucesso</h1>
+                                    <div>
+                                        <DevicesIcon />
+                                        <CheckCircleIcon/>
+                                        <div>
+                                            <h1>Disponível no celular e para Impressão</h1>
+                                            <p>Seu ingresso ficará disponível na aba “Meus Pedidos” através do site Flashback.</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         }

@@ -556,6 +556,123 @@
                 padding: 2rem;
                 width: 60%;
                 background-color: #f6f6f6;
+                .box-dados-row{
+                    justify-content: space-between;
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    .box-dados-col{
+                        display: flex;
+                        flex-direction: column;
+                        >a{
+                            padding: 10px 20px;
+                            margin-top: 1rem;
+                            background-color: #520AD9;
+                            width: fit-content;
+                            color: white;
+                            border-radius: 15px;
+                        }
+                        .credit{
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            gap: 0.5rem;
+                            margin-bottom: 1rem;
+                            svg{
+                                color: #520AD9;
+                            }
+                        }
+                        .parcela-info{
+                            display: flex;
+                            flex-direction: row;
+                            gap: 5px;
+                            align-items: center;
+                            margin-bottom: 1rem;
+                            small:first-child{
+                                color: #8E8E8E;
+                            }
+                            svg{
+                                color: #520AD9;
+                            }
+                            small:last-child{
+                                color: #520AD9;
+                            }
+                        }
+                        .radios{
+                            display: flex;
+                            flex-direction: row;
+                            gap: 10px;
+                            margin-bottom: 5px;
+                            label{
+                                font-weight: 600;
+                            }
+                            input {
+                                appearance: none;
+                              
+                                border-radius: 50%;
+                                width: 16px;
+                                height: 16px;
+                              
+                                border: 2px solid #520AD9;
+                                transition: 0.2s all linear;
+                                margin-right: 5px;
+                              
+                                position: relative;
+                                top: 4px;
+                              }
+                              
+                              input:checked {
+                                border: 6px solid #520AD9;
+                              }
+                        }
+                        .row{
+                            margin-top: 1rem;
+                            display: flex;
+                            flex-direction: row;
+                            width: 100%;
+                            justify-content: space-between;
+                            >div{
+                                position: relative;
+                                width: 30%;
+                                border: 2px solid #8E8E8E;
+                                border-radius: 10px;
+                                height: 40px;
+                                padding: 5px 20px;
+                                label{
+                                    font-size: 12px;
+                                    padding: 0px 5px;
+                                    background-color: #f6f6f6;
+                                    position: absolute;
+                                    top: -10px;
+                                }
+                                input{
+                                    background-color: transparent;
+                                    border: none;
+                                    outline: none;
+                                    width: 100%;
+                                    height: 100%;
+                                }
+                            }
+                        }
+                    }
+                    
+                    .total{
+                        background-color: white;
+                        height: fit-content;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-end;
+                        justify-content: center;
+                        width: fit-content;
+                        max-width: 30%;
+                        padding: 30px 10px;
+                        border-radius: 15px;
+                        box-shadow: 0 2rem 3rem rgba(132,139,200,0.18);
+                        p{
+                            font-size: 20px;
+                        }
+                    }
+                }
             }
         }
     }
