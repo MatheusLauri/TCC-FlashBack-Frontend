@@ -15,6 +15,7 @@ import DevicesIcon from '@mui/icons-material/Devices';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import formatDatacomId from '../componentsFunctions/formatDatacomId';
 import formatHorario from '../componentsFunctions/formatHorario';
+import FormatPreco from '../componentsFunctions/formatPrecos';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
