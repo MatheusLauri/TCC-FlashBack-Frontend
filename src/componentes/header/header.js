@@ -187,6 +187,12 @@ export function Header() {
             setlistagembuscaMostrarDialog(false)
         }
     }
+
+
+    async function SairUsuario(){
+        storage.remove('usuario-logado')
+        navigate('/')
+    }
      
     return (
         <section className='header-main' onMouseLeave={() => setlistagembuscaMostrarDialog(false)}>
@@ -240,7 +246,7 @@ export function Header() {
                                     </div>
                                     <div className='user-option-row' onClick={() => {setIsLogged(false); setUserModal(false)}}>
                                         <img src='./assets/images/sair.svg'/>
-                                        <a>Sair</a>
+                                        <a onClick={SairUsuario}>sair</a>
                                     </div>
                                 </div>
                             </div>
