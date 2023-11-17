@@ -6,6 +6,8 @@ import './index.scss'
 import { ToastContainer, toast } from 'react-toastify';
 import { useState } from 'react';
 import axios from 'axios';
+import { useRef } from 'react';
+import { useEffect } from 'react';
 
 
 export default function Empresa() {
@@ -24,6 +26,12 @@ export default function Empresa() {
     const [cep, setCep] = useState('')
     const [logradouro, setLogradouro] = useState('')
     const [senha, setSenha] = useState('')
+    const homeRef = useRef(null);
+
+    useEffect(() => {
+        // Scroll para o início da página
+        homeRef.current.scrollIntoView({ behavior: 'smooth' });
+    }, []);
 
     async function ListarCnpj() {
         try {
@@ -77,7 +85,7 @@ export default function Empresa() {
 
     return (
 
-        <div className='empresa-main'>
+        <div className='empresa-main'  ref={homeRef} id="inicio">
             <ToastContainer />
             <Modal
                 className="cadastromodal"
@@ -92,15 +100,15 @@ export default function Empresa() {
                     <div className='wrapper'>
 
                         <input type='text' placeholder='Insira o CNPJ' value={cnpj} onChange={(e) => setCnpj(e.target.value)} onBlur={() => { cnpj.length > 0 && ListarCnpj() }} />
-                        <input type='text' placeholder='Nome Fantasia' value={nmFantasia} readOnly />
-                        <input type='text' placeholder='Razão Social' value={razaoSocial} readOnly />
-                        <input type='text' placeholder='E-mail' value={email} readOnly />
-                        <input type='text' placeholder='Bairro' value={bairro} readOnly />
-                        <input type='text' placeholder='Numero' value={numero} readOnly />
-                        <input type='text' placeholder='Municipio' value={municipio} readOnly />
-                        <input type='text' placeholder='UF' value={uf} readOnly />
-                        <input type='text' placeholder='CEP' value={cep} readOnly />
-                        <input type='text' placeholder='Logradouro' value={logradouro} readOnly />
+                        <input type='text' placeholder='Nome Fantasia' value={nmFantasia} onChange={(e) => setNmFantasia(e.target.value)}/>
+                        <input type='text' placeholder='Razão Social' value={razaoSocial} onChange={(e) => setRazaoSocial(e.target.value)}/>
+                        <input type='text' placeholder='E-mail' value={email} onChange={(e) => setEmail(e.target.value)}/>
+                        <input type='text' placeholder='Bairro' value={bairro} onChange={(e) => setBairro(e.target.value)}/>
+                        <input type='text' placeholder='Numero' value={numero} onChange={(e) => setNumero(e.target.value)}/>
+                        <input type='text' placeholder='Municipio' value={municipio} onChange={(e) => setMunicipio(e.target.value)}/>
+                        <input type='text' placeholder='UF' value={uf} onChange={(e) => setUf(e.target.value)}/>
+                        <input type='text' placeholder='CEP' value={cep} onChange={(e) => setCep(e.target.value)}/>
+                        <input type='text' placeholder='Logradouro' value={logradouro} onChange={(e) => setLogradouro(e.target.value)}/>
                         <input type='text' placeholder='Senha' value={senha} onChange={(e) => setSenha(e.target.value)} />
 
                     </div>
