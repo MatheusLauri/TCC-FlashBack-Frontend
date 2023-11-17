@@ -154,10 +154,18 @@ function LandingPage() {
               slidesToScroll='5'
             >
               <BoxCity city='São Paulo' src='./assets/images/sp.png' uf='sp'/>
-              <BoxCity city='Bahia' src='./assets/images/salvador.png' uf='ba'/>
-              <BoxCity city='Rio Grande do Sul' src='./assets/images/porto.png' uf='rs'/>
-              <BoxCity city='Belo Horizonte' src='./assets/images/bh.png' uf='bh'/>
               <BoxCity city='Rio de Janeiro' src='./assets/images/rio.png' uf='rj'/>
+              <BoxCity city='Minas Gerais' src='./assets/images/bh.png' uf='bh'/>
+              <BoxCity city='Santa Catarina' src='./assets/images/SC.jpg' uf='sc'/>
+              <BoxCity city='Rio Grande do Sul' src='./assets/images/porto.png' uf='rs'/>
+              <BoxCity city='Paraná' src='./assets/images/PR.jpg' uf='pr'/>
+              <BoxCity city='Bahia' src='./assets/images/salvador.png' uf='ba'/>
+              <BoxCity city='Maranhão' src='./assets/images/maranhao.jpg' uf='ma'/>
+              <BoxCity city='Mato grosso' src='./assets/images/mt.jpg' uf='mt'/>
+              <BoxCity city='Ceará' src='./assets/images/ceara.jpg' uf='ce'/>
+              <BoxCity city='Paraíba' src='./assets/images/paraiba.jpg' uf='pb'/>
+              <BoxCity city='Pará' src='./assets/images/para.jpg' uf='pa'/>
+              <BoxCity city='Goias' src='./assets/images/goias.jpg' uf='go'/>
             </Glider>
           </div>
         </div>
@@ -168,12 +176,12 @@ function LandingPage() {
                   <TitleTag className='titletag' text={item.data[0].NM_CATEGORIA_INGRESSO} />
                   <div className='secao-03-carrosel'  >
                     <Glider
-                      iconLeft='‹'
-                      iconRight='›'
-                      draggable
-                      hasArrows
-                      slidesToShow={4}
-                      slidesToScroll={4}
+                        iconLeft='‹'
+                        iconRight='›'
+                        draggable
+                        hasArrows
+                        slidesToShow={4}
+                        slidesToScroll={4}
                     >
                       {item.data.map((item,index) => (
                         <BoxIngresso nome={item.NM_EVENTO} data={item.DT_COMECO} horario={item.DS_HORARIO} imagem={item.IMAGEM_INGRESSO} logradouro={item.DS_LOGRADOURO} cidade={item.DS_LOCALIDADE} uf={item.DS_UF} id={item.ID_INGRESSO} num={item.DS_NUM}/>

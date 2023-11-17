@@ -38,7 +38,6 @@ export default function AdmDashboard() {
     const [pesquisa, setPesquisa] = useState('')
 
     async function ListarIngressos() {
-        const listagem = []
 
         try {
             if (pesquisa.length) {
@@ -57,12 +56,86 @@ export default function AdmDashboard() {
         }
     }
 
-    
+
+    function calcularQuantidadeTotalVendas(dadosPedidos) {
+    let quantidadeTotalVendas = 0;
+
+    // Iterar sobre cada pedido e somar o resultado de vl_preco_tipo * qtd_tipo_ingresso
+    dadosPedidos.forEach((pedido) => {
+        const precoTipo = parseFloat(pedido.VL_PRECO_TIPO);
+        const quantidadeTipo = parseInt(pedido.QTD_TIPO_INGRESSO, 10);
+
+        if (!isNaN(precoTipo) && !isNaN(quantidadeTipo)) {
+        quantidadeTotalVendas += precoTipo * quantidadeTipo;
+        }
+    });
+
+    return quantidadeTotalVendas;
+    }
+
+    function calcularQuantidadeTotalVendasComDesconto(dadosPedidos) {
+        let quantidadeTotalVendasComDesconto = 0;
+      
+        dadosPedidos.forEach((pedido) => {
+          const precoTipo = parseFloat(pedido.VL_PRECO_TIPO);
+          const quantidadeTipo = parseInt(pedido.QTD_TIPO_INGRESSO, 10);
+      
+          if (!isNaN(precoTipo) && !isNaN(quantidadeTipo)) {
+            const totalPedido = precoTipo * quantidadeTipo;
+            const desconto = totalPedido * 0.1; // 10% de desconto
+            const totalComDesconto = totalPedido - desconto;
+      
+            quantidadeTotalVendasComDesconto += totalComDesconto;
+          }
+        });
+      
+        return quantidadeTotalVendasComDesconto.toFixed(2);
+    }
+      
+    const [pedidos, setPedidos] = useState([])
+    const [pedidos10, setPedidos10] = useState([])
+
+    async function ListarPedidos() {
+        let url = `http://localhost:5000/listartudo`
+        let response = await axios.get(url)
+        setPedidos(response.data)
+        setPedidos10(response.data.slice(0,5))
+        console.log(response.data)
+    }
 
     //Função para controle de menu
     function HandleMenu(e) {
         setMenu(e)
     }
+
+    function contarIngressosPorCategoria(pedidos) {
+        // Criar um objeto para armazenar a contagem de ingressos por categoria
+        const contagemPorCategoria = {};
+      
+        // Iterar sobre os pedidos
+        pedidos.forEach(pedido => {
+          // Obter a categoria do ingresso do pedido
+          const categoria = pedido.NM_CATEGORIA_INGRESSO;
+      
+          // Verificar se a categoria já existe no objeto de contagem
+          if (contagemPorCategoria[categoria] === undefined) {
+            // Se não existir, inicializar com 1
+            contagemPorCategoria[categoria] = 1;
+          } else {
+            // Se existir, incrementar a contagem
+            contagemPorCategoria[categoria]++;
+          }
+        });
+      
+        // Retornar o objeto com a contagem por categoria
+        return contagemPorCategoria;
+      }
+      
+      // Se 'pedidos' for o array que você forneceu
+      const resultado = contarIngressosPorCategoria(pedidos);
+      
+      console.log(resultado);
+      
 
     async function Aprovar(id, razao, email, senha) {
         try {
@@ -114,6 +187,25 @@ export default function AdmDashboard() {
         } catch (error) {
             toast.error(error)
         }
+    }
+
+    function calcularTotalGanhoComDesconto(dadosPedidos) {
+        let totalGanhoComDesconto = 0;
+      
+        dadosPedidos.forEach((pedido) => {
+          const precoTipo = parseFloat(pedido.VL_PRECO_TIPO);
+          const quantidadeTipo = parseInt(pedido.QTD_TIPO_INGRESSO, 10);
+      
+          if (!isNaN(precoTipo) && !isNaN(quantidadeTipo)) {
+            const totalPedido = precoTipo * quantidadeTipo;
+            const desconto = totalPedido * 0.1; // 10% de desconto
+            const totalComDesconto = totalPedido - desconto;
+      
+            totalGanhoComDesconto += desconto;
+          }
+        });
+      
+        return totalGanhoComDesconto.toFixed(2);
     }
 
     async function ListarEmpresas() {
@@ -232,6 +324,9 @@ export default function AdmDashboard() {
         if (menu == 3 || menu == 5) {
             ListarEmpresas()
         }
+        if (menu == 4 || menu == 1) {
+            ListarPedidos()
+        }
         if (menu == 8) {
             ListarFormulario()
         }
@@ -277,16 +372,9 @@ export default function AdmDashboard() {
                                         <div className='middle'>
                                             <div className='left'>
                                                 <h1>Total de vendas</h1>
-                                                <span>R$25.024</span>
+                                                <span>R${calcularQuantidadeTotalVendas(pedidos)}</span>
                                             </div>
-                                            <div className='progress'>
-                                                <svg>
-                                                    <circle cx={'38'} cy={'38'} r={'36'}></circle>
-                                                </svg>
-                                                <div className='number'>
-                                                    <p>81%</p>
-                                                </div>
-                                            </div>
+                                            
                                         </div>
                                         <small>Ultimas 24 horas</small>
                                     </div>
@@ -294,16 +382,8 @@ export default function AdmDashboard() {
                                         <ShoppingCartIcon />
                                         <div className='middle'>
                                             <div className='left'>
-                                                <h1>Total de vendas</h1>
-                                                <span>R$25.024</span>
-                                            </div>
-                                            <div className='progress'>
-                                                <svg>
-                                                    <circle cx={'38'} cy={'38'} r={'36'}></circle>
-                                                </svg>
-                                                <div className='number'>
-                                                    <p>81%</p>
-                                                </div>
+                                                <h1>Total pago às empresas</h1>
+                                                <span>R$ {calcularQuantidadeTotalVendasComDesconto(pedidos)}</span>
                                             </div>
                                         </div>
                                         <small>Ultimas 24 horas</small>
@@ -312,15 +392,10 @@ export default function AdmDashboard() {
                                         <StackedLineChartIcon />
                                         <div className='middle'>
                                             <div className='left'>
-                                                <h1>Total de vendas</h1>
-                                                <span>R$25.024</span>
+                                                <h1>Lucro</h1>
+                                                <span>R$ {calcularTotalGanhoComDesconto(pedidos)}</span>
                                             </div>
-                                            <div className='progress'>
-                                                <svg>
-                                                    <circle cx={'38'} cy={'38'} r={'36'}></circle>
-                                                </svg>
-                                                <p>81%</p>
-                                            </div>
+                                            
                                         </div>
                                         <small>Ultimas 24 horas</small>
                                     </div>
@@ -330,47 +405,25 @@ export default function AdmDashboard() {
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th>Nome do Evento</th>
-                                                <th>Tipo de Ingresso</th>
-                                                <th>Qtd</th>
-                                                <th>Status</th>
-                                                <th>Pagamento</th>
+                                                <th>Nome Evento</th>
+                                                <th>Nome Tipo Ingresso</th>
                                                 <th>Usuário</th>
+                                                <th>Qtd</th>
+                                                <th>Preco Unitário</th>
+                                                <th>Preco Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Cena 2k23</td>
-                                                <td>Pista</td>
-                                                <td>2</td>
-                                                <td style={{ color: 'green' }}>Concluído</td>
-                                                <td style={{ color: 'green' }}>À vista</td>
-                                                <td>João Paulo</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Numanice</td>
-                                                <td>VIP</td>
-                                                <td>1</td>
-                                                <td style={{ color: 'green' }}>Concluído</td>
-                                                <td style={{ color: 'green' }}>À vista</td>
-                                                <td>Cleber</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Lollapaloza 2024</td>
-                                                <td>Front</td>
-                                                <td>10</td>
-                                                <td style={{ color: 'green' }}>Concluído</td>
-                                                <td style={{ color: 'yellow' }}>10X</td>
-                                                <td>Bruna</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Cena 2k23</td>
-                                                <td>Pista</td>
-                                                <td>2</td>
-                                                <td style={{ color: 'green' }}>Concluído</td>
-                                                <td style={{ color: 'green' }}>À vista</td>
-                                                <td>João Paulo</td>
-                                            </tr>
+                                            {pedidos10.map(item =>
+                                                <tr>
+                                                    <td>{item.NM_EVENTO}</td>
+                                                    <td>{item.NM_TIPO_INGRESSO}</td>
+                                                    <td>{`${item.NM_CLIENTE} ${item.NM_SOBRENOME}`}</td>
+                                                    <td>{item.QTD_TIPO_INGRESSO}</td>
+                                                    <td>R$ {item.VL_PRECO_TIPO}</td>
+                                                    <td>R$ {item.VL_PRECO_TIPO * item.QTD_TIPO_INGRESSO}</td>
+                                                </tr>
+                                            )}
                                         </tbody>
                                     </table>
                                     <a>Ver todos</a>
@@ -623,6 +676,39 @@ export default function AdmDashboard() {
                                             <td>{item.DS_CNPJ}</td>
                                             <td>{item.DS_EMAIL_EMPRESA}</td>
                                             <td>{item.DS_SENHA_EMPRESA}</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                            <a>Ver todos</a>
+                        </div>
+                    </section>
+                }
+                {menu == 4 &&
+                    <section className='pedido-main'>
+                        <AdmUser page='Controle de Pedidos' user='Flashback' funcao='Admin' />
+                        <div className='table'>
+                            <h1>Pedidos</h1>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Nome Evento</th>
+                                        <th>Nome Tipo Ingresso</th>
+                                        <th>Usuário</th>
+                                        <th>Qtd</th>
+                                        <th>Preco Unitário</th>
+                                        <th>Preco Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {pedidos.map(item =>
+                                        <tr>
+                                            <td>{item.NM_EVENTO}</td>
+                                            <td>{item.NM_TIPO_INGRESSO}</td>
+                                            <td>{`${item.NM_CLIENTE} ${item.NM_SOBRENOME}`}</td>
+                                            <td>{item.QTD_TIPO_INGRESSO}</td>
+                                            <td>R$ {item.VL_PRECO_TIPO}</td>
+                                            <td>R$ {item.VL_PRECO_TIPO * item.QTD_TIPO_INGRESSO}</td>
                                         </tr>
                                     )}
                                 </tbody>
