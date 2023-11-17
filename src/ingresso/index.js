@@ -562,6 +562,7 @@ export default function IngressoPage() {
                                     <div>
                                         <DevicesIcon />
                                         <CheckCircleIcon/>
+                                        
                                         <div>
                                             <h1>Disponível no celular e para Impressão</h1>
                                             <p>Seu ingresso ficará disponível na aba “Meus Pedidos” através do site Flashback.</p>
