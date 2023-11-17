@@ -3,7 +3,7 @@ import './index.scss'
 
 export default function Card(props) {
 
-let url = `http://localhost:5000/${props.imagem}`
+let url = `http://129.148.42.252:5014/${props.imagem}`
 const verificarDisponibilidade = (datetimeDaAPI) => {
     // Cria um objeto Date para o datetime da API e para o tempo atual
     const datetimeAPI = new Date(datetimeDaAPI);

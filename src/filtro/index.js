@@ -15,11 +15,11 @@ export default function PageFiltro() {
 
     async function ListarIngressos(){
         try {
-            let response = await axios.get(`http://localhost:5000/ingresso/categoria?categoria=${categoria}`)
+            let response = await axios.get(`http://129.148.42.252:5014/ingresso/categoria?categoria=${categoria}`)
             setIngressos(response.data)
         } catch (error) {
             setIngressos([])
-            let response = await axios.get(`http://localhost:5000/ingresso/busca?nome`)
+            let response = await axios.get(`http://129.148.42.252:5014/ingresso/busca?nome`)
             ticketPushSugestao.push(response.data)
             setIngressosSugestao(...ticketPushSugestao)
         }

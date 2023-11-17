@@ -6,7 +6,7 @@ import formatHorario from '../../componentsFunctions/formatHorario';
 
 
 export default function BoxIngresso(props){
-    const teste = 'http://localhost:5000/' + props.imagem
+    const teste = 'http://129.148.42.252:5014/' + props.imagem
     // let diasDaSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
     // let meses = ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
     // let datetime = new Date(props.data);

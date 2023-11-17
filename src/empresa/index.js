@@ -35,7 +35,7 @@ export default function Empresa() {
 
     async function ListarCnpj() {
         try {
-            let url = `http://localhost:5000/getCnpj?cnpj=${cnpj}`
+            let url = `http://129.148.42.252:5014/getCnpj?cnpj=${cnpj}`
             let response = await axios.get(url)
             setNmFantasia(response.data.fantasia)
             setRazaoSocial(response.data.nome)
@@ -55,7 +55,7 @@ export default function Empresa() {
     async function RealizarForm() {
         try {
 
-            let url = `http://localhost:5000/formulario`
+            let url = `http://129.148.42.252:5014/formulario`
 
             let response = await axios.post(url, {
                 cnpj: cnpj,
