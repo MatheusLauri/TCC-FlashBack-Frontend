@@ -425,7 +425,7 @@ export default function IngressoPage() {
                                     <div className='box-info-row'>
                                         <div className='box-info-col'>
                                             <h1>Informações de Pagamento</h1>
-                                            <div>
+                                            <div onClick={() => {setEstagio(3); setConcluido(2)}}>
                                                 <CreditCardIcon/>
                                                 <div>
                                                     <p>Cartão de crédito</p>
@@ -460,9 +460,30 @@ export default function IngressoPage() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <img src='./assets/images/dinheiro.png'/>
-
-
+                                        <img src='/assets/images/dinheiro.png'/>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        }
+                        {estagio == 3 &&
+                            <div className='compra-main'>
+                                <div className='box-dados'>
+                                    <div className='box-dados-row'>
+                                        <div className='box-dados-col'>
+                                            <h1>Dados do cartão</h1>
+                                            <div>
+                                                <CreditCardIcon/>
+                                                <p>Cartão de crédito</p>
+                                            </div>
+                                            <p>Parcelamento</p>
+                                            <div>
+                                                <small>Compre em até 12 vezes</small>
+                                                <img/>
+                                                <small>Veja as condições de parcelamento</small>
+                                            </div>
+                                            
+                                            
                                     </div>
                                     
                                 </div>
