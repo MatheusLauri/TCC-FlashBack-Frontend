@@ -245,7 +245,7 @@ export function Header() {
         <section className='header-main' onMouseLeave={() => setlistagembuscaMostrarDialog(false)}>
             <ToastContainer />
             <section className="secao-header">
-                <Link className='header-img' to='/home'><img src='/assets/images/logoTCC.png' /></Link>
+                <Link className='header-img' to='/'><img src='/assets/images/logoTCC.png' /></Link>
                 <div className='secao-header-input-div'>
                     <img src='/assets/images/lupa.svg'/>
                     
