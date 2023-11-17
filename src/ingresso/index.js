@@ -15,6 +15,7 @@ import DevicesIcon from '@mui/icons-material/Devices';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import formatDatacomId from '../componentsFunctions/formatDatacomId';
 import formatHorario from '../componentsFunctions/formatHorario';
+import FormatPreco from '../componentsFunctions/formatPrecos';
 
 export default function IngressoPage() {
     let { id } = useParams()
@@ -32,10 +33,6 @@ export default function IngressoPage() {
     const [ingressos, setIngressos] = useState([])
     const [tipoIngressos, setTipoIngressos] = useState([])
 
-    function FormatPreco(vl) {
-        const precoTipoFormatado = Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' }).format(vl)
-        return precoTipoFormatado
-    }
 
     const [estagio, setEstagio] = useState(1)
 

@@ -19,6 +19,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
+import FormatPreco from '../componentsFunctions/formatPrecos';
 
 export default function AdmPage() {
 
@@ -33,6 +34,8 @@ export default function AdmPage() {
 
     const [userBar, setUserBar] = useState(false)
     const [userRightBar, setUserRightBar] = useState(false)
+
+    const [prosseguir, setProsseguir] = useState(false)
 
     //Variáveis de login empresa
 
@@ -61,15 +64,10 @@ export default function AdmPage() {
     const [qtdTipo, setQtdTipo] = useState('')
     const [precoTipo, setPrecoTipo] = useState('')
 
-    const precoTipoFormatado = Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' }).format(precoTipo)
-    const [precoTipoFormatar, setPrecoTipoFormatar] = useState()
-    const [precoTipoCadastrar, setPrecoTipoCadastrar] = useState()
-
     const [vetorTipo, setVetorTipo] = useState([])
 
     const [alterarTipo, setAlterarTipo] = useState(false)
 
-    const [listarTipoAtivo, setListarTipoAtivo] = useState(false)
 
     //variáveis de local do evento
 
@@ -87,20 +85,19 @@ export default function AdmPage() {
 
 
     //variaveis de cadastro de data e horario
-    
-    const[dataIngresso, setDataIngresso] = useState()
-    const[listarDatas, setlistarDatas] = useState([])
 
-    const[idData, setIdData] = useState()
-    
-    const[horarioIngresso, setHorarioIngresso] = useState()
-    const[listarHorarios, setListarHorarios] = useState([])
+    const [dataIngresso, setDataIngresso] = useState()
+    const [listarDatas, setlistarDatas] = useState([])
 
-    const[dataHourAtv, setdataHourAtv] = useState(false)
+    const [idData, setIdData] = useState()
+
+    const [horarioIngresso, setHorarioIngresso] = useState()
+    const [listarHorarios, setListarHorarios] = useState([])
+
 
     async function ListarIngressos() {
         const listagem = []
- 
+
         try {
             if (pesquisa.length) {
                 const resp = await axios.get(`http://localhost:5000/IngressoPorEmpresa?id=${idEmpresa}&evento=${pesquisa}`)
@@ -125,30 +122,30 @@ export default function AdmPage() {
             ListarPedidos()
         };
 
+        if (addPage === 1) {
+            setDataIngresso('')
+        }
+
     }, [pesquisa, listarIngressos, menu]);
+
 
     useEffect(() => {
         ListarIngressos()
     }, [menu, pesquisa])
 
 
-    useEffect(() => {
-       
-        if(idData) {
-        BuscarData()
-            }
-    }, [])
-
 
     useEffect(() => {
         let empresalogged = localStorage.getItem('empresa-logada')
         empresalogged = JSON.parse(empresalogged)
-        
+
         let id_Empresa = empresalogged.data.ID_EMPRESA;
 
         setIdEmpresa(id_Empresa)
-    
+
     }, [])
+
+
 
     function MenuPage(pagedata) {
 
@@ -172,7 +169,9 @@ export default function AdmPage() {
             if (vetorTipo.length === 0)
                 throw new Error('Insira ao menos um tipo de ingresso!')
 
-            cadastrarTipo(idIngresso)
+            cadastrarTipo()
+
+            toast.success('Ingresso Adicionado!')
 
         } catch (err) {
             if (err.response)
@@ -184,7 +183,7 @@ export default function AdmPage() {
     }
 
 
-    async function AdicionarInfos_Ingresso () {
+    async function AdicionarInfos_Ingresso() {
 
         try {
 
@@ -192,50 +191,97 @@ export default function AdmPage() {
 
                 //Cadastro Local do evento
                 const responseLocal = await axios.post(`http://localhost:5000/local`, {
-    
+
                     CEP: CEP,
                     Logradouro: logradouro,
                     Bairro: bairro,
                     Localidade: cidade,
                     UF: uf,
                     Numero: numeroLocalEvento
-    
+
                 })
-    
-    
+
+
                 const Id_Local = responseLocal.data.ID
-    
+
                 setIdLocal(Id_Local)
-    
+
                 //Cadastro Infos Ingresso
                 let infosIngresso = {
                     Categoria: category,
-                    Empresa:idEmpresa,
+                    Empresa: idEmpresa,
                     Local: Id_Local,
                     NomeEvento: nomeEvento,
                     Descricao: descricao,
-                    Destaque:destaque
+                    Destaque: destaque
                 }
-    
-    
+
+
                 const responseInfosIngresso = await axios.post('http://localhost:5000/ingresso', infosIngresso)
-    
-    
+
+
                 setIdIngresso(responseInfosIngresso.data.ID)
-    
+
                 const idIngresso = responseInfosIngresso.data.ID
-    
+
                 //Envio de imagem
                 const responseImagem = await uploadImagem(idIngresso)
-    
-    
-                toast.success("Bilau!")
-    
+
+
+
+                setAddPage(2)
             }
-            
+
         } catch (err) {
             toast.error(err.response.data.erro)
-        }  
+        }
+    }
+
+
+
+    async function alterarInfosIngresso () {
+
+    try {
+
+            if(idIngresso > 0) {
+
+            //alterar Local do evento
+            const responseLocal = await axios.put(`http://localhost:5000/local/${idLocal}`, {
+
+                CEP: CEP,
+                Logradouro: logradouro,
+                Bairro: bairro,
+                Localidade: cidade,
+                UF: uf,
+                Numero: numeroLocalEvento
+
+            })
+
+            //Alterar Infos Ingresso
+            let infosIngresso = {
+                Categoria: category,
+                Empresa: idEmpresa,
+                Local: idLocal,
+                NomeEvento: nomeEvento,
+                Descricao: descricao,
+                Destaque: destaque
+            }
+
+
+            const responseInfosIngresso = await axios.put(`http://localhost:5000/ingresso/${idIngresso}`, infosIngresso)
+
+            //Alterar imagem de imagem
+            const responseImagem = await uploadImagem(idIngresso)
+
+            toast.success('Informações alteradas!!')
+
+   
+
+    }
+
+        } catch (err) {
+            toast.error(err.response.data.erro)
+        }
     }
 
     console.log(idIngresso)
@@ -274,83 +320,32 @@ export default function AdmPage() {
     }
 
 
-    function inserirTipoModal() {
+
+    async function cadastrarTipo() {
 
         try {
 
-            const infosTipo = {
-                nome: nomeTipo,
-                qtd: qtdTipo,
-                preco: precoTipoFormatado
-            }
-
-            if (!infosTipo.nome)
-                throw new Error("Defina o nome do tipo!")
-
-            if (!infosTipo.qtd)
-                throw new Error("Defina uma quantidade!")
-
-            if (infosTipo.qtd < 0 || precoTipo < 0)
-                throw new Error("Insira somente valores positivos!")
-
-
-            for (let item of vetorTipo) {
-
-                if (item.nome === infosTipo.nome)
-                    throw new Error('Tipo já existente!')
-            }
-
-            vetorTipo.push(infosTipo)
-            setVetorTipo([...vetorTipo])
-
-            setNomeTipo('')
-            setQtdTipo('')
-
-
-        } catch (err) {
-
-            toast.error(err.message)
-
-        }
-
-
-    }
-
-
-    console.log(vetorTipo, precoTipoCadastrar)
-
-    async function cadastrarTipo(idDoIngresso) {
-
-
-        for (let item of vetorTipo) {
-
             const reposta = await axios.post(`http://localhost:5000/tipoIngresso`, {
-                Ingresso: idDoIngresso,
-                Tipo: item.nome,
-                Quantidade: item.qtd,
+                Ingresso: idIngresso,
+                Tipo: nomeTipo,
+                Quantidade: qtdTipo,
                 Preco: precoTipo
             })
 
-            idTipos.push(reposta.data.ID)
+            vetorTipo.push(reposta.data)
 
-            setIdTipos([...idTipos])
+            setVetorTipo([...vetorTipo])
+
+            
+        } catch (err) {
+            if(!err) {
+                toast.error(err.message)
+            } else{
+            toast.error(err.response.data.erro)}
         }
-
+        
     }
-
-
-
-    async function listarTipos() {
-
-        const resposta = await axios.get(`http://localhost:5000/tipoIngresso/${idIngresso}`)
-        console.log(resposta.data)
-
-        setPrecoTipoFormatar(Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' }).format(resposta.data.VL_PRECO_TIPO))
-
-        setVetorTipo(resposta.data)
-
-    }
-
+   
 
     async function buscarInfosLocal() {
 
@@ -392,161 +387,84 @@ export default function AdmPage() {
     }
 
 
+    async function deletarTipo(idArray, idTipo) {
 
-    async function alterarTipoIngresso() {
+        vetorTipo.splice(idArray, 1)
 
+        setVetorTipo([...vetorTipo])
 
-
-        for (let item of vetorTipo) {
-
-            let cont = 0
-
-            const reposta = await axios.put(`http://localhost:5000/tipoIngresso/${idTipos[cont]}`, {
-                Tipo: item.nome,
-                Quantidade: item.qtd,
-                Preco: precoTipo
-            })
-
-            cont++
-        }
+        const r = await axios.delete(`http://localhost:5000/tipoIngresso/${idTipo}`)
 
 
-    }
-
-
-    function alterarTipoIngresso2(idArray) {
-
-        setAlterarTipo(false)
-
-        setNomeTipo(vetorTipo[idArray].nome)
-        setQtdTipo(vetorTipo[idArray].qtd)
-
-        const vetorTiposs = vetorTipo
-
-        vetorTiposs[idArray] = {
-            nome: nomeTipo,
-            qtd: qtdTipo,
-            preco: precoTipo
-
-        }
-
-        setVetorTipo(vetorTiposs)
-
-
-    }
-
-
-    async function deletarTipo(idArray) {
-
-        const r = await axios.get(`http://localhost:5000/tipoIngresso/${idIngresso}`)
-
-        if (r.data.length === 0) {
-
-            vetorTipo.splice(idArray, 1)
-
-            setVetorTipo([...vetorTipo])
-
-        } else {
-
-            const r = await axios.delete(`http://localhost:5000/tipoIngresso/${idArray}`)
-
-        }
     }
 
 
     async function CadastrarData() {
 
-        const resp = await axios.post(`http://localhost:5000/data`, {       
-            Ingresso: idIngresso,
-            Data: dataIngresso   
-        })
-        
-        listarDatas.push(resp.data)
-        setlistarDatas([...listarDatas])
-
-    }
-
-
-    async function BuscarData() {
-
         try {
+            
+            const resp = await axios.post(`http://localhost:5000/data`, {
+                Ingresso: idIngresso,
+                Data: dataIngresso
+            })
 
-            let resp = await axios.get(`http://localhost:5000/data/horario/${idData}`)
-      
-            let hours = resp.data.length
+            listarDatas.push(resp.data)
+            setlistarDatas([...listarDatas])
 
-            if(hours != 0){
-                setdataHourAtv(true)
-            }
+            setDataIngresso('') 
 
         } catch (err) {
-            
+            toast.error(err.response.data.erro)
         }
-       
+        
+
+
     }
+
 
 
     async function CadastrarHorario() {
 
-        const resp = await axios.post(`http://localhost:5000/horario`, {       
+        const resp = await axios.post(`http://localhost:5000/horario`, {
             Data: idData,
-            Horario: horarioIngresso   
+            Horario: horarioIngresso
         })
-        
+
         listarHorarios.push(resp.data)
         setListarHorarios([...listarHorarios])
+
+        setHorarioIngresso('')
     }
 
 
-    async function DeletarData(id) {
-
-        const resp = await axios.delete(`http://localhost:5000/data/${id}`)
-
-    }
-
-    async function DeletarDataArray(idArray) {
-
-        // let ArrayHours = listarHorarios;
-        // let novoArrayHours;
-
-        // if(dataHourAtv === true) {
-        //         listarDatas.splice(idArray, 1)
-
-        //         setlistarDatas([...listarDatas])
-        //     for(let item of listarHorarios) {    
-        //      if(item.Data === idArray) {
-        //      novoArrayHours = ArrayHours.filter((horarios) => horarios.Data === idArray)
-        //        console.log(novoArrayHours)
-
-        //     }
-
-        //     setListarHorarios(novoArrayHours)
-        // }
-            
-           
-        // }else {
-           
-        // }
+    async function DeletarData(idArray, idData) {
 
         listarDatas.splice(idArray, 1)
 
         setlistarDatas([...listarDatas])
+
+        const resp = await axios.delete(`http://localhost:5000/data/${idData}`)
+
+        for (let item of listarHorarios) {
+            if (item.Data === idData) {
+                listarHorarios.splice(listarHorarios.indexOf(item), 1)
+                setListarHorarios([...listarHorarios])
+            }
+        }
+
     }
-    
-    async function DeletarHorario(id) {
-
-        const resp = await axios.delete(`http://localhost:5000/horario/${id}`)
-
-    }
 
 
-    async function DeletarHorarioArray(idArray) {
+    async function DeletarHorario(idArray, idHorario) {
 
         listarHorarios.splice(idArray, 1)
 
         setListarHorarios([...listarHorarios])
 
+        const resp = await axios.delete(`http://localhost:5000/horario/${idHorario}`)
+
     }
+
 
     async function novoIngressoClick() {
 
@@ -566,6 +484,10 @@ export default function AdmPage() {
         setPrecoTipo('')
         setVetorTipo([])
         setShowMenu(false)
+        setDataIngresso('')
+        setlistarDatas([])
+        setListarHorarios([])
+        setAddPage(1)
 
     }
 
@@ -577,7 +499,7 @@ export default function AdmPage() {
         setListarpedido(resp.data)
 
     }
-
+    console.log(vetorTipo)
 
     function SairClickEmpresa() {
 
@@ -690,7 +612,7 @@ export default function AdmPage() {
                                 <section className='search-content'>
                                     <div className='input-div'>
                                         <img src='../assets/images/search.png' />
-                                        <input type='text' placeholder='Ex: Numanice, The town...' value={pesquisa} onChange={(e) => { setPesquisa(e.target.value); console.log(e.target.value)}} />
+                                        <input type='text' placeholder='Ex: Numanice, The town...' value={pesquisa} onChange={(e) => { setPesquisa(e.target.value); console.log(e.target.value) }} />
                                     </div>
                                     <div className='ticket-wrapper'>
                                         {listarIngressos &&
@@ -722,8 +644,15 @@ export default function AdmPage() {
                             <>
                                 <section className='add-content'>
                                     <div className='category-range'>
-                                        <TitleRange text='Categorias' />
-                                        <CategorySection funcao={setCategory} valor={category} />
+                                        {
+                                            addPage === 1 &&
+
+                                            <>
+                                                <TitleRange text='Categorias' />
+                                                <CategorySection funcao={setCategory} valor={category} />
+                                            </>
+                                        }
+
                                     </div>
                                     <div className='add-range'>
                                         <TitleRange text='Informações do evento' />
@@ -750,6 +679,7 @@ export default function AdmPage() {
 
 
                                                 </div>
+
                                                 <div className='divisor'></div>
                                                 <div className='text-inputs-box' >
 
@@ -809,7 +739,7 @@ export default function AdmPage() {
                                                 <div className='text-inputs-box' >
 
                                                     <div className='text-input-box'>
-                                                        <input type='date' value={dataIngresso}  onChange={(e) => setDataIngresso(e.target.value)}/>
+                                                        <input type='date' value={dataIngresso} onChange={(e) => setDataIngresso(e.target.value)} />
                                                         <img src='' />
                                                     </div>
                                                     <a onClick={CadastrarData}>Adicionar data</a>
@@ -817,18 +747,25 @@ export default function AdmPage() {
                                                     <a onClick={() => setToggleCondicional(1)}>Adicionar Tipo Ingresso</a>
 
                                                 </div>
-                                                <div className='divisor'></div>
+                                                {
+                                                    listarDatas.length > 0 &&
+                                                    <div className='divisor'></div>
+                                                }
                                                 <div className='data-boxes' >
 
-                                                    {listarDatas.map((item, idArray) => ( 
-                                                        <div className='data-box' onClick={() => {setToggleCondicional(2) ; setIdData(item.ID)}}>
-                                                        <p>{item.Data}</p>
-                                                        <DeleteForeverIcon onClick={() => {DeletarData(item.ID); DeletarDataArray(idArray)}}/>
-                                                    </div>
+                                                    {listarDatas.map((item, idArray) => (
+                                                        <div className='data-box' onClick={() => { setToggleCondicional(2); setIdData(item.ID) }}>
+                                                            <p>{item.Data}</p>
+                                                            <DeleteForeverIcon onClick={() => DeletarData(idArray, item.ID)} />
+                                                        </div>
                                                     ))}
-                                                   
+
                                                 </div>
-                                                <div className='divisor'></div>
+                                                {
+                                                    listarDatas.length > 0 &&
+                                                    <div className='divisor'></div>
+                                                }
+
                                                 {toggleCondicional == 1 ?
                                                     <div className={showMenu ? 'type-controller-clicked' : 'type-controller'}>
                                                         <div className='header' onClick={() => setShowMenu(!showMenu)}>
@@ -839,21 +776,21 @@ export default function AdmPage() {
                                                             <div className='input-row'>
                                                                 <input type='text' placeholder='Nome' value={nomeTipo} onChange={(e) => setNomeTipo(e.target.value)} />
                                                                 <input type='number' placeholder='Qtd' value={qtdTipo} onChange={(e) => setQtdTipo(Number(e.target.value))} />
-                                                                <input type='number' placeholder='R$ 0,00' value={precoTipo} onChange={(e) => {setPrecoTipo(Number(e.target.value))}} />
-                                                             
-                                                                <a onClick={inserirTipoModal}>Adicionar</a>
-                                                                
+                                                                <input type='number' placeholder='R$ 0,00' value={precoTipo} onChange={(e) => { setPrecoTipo(Number(e.target.value)) }} />
+
+                                                                <a onClick={cadastrarTipo}>Adicionar</a>
+
                                                             </div>
                                                             <div className='body-table'>
-                                                               
+
                                                                 {vetorTipo.map((item, idArray) => (
                                                                     <div className='body-table-row'>
-                                                                        <span>{item.nome}</span>
+                                                                        <span>{item.Tipo}</span>
                                                                         <div className='divisor'></div>
-                                                                        <span> {item.qtd} Un</span>
+                                                                        <span> {item.Quantidade} Un</span>
                                                                         <div className='divisor'></div>
-                                                                        <span>{item.preco}</span>
-                                                                        <a><img src='../assets/images/delete.svg' onClick={() => deletarTipo(idArray)} /></a>
+                                                                        <span>{FormatPreco(item.Preco)}</span>
+                                                                        <a><img src='../assets/images/delete.svg' onClick={() => deletarTipo(idArray, item.ID)} /></a>
                                                                     </div>
                                                                 ))}
 
@@ -870,19 +807,19 @@ export default function AdmPage() {
                                                         </div>
                                                         <div className='body'>
                                                             <div className='input-row'>
-                                                                <input type='time' placeholder='Horário' value={horarioIngresso}  onChange={(e) => setHorarioIngresso(e.target.value)} />
+                                                                <input type='time' placeholder='Horário' value={horarioIngresso} onChange={(e) => setHorarioIngresso(e.target.value)} />
                                                                 <a onClick={CadastrarHorario}>Adicionar</a>
                                                             </div>
                                                             <div className='body-table'>
-    
+
                                                                 {listarHorarios.map((item, idArray) => (
                                                                     idData == item.Data &&
-                                                                        <div className='body-table-row'>
-                                                                            <span>{item.Horario}</span>
-                                                                            <a><img src='../assets/images/delete.svg' onClick={() => {DeletarHorario(item.Data); DeletarHorarioArray(idArray)}}/></a>
-                                                                        </div>
+                                                                    <div className='body-table-row'>
+                                                                        <span>{item.Horario}</span>
+                                                                        <a><img src='../assets/images/delete.svg' onClick={() => DeletarHorario(idArray, item.ID)} /></a>
+                                                                    </div>
                                                                 ))}
-        
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -900,18 +837,32 @@ export default function AdmPage() {
                                             }
 
                                             <div>
-                                              
+
                                                 {addPage == 1 ?
 
-                                                    <button onClick={() => {setAddPage(2); AdicionarInfos_Ingresso()}}>Prosseguir</button>
+                                                    idIngresso != 0 ?
+                                                        <>
+                                                        <button onClick={() => alterarInfosIngresso()}>Alterar Informações</button>
+                                                
 
+                                                        <button onClick={() => {AdicionarInfos_Ingresso(); setAddPage(2)}}>Prosseguir</button></>
+                                                    :   <button onClick={() => AdicionarInfos_Ingresso()}>Prosseguir</button>
                                                     :
+                                                    //     idIngresso != 0 ? 
+                                                    //     <>
+                                                    //         <button onClick={() => AdicionarIngresso()}>Alterar Infos</button>
+                                                    //         <button onClick={novoIngressoClick}>Novo Ingresso</button>
+                                                        
+                                                    //     </>
+                                                    //  :
                                                     <>
+                                    
                                                         <button onClick={() => AdicionarIngresso()}>Adicionar ingresso</button>
                                                         <button onClick={novoIngressoClick}>Novo Ingresso</button>
                                                     </>
 
                                                 }
+
                                             </div>
 
 

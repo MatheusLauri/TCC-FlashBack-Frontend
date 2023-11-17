@@ -82,6 +82,9 @@ export function Header() {
         }
     }
 
+
+
+
 // Variáveis de informação do usuário
     const [userId,setUserId] = useState('')
     const [userNomeDeUsuario, setUserNomeDeUsuario] = useState('')
@@ -162,6 +165,29 @@ export function Header() {
 
     }
 
+    
+    // useEffect(() => {
+    //     let empresalogged = localStorage.getItem('empresa-logada')
+    //     empresalogged = JSON.parse(empresalogged)
+
+    //     let id_Empresa = empresalogged.data.ID_EMPRESA;
+
+    //     setIdEmpresa(id_Empresa)
+
+    // }, [])
+
+    useEffect(() => {
+
+        let usuariologged = localStorage.getItem('usuario-logado')
+        usuariologged = JSON.parse(usuariologged)
+    
+        setUserr(usuariologged.data.NM_USUARIO)
+    
+       
+    }, [])
+
+    const [userr, setUserr] = useState()
+
     const [ShowUfModal,setShowUfModal] = useState(false)
 
 
@@ -224,12 +250,12 @@ export function Header() {
                         <KeyboardArrowDownIcon/>
                     </div>
                     <Link className='revendedor' to={'/empresas'}>Seja um revendedor!</Link>
-                    {isLogged
+                    {isLogged && userr
                         ?   <>
                             <div className='user-div'>
                                 <div className='user' onClick={() => setUserPopUp(!userPopUp)}>
                                     <i className="fas fa-user"></i>
-                                    <a>{usuario}</a>
+                                    <a>{userr}</a>
                                 </div>
                                 <div className='user-option' style={userPopUp ? {display:'flex'} : {display: 'none'}}>
                                     <div className='baloon'></div>
