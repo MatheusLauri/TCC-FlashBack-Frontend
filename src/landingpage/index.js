@@ -157,7 +157,7 @@ function LandingPage() {
               <BoxCity city='São Paulo' src='./assets/images/sp.png' uf='sp'/>
               <BoxCity city='Bahia' src='./assets/images/salvador.png' uf='ba'/>
               <BoxCity city='Rio Grande do Sul' src='./assets/images/porto.png' uf='rs'/>
-              <BoxCity city='Belo Horizonte' src='./assets/images/bh.png' uf='bh'/>
+              <BoxCity city='Minas Gerais' src='./assets/images/bh.png' uf='bh'/>
               <BoxCity city='Rio de Janeiro' src='./assets/images/rio.png' uf='rj'/>
             </Glider>
           </div>
