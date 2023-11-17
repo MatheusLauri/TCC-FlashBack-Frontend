@@ -497,7 +497,7 @@ export function Header() {
                             }
                         </section>
                         <section className='image-part'>
-                            <img src='./assets/images/bguserinfo.png'/>
+                            <img src='/assets/images/bguserinfo.png'/>
                         </section>
                     </section>
                     }
