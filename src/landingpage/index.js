@@ -60,7 +60,6 @@ function LandingPage() {
   }
   async function ListarDestaques () {
     try {
-      let listagem = []
       let r =  await axios.get('http://localhost:5000/ingresso/destaque')
       setListarDestaque(r.data)
     } catch (error) {

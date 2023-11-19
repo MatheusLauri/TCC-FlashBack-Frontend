@@ -54,6 +54,27 @@ export function Header() {
     const [page,setPage] = useState(1)
 
     const [listarPedido, setListarPedido] = useState()
+
+    function VerificarLoginAuto() {
+        const dadosUsuario = JSON.parse(localStorage.getItem('usuario-logado')) ?? null;
+        if (dadosUsuario) {
+            // O usuário está logado, você pode definir o estado de autenticação aqui
+            // Exemplo utilizando um estado com React
+            // Armazenar informações do usuário
+            setIsLogged(true)
+            setUserId(dadosUsuario.data.ID_CLIENTE)
+            setUserNomeDeUsuario(dadosUsuario.data.NM_USUARIO)
+            setUserCPF(dadosUsuario.data.DS_CPF)
+            setUserEmail(dadosUsuario.data.DS_EMAIL)
+            setUserSenha(dadosUsuario.data.DS_SENHA)
+            setUserTelefone(dadosUsuario.data.DS_TELEFONE)
+            setUserNome(dadosUsuario.data.NM_CLIENTE)
+            setUserSobrenome(dadosUsuario.data.NM_SOBRENOME)
+            setUsuario(dadosUsuario.data.NM_USUARIO)
+            SetAniversario(dadosUsuario.data.DT_NASCIMENTO)
+            
+        }
+    }
     async function ListarPedido() {
         try {
             let user = localStorage.getItem(`usuario-logado`)
@@ -70,6 +91,7 @@ export function Header() {
 
     useEffect(() => {
         ListarPedido()
+        VerificarLoginAuto()
     }, [userRightBar])
 
 // Função de cadastro com API
@@ -157,21 +179,22 @@ export function Header() {
             });
 
             storage('usuario-logado', resp)
+            const dadosUsuario = JSON.parse(localStorage.getItem('usuario-logado')) ?? null;
 
             // Armazenar informações do usuário
-            setUserId(resp.data.ID_CLIENTE)
-            setUserNomeDeUsuario(resp.data.NM_USUARIO)
-            setUserCPF(resp.data.DS_CPF)
-            setUserEmail(resp.data.DS_EMAIL)
-            setUserSenha(resp.data.DS_SENHA)
-            setUserTelefone(resp.data.DS_TELEFONE)
-            setUserNome(resp.data.NM_CLIENTE)
-            setUserSobrenome(resp.data.NM_SOBRENOME)
-            setUsuario(resp.data.NM_USUARIO)
-            SetAniversario(resp.data.DT_NASCIMENTO)
+            setUserId(dadosUsuario.data.ID_CLIENTE)
+            setUserNomeDeUsuario(dadosUsuario.data.NM_USUARIO)
+            setUserCPF(dadosUsuario.data.DS_CPF)
+            setUserEmail(dadosUsuario.data.DS_EMAIL)
+            setUserSenha(dadosUsuario.data.DS_SENHA)
+            setUserTelefone(dadosUsuario.data.DS_TELEFONE)
+            setUserNome(dadosUsuario.data.NM_CLIENTE)
+            setUserSobrenome(dadosUsuario.data.NM_SOBRENOME)
+            setUsuario(dadosUsuario.data.NM_USUARIO)
+            SetAniversario(dadosUsuario.data.DT_NASCIMENTO)
 
             // Alert de sucesso para o usuário
-            toast.success(`Seja bem-vindo, ${resp.data.NM_USUARIO} !`)
+            toast.success(`Seja bem-vindo, ${dadosUsuario.data.NM_CLIENTE} ${dadosUsuario.data.NM_SOBRENOME}!`)
 
             // Realizar alterações na renderização dos modais
             setIsLogged(true)
@@ -282,7 +305,7 @@ export function Header() {
                             <div className='user-div'>
                                 <div className='user' onClick={() => setUserPopUp(!userPopUp)}>
                                     <i className="fas fa-user"></i>
-                                    <a>{usuario}</a>
+                                    <a>{`${userNome} ${userSobrenome}`}</a>
                                 </div>
                                 <div className='user-option' style={userPopUp ? {display:'flex'} : {display: 'none'}}>
                                     <div className='baloon'></div>
@@ -323,7 +346,7 @@ export function Header() {
                         </div>
                     </div>
                     <div className='wrapper'>
-                        <div>
+                        <div onClick={() => navigate('/estado/sp/São Paulo')}>
                             <RoomIcon/>
                             <a>São Paulo</a>
                         </div>
@@ -335,30 +358,7 @@ export function Header() {
                             <RoomIcon/>
                             <a>Belo Horizonte</a>
                         </div>
-                        <div>
-                            <RoomIcon/>
-                            <a>São Paulo</a>
-                        </div>
-                        <div>
-                            <RoomIcon/>
-                            <a>Rio de Janeiro</a>
-                        </div>
-                        <div>
-                            <RoomIcon/>
-                            <a>Belo Horizonte</a>
-                        </div>
-                        <div>
-                            <RoomIcon/>
-                            <a>São Paulo</a>
-                        </div>
-                        <div>
-                            <RoomIcon/>
-                            <a>Rio de Janeiro</a>
-                        </div>
-                        <div>
-                            <RoomIcon/>
-                            <a>Belo Horizonte</a>
-                        </div>
+                        
                     </div>
                 </div>
             </Modal>
