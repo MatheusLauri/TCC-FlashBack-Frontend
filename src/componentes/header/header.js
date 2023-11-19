@@ -267,10 +267,7 @@ export function Header() {
     useEffect(() => {
         const outsideClickListener = (event) => {
           // Verificar se o clique ocorreu fora do dialog
-          if (
-            searchInputRef.current &&
-            !searchInputRef.current.contains(event.target)
-          ) {
+          if (searchInputRef.current && !searchInputRef.current.contains(event.target)) {
             setlistagembuscaMostrarDialog(false);
           }
         };
@@ -284,7 +281,7 @@ export function Header() {
           // Remover o event listener ao desmontar o componente
           document.removeEventListener('click', outsideClickListener);
         };
-      }, [listagembuscaMostrarDialog]);
+    }, [listagembuscaMostrarDialog]);
      
     return (
         <section className='header-main'>
