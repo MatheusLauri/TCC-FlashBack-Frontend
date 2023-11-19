@@ -1,16 +1,9 @@
 .Card-Ingresso-Main{
     
     &:hover{
-        background-color: #1e0145;
+        background-color: #1e014509;
         cursor: pointer;
-        .info-div{
-            h1,p{
-                color: white;
-            }
-        }
-        
     }
-
     text-decoration: none;
     width: 100%;
     height: 80px;
@@ -22,13 +15,13 @@
     
     img{
         width: 100px;
-        height: auto;
+        height: 65px;
         border-radius: 10px;
     }
     .info-div{
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
         p,h1{
             display: -webkit-box;
@@ -39,12 +32,13 @@
         }
         h1{
             font-size: 17px;
-            color: #520AD9;
+            color: black;
         }
         .descricao{
             display: flex;
             flex-direction: column;
             p{
+                color: black;
                 font-size: 15px;
             }
         }

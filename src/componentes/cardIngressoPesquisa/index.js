@@ -26,10 +26,10 @@ export function CardIngresso(props) {
         <Link to={`/ingresso/${props.id}`} className="Card-Ingresso-Main">
             <img src={URLimagem}/>
             <div className='info-div'>
-                <h1>{props.NomeEvento}</h1>
+                <p style={{color: `#1e0145`}}><b>{resultado}</b></p>
                 <div className='descricao'>
+                    <h1>{props.NomeEvento}</h1>
                     <p>{props.descricao}</p>
-                    <p>{resultado}</p>
                 </div>
             </div>
         </Link>

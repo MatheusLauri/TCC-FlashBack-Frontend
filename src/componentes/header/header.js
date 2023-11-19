@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import './header.scss'
 import Modal from 'react-modal'
 import axios from 'axios';
@@ -263,19 +263,42 @@ export function Header() {
         storage.remove('usuario-logado')
         navigate('/')
     }
+    const searchInputRef = useRef(null);
+    useEffect(() => {
+        const outsideClickListener = (event) => {
+          // Verificar se o clique ocorreu fora do dialog
+          if (
+            searchInputRef.current &&
+            !searchInputRef.current.contains(event.target)
+          ) {
+            setlistagembuscaMostrarDialog(false);
+          }
+        };
+    
+        if (listagembuscaMostrarDialog) {
+          // Adicionar um event listener para fechar o dialog clicando fora dele
+          document.addEventListener('click', outsideClickListener);
+        }
+    
+        return () => {
+          // Remover o event listener ao desmontar o componente
+          document.removeEventListener('click', outsideClickListener);
+        };
+      }, [listagembuscaMostrarDialog]);
      
     return (
-        <section className='header-main' onMouseLeave={() => setlistagembuscaMostrarDialog(false)}>
+        <section className='header-main'>
             <ToastContainer />
             <section className="secao-header">
                 <Link className='header-img' to='/'><img src='/assets/images/logoTCC.png' /></Link>
                 <div className='secao-header-input-div'>
                     <img src='/assets/images/lupa.svg'/>
                     
-                    <input type='text' placeholder='Pesquisar eventos, shows, teatros, festas...' onChange={(e) => setBusca(e.target.value)} onKeyDown={(e) => HandleEnterDown(e)} onClick={() => setlistagembuscaMostrarDialog(true)}/>
+                    <input type='text' ref={searchInputRef} placeholder='Pesquisar eventos, shows, teatros, festas...' onChange={(e) => setBusca(e.target.value)} onKeyDown={(e) => HandleEnterDown(e)} onClick={() => setlistagembuscaMostrarDialog(true)}/>
 
                     {listagembuscaMostrarDialog && busca.length > 0 && 
                         <dialog open className='infos-Barra_de_pesquisa-header'>
+                            <h1>Resultados</h1>
                             <div className='listagem'>
                                 {listagembusca.map((item,index) => (
                                     <CardIngresso 
