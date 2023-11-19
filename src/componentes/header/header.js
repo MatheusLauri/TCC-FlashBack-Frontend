@@ -90,8 +90,8 @@ export function Header() {
     }
 
     useEffect(() => {
-        ListarPedido()
         VerificarLoginAuto()
+        ListarPedido()
     }, [userRightBar])
 
 // Função de cadastro com API
@@ -192,12 +192,12 @@ export function Header() {
             setUserSobrenome(dadosUsuario.data.NM_SOBRENOME)
             setUsuario(dadosUsuario.data.NM_USUARIO)
             SetAniversario(dadosUsuario.data.DT_NASCIMENTO)
+            setIsLogged(true)
 
             // Alert de sucesso para o usuário
             toast.success(`Seja bem-vindo, ${dadosUsuario.data.NM_CLIENTE} ${dadosUsuario.data.NM_SOBRENOME}!`)
 
             // Realizar alterações na renderização dos modais
-            setIsLogged(true)
             setShowModal(false)
             setUserPopUp(false)
 

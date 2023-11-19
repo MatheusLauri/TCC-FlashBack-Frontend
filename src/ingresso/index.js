@@ -19,6 +19,7 @@ import FormatPreco from '../componentsFunctions/formatPrecos';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { toast } from 'react-toastify';
 
 
 export default function IngressoPage() {
@@ -226,41 +227,48 @@ export default function IngressoPage() {
 
 
     async function ClickComprar() {
-        setBuy(true)
-        let idTipos = listarPosicoesOcupadas(qtds)
-        let qtdItens = listarQtds(qtds)
-
-
-        for (let cont = 0; cont < idTipos.length; cont++) {
-            const resp = await axios.post(`http://localhost:5000/pedidoIngresso`, {
-
-                Cliente: 1,
-                Categoria: ingressos.ID_CATEGORIA_INGRESSO,
-                Local: ingressos.ID_LOCAL_EVENTO,
-                Ingresso: ingressos.ID_INGRESSO,
-                Data: idData,
-                Horario: idHorario,
-                TipoIngresso: idTipos[cont],
-                Itens: qtdItens[cont]
-
-
-            })
-
-            let infosComplete = {
-
-                Ingresso: ingressos.NM_EVENTO,
-                Data: data,
-                Horario: horario,
-                TipoIngresso: nmTipos[idTipos[cont]],
-                VlTipo: vlTipo[idTipos[cont]],
-                Itens: qtdItens[cont]
+        const dadosUsuario = JSON.parse(localStorage.getItem('usuario-logado')) ?? null;
+        if (dadosUsuario){
+            setBuy(true)
+            let idTipos = listarPosicoesOcupadas(qtds)
+            let qtdItens = listarQtds(qtds)
+    
+    
+            for (let cont = 0; cont < idTipos.length; cont++) {
+                const resp = await axios.post(`http://localhost:5000/pedidoIngresso`, {
+    
+                    Cliente: 1,
+                    Categoria: ingressos.ID_CATEGORIA_INGRESSO,
+                    Local: ingressos.ID_LOCAL_EVENTO,
+                    Ingresso: ingressos.ID_INGRESSO,
+                    Data: idData,
+                    Horario: idHorario,
+                    TipoIngresso: idTipos[cont],
+                    Itens: qtdItens[cont]
+    
+    
+                })
+    
+                let infosComplete = {
+    
+                    Ingresso: ingressos.NM_EVENTO,
+                    Data: data,
+                    Horario: horario,
+                    TipoIngresso: nmTipos[idTipos[cont]],
+                    VlTipo: vlTipo[idTipos[cont]],
+                    Itens: qtdItens[cont]
+                }
+    
+                listarPedidoIngressoEst1.push(infosComplete)
+                setlistarPedidoIngressoEst1([...listarPedidoIngressoEst1])
+                listarPedidoIngresso.push(resp.data)
+                setlistarPedidoIngresso([...listarPedidoIngresso])
             }
-
-            listarPedidoIngressoEst1.push(infosComplete)
-            setlistarPedidoIngressoEst1([...listarPedidoIngressoEst1])
-            listarPedidoIngresso.push(resp.data)
-            setlistarPedidoIngresso([...listarPedidoIngresso])
         }
+        else{
+            toast.error('É necessário estar logado para comprar!')
+        }
+        
 
     }
 
@@ -407,16 +415,16 @@ export default function IngressoPage() {
                                     <div className='divisor'></div>
 
                                         <p>{data.Dia_Semana}, {data.Dia_Mes} de {data.mesCompleto} de {data.ano} às {horario}</p>
+                                        <div className='wrapper'>
                                         
-                                        {listarPedidoIngressoEst1.map((item) => (
+                                            {listarPedidoIngressoEst1.map((item) => (
 
-                                            <>
-                                                <div>
-                                                    <p>{item.Itens}x {item.TipoIngresso}</p>
-                                                    <p>{FormatPreco(item.VlTipo)}</p>
-                                                </div>
-                                            </>
-                                        ))}
+                                                    <div>
+                                                        <p>{item.Itens}x {item.TipoIngresso}</p>
+                                                        <p>{FormatPreco(item.VlTipo)}</p>
+                                                    </div>
+                                            ))}
+                                        </div>
                                     
                                     <div className='divisor'></div>
                                     <div>
