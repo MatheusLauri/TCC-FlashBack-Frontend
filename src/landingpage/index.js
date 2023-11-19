@@ -34,7 +34,7 @@ function LandingPage() {
   async function ListarCategorias () {
     try {
       const nomeCategorias = [];
-      let r =  await axios.get('http://129.148.42.252:5014/categoria')
+      let r =  await axios.get('http://localhost:5000/categoria')
 
       for (let cont = 0; cont < r.data.length; cont++) {
 
@@ -44,7 +44,7 @@ function LandingPage() {
       const listagem = []; 
       for (let item of nomeCategorias) {
         try {
-          r = await axios.get(`http://129.148.42.252:5014/ingresso/categoria?categoria=${item}`)
+          r = await axios.get(`http://localhost:5000/ingresso/categoria?categoria=${item}`)
           listagem.push(r);
         } catch (error) {
         }
@@ -61,7 +61,7 @@ function LandingPage() {
   async function ListarDestaques () {
     try {
       let listagem = []
-      let r =  await axios.get('http://129.148.42.252:5014/ingresso/destaque')
+      let r =  await axios.get('http://localhost:5000/ingresso/destaque')
       setListarDestaque(r.data)
     } catch (error) {
       

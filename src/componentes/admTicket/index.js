@@ -22,7 +22,7 @@ export default function AdmTicket(props) {
     const horarioFormatado = formatHorario(props.horario)
     
     //IMAGEM
-    const urlImagem = `http://129.148.42.252:5014/${props.imagem}`
+    const urlImagem = `http://localhost:5000/${props.imagem}`
 
     const [click,setClick] = useState(false)
     const [ListarTipos,setListarTipos] = useState([])
@@ -30,7 +30,7 @@ export default function AdmTicket(props) {
     async function ListarTipoIngresso(){
         try {
 
-            let r = `http://129.148.42.252:5014/tipoIngresso/${props.id}`
+            let r = `http://localhost:5000/tipoIngresso/${props.id}`
             let response = await axios.get(r)
             setListarTipos(response.data)
             console.log(ListarTipos)
@@ -47,7 +47,7 @@ export default function AdmTicket(props) {
 
         try {
 
-            const resp = await axios.delete(`http://129.148.42.252:5014/ingresso/${id}`)
+            const resp = await axios.delete(`http://localhost:5000/ingresso/${id}`)
             
         } catch (err) {
 

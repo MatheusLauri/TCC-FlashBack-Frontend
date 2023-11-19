@@ -19,11 +19,11 @@ export default function FiltroCidadePage() {
 
     async function ListarIngressos(){
         try {
-            let response = await axios.get(`http://129.148.42.252:5014/ingresso/buscaUF?uf=${uf}`)
+            let response = await axios.get(`http://localhost:5000/ingresso/buscaUF?uf=${uf}`)
             ticketPush.push(response.data)
             setIngressos(...ticketPush)
             if(ingressos.length == 0){
-                let response = await axios.get(`http://129.148.42.252:5014/ingresso/busca?nome`)
+                let response = await axios.get(`http://localhost:5000/ingresso/busca?nome`)
                 ticketPushSugestao.push(response.data)
                 setIngressosSugestao(...ticketPushSugestao)
             }
