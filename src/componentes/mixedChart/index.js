@@ -9,9 +9,18 @@ export default function MixedChart(props) {
     let listagemData = []
     let listagemQtd = []
 
+    let listagem2 = []
+    let listagemData2 = []
+    let listagemQtd2 = []
+
+    let listagemDatas = []
+
     //Função que lê o response da API e cria um array listando as datas
     userData.map(item => {
         listagem.push(item.DT_CADASTRO)
+    })
+    empresaData.forEach(item => {
+      listagem2.push(item.DT_CADASTRO)
     })
 
     //Função que pega o array de datas, transforma-os em chaves unicas e lista por qtd
@@ -33,37 +42,43 @@ export default function MixedChart(props) {
     }
     
     const resultado = contarCadastrosPorDia(listagem);
+    const resultado2 = contarCadastrosPorDia(listagem2);
+
     resultado.forEach(item => {
         listagemData.push(item.data)
         listagemQtd.push(item.quantidade)
     })
-    console.log(listagemData,listagemQtd)
+    resultado2.forEach(item => {
+      listagemData2.push(item.data)
+      listagemQtd2.push(item.quantidade)
+  })
 
+  function unirEOrdenarDatas(array1, array2) {
+    // Unir os dois arrays e remover duplicatas usando um Set
+    const datasUnicas = new Set([...array1, ...array2]);
+
+    // Converter o Set de volta para um array e ordenar as datas
+    const datasOrdenadas = Array.from(datasUnicas).sort((a, b) => new Date(a) - new Date(b));
+
+    return datasOrdenadas;
+}
+  listagemDatas = unirEOrdenarDatas(listagemData,listagemData2)
+
+  console.log(listagemDatas,listagemQtd,listagemQtd2)
 
     let state = {
             
         series: [{
           name: 'Cadastro de Clientes',
-          type: 'line',
+          type: 'column',
           data: listagemQtd,
-          colors: ['#520ad9'],
-          fill: {
-            colors: ['#520ad9']
-          },
-          style: {
-            colors: ['#F9DD4A', '#520ad9' ]
-          }
         },
          {
           name: 'Cadastro de Empresas',
-          type: 'column',
-          data: [440, 505]
+          type: 'line',
+          data: listagemQtd2
         }],
-        colors: ['#F9DD4A'],
         options: {
-          fill: {
-            colors: ['#520ad9']
-          },
          
           chart: {
             height: 350,
@@ -72,22 +87,15 @@ export default function MixedChart(props) {
           },
           stroke: {
             width: [0, 4],
-            colors: ['#F9DD4A'],
           },
           title: {
             text: 'Controle de Cadastros'
           },
-          markers: {
-            colors: ['#F9DD4A', '#520ad9']
-          },
           dataLabels: {
             enabled: true,
             enabledOnSeries: [1],
-            style: {
-                colors: ['#F9DD4A', '#520ad9' ]
-            }
           },
-          labels: listagemData,
+          labels: listagemDatas,
           xaxis: {
             type: 'datetime'
           },

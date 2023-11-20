@@ -153,7 +153,12 @@ export default function AdmDashboard() {
                 emai_to: email,
                 reply_to: "naoresponda.flashback@gmail.com"
             }
-            emailjs.send("GmailService","template_tscrywf", params,"o4dTb4R0Y__hwBfwK")
+            try {
+                emailjs.send("GmailService","template_tscrywf", params,"o4dTb4R0Y__hwBfwK")
+                toast.success('email enviado com sucesso.')
+            } catch (error) {
+                toast.error('Erro de envio')
+            }
             
         } catch (error) {
             toast.error(error)
@@ -321,7 +326,7 @@ export default function AdmDashboard() {
         if (menu == 1 || menu == 2 || menu == 5) {
             ListarUsuarios()
         }
-        if (menu == 3 || menu == 5) {
+        if (menu == 1 || menu == 3 || menu == 5) {
             ListarEmpresas()
         }
         if (menu == 4 || menu == 1) {

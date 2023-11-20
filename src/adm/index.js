@@ -150,12 +150,6 @@ export default function AdmPage() {
 
 
 
-    useEffect(() => {
-        
-
-    }, [])
-
-
 
     function MenuPage(pagedata) {
 
@@ -746,8 +740,8 @@ export default function AdmPage() {
                                                     <div className='text-input-box'>
                                                         <input type='date' value={dataIngresso} onChange={(e) => setDataIngresso(e.target.value)} />
                                                     </div>
-                                                    <a onClick={CadastrarData}>Adicionar data</a>
-                                                    <p onClick={() => console.log(listarHorarios)}>Clique na caixa de data para adicionar os horários</p>
+                                                    <a onClick={() => CadastrarData()}>Adicionar data</a>
+                                                    <p>Clique na caixa de data para adicionar os horários</p>
                                                     <a onClick={() => setToggleCondicional(1)}>Adicionar Tipo Ingresso</a>
 
                                                 </div>
@@ -812,7 +806,7 @@ export default function AdmPage() {
                                                         <div className='body'>
                                                             <div className='input-row'>
                                                                 <input type='time' placeholder='Horário' value={horarioIngresso} onChange={(e) => setHorarioIngresso(e.target.value)} />
-                                                                <a onClick={CadastrarHorario}>Adicionar</a>
+                                                                <a onClick={() => CadastrarHorario()}>Adicionar</a>
                                                             </div>
                                                             <div className='body-table'>
 
@@ -862,7 +856,7 @@ export default function AdmPage() {
                                                     <>
                                     
                                                         <button onClick={() => AdicionarIngresso()}>Adicionar ingresso</button>
-                                                        <button onClick={novoIngressoClick}>Novo Ingresso</button>
+                                                        <button onClick={() => novoIngressoClick()}>Novo Ingresso</button>
                                                     </>
 
                                                 }
