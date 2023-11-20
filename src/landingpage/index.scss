@@ -95,6 +95,9 @@ body{
             flex-direction: column;
             width: 100%;
             padding: 0 60px;
+            .mySwiper{
+                width: 100%;
+            }
         }
         .secao-03-carrosel:last-child{
             margin-bottom: 200px;
@@ -105,17 +108,26 @@ body{
             width: 100%;
             padding: 0 60px;
             .carrosel-controller{
+                padding-right: 3rem;
                 display: flex;
                 flex-direction: row;
                 width: 100%;
                 align-items: center;
                 justify-content: flex-end;
                 gap: 14px;
-                >svg:first-child{
-                    rotate: 180deg;
-                    fill: yellow;
-                    z-index: -1;
+                a{
+                    svg{
+                        font-size: 35px;
+                        color: #520DA9;
+                    }
                 }
+                .swiper-button-disabled{
+                    svg{
+                        color: #C2C2C2;
+                    }
+                }
+                
+                
             }
             
             .carrosel-cidade{

@@ -14,10 +14,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { Pagination, Autoplay, EffectFade } from 'swiper/modules'
+import { Pagination, Autoplay, EffectFade, Navigation } from 'swiper/modules'
 import DestaqueBox from '../componentes/destaquesBox';
 import 'swiper/css/effect-fade';
 import { useRef } from 'react';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+
 
 function LandingPage() {
 
@@ -71,7 +74,8 @@ function LandingPage() {
     ListarDestaques();
     ListarCategorias()
   }, []);
-
+  const navigationNextRef = useRef(null);
+  const navigationPrevRef = useRef(null);
 
   return (
     <div className="body">
@@ -140,29 +144,69 @@ function LandingPage() {
       <section className='secao-03'>
         <TitleTag className='titletag' text='Explore o país!'/>
         <div className='secao-03-carrosel-cidade'>
+            <div className='carrosel-controller'>
+              <a ref={navigationPrevRef}>
+                <ArrowCircleLeftIcon/>
+              </a>
+              <a ref={navigationNextRef}>
+                <ArrowCircleRightIcon/>
+              </a>
+            </div>
           <div className='carrosel-cidade'>
-            <Glider
-              iconLeft='‹'
-              iconRight='›'
-              draggable
-              hasArrows
-              slidesToShow='5'
-              slidesToScroll='5'
+            <Swiper
+              slidesPerView={6}
+              spaceBetween={30}
+              modules={[Navigation]}
+              navigation={{
+                prevEl: navigationPrevRef.current,
+                nextEl: navigationNextRef.current,
+              }}
+              className="mySwiper"
             >
-              <BoxCity city='São Paulo' src='./assets/images/sp.png' uf='sp'/>
-              <BoxCity city='Rio de Janeiro' src='./assets/images/rio.png' uf='rj'/>
-              <BoxCity city='Minas Gerais' src='./assets/images/bh.png' uf='bh'/>
-              <BoxCity city='Santa Catarina' src='./assets/images/SC.jpg' uf='sc'/>
-              <BoxCity city='Rio Grande do Sul' src='./assets/images/porto.png' uf='rs'/>
-              <BoxCity city='Paraná' src='./assets/images/PR.jpg' uf='pr'/>
-              <BoxCity city='Bahia' src='./assets/images/salvador.png' uf='ba'/>
-              <BoxCity city='Maranhão' src='./assets/images/maranhao.jpg' uf='ma'/>
-              <BoxCity city='Mato grosso' src='./assets/images/mt.jpg' uf='mt'/>
-              <BoxCity city='Ceará' src='./assets/images/ceara.jpg' uf='ce'/>
-              <BoxCity city='Paraíba' src='./assets/images/paraiba.jpg' uf='pb'/>
-              <BoxCity city='Pará' src='./assets/images/para.jpg' uf='pa'/>
-              <BoxCity city='Goias' src='./assets/images/goias.jpg' uf='go'/>
-            </Glider>
+              <SwiperSlide>
+                <BoxCity city='São Paulo' src='./assets/images/sp.png' uf='sp'/>
+              </SwiperSlide>
+              <SwiperSlide>
+                <BoxCity city='Rio de Janeiro' src='./assets/images/rio.png' uf='rj'/>
+              </SwiperSlide>
+              <SwiperSlide>
+                <BoxCity city='Minas Gerais' src='./assets/images/bh.png' uf='bh'/>
+              </SwiperSlide>
+              <SwiperSlide>
+                <BoxCity city='Santa Catarina' src='./assets/images/SC.jpg' uf='sc'/>
+              </SwiperSlide>
+              <SwiperSlide>
+                <BoxCity city='Rio Grande do Sul' src='./assets/images/porto.png' uf='rs'/>
+              </SwiperSlide>
+              <SwiperSlide>
+                <BoxCity city='Paraná' src='./assets/images/PR.jpg' uf='pr'/>
+              </SwiperSlide>
+              <SwiperSlide>
+                <BoxCity city='Bahia' src='./assets/images/salvador.png' uf='ba'/>
+              </SwiperSlide>
+              <SwiperSlide>
+                <BoxCity city='Maranhão' src='./assets/images/maranhao.jpg' uf='ma'/>
+              </SwiperSlide>
+              <SwiperSlide>
+                <BoxCity city='Mato grosso' src='./assets/images/mt.jpg' uf='mt'/>
+              </SwiperSlide>
+              <SwiperSlide>
+                <BoxCity city='Ceará' src='./assets/images/ceara.jpg' uf='ce'/>
+              </SwiperSlide>
+              <SwiperSlide>
+                <BoxCity city='Paraíba' src='./assets/images/paraiba.jpg' uf='pb'/>
+              </SwiperSlide>
+              <SwiperSlide>
+                <BoxCity city='Pará' src='./assets/images/para.jpg' uf='pa'/>
+              </SwiperSlide>
+              <SwiperSlide>
+                <BoxCity city='Goias' src='./assets/images/goias.jpg' uf='go'/>
+              </SwiperSlide>
+            </Swiper>
+            <div className='slider-controller'>
+              <div className='swiper-pagination'></div>
+            </div>
+            
           </div>
         </div>
         
@@ -171,18 +215,18 @@ function LandingPage() {
                 <>
                   <TitleTag className='titletag' text={item.data[0].NM_CATEGORIA_INGRESSO} />
                   <div className='secao-03-carrosel'  >
-                    <Glider
-                        iconLeft='‹'
-                        iconRight='›'
-                        draggable
-                        hasArrows
-                        slidesToShow={4}
-                        slidesToScroll={4}
+                    <Swiper
+                      slidesPerView={6}
+                      spaceBetween={30}
+                      modules={[Navigation]}
+                      className="mySwiper"
                     >
                       {item.data.map((item,index) => (
-                        <BoxIngresso nome={item.NM_EVENTO} data={item.DT_COMECO} horario={item.DS_HORARIO} imagem={item.IMAGEM_INGRESSO} logradouro={item.DS_LOGRADOURO} cidade={item.DS_LOCALIDADE} uf={item.DS_UF} id={item.ID_INGRESSO} num={item.DS_NUM}/>
+                        <SwiperSlide>
+                          <BoxIngresso nome={item.NM_EVENTO} data={item.DT_COMECO} horario={item.DS_HORARIO} imagem={item.IMAGEM_INGRESSO} logradouro={item.DS_LOGRADOURO} cidade={item.DS_LOCALIDADE} uf={item.DS_UF} id={item.ID_INGRESSO} num={item.DS_NUM}/>
+                        </SwiperSlide>
                       ))}
-                    </Glider>
+                    </Swiper>
                   </div>
                   
                 </>

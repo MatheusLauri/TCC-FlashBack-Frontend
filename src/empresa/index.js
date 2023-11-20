@@ -65,7 +65,7 @@ export default function Empresa() {
             let url = `http://localhost:5000/formulario`
 
             let response = await axios.post(url, {
-                cnpj: cnpj,
+                cnpj: cnpj.replace(/\D/g, ''),
                 senha: senha
             })
 
