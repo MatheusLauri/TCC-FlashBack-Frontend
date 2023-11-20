@@ -19,6 +19,13 @@ body{
             flex-direction: row;
             justify-content: space-between;
             margin-bottom: 70px;
+            .mySwiper{
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+            }
         }
         
     }
@@ -97,6 +104,24 @@ body{
             padding: 0 60px;
             .mySwiper{
                 width: 100%;
+            }
+            .carrosel-controller{
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                gap: 1rem;
+                a{
+                    svg{
+                        font-size: 35px;
+                        color: #520DA9;
+                    }
+                }
+                .swiper-button-disabled{
+                    svg{
+                        color: #C2C2C2;
+                    }
+                }
             }
         }
         .secao-03-carrosel:last-child{

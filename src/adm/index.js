@@ -93,7 +93,22 @@ export default function AdmPage() {
 
     const [horarioIngresso, setHorarioIngresso] = useState()
     const [listarHorarios, setListarHorarios] = useState([])
-
+    
+    useEffect(() => {
+        if( localStorage.getItem('empresa-logada')){
+            let empresalogged = localStorage.getItem('empresa-logada')
+            empresalogged = JSON.parse(empresalogged)
+    
+            let id_Empresa = empresalogged.data.ID_EMPRESA;
+    
+            setIdEmpresa(id_Empresa)
+           
+        }
+        else{
+            navigate('/empresas/login')
+        }
+        
+    }, [])
 
     async function ListarIngressos() {
         const listagem = []
@@ -136,12 +151,7 @@ export default function AdmPage() {
 
 
     useEffect(() => {
-        let empresalogged = localStorage.getItem('empresa-logada')
-        empresalogged = JSON.parse(empresalogged)
-
-        let id_Empresa = empresalogged.data.ID_EMPRESA;
-
-        setIdEmpresa(id_Empresa)
+        
 
     }, [])
 
@@ -703,27 +713,22 @@ export default function AdmPage() {
                                                 <div className='text-inputs-box' >
                                                     <div className='text-input-box'>
                                                         <input type='text' placeholder='CEP' onBlur={buscarInfosLocal} value={CEP} onChange={(e) => setCEP(e.target.value)} />
-                                                        <img src='' />
                                                     </div>
 
                                                     <div className='text-input-box'>
                                                         <input type='text' placeholder='Logradouro' value={logradouro} onChange={(e) => setLogradouro(e.target.value)} />
-                                                        <img src='' />
                                                     </div>
 
                                                     <div className='text-input-box'>
                                                         <input type='text' placeholder='Bairro' value={bairro} onChange={(e) => setBairro(e.target.value)} />
-                                                        <img src='' />
                                                     </div>
 
                                                     <div className='text-input-box'>
                                                         <input type='text' placeholder='Localidade' value={cidade} onChange={(e) => setCidade(e.target.value)} />
-                                                        <img src='' />
                                                     </div>
 
                                                     <div className='text-input-box'>
                                                         <input type='text' placeholder='UF' value={uf} onChange={(e) => setUf(e.target.value)} />
-                                                        <img src='' />
                                                     </div>
 
                                                     <div className='text-input-box'>
@@ -740,7 +745,6 @@ export default function AdmPage() {
 
                                                     <div className='text-input-box'>
                                                         <input type='date' value={dataIngresso} onChange={(e) => setDataIngresso(e.target.value)} />
-                                                        <img src='' />
                                                     </div>
                                                     <a onClick={CadastrarData}>Adicionar data</a>
                                                     <p onClick={() => console.log(listarHorarios)}>Clique na caixa de data para adicionar os horários</p>

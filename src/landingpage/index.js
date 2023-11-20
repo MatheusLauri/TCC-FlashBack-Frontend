@@ -83,26 +83,52 @@ function LandingPage() {
       <section className='secao-01' ref={homeRef} id="inicio">
         <h1 onClick={() => console.log(listarCategoria)}>Explore e viva a diversão!</h1>
         <div className='secao-01-categoria'>
-          <TrianguloCategoria 
-            src='./assets/images/teatro.svg' 
-            text='Teatros e espetáculos'
-          />
-          <TrianguloCategoria 
-            src='./assets/images/junina.svg' 
-            text='Festas Juninas'
-          />
-          <TrianguloCategoria 
-            src='./assets/images/agenda.svg' 
-            text='Festas e shows'
-          />
-          <TrianguloCategoria 
-            src='./assets/images/palestra.svg' 
-            text='Palestras e congressos'
-          />
-          <TrianguloCategoria 
-            src='./assets/images/balao.svg' 
-            text='Infantil'
-          />
+          <Swiper
+            slidesPerView={6}
+            spaceBetween={30}
+            modules={[Navigation]}
+            centerInsufficientSlides={true}
+            navigation={{
+              prevEl: navigationPrevRef.current,
+              nextEl: navigationNextRef.current,
+            }}
+            className="mySwiper"
+          >
+            <SwiperSlide>
+              <TrianguloCategoria 
+                src='./assets/images/teatro.svg' 
+                text='Teatros e espetáculos'
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <TrianguloCategoria 
+                src='./assets/images/junina.svg' 
+                text='Festas Juninas'
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <TrianguloCategoria 
+                src='./assets/images/agenda.svg' 
+                text='Festas e shows'
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <TrianguloCategoria 
+                src='./assets/images/palestra.svg' 
+                text='Palestras e congressos'
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <TrianguloCategoria 
+                src='./assets/images/balao.svg' 
+                text='Infantil'
+              />
+            </SwiperSlide>
+            
+            
+            
+            
+          </Swiper>
         </div>
       </section>
       <div className='main-faixa-eventos'>
@@ -215,10 +241,22 @@ function LandingPage() {
                 <>
                   <TitleTag className='titletag' text={item.data[0].NM_CATEGORIA_INGRESSO} />
                   <div className='secao-03-carrosel'  >
+                    <div className='carrosel-controller'>
+                      <a className={`prev${index}`} onClick={() => console.log(`prev${index}`)}>
+                        <ArrowCircleLeftIcon/>
+                      </a>
+                      <a className={`next${index}`}>
+                        <ArrowCircleRightIcon/>
+                      </a>
+                    </div>
                     <Swiper
                       slidesPerView={6}
                       spaceBetween={30}
                       modules={[Navigation]}
+                      navigation={{
+                        prevEl: `.prev${index}`,
+                        nextEl: `.next${index}`
+                      }}
                       className="mySwiper"
                     >
                       {item.data.map((item,index) => (
