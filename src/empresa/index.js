@@ -8,6 +8,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useRef } from 'react';
 import { useEffect } from 'react';
+import InputMask from 'react-input-mask';
 
 
 export default function Empresa() {
@@ -27,17 +28,23 @@ export default function Empresa() {
     const [logradouro, setLogradouro] = useState('')
     const [senha, setSenha] = useState('')
     const homeRef = useRef(null);
-
+    
     useEffect(() => {
         // Scroll para o início da página
         homeRef.current.scrollIntoView({ behavior: 'smooth' });
     }, []);
 
     async function ListarCnpj() {
+        
         try {
-            let url = `http://localhost:5000/getCnpj?cnpj=${cnpj}`
+            let url = `http://localhost:5000/getCnpj?cnpj=${cnpj.replace(/\D/g, '')}`
             let response = await axios.get(url)
-            setNmFantasia(response.data.fantasia)
+            if (response.data.fantasia){
+                setNmFantasia(response.data.fantasia)
+            }
+            else{
+                setNmFantasia('Não encontrado.')
+            }
             setRazaoSocial(response.data.nome)
             setEmail(response.data.email)
             setBairro(response.data.bairro)
@@ -99,15 +106,15 @@ export default function Empresa() {
                     <small><b>Preencha o formulário:</b></small>
                     <div className='wrapper'>
 
-                        <input type='text' placeholder='Insira o CNPJ' value={cnpj} onChange={(e) => setCnpj(e.target.value)} onBlur={() => { cnpj.length > 0 && ListarCnpj() }} />
+                        <InputMask mask="99.999.999/9999-99" placeholder="Insira o CNPJ" value={cnpj} onChange={(e) => setCnpj(e.target.value)} onBlur={() => ListarCnpj() } />
                         <input type='text' placeholder='Nome Fantasia' value={nmFantasia} onChange={(e) => setNmFantasia(e.target.value)}/>
                         <input type='text' placeholder='Razão Social' value={razaoSocial} onChange={(e) => setRazaoSocial(e.target.value)}/>
                         <input type='text' placeholder='E-mail' value={email} onChange={(e) => setEmail(e.target.value)}/>
                         <input type='text' placeholder='Bairro' value={bairro} onChange={(e) => setBairro(e.target.value)}/>
                         <input type='text' placeholder='Numero' value={numero} onChange={(e) => setNumero(e.target.value)}/>
                         <input type='text' placeholder='Municipio' value={municipio} onChange={(e) => setMunicipio(e.target.value)}/>
-                        <input type='text' placeholder='UF' value={uf} onChange={(e) => setUf(e.target.value)}/>
-                        <input type='text' placeholder='CEP' value={cep} onChange={(e) => setCep(e.target.value)}/>
+                        <input type='text' placeholder='UF' maxLength={2} value={uf} onChange={(e) => setUf(e.target.value)}/>
+                        <InputMask mask="99999-999" placeholder="CPF" value={cep} onChange={(e) => setCep(e.target.value)}/>
                         <input type='text' placeholder='Logradouro' value={logradouro} onChange={(e) => setLogradouro(e.target.value)}/>
                         <input type='text' placeholder='Senha' value={senha} onChange={(e) => setSenha(e.target.value)} />
 

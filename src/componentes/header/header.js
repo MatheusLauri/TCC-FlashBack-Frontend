@@ -12,6 +12,7 @@ import { CardIngresso } from '../cardIngressoPesquisa';
 import Card from '../card-Meuspedidos';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import RoomIcon from '@mui/icons-material/Room';
+import InputMask from 'react-input-mask';
 
 export function Header() {
     const navigate = useNavigate();
@@ -397,7 +398,7 @@ export function Header() {
                                     <h2 className="title">Entrar</h2>
                                     <div className="input-field">
                                         <i className="fas fa-user"></i>
-                                        <input type="text" placeholder="Usuário, E-mail ou CPF" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                        <input type="text" placeholder="Usuário, E-mail ou CPF"  value={email} onChange={(e) => setEmail(e.target.value)} />
                                     </div>
                                     <div className="input-field">
                                         <i className="fas fa-lock"></i>
@@ -419,7 +420,8 @@ export function Header() {
                                         </div>
                                         <div className="input-field">
                                             <i className="fas fa-envelope"></i>
-                                            <input type="text" placeholder="CPF"  value={cpfUsuario}  onChange={e => setcpfUsuario(e.target.value)}/>
+                                            <InputMask mask="999.999.999-99" placeholder="CPF" value={cpfUsuario} onChange={e => setcpfUsuario(e.target.value)}/>
+
                                         </div>
                                         <div className="input-field">
                                             <i className="fas fa-lock"></i>
