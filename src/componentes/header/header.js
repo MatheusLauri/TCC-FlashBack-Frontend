@@ -17,7 +17,7 @@ import InputMask from 'react-input-mask';
 export function Header() {
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false)
-    const [isLogged, setIsLogged] = useState(false)
+    const [isLogged, setIsLogged] = useState('waiting')
 
 // Variáveis de Cadastro do usuário
     const [NomeUsuario, setNomeUsuario] = useState('');
@@ -58,6 +58,7 @@ export function Header() {
 
     function VerificarLoginAuto() {
         const dadosUsuario = JSON.parse(localStorage.getItem('usuario-logado')) ?? null;
+
         if (dadosUsuario) {
             // O usuário está logado, você pode definir o estado de autenticação aqui
             // Exemplo utilizando um estado com React
@@ -75,7 +76,9 @@ export function Header() {
             SetAniversario(dadosUsuario.data.DT_NASCIMENTO)
             
         }
+        
     }
+
     async function ListarPedido() {
         try {
             let user = localStorage.getItem(`usuario-logado`)
@@ -208,28 +211,8 @@ export function Header() {
 
     }
 
-    
-    // useEffect(() => {
-    //     let empresalogged = localStorage.getItem('empresa-logada')
-    //     empresalogged = JSON.parse(empresalogged)
 
-    //     let id_Empresa = empresalogged.data.ID_EMPRESA;
 
-    //     setIdEmpresa(id_Empresa)
-
-    // }, [])
-
-    useEffect(() => {
-        if( localStorage.getItem('usuario-logado')){
-            let usuariologged = localStorage.getItem('usuario-logado')
-            usuariologged = JSON.parse(usuariologged)
-        
-            setUserr(usuariologged.data.NM_USUARIO)
-        
-           
-        }
-        
-    }, [])
 
     const [userr, setUserr] = useState()
 
@@ -321,7 +304,7 @@ export function Header() {
                         <KeyboardArrowDownIcon/>
                     </div>
                     <Link className='revendedor' to={'/empresas'}>Seja um revendedor!</Link>
-                    {isLogged && userr
+                    {isLogged
                         ?   <>
                             <div className='user-div'>
                                 <div className='user' onClick={() => setUserPopUp(!userPopUp)}>
@@ -344,7 +327,7 @@ export function Header() {
                             
                             </>
 
-                            : <a onClick={() => setShowModal(!showModal)}>Entrar</a>
+                        : <a onClick={() => setShowModal(!showModal)}>Entrar</a>
                     }
                         </div>
 
@@ -420,7 +403,7 @@ export function Header() {
                                         </div>
                                         <div className="input-field">
                                             <i className="fas fa-envelope"></i>
-                                            <InputMask mask="999.999.999-99" placeholder="CPF" value={cpfUsuario} onChange={e => setcpfUsuario(e.target.value)}/>
+                                            <InputMask mask="999.999.999-99" maskChar=" " placeholder="CPF" value={cpfUsuario} onChange={e => setcpfUsuario(e.target.value)}/>
 
                                         </div>
                                         <div className="input-field">

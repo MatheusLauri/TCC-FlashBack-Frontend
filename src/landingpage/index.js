@@ -20,7 +20,8 @@ import 'swiper/css/effect-fade';
 import { useRef } from 'react';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
-
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 function LandingPage() {
 
@@ -172,10 +173,10 @@ function LandingPage() {
         <div className='secao-03-carrosel-cidade'>
             <div className='carrosel-controller'>
               <a ref={navigationPrevRef}>
-                <ArrowCircleLeftIcon/>
+                <KeyboardArrowLeftIcon/>
               </a>
               <a ref={navigationNextRef}>
-                <ArrowCircleRightIcon/>
+                <KeyboardArrowRightIcon/>
               </a>
             </div>
           <div className='carrosel-cidade'>
@@ -242,11 +243,11 @@ function LandingPage() {
                   <TitleTag className='titletag' text={item.data[0].NM_CATEGORIA_INGRESSO} />
                   <div className='secao-03-carrosel'  >
                     <div className='carrosel-controller'>
-                      <a className={`prev${index}`} onClick={() => console.log(`prev${index}`)}>
-                        <ArrowCircleLeftIcon/>
+                      <a className={`prev${index}`}>
+                        <KeyboardArrowLeftIcon/>
                       </a>
                       <a className={`next${index}`}>
-                        <ArrowCircleRightIcon/>
+                        <KeyboardArrowRightIcon/>
                       </a>
                     </div>
                     <Swiper

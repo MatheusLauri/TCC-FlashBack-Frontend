@@ -21,6 +21,8 @@ import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { toast } from 'react-toastify';
 
+import InputMask from 'react-input-mask';
+
 
 export default function IngressoPage() {
     let { id } = useParams()
@@ -559,15 +561,15 @@ export default function IngressoPage() {
                                             <div className='row'>
                                                 <div>
                                                     <label>Número do cartão</label>
-                                                    <input type='text' placeholder='0000 0000 0000 0000' value={numeroCartao} onChange={(e) => setNumeroCartao(e.target.value)}/>
+                                                    <InputMask mask="9999 9999 9999 9999" placeholder="0000 0000 0000 0000" maskChar=" " value={numeroCartao} onChange={(e) => setNumeroCartao(e.target.value)}/>
                                                 </div>
                                                 <div>
                                                     <label>Data de validade</label>
-                                                    <input type='text' placeholder='MM/AA' value={validade} onChange={(e) => setValidade(e.target.value)}/>
+                                                    <InputMask mask="99/99" placeholder="MM/AA" maskChar=" " value={validade} onChange={(e) => setValidade(e.target.value)}/>
                                                 </div>
                                                 <div>
                                                     <label>Código de segurança</label>
-                                                    <input type='text' placeholder='000' value={cvv} onChange={(e) => setCvv(e.target.value)}/>
+                                                    <InputMask mask="999" placeholder="000" maskChar=" " value={cvv} onChange={(e) => setCvv(e.target.value)}/>
                                                 </div>
                                             </div>
                                             <a onClick={() => {FinalizarCompra();setEstagio(4);setConcluido(3)}}>Finalizar</a>
