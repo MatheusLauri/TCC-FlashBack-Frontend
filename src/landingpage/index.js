@@ -8,7 +8,6 @@ import './index.scss';
 import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import Glider from 'react-glider';
 import "glider-js/glider.min.css";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -18,8 +17,6 @@ import { Pagination, Autoplay, EffectFade, Navigation } from 'swiper/modules'
 import DestaqueBox from '../componentes/destaquesBox';
 import 'swiper/css/effect-fade';
 import { useRef } from 'react';
-import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
-import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
