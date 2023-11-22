@@ -142,7 +142,10 @@ function LandingPage() {
             delay: 2000,
             disableOnInteraction: false,
           }}
-          pagination={{el: '.swiper-pagination', clickable: true, dynamicBullets:true,}}
+          pagination={{
+            dynamicBullets: true,
+            clickable: true
+          }}
           modules={[EffectFade, Pagination, Autoplay]}
           className="mySwiper"
         >
@@ -161,9 +164,6 @@ function LandingPage() {
             </SwiperSlide>
           )}
         </Swiper>
-        <div className='slider-controller'>
-          <div className='swiper-pagination'></div>
-        </div>
       </section>
       <section className='secao-03'>
         <TitleTag className='titletag' text='Explore o país!'/>
