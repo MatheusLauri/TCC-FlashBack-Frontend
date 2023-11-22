@@ -82,7 +82,7 @@ function LandingPage() {
     <div className="body">
       <Header/>
       <section className='secao-01' ref={homeRef} id="inicio">
-        <h1 onClick={() => console.log(listarCategoria)}>Explore e viva a diversão!</h1>
+        <h1>Explore e viva a diversão!</h1>
         <div className='secao-01-categoria'>
           <Swiper
             slidesPerView={6}

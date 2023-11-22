@@ -173,11 +173,21 @@
                     justify-content: flex-end;
                     display: flex;
                     flex-direction: column;
-                    svg:first-child{
-                        transform: rotate(270deg);
+                    a{
+                        svg{
+                            font-size: 35px;
+                            border: 1px solid #520DA9;
+                            border-radius: 50%;
+                            color: #520DA9;
+                            transform: rotate(90deg);
+                        }
                     }
-                    svg{
-                        transform: rotate(90deg);
+                    .swiper-button-disabled{
+                        svg{
+                            color: #C2C2C2;
+                            border: 1px solid #C2C2C2;
+                            border-radius: 50%;
+                        }
                     }
                 }
                 .data-controller{
@@ -185,6 +195,10 @@
                     display: flex;
                     flex-direction: column;
                     justify-content: flex-end;
+                    .mySwiper{
+                        width: 120px;
+                        height: 92.5%;
+                    }
                      .data-selected{
                          width: 100%;
                          height: 120px;

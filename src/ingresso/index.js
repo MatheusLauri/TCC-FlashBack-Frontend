@@ -20,9 +20,11 @@ import CreditCardIcon from '@mui/icons-material/CreditCard';
 import ErrorIcon from '@mui/icons-material/Error';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { toast } from 'react-toastify';
-
+import { Swiper, SwiperSlide } from 'swiper/react';
 import InputMask from 'react-input-mask';
-
+import { Navigation } from 'swiper/modules';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 export default function IngressoPage() {
     let { id } = useParams()
@@ -331,17 +333,30 @@ export default function IngressoPage() {
                         <div className='time-ticket-controller'>
                             <div className='time-ticket-row'>
                                 <div className='paginacao'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 32C7.16344 32 0 24.8366 0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16C32 24.8366 24.8366 32 16 32ZM16 30C23.732 30 30 23.732 30 16C30 8.26801 23.732 2 16 2C8.26801 2 2 8.26801 2 16C2 23.732 8.26801 30 16 30ZM13.9289 23.1L12.5147 21.6858L18.193 16.008L12.5147 10.3289L13.9289 8.91472L21 15.9858L20.979 16.008L21 16.0289L13.9289 23.1Z" fill="gray" /></svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M16 32C7.16344 32 0 24.8366 0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16C32 24.8366 24.8366 32 16 32ZM16 30C23.732 30 30 23.732 30 16C30 8.26801 23.732 2 16 2C8.26801 2 2 8.26801 2 16C2 23.732 8.26801 30 16 30ZM13.9289 23.1L12.5147 21.6858L18.193 16.008L12.5147 10.3289L13.9289 8.91472L21 15.9858L20.979 16.008L21 16.0289L13.9289 23.1Z" fill="#520DA9" /></svg>
+                                    <a className='prev'><KeyboardArrowLeftIcon/></a>
+                                    <a className='next'><KeyboardArrowRightIcon/></a>
                                 </div>
                                 <div className='data-controller'>
-
-                                    {listarDatas.map((item, key) => (
-                                        <div onClick={() => { ListarHorario(item.Id); AltRender('Selecione um horário', 'horario'); setIdData(item.Id); setData(item)}} className={dataSelected == item.Id ? 'data-selected' : 'data-box'}>
-                                            <h1>{item.Dia_Semana}</h1>
-                                            <p>{item.Dia_Mes} {item.mes}</p>
-                                        </div>
-                                    ))}
+                                    <Swiper
+                                        direction='vertical'
+                                        slidesPerView={4}
+                                        spaceBetween={30}
+                                        modules={[Navigation]}
+                                        navigation={{
+                                            prevEl: `.prev`,
+                                            nextEl: `.next`
+                                        }}
+                                        className="mySwiper"
+                                    >
+                                        {listarDatas.map((item, key) => (
+                                            <SwiperSlide>
+                                                <div onClick={() => { ListarHorario(item.Id); AltRender('Selecione um horário', 'horario'); setIdData(item.Id); setData(item)}} className={dataSelected == item.Id ? 'data-selected' : 'data-box'}>
+                                                    <h1>{item.Dia_Semana}</h1>
+                                                    <p>{item.Dia_Mes} {item.mes}</p>
+                                                </div>
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
 
                                 </div>
                                 <div className='time-select'>
@@ -561,15 +576,15 @@ export default function IngressoPage() {
                                             <div className='row'>
                                                 <div>
                                                     <label>Número do cartão</label>
-                                                    <InputMask mask="9999 9999 9999 9999" placeholder="0000 0000 0000 0000" maskChar=" " value={numeroCartao} onChange={(e) => setNumeroCartao(e.target.value)}/>
+                                                    <InputMask mask="9999 9999 9999 9999" placeholder="0000 0000 0000 0000" maskChar={null} value={numeroCartao} onChange={(e) => setNumeroCartao(e.target.value)}/>
                                                 </div>
                                                 <div>
                                                     <label>Data de validade</label>
-                                                    <InputMask mask="99/99" placeholder="MM/AA" maskChar=" " value={validade} onChange={(e) => setValidade(e.target.value)}/>
+                                                    <InputMask mask="99/99" placeholder="MM/AA" maskChar={null} value={validade} onChange={(e) => setValidade(e.target.value)}/>
                                                 </div>
                                                 <div>
                                                     <label>Código de segurança</label>
-                                                    <InputMask mask="999" placeholder="000" maskChar=" " value={cvv} onChange={(e) => setCvv(e.target.value)}/>
+                                                    <InputMask mask="999" placeholder="000" maskChar={null} value={cvv} onChange={(e) => setCvv(e.target.value)}/>
                                                 </div>
                                             </div>
                                             <a onClick={() => {FinalizarCompra();setEstagio(4);setConcluido(3)}}>Finalizar</a>
