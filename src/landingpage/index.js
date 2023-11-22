@@ -251,7 +251,7 @@ function LandingPage() {
                       </a>
                     </div>
                     <Swiper
-                      slidesPerView={6}
+                      slidesPerView={5}
                       spaceBetween={30}
                       modules={[Navigation]}
                       navigation={{

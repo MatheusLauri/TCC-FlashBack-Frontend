@@ -18,7 +18,7 @@ import { useReactToPrint } from 'react-to-print';
 export function Header() {
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false)
-    const [isLogged, setIsLogged] = useState('waiting')
+    const [isLogged, setIsLogged] = useState()
 
 // Variáveis de Cadastro do usuário
     const [NomeUsuario, setNomeUsuario] = useState('');
@@ -282,7 +282,7 @@ export function Header() {
         content: () => componentRef.current,
     });
     return (
-        <section className='header-main'>
+        <section className='header-main' onClick={() => console.log(isLogged)}>
             <ToastContainer />
             <section className="secao-header">
                 <Link className='header-img' to='/'><img src='/assets/images/logoTCC.png' /></Link>
@@ -327,8 +327,7 @@ export function Header() {
                                 </div>
                                 <div className='user-option' style={userPopUp ? {display:'flex'} : {display: 'none'}}>
                                     <div className='baloon'></div>
-                                    <div className='user-option-row' onClick={() => {setUserModal(!userModal); setUserPopUp(!userPopUp)}}
-                                    >
+                                    <div className='user-option-row' onClick={() => {setUserModal(!userModal); setUserPopUp(!userPopUp)}}>
                                         <img src='./assets/images/info.svg'/>
                                         <a>Informações da conta</a>
                                     </div>

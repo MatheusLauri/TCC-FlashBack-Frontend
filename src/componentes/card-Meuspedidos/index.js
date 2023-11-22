@@ -10,7 +10,6 @@ const verificarDisponibilidade = (datetimeDaAPI) => {
     // Cria um objeto Date para o datetime da API e para o tempo atual
     const datetimeAPI = new Date(datetimeDaAPI);
     const agora = new Date();
-    console.log(datetimeAPI)
     // Compara os dois objetos Date
     if (datetimeAPI.getTime() > agora.getTime()) {
       // O datetime da API é posterior ao tempo atual
