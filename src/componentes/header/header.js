@@ -13,6 +13,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import RoomIcon from '@mui/icons-material/Room';
 import InputMask from 'react-input-mask';
 import QRCode from 'react-qr-code';
+import { useReactToPrint } from 'react-to-print';
 
 export function Header() {
     const navigate = useNavigate();
@@ -275,7 +276,11 @@ export function Header() {
           document.removeEventListener('click', outsideClickListener);
         };
     }, [listagembuscaMostrarDialog]);
-     
+
+    const componentRef = useRef(null);
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+    });
     return (
         <section className='header-main'>
             <ToastContainer />
@@ -524,7 +529,7 @@ export function Header() {
                             </>
                         }
                         {pedidoEstagio === 'qrcode' &&
-                            <div className='qrcode-main'>
+                            <div className='qrcode-main'  ref={componentRef}>
                                 <a onClick={() => setPedidoEstagio('tipos')}>Voltar</a>
                                 <h1>Evento</h1>
                                 <div className='qr-box'>
@@ -543,7 +548,7 @@ export function Header() {
                                 
                                 <div className='option-row'>
                                     <a onClick={() => setPedidoEstagio('transfer')}>Transferência</a>
-                                    <a>Imprimir</a>
+                                    <a onClick={() => handlePrint()}>Imprimir</a>
                                 </div>
                             </div>
                         }
