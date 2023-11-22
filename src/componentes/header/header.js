@@ -1,4 +1,3 @@
-
 import { useRef, useState } from 'react';
 import './header.scss'
 import Modal from 'react-modal'
@@ -13,6 +12,7 @@ import Card from '../card-Meuspedidos';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import RoomIcon from '@mui/icons-material/Room';
 import InputMask from 'react-input-mask';
+import QRCode from 'react-qr-code';
 
 export function Header() {
     const navigate = useNavigate();
@@ -50,6 +50,16 @@ export function Header() {
     const [busca, setBusca] = useState('')
     const [listagembusca, setlistagemBusca] = useState([])
     const [listagembuscaMostrarDialog, setlistagembuscaMostrarDialog] = useState(false)
+
+// 
+    const [pedidoEstagio,setPedidoEstagio] = useState('listar')
+    const [pedidoSetado,setPedidoSetado] = useState()
+
+    function SetarEstagio(estagio,id){
+        setPedidoEstagio(estagio)
+        setPedidoSetado(id)
+        console.log(pedidoEstagio,pedidoSetado)
+    }
 
 // Variavel de paginação de Cadastro
     const [page,setPage] = useState(1)
@@ -214,7 +224,6 @@ export function Header() {
 
 
 
-    const [userr, setUserr] = useState()
 
     const [ShowUfModal,setShowUfModal] = useState(false)
 
@@ -403,7 +412,7 @@ export function Header() {
                                         </div>
                                         <div className="input-field">
                                             <i className="fas fa-envelope"></i>
-                                            <InputMask mask="999.999.999-99" maskChar=" " placeholder="CPF" value={cpfUsuario} onChange={e => setcpfUsuario(e.target.value)}/>
+                                            <InputMask mask="999.999.999-99" maskChar={null}  placeholder="CPF" value={cpfUsuario} onChange={e => setcpfUsuario(e.target.value)}/>
 
                                         </div>
                                         <div className="input-field">
@@ -487,13 +496,71 @@ export function Header() {
                     {userRightBar
                     ?
                     <section className='left-side'>
-                        {listarPedido ?
+                        {pedidoEstagio === 'listar' ?
+                            listarPedido
+                            ?
                                 listarPedido.map(item => (
-                                    <Card imagem={item.IMAGEM_INGRESSO} evento={item.NM_EVENTO} rua={item.DS_LOGRADOURO} data={item.DT_INGRESSO} situacao={item.BT_SITUACAO}/>
+                                    <Card f={SetarEstagio} id={item.ID_PEDIDO} imagem={item.IMAGEM_INGRESSO} evento={item.NM_EVENTO} rua={item.DS_LOGRADOURO} data={item.DT_INGRESSO} situacao={item.BT_SITUACAO}/>
                                 ))
                             :
-                                <p>É necessário realizar uma compra para visualizar seus pedidos</p>
+                            <p>É necessário realizar uma compra para visualizar seus pedidos</p>
+                            : null
                         }
+                        {pedidoEstagio === 'tipos' &&
+                            <>
+                                <div className='tipo-ingresso-box'>
+                                    <div>
+                                        <h1>VIP</h1>
+                                        <small>R$ 100,00</small>
+                                        <small><b>Ter - 28 nov | 20h00</b></small>
+                                    </div>
+
+                                    <a onClick={() => setPedidoEstagio('qrcode')}>Visualizar</a>
+
+                                </div>
+                           
+
+                                <a onClick={() => setPedidoEstagio('listar')}><b>Voltar</b></a>
+                            </>
+                        }
+                        {pedidoEstagio === 'qrcode' &&
+                            <div className='qrcode-main'>
+                                <a onClick={() => setPedidoEstagio('tipos')}>Voltar</a>
+                                <h1>Evento</h1>
+                                <div className='qr-box'>
+                                    <QRCode
+                                    size={256}
+                                    style={{ height: "auto", maxWidth: "100%", width: "100%"}}
+                                    value={'joao'}
+                                    viewBox={`0 0 256 256`}
+                                    fgColor='#520DA9'
+                                    />
+                                </div>
+                                <div className='small-row'>
+                                    <small>Teatro Municipal - São Paulo <b>Valor: R$ 199,00</b></small> 
+                                    <small>Ingresso: #28A1J64</small> 
+                                </div>
+                                
+                                <div className='option-row'>
+                                    <a onClick={() => setPedidoEstagio('transfer')}>Transferência</a>
+                                    <a>Imprimir</a>
+                                </div>
+                            </div>
+                        }
+                        {pedidoEstagio === 'transfer' &&
+                            <div className='transfer-main'>
+                                <h1>Transferir Ingresso</h1>
+                                <small>A transferência de ingressos poder ser realizada pelo titular da comprar. <br/><b>É permitida somente uma troca por ingresso, que poderá ser feita até 2 horas antes do início do evento.</b></small>
+                                <p>Informe o e-mail que deseja transferir o ingresso.</p>
+                                <input type='text' placeholder='E-mail'/>
+                                <div className='option-row'>
+                                    <a>Concluir</a>
+                                    <a onClick={() => setPedidoEstagio('qrcode')}>Cancelar</a>
+                                </div>
+                            </div>
+                        }
+                        
+                        
                     </section>
                     :
                     <section className='right-side'> 

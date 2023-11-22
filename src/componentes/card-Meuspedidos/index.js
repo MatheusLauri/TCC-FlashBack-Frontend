@@ -1,3 +1,5 @@
+import formatData from '../../componentsFunctions/formatData';
+import formatHorario from '../../componentsFunctions/formatHorario';
 import './index.scss'
 
 
@@ -25,7 +27,6 @@ const verificarDisponibilidade = (datetimeDaAPI) => {
 
 
 
-
 return (
     <div className='primaria'>
             
@@ -34,7 +35,7 @@ return (
 
                 <div className='informacoes-left'>
 
-                    <p>Sáb, 30 Nov - 20:00</p>
+                    <p>COLOCAR A DATA DPS</p>
 
                     <div className='infos-filhos'>
                         <h3>{props.evento}</h3>
@@ -56,7 +57,7 @@ return (
                         </div>
                 </div>
 
-                <button> Visualizar </button>
+                <button onClick={() => props.f('tipos', props.id)}> Visualizar </button>
             </div>
     </div>
 );

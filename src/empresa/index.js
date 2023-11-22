@@ -106,7 +106,7 @@ export default function Empresa() {
                     <small><b>Preencha o formulário:</b></small>
                     <div className='wrapper'>
 
-                        <InputMask mask="99.999.999/9999-99" maskChar=" " placeholder="Insira o CNPJ" value={cnpj} onChange={(e) => setCnpj(e.target.value)} onBlur={() => ListarCnpj() } />
+                        <InputMask mask="99.999.999/9999-99" maskChar={null} placeholder="Insira o CNPJ" value={cnpj} onChange={(e) => setCnpj(e.target.value)} onBlur={() => ListarCnpj() } />
                         <input type='text' placeholder='Nome Fantasia' value={nmFantasia} onChange={(e) => setNmFantasia(e.target.value)}/>
                         <input type='text' placeholder='Razão Social' value={razaoSocial} onChange={(e) => setRazaoSocial(e.target.value)}/>
                         <input type='text' placeholder='E-mail' value={email} onChange={(e) => setEmail(e.target.value)}/>
@@ -114,7 +114,7 @@ export default function Empresa() {
                         <input type='text' placeholder='Numero' value={numero} onChange={(e) => setNumero(e.target.value)}/>
                         <input type='text' placeholder='Municipio' value={municipio} onChange={(e) => setMunicipio(e.target.value)}/>
                         <input type='text' placeholder='UF' maxLength={2} value={uf} onChange={(e) => setUf(e.target.value)}/>
-                        <InputMask mask="99999-999" maskChar=" " placeholder="CPF" value={cep} onChange={(e) => setCep(e.target.value)}/>
+                        <InputMask mask="99999-999" maskChar={null}  placeholder="CEP" value={cep} onChange={(e) => setCep(e.target.value)}/>
                         <input type='text' placeholder='Logradouro' value={logradouro} onChange={(e) => setLogradouro(e.target.value)}/>
                         <input type='text' placeholder='Senha' value={senha} onChange={(e) => setSenha(e.target.value)} />
 
