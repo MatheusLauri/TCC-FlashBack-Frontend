@@ -313,7 +313,7 @@ export default function IngressoPage() {
     
     }
     
-    console.log(listarPedidoIngresso)
+     //console.log(listarPedidoIngresso)
 
     return (
         <div className='ingresso-body'>
@@ -375,7 +375,7 @@ export default function IngressoPage() {
 
                                 </div>
                                 <div className='time-select'>
-                                    <h1 onClick={() => console.log(qtds)}>{title}</h1>
+                                    <h1>{title}</h1>
                                     <div className='ticket-wrapper'>
                                         {show == 'data' &&
                                             null

@@ -64,7 +64,7 @@ export default function MixedChart(props) {
 }
   listagemDatas = unirEOrdenarDatas(listagemData,listagemData2)
 
-  console.log(listagemDatas,listagemQtd,listagemQtd2)
+   //console.log(listagemDatas,listagemQtd,listagemQtd2)
 
     let state = {
             

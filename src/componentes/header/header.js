@@ -59,7 +59,7 @@ export function Header() {
     function SetarEstagio(estagio,id){
         setPedidoEstagio(estagio)
         setPedidoSetado(id)
-        console.log(pedidoEstagio,pedidoSetado)
+         //console.log(pedidoEstagio,pedidoSetado)
     }
 
 // Variavel de paginação de Cadastro
@@ -282,7 +282,7 @@ export function Header() {
         content: () => componentRef.current,
     });
     return (
-        <section className='header-main' onClick={() => console.log(isLogged)}>
+        <section className='header-main'>
             <ToastContainer />
             <section className="secao-header">
                 <Link className='header-img' to='/'><img src='/assets/images/logoTCC.png' /></Link>

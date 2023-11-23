@@ -11,7 +11,7 @@ import Estagio from '../../componentes/estagioCompra/index.js';
 function ResumoCompra(props) {
 
     if (props.location.state.listarPedidoIngresso) {
-        console.log(props.location.state.listarPedidoIngresso);
+         //console.log(props.location.state.listarPedidoIngresso);
     }
 
 
