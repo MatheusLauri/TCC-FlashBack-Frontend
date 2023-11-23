@@ -289,11 +289,12 @@
 .cadastromodal{
     padding: 20px;
     border: none;
+    overflow: auto;
     outline: none;
     position: absolute;
     background-color: white;
-    bottom: 20%;
-    top: 20%;
+    bottom: 10%;
+    top: 10%;
     right: 30%;
     left: 30%;
     border-radius: 25px;

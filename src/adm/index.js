@@ -441,6 +441,7 @@ export default function AdmPage() {
 
 
     async function DeletarData(idArray, idData) {
+        const setData = new Set();
 
         listarDatas.splice(idArray, 1)
 
@@ -448,12 +449,19 @@ export default function AdmPage() {
 
         const resp = await axios.delete(`http://localhost:5000/data/${idData}`)
 
-        for (let item of listarHorarios) {
-            if (item.Data === idData) {
-                listarHorarios.splice(listarHorarios.indexOf(item.Data), 1)
-                setListarHorarios([...listarHorarios])
-            }
-        }
+        // for (let item of listarHorarios) {
+        //     if (item.Data === idData) {
+        //         listarHorarios.splice(listarHorarios.indexOf(item.Data), 1)
+        //         setListarHorarios([...listarHorarios])
+        //     }
+        // }
+
+        const filterData = listarHorarios.filter((data) => {
+            const apagarHorarios = setData.has(data.Data);
+            setData.add(data.Data);
+            return !apagarHorarios;
+          });
+        
 
     }
 

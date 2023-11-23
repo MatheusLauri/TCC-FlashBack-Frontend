@@ -82,8 +82,8 @@ function LandingPage() {
         <h1>Explore e viva a diversão!</h1>
         <div className='secao-01-categoria'>
           <Swiper
-            slidesPerView={6}
-            spaceBetween={30}
+            slidesPerView={5}
+            spaceBetween={60}
             modules={[Navigation]}
             centerInsufficientSlides={true}
             navigation={{
@@ -178,7 +178,7 @@ function LandingPage() {
             </div>
           <div className='carrosel-cidade'>
             <Swiper
-              slidesPerView={6}
+              slidesPerView={5}
               spaceBetween={30}
               modules={[Navigation]}
               navigation={{

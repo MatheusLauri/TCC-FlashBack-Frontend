@@ -38,6 +38,7 @@ export default function IngressoPage() {
         // Scroll para o início da página
         inicioRef.current.scrollIntoView({ behavior: 'smooth' });
     }, [estagio]);
+
     const [parcelaSelected, setParcelaSelected] = useState('Selecione primeiro')
 
     const [showDescription, setShowDescription] = useState(false)
@@ -293,12 +294,26 @@ export default function IngressoPage() {
             FormaDePag: response.data.ID
         })
         let url3 = `http://localhost:5000/pedido`
-        let response3 = await axios.post(url3,{
-            PedidoIngresso: listarPedidoIngresso[0].ID,
-            FormaPagamento: response2.data.ID
-        })
-        console.log(response,response2,response3)
+
+        
+        for(let cont = 0; cont < listarPedidoIngresso.length; cont++) {
+            let response3 = await axios.post(url3,{
+                PedidoIngresso: listarPedidoIngresso[cont].ID,
+                FormaPagamento: response2.data.ID
+            })
+        }
+
+        // for(let cont = 0; cont < listarPedidoIngresso.length; cont++) {
+        //     let response3 = await axios.post(url3,{
+        //         PedidoIngresso: listarPedidoIngresso[cont].ID,
+        //         FormaPagamento: response2.data.ID
+        //     })
+        // }
+       
+    
     }
+    
+    console.log(listarPedidoIngresso)
 
     return (
         <div className='ingresso-body'>

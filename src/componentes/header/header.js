@@ -502,12 +502,12 @@ export function Header() {
                     <section className='left-side'>
                         {pedidoEstagio === 'listar' ?
                             listarPedido
-                            ?
-                                listarPedido.map(item => (
-                                    <Card f={SetarEstagio} id={item.ID_PEDIDO} imagem={item.IMAGEM_INGRESSO} evento={item.NM_EVENTO} rua={item.DS_LOGRADOURO} data={item.DT_INGRESSO} situacao={item.BT_SITUACAO}/>
-                                ))
-                            :
-                            <p>É necessário realizar uma compra para visualizar seus pedidos</p>
+                                ?
+                                    listarPedido.map(item => (
+                                        <Card f={SetarEstagio} id={item.ID_PEDIDO} imagem={item.IMAGEM_INGRESSO} evento={item.NM_EVENTO} rua={item.DS_LOGRADOURO} data={item.DT_INGRESSO} situacao={item.BT_SITUACAO}/>
+                                    ))
+                                :   <p> É necessário realizar uma compra para visualizar seus pedidos</p>
+                            
                             : null
                         }
                         {pedidoEstagio === 'tipos' &&
