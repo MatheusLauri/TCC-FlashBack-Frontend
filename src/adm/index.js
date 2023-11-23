@@ -623,7 +623,7 @@ export default function AdmPage() {
                                 <section className='search-content'>
                                     <div className='input-div'>
                                         <img src='../assets/images/search.png' />
-                                        <input type='text' placeholder='Ex: Numanice, The town...' value={pesquisa} onChange={(e) => { setPesquisa(e.target.value); console.log(e.target.value) }} />
+                                        <input type='text' placeholder='Ex: Numanice, The town...' value={pesquisa} onChange={(e) => setPesquisa(e.target.value)} />
                                     </div>
                                     <div className='ticket-wrapper'>
                                         {listarIngressos &&

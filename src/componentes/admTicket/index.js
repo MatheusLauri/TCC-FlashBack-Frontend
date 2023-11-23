@@ -33,7 +33,7 @@ export default function AdmTicket(props) {
             let r = `http://localhost:5000/tipoIngresso/${props.id}`
             let response = await axios.get(r)
             setListarTipos(response.data)
-            console.log(ListarTipos)
+             //console.log(ListarTipos)
 
         } catch (error) {
             toast.error(error)
@@ -58,13 +58,13 @@ export default function AdmTicket(props) {
     useEffect(() => {
         ListarTipoIngresso()
     }, [props.busca])
-    console.log(ListarTipos)
+     //console.log(ListarTipos)
     return (
         <div className={showType ? 'adm-ticket-grow' : 'adm-ticket'}>
             {props &&
                 <>
                      <div className='ticket-upper-info'>
-                <p onClick={() => console.log(ListarTipos)}>ID: <span>{props.id}</span></p>
+                <p>ID: <span>{props.id}</span></p>
                 <h1 onClick={() => ListarTipoIngresso()}>{props.nome}</h1>
                 <div className='ticket-controller'>
                     <img src='../assets/images/edit.svg'/>

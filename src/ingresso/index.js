@@ -25,6 +25,8 @@ import InputMask from 'react-input-mask';
 import { Navigation } from 'swiper/modules';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import storage from 'local-storage'
+
 
 export default function IngressoPage() {
     let { id } = useParams()
@@ -58,7 +60,6 @@ export default function IngressoPage() {
     const [title, setTitle] = useState('Selecione uma data')
     const [show, setShow] = useState('data')
 
-    
 
     function AltRender(title, show) {
         setTitle(title)
@@ -233,16 +234,21 @@ export default function IngressoPage() {
 
     async function ClickComprar() {
         const dadosUsuario = JSON.parse(localStorage.getItem('usuario-logado')) ?? null;
+
+
+        console.log(dadosUsuario)
+
         if (dadosUsuario){
             setBuy(true)
             let idTipos = listarPosicoesOcupadas(qtds)
             let qtdItens = listarQtds(qtds)
-    
+
+
     
             for (let cont = 0; cont < idTipos.length; cont++) {
                 const resp = await axios.post(`http://localhost:5000/pedidoIngresso`, {
     
-                    Cliente: 1,
+                    Cliente: dadosUsuario.data.ID_CLIENTE, 
                     Categoria: ingressos.ID_CATEGORIA_INGRESSO,
                     Local: ingressos.ID_LOCAL_EVENTO,
                     Ingresso: ingressos.ID_INGRESSO,
@@ -282,6 +288,7 @@ export default function IngressoPage() {
     const [validade, setValidade] = useState()
     const [cvv, setCvv] = useState()
     
+
     async function FinalizarCompra() {
         let url = `http://localhost:5000/cartao`
         let response = await axios.post (url,{
@@ -313,7 +320,7 @@ export default function IngressoPage() {
     
     }
     
-    console.log(listarPedidoIngresso)
+     //console.log(listarPedidoIngresso)
 
     return (
         <div className='ingresso-body'>
@@ -375,7 +382,7 @@ export default function IngressoPage() {
 
                                 </div>
                                 <div className='time-select'>
-                                    <h1 onClick={() => console.log(qtds)}>{title}</h1>
+                                    <h1>{title}</h1>
                                     <div className='ticket-wrapper'>
                                         {show == 'data' &&
                                             null

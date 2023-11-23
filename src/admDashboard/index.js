@@ -101,7 +101,7 @@ export default function AdmDashboard() {
         let response = await axios.get(url)
         setPedidos(response.data)
         setPedidos10(response.data.slice(0,5))
-        console.log(response.data)
+         //console.log(response.data)
     }
 
     //Função para controle de menu
@@ -135,7 +135,7 @@ export default function AdmDashboard() {
       // Se 'pedidos' for o array que você forneceu
       const resultado = contarIngressosPorCategoria(pedidos);
       
-      console.log(resultado);
+       //console.log(resultado);
       
 
     async function Aprovar(id, razao, email, senha) {
@@ -244,8 +244,8 @@ export default function AdmDashboard() {
         const diferencaEmMinutos = diferencaEmMilissegundos / (1000 * 60);
         const diferencaEmHoras = diferencaEmMinutos / 60;
         let ago = ''
-        console.log(diferencaEmHoras)
-        console.log(diferencaEmMinutos)
+         //console.log(diferencaEmHoras)
+         //console.log(diferencaEmMinutos)
         if (diferencaEmHoras >= 1) {
 
             // Exibir a diferença em horas atrás
@@ -308,7 +308,7 @@ export default function AdmDashboard() {
                 Senha: senhaUsuario
 
             }
-            console.log(cliente)
+             //console.log(cliente)
 
             const r = await axios.post('http://localhost:5000/cliente', cliente)
             toast.success(`Cadastro realizado com sucesso!`)
