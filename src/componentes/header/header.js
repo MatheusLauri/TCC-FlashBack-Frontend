@@ -282,6 +282,13 @@ export function Header() {
         content: () => componentRef.current,
     });
 
+    const ufs = [
+        { abreviado: 'AC', extenso: 'Acre' }, { abreviado: 'AL', extenso: 'Alagoas' }, { abreviado: 'AP', extenso: 'Amapá' }, { abreviado: 'AM', extenso: 'Amazonas' },{ abreviado: 'BA', extenso: 'Bahia' },{ abreviado: 'CE', extenso: 'Ceará' },{ abreviado: 'DF', extenso: 'Distrito Federal' },{ abreviado: 'ES', extenso: 'Espírito Santo' },{ abreviado: 'GO', extenso: 'Goiás' },{ abreviado: 'MA', extenso: 'Maranhão' },{ abreviado: 'MT', extenso: 'Mato Grosso' },{ abreviado: 'MS', extenso: 'Mato Grosso do Sul' },{ abreviado: 'MG', extenso: 'Minas Gerais' },{ abreviado: 'PA', extenso: 'Pará' },{ abreviado: 'PB', extenso: 'Paraíba' },{ abreviado: 'PR', extenso: 'Paraná' },{ abreviado: 'PE', extenso: 'Pernambuco' },{ abreviado: 'PI', extenso: 'Piauí' },{ abreviado: 'RJ', extenso: 'Rio de Janeiro' },{ abreviado: 'RN', extenso: 'Rio Grande do Norte' },{ abreviado: 'RS', extenso: 'Rio Grande do Sul' },{ abreviado: 'RO', extenso: 'Rondônia' },{ abreviado: 'RR', extenso: 'Roraima' },{ abreviado: 'SC', extenso: 'Santa Catarina' },{ abreviado: 'SP', extenso: 'São Paulo' },{ abreviado: 'SE', extenso: 'Sergipe' },{ abreviado: 'TO', extenso: 'Tocantins' }, ];
+    const [ufFiltro,setUfFiltro] = useState('')
+    const ufsFiltrados = ufs.filter((uf) =>
+        uf.extenso.toLowerCase().includes(ufFiltro.toLowerCase())
+    );
+    
     async function obterLocalizacao(){
       try {
         let url = `https://ipinfo.io/json?token=744d391277f690`
@@ -365,7 +372,7 @@ export function Header() {
             >
                 <div className='uf-main'>
                     <h1>Localização</h1>
-                    <input placeholder='Pesquise por estados...'/>
+                    <input placeholder='Pesquise por estados...' value={ufFiltro} onChange={(e) => setUfFiltro(e.target.value)}/>
                     <div className='my-loc'>
                         <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.93126 12.1308C1.9261 12.1308 1.63559 10.7247 2.55465 10.308L20 2.49992C21 1.99995 22 3 21.5 4L13.8527 21.4417C13.4379 22.3727 12.0765 22.0698 12.0765 21.0465L10 14L2.93126 12.1308Z"></path></svg>
                         <div onClick={() => obterLocalizacao()}>
@@ -374,19 +381,12 @@ export function Header() {
                         </div>
                     </div>
                     <div className='wrapper'>
-                        <div onClick={() => navigate('/estado/sp/São Paulo')}>
-                            <RoomIcon/>
-                            <a>São Paulo</a>
-                        </div>
-                        <div>
-                            <RoomIcon/>
-                            <a>Rio de Janeiro</a>
-                        </div>
-                        <div>
-                            <RoomIcon/>
-                            <a>Belo Horizonte</a>
-                        </div>
-                        
+                        {ufsFiltrados.map(item => 
+                            <div onClick={() => navigate(`/estado/${item.abreviado}/${item.extenso}`)}>
+                                <RoomIcon/>
+                                <a>{item.extenso}</a>
+                            </div>
+                        )}
                     </div>
                 </div>
             </Modal>
