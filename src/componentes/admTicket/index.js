@@ -41,7 +41,7 @@ export default function AdmTicket(props) {
         
     }
 
-    //Deltar Ingresso
+    //Deletar Ingresso
 
     async function deletarIngresso (id) {
 
@@ -58,7 +58,7 @@ export default function AdmTicket(props) {
     useEffect(() => {
         ListarTipoIngresso()
     }, [props.busca])
-
+    console.log(ListarTipos)
     return (
         <div className={showType ? 'adm-ticket-grow' : 'adm-ticket'}>
             {props &&
@@ -81,14 +81,14 @@ export default function AdmTicket(props) {
                             <img src='../assets/images/arrow.svg' onClick={() => setShowType(!showType)}/>
                         </div>
                         <div className='body'>
-                            {ListarTipos.map(item =>
+                            {ListarTipos.map((item) => (
                                 <div className='body-row'>
                                     <span>{item.NM_TIPO_INGRESSO}</span>				
                                     <span>{item.QTD_TIPO_INGRESSO} Un</span>
                                     <div></div>
                                     <span>R$ {item.VL_PRECO_TIPO}</span>
                                 </div>
-                            )}
+                            ))}
                             
                         </div>
                     </div>

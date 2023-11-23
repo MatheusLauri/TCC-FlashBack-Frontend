@@ -35,13 +35,13 @@ export default function AdmPage() {
     const [userBar, setUserBar] = useState(false)
     const [userRightBar, setUserRightBar] = useState(false)
 
-    const [prosseguir, setProsseguir] = useState(false)
 
     //Variáveis de login empresa
 
     const navigate = useNavigate();
 
     //Variáveis de cadastro do ingresso 
+    
     const [evento, setEvento] = useState('')
     const [idEmpresa, setIdEmpresa] = useState()
     const [idLocal, setIdLocal] = useState(0)
@@ -53,7 +53,9 @@ export default function AdmPage() {
     const [dtInicio, setDtInicio] = useState('')
     const [dtTermino, setDtTermino] = useState('')
     const [imgIngresso, setImgIngresso] = useState()
+
     //variáveis para a tela de pesquisa de ingressos
+
     const [listarIngressos, setListarIngressos] = useState()
     const [pesquisa, setPesquisa] = useState('')
 
@@ -146,8 +148,7 @@ export default function AdmPage() {
 
     useEffect(() => {
         ListarIngressos()
-    }, [menu, pesquisa])
-
+    }, [menu, listarIngressos, pesquisa])
 
 
 
@@ -173,7 +174,6 @@ export default function AdmPage() {
             if (vetorTipo.length === 0)
                 throw new Error('Insira ao menos um tipo de ingresso!')
 
-            cadastrarTipo()
 
             toast.success('Ingresso Adicionado!')
 
@@ -450,7 +450,7 @@ export default function AdmPage() {
 
         for (let item of listarHorarios) {
             if (item.Data === idData) {
-                listarHorarios.splice(listarHorarios.indexOf(item), 1)
+                listarHorarios.splice(listarHorarios.indexOf(item.Data), 1)
                 setListarHorarios([...listarHorarios])
             }
         }
@@ -502,7 +502,7 @@ export default function AdmPage() {
         setListarpedido(resp.data)
 
     }
-    console.log(vetorTipo)
+    
 
     function SairClickEmpresa() {
 
