@@ -3,7 +3,7 @@ import './index.scss'
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import storage from 'local-storage'
 import { Await, useNavigate } from 'react-router-dom';
-
+import InputMask from 'react-input-mask';
 import MenuAdm from '../componentes/menu-adm'
 import CategorySection from '../componentes/categoryBtn';
 

@@ -19,6 +19,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import MixedChart from '../componentes/mixedChart';
 import emailjs from '@emailjs/browser'
+import InputMask from 'react-input-mask';
 
 export default function AdmDashboard() {
     //Variáveis de controle de menu
@@ -275,10 +276,10 @@ export default function AdmDashboard() {
 
             let empresa = {
 
-                CNPJ: NomeEmpresa,
-                RazaoSocial: cnpjEmpresa,
-                Email: emailEmpresa,
-                Senha: senhaEmpresa
+                DS_CNPJ: NomeEmpresa,
+                NM_RAZAO_SOCIAL: cnpjEmpresa,
+                DS_EMAIL_EMPRESA: emailEmpresa,
+                DS_SENHA_EMPRESA: senhaEmpresa
 
             }
 
@@ -647,7 +648,7 @@ export default function AdmDashboard() {
                                 </div>
                                 <div>
                                     <label>CNPJ</label>
-                                    <input type='text' placeholder='XX. XXX. XXX/0001-XX' value={cnpjEmpresa} onChange={(e) => setcnpjEmpresa(e.target.value)} />
+                                    <InputMask mask="99.999.999/9999-99" maskChar={null} placeholder="Insira o CNPJ"  value={cnpjEmpresa} onChange={(e) => setcnpjEmpresa(e.target.value)}  />
                                 </div>
                                 <div>
                                     <label>E-mail</label>
