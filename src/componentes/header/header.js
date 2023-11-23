@@ -281,6 +281,17 @@ export function Header() {
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
     });
+
+    async function obterLocalizacao(){
+      try {
+        let url = `https://ipinfo.io/json?token=744d391277f690`
+        let response = await axios.get(url)
+        navigate(`/estado/SP/${response.data.region}`)
+      } catch (error) {
+        
+      }
+    };
+    
     return (
         <section className='header-main'>
             <ToastContainer />
@@ -357,7 +368,7 @@ export function Header() {
                     <input placeholder='Pesquise por estados...'/>
                     <div className='my-loc'>
                         <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.93126 12.1308C1.9261 12.1308 1.63559 10.7247 2.55465 10.308L20 2.49992C21 1.99995 22 3 21.5 4L13.8527 21.4417C13.4379 22.3727 12.0765 22.0698 12.0765 21.0465L10 14L2.93126 12.1308Z"></path></svg>
-                        <div>
+                        <div onClick={() => obterLocalizacao()}>
                             <h1>Usar minha localização atual</h1>
                             <small>Encontre eventos perto de você</small>
                         </div>
