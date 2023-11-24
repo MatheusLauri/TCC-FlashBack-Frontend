@@ -94,7 +94,7 @@ export default function ColumnChart(props) {
 
 
                 <div id="chart">
-                    <ReactApexChart options={state.options} series={state.series} type="bar" height={350} width={`250%`}/>
+                    <ReactApexChart options={state.options} series={state.series} type="bar" height={350} width={`200%`}/>
                 </div>
 
 
