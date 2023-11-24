@@ -231,6 +231,7 @@ export default function AdmDashboard() {
             return totalGanhoComDesconto.toFixed(2);
         }
         
+        
     }
 
     async function ListarEmpresas() {
