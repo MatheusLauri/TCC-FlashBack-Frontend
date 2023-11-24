@@ -385,7 +385,7 @@ export default function AdmDashboard() {
                                         <ShoppingCartIcon />
                                         <div className='middle'>
                                             <div className='left'>
-                                                <h1>Total pago às empresas</h1>
+                                                <h1>Custos</h1>
                                                 <span>R$ {calcularQuantidadeTotalVendasComDesconto(pedidos)}</span>
                                             </div>
                                         </div>
