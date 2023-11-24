@@ -276,7 +276,7 @@ export default function IngressoPage() {
 
         let idTipos = listarPosicoesOcupadas(qtds)
         let qtdItens = listarQtds(qtds)
-
+        console.log(dadosUsuario.data)
 
         for (let cont = 0; cont < idTipos.length; cont++) {
             const resp = await axios.post(`http://localhost:5000/pedidoIngresso`, {
@@ -308,12 +308,7 @@ export default function IngressoPage() {
             listarPedidoIngresso.push(resp.data)
             setlistarPedidoIngresso([...listarPedidoIngresso])
         }
-        // for(let cont = 0; cont < listarPedidoIngresso.length; cont++) {
-        //     let response3 = await axios.post(url3,{
-        //         PedidoIngresso: listarPedidoIngresso[cont].ID,
-        //         FormaPagamento: response2.data.ID
-        //     })
-        // }
+        
 
        
     

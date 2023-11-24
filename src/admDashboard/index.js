@@ -42,14 +42,26 @@ export default function AdmDashboard() {
 
         try {
             if (pesquisa.length) {
-                const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome=${pesquisa}`)
+                try {
+
+                    const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome=${pesquisa}`)
+                    setListarIngressos(resp.data)
+
+                } catch (error) {
+                    
+                }
                 
-                setListarIngressos(resp.data)
             }
             else {
-                const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome=`)
+                try {
+
+                    const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome=`)
+                    setListarIngressos(resp.data)
+
+                } catch (error) {
+                    
+                }
                 
-                setListarIngressos(resp.data)
             }
 
         } catch (err) {
@@ -97,11 +109,15 @@ export default function AdmDashboard() {
     const [pedidos10, setPedidos10] = useState([])
 
     async function ListarPedidos() {
-        let url = `http://localhost:5000/listartudo`
-        let response = await axios.get(url)
-        setPedidos(response.data)
-        setPedidos10(response.data.slice(0,5))
-         //console.log(response.data)
+        try {
+            let url = `http://localhost:5000/listartudo`
+            let response = await axios.get(url)
+            setPedidos(response.data)
+            setPedidos10(response.data.slice(0,5))
+        } catch (error) {
+            
+        }
+        
     }
 
     //Função para controle de menu
@@ -109,34 +125,7 @@ export default function AdmDashboard() {
         setMenu(e)
     }
 
-    function contarIngressosPorCategoria(pedidos) {
-        // Criar um objeto para armazenar a contagem de ingressos por categoria
-        const contagemPorCategoria = {};
-      
-        // Iterar sobre os pedidos
-        pedidos.forEach(pedido => {
-          // Obter a categoria do ingresso do pedido
-          const categoria = pedido.NM_CATEGORIA_INGRESSO;
-      
-          // Verificar se a categoria já existe no objeto de contagem
-          if (contagemPorCategoria[categoria] === undefined) {
-            // Se não existir, inicializar com 1
-            contagemPorCategoria[categoria] = 1;
-          } else {
-            // Se existir, incrementar a contagem
-            contagemPorCategoria[categoria]++;
-          }
-        });
-      
-        // Retornar o objeto com a contagem por categoria
-        return contagemPorCategoria;
-      }
-      
-      // Se 'pedidos' for o array que você forneceu
-      const resultado = contarIngressosPorCategoria(pedidos);
-      
-       //console.log(resultado);
-      
+
 
     async function Aprovar(id, razao, email, senha) {
         try {
@@ -164,6 +153,23 @@ export default function AdmDashboard() {
         } catch (error) {
             toast.error(error)
         }
+    }
+
+    let listagemQtdCategoria = []
+    const [qtdC,setQtdC] = useState()
+    async function ListarVendaPorCategoria () {
+        try {
+            for (let cont = 1; cont <= 5; cont++){
+                let url = `http://localhost:5000/CompraPorCategoria/${cont}`
+                let response = await axios.get(url)
+                listagemQtdCategoria[cont] = response.data[0].QTDVENDAS
+            }
+            setQtdC(listagemQtdCategoria)
+        } catch (error) {
+            
+        }
+            
+        
     }
     async function Reprovar(id) {
         try {
@@ -326,6 +332,7 @@ export default function AdmDashboard() {
     useEffect(() => {
         if (menu == 1 || menu == 2 || menu == 5) {
             ListarUsuarios()
+            ListarVendaPorCategoria()
         }
         if (menu == 1 || menu == 3 || menu == 5) {
             ListarEmpresas()
@@ -362,22 +369,12 @@ export default function AdmDashboard() {
                         <AdmUser page='Dashboard' user='Flashback' funcao='Admin' />
                         <div className='painel-row'>
                             <section className='painel'>
-                                <div className='input-time-controller'>
-                                    <div>
-                                        <label>Data de inicio</label>
-                                        <input type='date' placeholder='mm / dd / yyyy' />
-                                    </div>
-                                    <div>
-                                        <label>Data final</label>
-                                        <input type='date' placeholder='mm / dd / yyyy' />
-                                    </div>
-                                </div>
                                 <div className='insights-bar'>
                                     <div className='insight'>
                                         <AnalyticsIcon />
                                         <div className='middle'>
                                             <div className='left'>
-                                                <h1>Total de vendas</h1>
+                                                <h1 onClick={() => console.log(listagemQtdCategoria,qtdC)}>Total de vendas</h1>
                                                 <span>R${calcularQuantidadeTotalVendas(pedidos)}</span>
                                             </div>
                                             
@@ -456,7 +453,7 @@ export default function AdmDashboard() {
                                             </div>
                                         </div>
 
-                                        <span>3849</span>
+                                        <span>{qtdC[1]}</span>
                                     </div>
                                     <div className='analise-box'>
                                         <div className='info-main'>
@@ -467,7 +464,7 @@ export default function AdmDashboard() {
                                             </div>
                                         </div>
 
-                                        <span>3849</span>
+                                        <span>{qtdC[2] || '0'}</span>
                                     </div>
                                     <div className='analise-box'>
                                         <div className='info-main'>
@@ -478,7 +475,7 @@ export default function AdmDashboard() {
                                             </div>
                                         </div>
 
-                                        <span>3849</span>
+                                        <span>{qtdC[3] || '0'}</span>
                                     </div>
                                     <div className='analise-box'>
                                         <div className='info-main'>
@@ -489,7 +486,7 @@ export default function AdmDashboard() {
                                             </div>
                                         </div>
 
-                                        <span>3849</span>
+                                        <span>{qtdC[4] || '0'}</span>
                                     </div>
                                     <div className='analise-box'>
                                         <div className='info-main'>
@@ -500,7 +497,7 @@ export default function AdmDashboard() {
                                             </div>
                                         </div>
 
-                                        <span>3849</span>
+                                        <span>{qtdC[5] || '0'}</span>
                                     </div>
                                     <div className='add-card'>
                                         <AddIcon />
