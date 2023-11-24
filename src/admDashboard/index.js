@@ -22,7 +22,7 @@ import emailjs from '@emailjs/browser'
 import InputMask from 'react-input-mask';
 import BasicAreaChart from '../componentes/basicAreaChart';
 import ColumnChart from '../componentes/columnChart';
-import BarChart from '../componentes/barChart';
+import BasicAreaChartAdm from '../componentes/basicAreaChart copy';
 
 export default function AdmDashboard() {
     //Variáveis de controle de menu
@@ -74,19 +74,19 @@ export default function AdmDashboard() {
 
 
     function calcularQuantidadeTotalVendas(dadosPedidos) {
-    let quantidadeTotalVendas = 0;
+        let quantidadeTotalVendas = 0;
 
-    // Iterar sobre cada pedido e somar o resultado de vl_preco_tipo * qtd_tipo_ingresso
-    dadosPedidos.forEach((pedido) => {
-        const precoTipo = parseFloat(pedido.VL_PRECO_TIPO);
-        const quantidadeTipo = parseInt(pedido.QTD_ITENS, 10);
+        // Iterar sobre cada pedido e somar o resultado de vl_preco_tipo * qtd_tipo_ingresso
+        dadosPedidos.forEach((pedido) => {
+            const precoTipo = parseFloat(pedido.VL_PRECO_TIPO);
+            const quantidadeTipo = parseInt(pedido.QTD_ITENS, 10);
 
-        if (!isNaN(precoTipo) && !isNaN(quantidadeTipo)) {
-        quantidadeTotalVendas += precoTipo * quantidadeTipo;
-        }
-    });
+            if (!isNaN(precoTipo) && !isNaN(quantidadeTipo)) {
+            quantidadeTotalVendas += precoTipo * quantidadeTipo;
+            }
+        });
 
-    return quantidadeTotalVendas;
+        return quantidadeTotalVendas;
     }
 
     function calcularQuantidadeTotalVendasComDesconto(dadosPedidos) {
@@ -433,7 +433,6 @@ export default function AdmDashboard() {
                                             )}
                                         </tbody>
                                     </table>
-                                    <a>Ver todos</a>
                                 </div>
                             </section>
                             <section className='painel-right'>
@@ -502,10 +501,6 @@ export default function AdmDashboard() {
                                         </div>
 
                                         <span>{qtdC[5] || '0'}</span>
-                                    </div>
-                                    <div className='add-card'>
-                                        <AddIcon />
-                                        <h1>Add Ingresso</h1>
                                     </div>
                                 </div>
 
@@ -727,11 +722,8 @@ export default function AdmDashboard() {
                 {menu == 5 &&
                     <section className='chart-main'>
                         <AdmUser page='Gráficos' user='Flashback' funcao='Admin' />
-                        <BasicAreaChart/>
-                        <div className='control-chart'>
-                            <ColumnChart cat={qtdC}/>
-                            <BarChart/>
-                        </div>
+                        <BasicAreaChartAdm v={pedidos}/>
+                        <ColumnChart cat={qtdC}/>
                         
                         <MixedChart empresa={listarEmpresas} usuario={listarUser} />
 
@@ -794,7 +786,6 @@ export default function AdmDashboard() {
                                     )}
                                 </tbody>
                             </table>
-                            <a>Ver todos</a>
                         </div>
 
                     </section>
