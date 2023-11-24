@@ -74,38 +74,44 @@ export default function AdmDashboard() {
 
 
     function calcularQuantidadeTotalVendas(dadosPedidos) {
-        let quantidadeTotalVendas = 0;
+        if (dadosPedidos){
+            let quantidadeTotalVendas = 0;
 
-        // Iterar sobre cada pedido e somar o resultado de vl_preco_tipo * qtd_tipo_ingresso
-        dadosPedidos.forEach((pedido) => {
-            const precoTipo = parseFloat(pedido.VL_PRECO_TIPO);
-            const quantidadeTipo = parseInt(pedido.QTD_ITENS, 10);
-
-            if (!isNaN(precoTipo) && !isNaN(quantidadeTipo)) {
-            quantidadeTotalVendas += precoTipo * quantidadeTipo;
-            }
-        });
-
-        return quantidadeTotalVendas;
+            // Iterar sobre cada pedido e somar o resultado de vl_preco_tipo * qtd_tipo_ingresso
+            dadosPedidos.forEach((pedido) => {
+                const precoTipo = parseFloat(pedido.VL_PRECO_TIPO);
+                const quantidadeTipo = parseInt(pedido.QTD_ITENS, 10);
+    
+                if (!isNaN(precoTipo) && !isNaN(quantidadeTipo)) {
+                quantidadeTotalVendas += precoTipo * quantidadeTipo;
+                }
+            });
+    
+            return quantidadeTotalVendas;  
+        }
+        
     }
 
     function calcularQuantidadeTotalVendasComDesconto(dadosPedidos) {
-        let quantidadeTotalVendasComDesconto = 0;
+        if (dadosPedidos){
+            let quantidadeTotalVendasComDesconto = 0;
       
-        dadosPedidos.forEach((pedido) => {
-          const precoTipo = parseFloat(pedido.VL_PRECO_TIPO);
-          const quantidadeTipo = parseInt(pedido.QTD_ITENS, 10);
-      
-          if (!isNaN(precoTipo) && !isNaN(quantidadeTipo)) {
-            const totalPedido = precoTipo * quantidadeTipo;
-            const desconto = totalPedido * 0.1; // 10% de desconto
-            const totalComDesconto = totalPedido - desconto;
-      
-            quantidadeTotalVendasComDesconto += totalComDesconto;
-          }
-        });
-      
-        return quantidadeTotalVendasComDesconto.toFixed(2);
+            dadosPedidos.forEach((pedido) => {
+              const precoTipo = parseFloat(pedido.VL_PRECO_TIPO);
+              const quantidadeTipo = parseInt(pedido.QTD_ITENS, 10);
+          
+              if (!isNaN(precoTipo) && !isNaN(quantidadeTipo)) {
+                const totalPedido = precoTipo * quantidadeTipo;
+                const desconto = totalPedido * 0.1; // 10% de desconto
+                const totalComDesconto = totalPedido - desconto;
+          
+                quantidadeTotalVendasComDesconto += totalComDesconto;
+              }
+            });
+          
+            return quantidadeTotalVendasComDesconto.toFixed(2);
+        }
+        
     }
       
     const [pedidos, setPedidos] = useState([])
@@ -206,22 +212,25 @@ export default function AdmDashboard() {
     }
 
     function calcularTotalGanhoComDesconto(dadosPedidos) {
-        let totalGanhoComDesconto = 0;
+        if (dadosPedidos){
+            let totalGanhoComDesconto = 0;
       
-        dadosPedidos.forEach((pedido) => {
-          const precoTipo = parseFloat(pedido.VL_PRECO_TIPO);
-          const quantidadeTipo = parseInt(pedido.QTD_ITENS, 10);
-      
-          if (!isNaN(precoTipo) && !isNaN(quantidadeTipo)) {
-            const totalPedido = precoTipo * quantidadeTipo;
-            const desconto = totalPedido * 0.1; // 10% de desconto
-            const totalComDesconto = totalPedido - desconto;
-      
-            totalGanhoComDesconto += desconto;
-          }
-        });
-      
-        return totalGanhoComDesconto.toFixed(2);
+            dadosPedidos.forEach((pedido) => {
+              const precoTipo = parseFloat(pedido.VL_PRECO_TIPO);
+              const quantidadeTipo = parseInt(pedido.QTD_ITENS, 10);
+          
+              if (!isNaN(precoTipo) && !isNaN(quantidadeTipo)) {
+                const totalPedido = precoTipo * quantidadeTipo;
+                const desconto = totalPedido * 0.1; // 10% de desconto
+                const totalComDesconto = totalPedido - desconto;
+          
+                totalGanhoComDesconto += desconto;
+              }
+            });
+          
+            return totalGanhoComDesconto.toFixed(2);
+        }
+        
     }
 
     async function ListarEmpresas() {
