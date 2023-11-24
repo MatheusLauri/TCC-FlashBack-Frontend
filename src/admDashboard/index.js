@@ -230,7 +230,7 @@ export default function AdmDashboard() {
           
             return totalGanhoComDesconto.toFixed(2);
         }
-        
+
         
     }
 
@@ -389,7 +389,7 @@ export default function AdmDashboard() {
                                         <div className='middle'>
                                             <div className='left'>
                                                 <h1 onClick={() => console.log(listagemQtdCategoria,qtdC)}>Total de vendas</h1>
-                                                <span>R${calcularQuantidadeTotalVendas(pedidos)}</span>
+                                                <span>R${calcularQuantidadeTotalVendas(pedidos) || '0'}</span>
                                             </div>
                                             
                                         </div>
@@ -400,7 +400,7 @@ export default function AdmDashboard() {
                                         <div className='middle'>
                                             <div className='left'>
                                                 <h1>Custos</h1>
-                                                <span>R$ {calcularQuantidadeTotalVendasComDesconto(pedidos)}</span>
+                                                <span>R$ {calcularQuantidadeTotalVendasComDesconto(pedidos) || '0'}</span>
                                             </div>
                                         </div>
                                         <small>Até hoje</small>
@@ -410,7 +410,7 @@ export default function AdmDashboard() {
                                         <div className='middle'>
                                             <div className='left'>
                                                 <h1>Lucro</h1>
-                                                <span>R$ {calcularTotalGanhoComDesconto(pedidos)}</span>
+                                                <span>R$ {calcularTotalGanhoComDesconto(pedidos) || 0}</span>
                                             </div>
                                             
                                         </div>
