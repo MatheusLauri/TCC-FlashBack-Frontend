@@ -24,6 +24,7 @@ const verificarDisponibilidade = (datetimeDaAPI) => {
   const datetimeDaAPI = props.data // Substitua isso pelo datetime real da API
   const disponibilidade = verificarDisponibilidade(datetimeDaAPI);
 
+  const daataFormat = formatData(props.data)
 
 
 return (
@@ -34,7 +35,7 @@ return (
 
                 <div className='informacoes-left'>
 
-                    <p>COLOCAR A DATA DPS</p>
+                    <p>{daataFormat.Dia_Mes} de {daataFormat.mesCompleto} | {daataFormat.ano}</p>
 
                     <div className='infos-filhos'>
                         <h3>{props.evento}</h3>

@@ -84,6 +84,12 @@ export function Header() {
 
     const [vlPrecoIngress, setvlPrecoIngress] = useState()
 
+    const [logradouroPedido, setLogradouroPedido] = useState()
+    const [bairroPedido, setBairroPedido] = useState()
+    const [localidadePedido, setLocalidadePedido] = useState()
+    const [ufPedido, setUfPedido] = useState()
+    const [numPedido, setnumPedido] = useState()
+
     function VerificarLoginAuto() {
         const dadosUsuario = JSON.parse(localStorage.getItem('usuario-logado')) ?? null;
 
@@ -576,7 +582,7 @@ export function Header() {
                             listarPedido
                                 ?
                                     listarPedido.map(item => (
-                                        <Card f={SetarEstagio} id={item.ID_PEDIDO} imagem={item.IMAGEM_INGRESSO} evento={item.NM_EVENTO} rua={item.DS_LOGRADOURO} data={item.DT_INGRESSO} situacao={item.BT_SITUACAO}/>
+                                        <Card f={SetarEstagio} id={item.ID_PEDIDO} data={item.DT_INGRESSO} imagem={item.IMAGEM_INGRESSO} evento={item.NM_EVENTO} rua={item.DS_LOGRADOURO} data={item.DT_INGRESSO} situacao={item.BT_SITUACAO}/>
                                     ))
                                 :   <p> É necessário realizar uma compra para visualizar seus pedidos</p>
                             
@@ -596,7 +602,7 @@ export function Header() {
                                                 <small><b>{dataTipoPedidoFormat.Dia_Semana} - {dataTipoPedidoFormat.Dia_Mes} {dataTipoPedidoFormat.mes} | {horarioTipoPedidoFormat.format1}</b></small>
                                             </div>
 
-                                            <a onClick={() => { setPedidoEstagio('qrcode'); setQrUniqueKey(`${item.ID_DATA_INGRESSO }${item.ID_TIPO_INGRESSO}${index}${item.NM_TIPO_INGRESSO}`); setvlPrecoIngress(item.VL_PRECO_TIPO)}}>Visualizar</a>
+                                            <a onClick={() => { setPedidoEstagio('qrcode'); setQrUniqueKey(`${item.ID_DATA_INGRESSO }${item.ID_TIPO_INGRESSO}${index}${item.NM_TIPO_INGRESSO}`); setvlPrecoIngress(item.VL_PRECO_TIPO); setLogradouroPedido(item.DS_LOGRADOURO); setBairroPedido(item.DS_BAIRRO); setLocalidadePedido(item.DS_LOCALIDADE) ;setUfPedido(item.DS_UF); setnumPedido(item.DS_NUM)}}>Visualizar</a>
 
                                         </div>
                                     ))
@@ -621,7 +627,7 @@ export function Header() {
                                     />
                                 </div>
                                 <div className='small-row'>
-                                    <small>Teatro Municipal - São Paulo <b>Valor: {FormatPreco(vlPrecoIngress)}</b></small> 
+                                    <small>{logradouroPedido} - {localidadePedido} <b>Valor: {FormatPreco(vlPrecoIngress)}</b></small> 
                                     <small>Ingresso: #{qrUniqueKey}</small> 
                                 </div>
                                 

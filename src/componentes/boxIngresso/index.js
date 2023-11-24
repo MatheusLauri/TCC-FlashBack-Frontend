@@ -13,6 +13,7 @@ export default function BoxIngresso(props){
 
     const horarioFormatado = formatHorario(props.horario)
   
+    console.log(horarioFormatado)
 
     return(
 

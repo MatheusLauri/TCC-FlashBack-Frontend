@@ -9,6 +9,8 @@ import './index.scss'
 
 import formatHorario from '../../componentsFunctions/formatHorario';
 import formatData from '../../componentsFunctions/formatData';
+import FormatPreco from '../../componentsFunctions/formatPrecos';
+
 
 export default function AdmTicket(props) {
     const [showType,setShowType] = useState(false)
@@ -58,6 +60,8 @@ export default function AdmTicket(props) {
     useEffect(() => {
         ListarTipoIngresso()
     }, [props.busca])
+
+    
      //console.log(ListarTipos)
     return (
         <div className={showType ? 'adm-ticket-grow' : 'adm-ticket'}>
@@ -86,7 +90,7 @@ export default function AdmTicket(props) {
                                     <span>{item.NM_TIPO_INGRESSO}</span>				
                                     <span>{item.QTD_TIPO_INGRESSO} Un</span>
                                     <div></div>
-                                    <span>R$ {item.VL_PRECO_TIPO}</span>
+                                    <span>{FormatPreco(item.VL_PRECO_TIPO)}</span>
                                 </div>
                             ))}
                             

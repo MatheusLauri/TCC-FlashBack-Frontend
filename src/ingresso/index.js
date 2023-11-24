@@ -15,6 +15,7 @@ import DevicesIcon from '@mui/icons-material/Devices';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import formatDatacomId from '../componentsFunctions/formatDatacomId';
 import formatHorario from '../componentsFunctions/formatHorario';
+import formatHorario2 from '../componentsFunctions/formatHorario2';
 import FormatPreco from '../componentsFunctions/formatPrecos';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import ErrorIcon from '@mui/icons-material/Error';
@@ -99,6 +100,8 @@ export default function IngressoPage() {
     //variaveis para compra 
     const [idTipos, setidTipos] = useState([])
 
+    const[infosSubTotal, setinfosSubTotal] = useState([])
+
     const [listarPedidoIngresso, setlistarPedidoIngresso] = useState([])
     const [listarPedidoIngressoEst1, setlistarPedidoIngressoEst1] = useState([])
 
@@ -168,11 +171,12 @@ export default function IngressoPage() {
     let url = `http://localhost:5000/${ingressos.IMAGEM_INGRESSO}`
 
     //FORMATAR DATETIME
+    const formatarHorario = formatHorario(ingressos.DS_HORARIO)
     const datetime = new Date(ingressos.DT_COMECO);
     const monthNames = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
-    const formattedDate = `${datetime.getDate()} ${monthNames[datetime.getMonth()]} - ${datetime.getFullYear()} | ${datetime.getHours()}:${datetime.getMinutes()}`;
+    const formattedDate = `${datetime.getDate()} ${monthNames[datetime.getMonth()]} - ${datetime.getFullYear()} | ${formatarHorario.format1}`;
 
-
+   
 
     //Listar Datas e horarios do Ingresso
 
@@ -238,7 +242,22 @@ export default function IngressoPage() {
 
         if (dadosUsuario){
             setBuy(true)
-           
+            let idTipos = listarPosicoesOcupadas(qtds)
+            let qtdItens = listarQtds(qtds)
+            for (let cont = 0; cont < idTipos.length; cont++) {
+
+
+            let infosComplete = {
+
+                TipoIngresso: nmTipos[idTipos[cont]],
+                VlTipo: vlTipo[idTipos[cont]],
+                Itens: qtdItens[cont]
+            }
+
+            infosSubTotal.push(infosComplete)
+            setinfosSubTotal([...infosSubTotal])
+    
+        }
         }
         else{
             toast.error('É necessário estar logado para comprar!')
@@ -384,9 +403,8 @@ export default function IngressoPage() {
                                         }
                                         {show == 'horario' &&
                                             listarHorarios.map((item) => (
-                                                <div className='time-select-box' onClick={() => { AltRender(`Horário ${item.DS_HORARIO}`, 'tipo'); ListarTipoIngressos(id); setIdHorario(item.ID_HORARIO_INGRESSO); setHorario(item.DS_HORARIO) }}>
-                                                    <h1>Horário {item.DS_HORARIO}</h1>
-                                                    <p>Preços entre R$ 10,00 e R$ 100,00</p>
+                                                <div className='time-select-box' onClick={() => { AltRender(`Horário ${formatHorario2(item.DS_HORARIO)}`, 'tipo'); ListarTipoIngressos(id); setIdHorario(item.ID_HORARIO_INGRESSO); setHorario(item.DS_HORARIO) }}>
+                                                    <h1>Horário {formatHorario2(item.DS_HORARIO)}</h1>
                                                     <p>em até 12x</p>
                                                 </div>
                                             ))
@@ -397,7 +415,7 @@ export default function IngressoPage() {
                                                 <div className='type-select-box' onClick={() => { setShow('subtotal'); setTypeSelected(item.ID_TIPO_INGRESSO); setNmtipo(item.NM_TIPO_INGRESSO) }}>
                                                     <h1>{item.NM_TIPO_INGRESSO}</h1>
                                                     <p>{FormatPreco(item.VL_PRECO_TIPO)}</p>
-                                                    <p>Em até 10x</p>
+                                                    <p>Em até 12x</p>
                                                     <div>
                                                         <a onClick={() => condicionalConst(item.ID_TIPO_INGRESSO, 'sub', item.VL_PRECO_TIPO)} >
                                                             <RemoveCircleOutlineIcon />
@@ -448,10 +466,10 @@ export default function IngressoPage() {
                                     </div>
                                     <div className='divisor'></div>
 
-                                        <p>{data.Dia_Semana}, {data.Dia_Mes} de {data.mesCompleto} de {data.ano} às {horario}</p>
+                                        <p>{data.Dia_Semana}, {data.Dia_Mes} de {data.mesCompleto} de {data.ano} às {formatHorario2(horario)}</p>
                                         <div className='wrapper'>
                                         
-                                            {listarPedidoIngressoEst1.map((item) => (
+                                            {infosSubTotal.map((item) => (
 
                                                     <div>
                                                         <p>{item.Itens}x {item.TipoIngresso}</p>

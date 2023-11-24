@@ -112,6 +112,8 @@ export default function AdmPage() {
         
     }, [])
 
+
+
     async function ListarIngressos() {
         const listagem = []
 

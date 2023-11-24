@@ -63,7 +63,7 @@ export default function PageFiltro() {
             <div className='ticket-wrapper'>
                 {ingressos.length > 0 ? (
                     ingressos.map(item => (
-                        <BoxIngresso nome={item.NM_EVENTO} data={item.DT_COMECO} imagem={item.IMAGEM_INGRESSO} logradouro={item.DS_LOGRADOURO} cidade={item.DS_LOCALIDADE} uf={item.DS_UF} id={item.ID_INGRESSO} num={item.DS_NUM}/>
+                        <BoxIngresso nome={item.NM_EVENTO} data={item.DT_COMECO} horario={item.DS_HORARIO} imagem={item.IMAGEM_INGRESSO} logradouro={item.DS_LOGRADOURO} cidade={item.DS_LOCALIDADE} uf={item.DS_UF} id={item.ID_INGRESSO} num={item.DS_NUM}/>
                     ))
                     ) : (
                     <>
@@ -74,7 +74,7 @@ export default function PageFiltro() {
                             <p>Confira algumas sugestões!</p>
                             <div className='ticket-wrapper-suggestion'>
                                 {ingressosSugestao.map(item => (
-                                    <BoxIngresso nome={item.NM_EVENTO} data={item.DT_COMECO} imagem={item.IMAGEM_INGRESSO} logradouro={item.DS_LOGRADOURO} cidade={item.DS_LOCALIDADE} uf={item.DS_UF} id={item.ID_INGRESSO} num={item.DS_NUM}/>
+                                    <BoxIngresso nome={item.NM_EVENTO} data={item.DT_COMECO} horario={item.DS_HORARIO} imagem={item.IMAGEM_INGRESSO} logradouro={item.DS_LOGRADOURO} cidade={item.DS_LOCALIDADE} uf={item.DS_UF} id={item.ID_INGRESSO} num={item.DS_NUM}/>
                                 ))}
                             </div>
                         </div>
