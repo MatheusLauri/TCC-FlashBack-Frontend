@@ -14,11 +14,18 @@ import RoomIcon from '@mui/icons-material/Room';
 import InputMask from 'react-input-mask';
 import QRCode from 'react-qr-code';
 import { useReactToPrint } from 'react-to-print';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
+
 
 export function Header() {
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false)
     const [isLogged, setIsLogged] = useState()
+
+
+    const [passwordVisibility, setPasswordVisibility] = useState(false)
 
 // Variáveis de Cadastro do usuário
     const [NomeUsuario, setNomeUsuario] = useState('');
@@ -288,7 +295,7 @@ export function Header() {
     const ufsFiltrados = ufs.filter((uf) =>
         uf.extenso.toLowerCase().includes(ufFiltro.toLowerCase())
     );
-    
+
     async function obterLocalizacao(){
       try {
         let url = `https://ipinfo.io/json?token=744d391277f690`
@@ -416,24 +423,26 @@ export function Header() {
                                 </div>
                                 {page == 1 &&
                                     <div className="sign-up-form">
+                                        
                                         <h2 className="title">Cadastre-se</h2>
+
                                         <div className="input-field">
                                             <i className="fas fa-user"></i>
-                                            <input type="text" placeholder="Usuário"  value={NomeUsuario}  onChange={e => setNomeUsuario(e.target.value)}/>
+                                            <input type="text" placeholder="Nome"  value={userNome}  onChange={e => setUserNome(e.target.value)}/>
+                                        </div>
+                                        <div className="input-field">
+                                            <i className="far fa-user"></i>
+                                            <input type="text" placeholder="Sobrenome"  value={userSobrenome}  onChange={e => setUserSobrenome(e.target.value)}/>
+                                        </div>
+                                        <div className="input-field">
+                                            <i className="fas fa-calendar"></i>
+                                            <input type="date" placeholder="Data de Nascimento"  value={aniversario}  onChange={e => SetAniversario(e.target.value)}/>
                                         </div>
                                         <div className="input-field">
                                             <i className="fas fa-envelope"></i>
                                             <input type="email" placeholder="E-mail" value={emailUsuario}  onChange={e => setemailUsuario(e.target.value)}/>
                                         </div>
-                                        <div className="input-field">
-                                            <i className="fas fa-envelope"></i>
-                                            <InputMask mask="999.999.999-99" maskChar={null}  placeholder="CPF" value={cpfUsuario} onChange={e => setcpfUsuario(e.target.value)}/>
-
-                                        </div>
-                                        <div className="input-field">
-                                            <i className="fas fa-lock"></i>
-                                            <input type="password" placeholder="Senha" value={senhaUsuario}  onChange={e => setsenhaUsuario(e.target.value)}/>
-                                        </div>
+                                        
                                         <input type="submit" className="btn" value="Prosseguir" onClick={() => setPage(2)}/>
                                         
                                        
@@ -444,17 +453,26 @@ export function Header() {
                                         <h2 className="title">Estamos quase terminando...</h2>
                                         <div className="input-field">
                                             <i className="fas fa-user"></i>
-                                            <input type="text" placeholder="Nome"  value={userNome}  onChange={e => setUserNome(e.target.value)}/>
+                                            <input type="text" placeholder="Usuário"  value={NomeUsuario}  onChange={e => setNomeUsuario(e.target.value)}/>
                                         </div>
                                         <div className="input-field">
-                                            <i className="fas fa-user"></i>
-                                            <input type="text" placeholder="Sobrenome"  value={userSobrenome}  onChange={e => setUserSobrenome(e.target.value)}/>
-                                        </div>
-                                        <div className="input-field">
-                                            <i className="fas fa-user"></i>
-                                            <input type="date" placeholder="Data de Nascimento"  value={aniversario}  onChange={e => SetAniversario(e.target.value)}/>
-                                        </div>
+                                            <i className="fas fa-id-card"></i>
+                                            <InputMask mask="999.999.999-99" maskChar={null}  placeholder="CPF" value={cpfUsuario} onChange={e => setcpfUsuario(e.target.value)}/>
 
+                                        </div>
+                                        <div className="input-field">
+                                            <i className="fas fa-lock"></i>
+                                            <input type={passwordVisibility ? 'text': 'password'} placeholder="Senha" value={senhaUsuario}  onChange={e => setsenhaUsuario(e.target.value)} pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$" title="A senha deve conter pelo menos 1 letra maiúscula, 1 letra minúscula, 1 número, 1 símbolo e ter pelo menos 8 caracteres."/>
+                                            <div onClick={() => setPasswordVisibility(!passwordVisibility)}>
+                                                {!passwordVisibility 
+                                                    ?
+                                                        <VisibilityIcon/>
+                                                    :
+                                                        <VisibilityOffIcon/>
+                                                }
+                                            </div>
+                                                
+                                        </div>
                                         <div style={{display: `flex`,gap: `10px`}}>
                                             <input type="submit" className="btn" value="Voltar" onClick={() => setPage(1)}/>
                                             <input type="submit" className="btn" value="Cadastre-se" onClick={CadastrarCliente}/>
