@@ -46,7 +46,7 @@ export default function BarChart() {
 
 
         <div id="chart">
-            <ReactApexChart options={state.options} series={state.series} type="bar" height={350} width={`200%`}/>
+            <ReactApexChart options={state.options} series={state.series} type="bar" height={350} width={`220%`}/>
         </div>
     
     )
