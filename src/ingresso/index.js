@@ -236,45 +236,9 @@ export default function IngressoPage() {
         const dadosUsuario = JSON.parse(localStorage.getItem('usuario-logado')) ?? null;
 
 
-        console.log(dadosUsuario)
-
         if (dadosUsuario){
             setBuy(true)
-            let idTipos = listarPosicoesOcupadas(qtds)
-            let qtdItens = listarQtds(qtds)
-
-
-    
-            for (let cont = 0; cont < idTipos.length; cont++) {
-                const resp = await axios.post(`http://localhost:5000/pedidoIngresso`, {
-    
-                    Cliente: dadosUsuario.data.ID_CLIENTE, 
-                    Categoria: ingressos.ID_CATEGORIA_INGRESSO,
-                    Local: ingressos.ID_LOCAL_EVENTO,
-                    Ingresso: ingressos.ID_INGRESSO,
-                    Data: idData,
-                    Horario: idHorario,
-                    TipoIngresso: idTipos[cont],
-                    Itens: qtdItens[cont]
-    
-    
-                })
-    
-                let infosComplete = {
-    
-                    Ingresso: ingressos.NM_EVENTO,
-                    Data: data,
-                    Horario: horario,
-                    TipoIngresso: nmTipos[idTipos[cont]],
-                    VlTipo: vlTipo[idTipos[cont]],
-                    Itens: qtdItens[cont]
-                }
-    
-                listarPedidoIngressoEst1.push(infosComplete)
-                setlistarPedidoIngressoEst1([...listarPedidoIngressoEst1])
-                listarPedidoIngresso.push(resp.data)
-                setlistarPedidoIngresso([...listarPedidoIngresso])
-            }
+           
         }
         else{
             toast.error('É necessário estar logado para comprar!')
@@ -290,6 +254,9 @@ export default function IngressoPage() {
     
 
     async function FinalizarCompra() {
+
+        const dadosUsuario = JSON.parse(localStorage.getItem('usuario-logado')) ?? null;
+
         let url = `http://localhost:5000/cartao`
         let response = await axios.post (url,{
             Numero: numeroCartao,
@@ -302,25 +269,58 @@ export default function IngressoPage() {
         })
         let url3 = `http://localhost:5000/pedido`
 
-        
-        for(let cont = 0; cont < listarPedidoIngresso.length; cont++) {
-            let response3 = await axios.post(url3,{
-                PedidoIngresso: listarPedidoIngresso[cont].ID,
+        let response3 = await axios.post(url3, {
                 FormaPagamento: response2.data.ID
-            })
-        }
+        })
 
+
+        let idTipos = listarPosicoesOcupadas(qtds)
+        let qtdItens = listarQtds(qtds)
+
+
+        for (let cont = 0; cont < idTipos.length; cont++) {
+            const resp = await axios.post(`http://localhost:5000/pedidoIngresso`, {
+                Pedido: response3.data.id,
+                Cliente: dadosUsuario.data.ID_CLIENTE, 
+                Categoria: ingressos.ID_CATEGORIA_INGRESSO,
+                Local: ingressos.ID_LOCAL_EVENTO,
+                Ingresso: ingressos.ID_INGRESSO,
+                Data: idData,
+                Horario: idHorario,
+                TipoIngresso: idTipos[cont],
+                Itens: qtdItens[cont]
+
+
+            })
+
+            let infosComplete = {
+
+                Ingresso: ingressos.NM_EVENTO,
+                Data: data,
+                Horario: horario,
+                TipoIngresso: nmTipos[idTipos[cont]],
+                VlTipo: vlTipo[idTipos[cont]],
+                Itens: qtdItens[cont]
+            }
+
+            listarPedidoIngressoEst1.push(infosComplete)
+            setlistarPedidoIngressoEst1([...listarPedidoIngressoEst1])
+            listarPedidoIngresso.push(resp.data)
+            setlistarPedidoIngresso([...listarPedidoIngresso])
+        }
         // for(let cont = 0; cont < listarPedidoIngresso.length; cont++) {
         //     let response3 = await axios.post(url3,{
         //         PedidoIngresso: listarPedidoIngresso[cont].ID,
         //         FormaPagamento: response2.data.ID
         //     })
         // }
+
        
     
     }
     
-     //console.log(listarPedidoIngresso)
+     console.log(listarPedidoIngresso)
+     console.log(listarPedidoIngressoEst1)
 
     return (
         <div className='ingresso-body'>

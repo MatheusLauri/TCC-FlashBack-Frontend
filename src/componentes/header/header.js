@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import './header.scss'
 import Modal from 'react-modal'
 import axios from 'axios';
-import storage from 'local-storage'
+import storage, { set } from 'local-storage'
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
@@ -17,7 +17,9 @@ import { useReactToPrint } from 'react-to-print';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-
+import FormatPreco from '../../componentsFunctions/formatPrecos';
+import formatData from '../../componentsFunctions/formatData';
+import formatHorario from '../../componentsFunctions/formatHorario';
 
 export function Header() {
     const navigate = useNavigate();
@@ -66,6 +68,7 @@ export function Header() {
     function SetarEstagio(estagio,id){
         setPedidoEstagio(estagio)
         setPedidoSetado(id)
+        
          //console.log(pedidoEstagio,pedidoSetado)
     }
 
@@ -73,6 +76,13 @@ export function Header() {
     const [page,setPage] = useState(1)
 
     const [listarPedido, setListarPedido] = useState()
+    const [listarTiposIngresso_pedido, setlistarTiposIngresso_pedido] = useState([])
+    const [dataTipoPedidoFormat, setdataTipoPedidoFormat] = useState()
+    const [horarioTipoPedidoFormat, sethorarioTipoPedidoFormat] = useState()
+
+    const [qrUniqueKey, setQrUniqueKey] = useState('')
+
+    const [vlPrecoIngress, setvlPrecoIngress] = useState()
 
     function VerificarLoginAuto() {
         const dadosUsuario = JSON.parse(localStorage.getItem('usuario-logado')) ?? null;
@@ -104,18 +114,54 @@ export function Header() {
             let id = user.data.ID_CLIENTE
             let url = `http://localhost:5000/pedido?id=${id}`
             let response = await axios.get(url)
-            setListarPedido(response.data)
+
+      
+            let newArrayyyyy = []
+
+            response.data.forEach(element => {
+                newArrayyyyy[element.ID_PEDIDO] = element
+            });
+
+            setListarPedido(newArrayyyyy)
+            
+           
         } catch (error) {
             toast.error(error)
         }
         
     }
 
+    
+    async function ListarTiposPedido () {
+        try {
+
+            let user = localStorage.getItem(`usuario-logado`)
+            user = JSON.parse(user)
+            let id = user.data.ID_CLIENTE
+            const response = await axios.get(`http://localhost:5000/pedidoTipoIngresso/${id}/${pedidoSetado}`)
+     
+    
+            setlistarTiposIngresso_pedido(response.data)
+
+            setdataTipoPedidoFormat(formatData(response.data[0].DT_INGRESSO))
+            sethorarioTipoPedidoFormat(formatHorario(response.data[0].DS_HORARIO))
+            
+        } catch (err) {
+            
+        }
+        
+    }
+    
+// console.log(listarTiposIngresso_pedido)
+    
     useEffect(() => {
         VerificarLoginAuto()
         ListarPedido()
-    }, [userRightBar])
+        ListarTiposPedido()
+    }, [userRightBar, pedidoSetado])
 
+
+ 
 // Função de cadastro com API
     async function CadastrarCliente () {
         try {
@@ -230,9 +276,6 @@ export function Header() {
     }
 
 
-
-
-
     const [ShowUfModal,setShowUfModal] = useState(false)
 
 
@@ -305,7 +348,7 @@ export function Header() {
         
       }
     };
-    
+
     return (
         <section className='header-main'>
             <ToastContainer />
@@ -541,16 +584,24 @@ export function Header() {
                         }
                         {pedidoEstagio === 'tipos' &&
                             <>
-                                <div className='tipo-ingresso-box'>
-                                    <div>
-                                        <h1>VIP</h1>
-                                        <small>R$ 100,00</small>
-                                        <small><b>Ter - 28 nov | 20h00</b></small>
-                                    </div>
 
-                                    <a onClick={() => setPedidoEstagio('qrcode')}>Visualizar</a>
+                                {listarTiposIngresso_pedido.map((item, index) => (
+                                    
+                                    Array.from({length: item.QTD_ITENS}).map((i) => (
+                                        <div className='tipo-ingresso-box'>
+                                                                        
+                                            <div>
+                                                <h1>{item.NM_TIPO_INGRESSO}</h1>
+                                                <small>{FormatPreco(item.VL_PRECO_TIPO)}</small>
+                                                <small><b>{dataTipoPedidoFormat.Dia_Semana} - {dataTipoPedidoFormat.Dia_Mes} {dataTipoPedidoFormat.mes} | {horarioTipoPedidoFormat.format1}</b></small>
+                                            </div>
 
-                                </div>
+                                            <a onClick={() => { setPedidoEstagio('qrcode'); setQrUniqueKey(`${item.ID_DATA_INGRESSO }${item.ID_TIPO_INGRESSO}${index}${item.NM_TIPO_INGRESSO}`); setvlPrecoIngress(item.VL_PRECO_TIPO)}}>Visualizar</a>
+
+                                        </div>
+                                    ))
+                                ))}
+                               
                            
 
                                 <a onClick={() => setPedidoEstagio('listar')}><b>Voltar</b></a>
@@ -564,14 +615,14 @@ export function Header() {
                                     <QRCode
                                     size={256}
                                     style={{ height: "auto", maxWidth: "100%", width: "100%"}}
-                                    value={'joao'}
+                                    value={qrUniqueKey}
                                     viewBox={`0 0 256 256`}
                                     fgColor='#520DA9'
                                     />
                                 </div>
                                 <div className='small-row'>
-                                    <small>Teatro Municipal - São Paulo <b>Valor: R$ 199,00</b></small> 
-                                    <small>Ingresso: #28A1J64</small> 
+                                    <small>Teatro Municipal - São Paulo <b>Valor: {FormatPreco(vlPrecoIngress)}</b></small> 
+                                    <small>Ingresso: #{qrUniqueKey}</small> 
                                 </div>
                                 
                                 <div className='option-row'>
