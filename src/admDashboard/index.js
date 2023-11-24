@@ -20,6 +20,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import MixedChart from '../componentes/mixedChart';
 import emailjs from '@emailjs/browser'
 import InputMask from 'react-input-mask';
+import BasicAreaChart from '../componentes/basicAreaChart';
+import ColumnChart from '../componentes/columnChart';
+import BarChart from '../componentes/barChart';
 
 export default function AdmDashboard() {
     //Variáveis de controle de menu
@@ -380,7 +383,7 @@ export default function AdmDashboard() {
                                             </div>
                                             
                                         </div>
-                                        <small>Ultimas 24 horas</small>
+                                        <small>Até hoje</small>
                                     </div>
                                     <div className='insight'>
                                         <ShoppingCartIcon />
@@ -390,7 +393,7 @@ export default function AdmDashboard() {
                                                 <span>R$ {calcularQuantidadeTotalVendasComDesconto(pedidos)}</span>
                                             </div>
                                         </div>
-                                        <small>Ultimas 24 horas</small>
+                                        <small>Até hoje</small>
                                     </div>
                                     <div className='insight'>
                                         <StackedLineChartIcon />
@@ -401,7 +404,7 @@ export default function AdmDashboard() {
                                             </div>
                                             
                                         </div>
-                                        <small>Ultimas 24 horas</small>
+                                        <small>Até hoje</small>
                                     </div>
                                 </div>
                                 <div className='table'>
@@ -450,7 +453,7 @@ export default function AdmDashboard() {
                                             <NightlifeIcon />
                                             <div>
                                                 <h1>Festas e Shows</h1>
-                                                <small>Ultimas 24 horas</small>
+                                                <small>Até hoje</small>
                                             </div>
                                         </div>
 
@@ -461,7 +464,7 @@ export default function AdmDashboard() {
                                             <TheaterComedyIcon />
                                             <div>
                                                 <h1>Teatros</h1>
-                                                <small>Ultimas 24 horas</small>
+                                                <small>Até hoje</small>
                                             </div>
                                         </div>
 
@@ -472,7 +475,7 @@ export default function AdmDashboard() {
                                             <CelebrationIcon />
                                             <div>
                                                 <h1>Festa Junina</h1>
-                                                <small>Ultimas 24 horas</small>
+                                                <small>Até hoje</small>
                                             </div>
                                         </div>
 
@@ -483,7 +486,7 @@ export default function AdmDashboard() {
                                             <InterpreterModeIcon />
                                             <div>
                                                 <h1>Palestras e Congressos</h1>
-                                                <small>Ultimas 24 horas</small>
+                                                <small>Até hoje</small>
                                             </div>
                                         </div>
 
@@ -494,7 +497,7 @@ export default function AdmDashboard() {
                                             <FamilyRestroomIcon />
                                             <div>
                                                 <h1>Infantil</h1>
-                                                <small>Ultimas 24 horas</small>
+                                                <small>Até hoje</small>
                                             </div>
                                         </div>
 
@@ -710,9 +713,9 @@ export default function AdmDashboard() {
                                             <td>{item.NM_EVENTO}</td>
                                             <td>{item.NM_TIPO_INGRESSO}</td>
                                             <td>{`${item.NM_CLIENTE} ${item.NM_SOBRENOME}`}</td>
-                                            <td>{item.QTD_TIPO_INGRESSO}</td>
+                                            <td>{item.QTD_ITENS}</td>
                                             <td>R$ {item.VL_PRECO_TIPO}</td>
-                                            <td>R$ {item.VL_PRECO_TIPO * item.QTD_TIPO_INGRESSO}</td>
+                                            <td>R$ {item.VL_PRECO_TIPO * item.QTD_ITENS}</td>
                                         </tr>
                                     )}
                                 </tbody>
@@ -724,6 +727,12 @@ export default function AdmDashboard() {
                 {menu == 5 &&
                     <section className='chart-main'>
                         <AdmUser page='Gráficos' user='Flashback' funcao='Admin' />
+                        <BasicAreaChart/>
+                        <div className='control-chart'>
+                            <ColumnChart cat={qtdC}/>
+                            <BarChart/>
+                        </div>
+                        
                         <MixedChart empresa={listarEmpresas} usuario={listarUser} />
 
                     </section>
@@ -753,13 +762,6 @@ export default function AdmDashboard() {
                                     />
                                 ))}
                         </div>
-
-                    </section>
-                }
-                {menu == 7 &&
-                    <section className='ingresso-main'>
-                        <AdmUser page='Adicionar Ingressos' user='Flashback' funcao='Admin' />
-
 
                     </section>
                 }
