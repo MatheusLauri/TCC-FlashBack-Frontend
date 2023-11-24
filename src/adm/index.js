@@ -14,7 +14,7 @@ import TitleRange from '../componentes/titleRange/index'
 import AdmTicket from '../componentes/admTicket';
 
 import Modal from 'react-modal'
-
+import BasicAreaChart from '../componentes/basicAreaChart'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -112,28 +112,95 @@ export default function AdmPage() {
         
     }, [])
 
-
-
     async function ListarIngressos() {
-        const listagem = []
 
         try {
             if (pesquisa.length) {
                 const resp = await axios.get(`http://localhost:5000/IngressoPorEmpresa?id=${idEmpresa}&evento=${pesquisa}`)
-                listagem.push(...resp.data)
-                setListarIngressos(listagem)
+                setListarIngressos(resp.data)
             }
             else {
                 const resp = await axios.get(`http://localhost:5000/IngressoPorEmpresa?id=${idEmpresa}&evento=`)
-                listagem.push(...resp.data)
-                setListarIngressos(listagem)
+                setListarIngressos(resp.data)
             }
 
         } catch (err) {
             toast.error(err)
         }
     }
+    const [vendas,setVendas] = useState()
+    async function ListarVendas() {
+        try {
+            let empresalogged = localStorage.getItem('empresa-logada')
+            empresalogged = JSON.parse(empresalogged)
+            let id_Empresa = empresalogged.data.ID_EMPRESA;
 
+            let url = `http://localhost:5000/pedido/empresa/${id_Empresa}`
+            let response = await axios.get(url)
+            setVendas(response.data)
+        } catch (error) {
+            
+        }
+        
+    }
+
+    function calcularQuantidadeTotalVendas(dadosPedidos) {
+        let quantidadeTotalVendas = 0;
+
+        // Iterar sobre cada pedido e somar o resultado de vl_preco_tipo * qtd_tipo_ingresso
+        dadosPedidos.forEach((pedido) => {
+            const precoTipo = parseFloat(pedido.VL_PRECO_TIPO);
+            const quantidadeTipo = parseInt(pedido.QTD_ITENS, 10);
+
+            if (!isNaN(precoTipo) && !isNaN(quantidadeTipo)) {
+            quantidadeTotalVendas += precoTipo * quantidadeTipo;
+            }
+        });
+
+        return quantidadeTotalVendas;
+    }
+
+    function calcularQuantidadeTotalVendasComDesconto(dadosPedidos) {
+        let quantidadeTotalVendasComDesconto = 0;
+      
+        dadosPedidos.forEach((pedido) => {
+          const precoTipo = parseFloat(pedido.VL_PRECO_TIPO);
+          const quantidadeTipo = parseInt(pedido.QTD_ITENS, 10);
+      
+          if (!isNaN(precoTipo) && !isNaN(quantidadeTipo)) {
+            const totalPedido = precoTipo * quantidadeTipo;
+            const desconto = totalPedido * 0.1; // 10% de desconto
+            const totalComDesconto = totalPedido - desconto;
+      
+            quantidadeTotalVendasComDesconto += totalComDesconto;
+          }
+        });
+      
+        return quantidadeTotalVendasComDesconto.toFixed(2);
+    }
+    function calcularTotalGanhoComDesconto(dadosPedidos) {
+        let totalGanhoComDesconto = 0;
+      
+        dadosPedidos.forEach((pedido) => {
+          const precoTipo = parseFloat(pedido.VL_PRECO_TIPO);
+          const quantidadeTipo = parseInt(pedido.QTD_ITENS, 10);
+      
+          if (!isNaN(precoTipo) && !isNaN(quantidadeTipo)) {
+            const totalPedido = precoTipo * quantidadeTipo;
+            const desconto = totalPedido * 0.1; // 10% de desconto
+            const totalComDesconto = totalPedido - desconto;
+      
+            totalGanhoComDesconto += desconto;
+          }
+        });
+      
+        return totalGanhoComDesconto.toFixed(2);
+    }
+    
+    useEffect(() => {
+        ListarVendas()
+
+    }, []);
 
     useEffect(() => {
 
@@ -150,7 +217,7 @@ export default function AdmPage() {
 
     useEffect(() => {
         ListarIngressos()
-    }, [menu, listarIngressos, pesquisa])
+    }, [menu, pesquisa])
 
 
 
@@ -451,13 +518,6 @@ export default function AdmPage() {
 
         const resp = await axios.delete(`http://localhost:5000/data/${idData}`)
 
-        // for (let item of listarHorarios) {
-        //     if (item.Data === idData) {
-        //         listarHorarios.splice(listarHorarios.indexOf(item.Data), 1)
-        //         setListarHorarios([...listarHorarios])
-        //     }
-        // }
-
         const filterData = listarHorarios.filter((data) => {
             const apagarHorarios = setData.has(data.Data);
             setData.add(data.Data);
@@ -547,7 +607,7 @@ export default function AdmPage() {
                                 <section className='home-content'>
                                     <TitleRange text='Gráfico de vendas:' />
                                     <div className='home-grafico'>
-                                        <img src='../assets/images/grafico.png' />
+                                        <BasicAreaChart v={vendas}/>
                                         <div className='grafico-controller'>
                                             <div onClick={() => setGraphicChosen(1)} style={graphicChosen == 1 ? { backgroundColor: `#520DA9` } : { backgroundColor: `white` }}>
                                                 <div className='title'>
@@ -558,7 +618,7 @@ export default function AdmPage() {
                                                 </div>
                                                 <div className='valor-filtro'>
                                                     <div className='valor' style={graphicChosen == 1 ? { color: `white` } : { color: `#520DA9` }}>
-                                                        <p>$35,485</p>
+                                                        <p>R${calcularQuantidadeTotalVendas(vendas)}</p>
                                                         <span>+2.0%<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
                                                             <path d="M6.0001 1.79297L9.7072 5.50007L9.0001 6.20717L6.5001 3.70718V10.0001H5.5001V3.70718L3.00007 6.20717L2.29297 5.50007L6.0001 1.79297Z" fill={graphicChosen == 1 ? `white` : `#520DA9`} />
                                                         </svg></span>
@@ -576,11 +636,11 @@ export default function AdmPage() {
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
                                                         <path d="M1.5625 21.875V3.12501C1.5625 2.2629 2.26446 1.5625 3.12501 1.5625H18.75C19.6121 1.5625 20.3125 2.2629 20.3125 3.12501V12.3108L21.875 10.7483V3.12501C21.875 1.39922 20.4758 0 18.75 0H3.12501C1.39922 0 0 1.39922 0 3.12501V21.875C0 23.6008 1.39922 25 3.12501 25H11.7188V23.4375H3.12501C2.26446 23.4375 1.5625 22.7372 1.5625 21.875ZM17.1875 4.68751H4.68751V6.25001H17.1875V4.68751ZM17.1875 7.81252H4.68751V9.37502H17.1875V7.81252ZM17.1875 10.9375H4.68751V12.5H17.1875V10.9375ZM4.68751 15.625H10.9375V14.0625H4.68751V15.625ZM24.5422 14.0625L23.4375 12.9578C23.1323 12.6526 22.7327 12.5 22.3329 12.5C21.9331 12.5 21.5332 12.6526 21.2282 12.9578L14.5203 19.6657C14.2151 19.9707 13.2813 21.151 13.2813 21.5508L12.5 25L15.9485 24.2188C15.9485 24.2188 17.5293 23.285 17.8344 22.9797L24.5422 16.2719C25.1526 15.6617 25.1526 14.6721 24.5422 14.0625ZM17.2836 22.4258C17.1952 22.5098 16.8891 22.7165 16.5153 22.9545L14.4912 20.9305C14.6989 20.6459 14.9299 20.3598 15.0727 20.218L20.1233 15.1674L22.3329 17.377L17.2836 22.4258Z" fill={graphicChosen == 2 ? `white` : `#520DA9`} />
                                                     </svg>
-                                                    <h1 style={graphicChosen == 2 ? { color: `white` } : { color: `#520DA9` }}>Avaliação de vendas</h1>
+                                                    <h1 style={graphicChosen == 2 ? { color: `white` } : { color: `#520DA9` }}>Custos</h1>
                                                 </div>
                                                 <div className='valor-filtro'>
                                                     <div className='valor' style={graphicChosen == 2 ? { color: `white` } : { color: `#520DA9` }}>
-                                                        <p>$35,485</p>
+                                                        <p>R$ {calcularQuantidadeTotalVendasComDesconto(vendas)}</p>
                                                         <span>+2.0%<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
                                                             <path d="M6.0001 1.79297L9.7072 5.50007L9.0001 6.20717L6.5001 3.70718V10.0001H5.5001V3.70718L3.00007 6.20717L2.29297 5.50007L6.0001 1.79297Z" fill={graphicChosen == 2 ? `white` : `#520DA9`} />
                                                         </svg></span>
@@ -598,11 +658,11 @@ export default function AdmPage() {
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
                                                         <path d="M1.5625 21.875V3.12501C1.5625 2.2629 2.26446 1.5625 3.12501 1.5625H18.75C19.6121 1.5625 20.3125 2.2629 20.3125 3.12501V12.3108L21.875 10.7483V3.12501C21.875 1.39922 20.4758 0 18.75 0H3.12501C1.39922 0 0 1.39922 0 3.12501V21.875C0 23.6008 1.39922 25 3.12501 25H11.7188V23.4375H3.12501C2.26446 23.4375 1.5625 22.7372 1.5625 21.875ZM17.1875 4.68751H4.68751V6.25001H17.1875V4.68751ZM17.1875 7.81252H4.68751V9.37502H17.1875V7.81252ZM17.1875 10.9375H4.68751V12.5H17.1875V10.9375ZM4.68751 15.625H10.9375V14.0625H4.68751V15.625ZM24.5422 14.0625L23.4375 12.9578C23.1323 12.6526 22.7327 12.5 22.3329 12.5C21.9331 12.5 21.5332 12.6526 21.2282 12.9578L14.5203 19.6657C14.2151 19.9707 13.2813 21.151 13.2813 21.5508L12.5 25L15.9485 24.2188C15.9485 24.2188 17.5293 23.285 17.8344 22.9797L24.5422 16.2719C25.1526 15.6617 25.1526 14.6721 24.5422 14.0625ZM17.2836 22.4258C17.1952 22.5098 16.8891 22.7165 16.5153 22.9545L14.4912 20.9305C14.6989 20.6459 14.9299 20.3598 15.0727 20.218L20.1233 15.1674L22.3329 17.377L17.2836 22.4258Z" fill={graphicChosen == 3 ? `white` : `#520DA9`} />
                                                     </svg>
-                                                    <h1 style={graphicChosen == 3 ? { color: `white` } : { color: `#520DA9` }}>Bruto de vendas</h1>
+                                                    <h1 style={graphicChosen == 3 ? { color: `white` } : { color: `#520DA9` }}>Ganhos</h1>
                                                 </div>
                                                 <div className='valor-filtro'>
                                                     <div className='valor' style={graphicChosen == 3 ? { color: `white` } : { color: `#520DA9` }}>
-                                                        <p>$35,485</p>
+                                                        <p>R$ {calcularTotalGanhoComDesconto(vendas)}</p>
                                                         <span>+2.0%<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
                                                             <path d="M6.0001 1.79297L9.7072 5.50007L9.0001 6.20717L6.5001 3.70718V10.0001H5.5001V3.70718L3.00007 6.20717L2.29297 5.50007L6.0001 1.79297Z" fill={graphicChosen == 3 ? `white` : `#520DA9`} />
                                                         </svg></span>

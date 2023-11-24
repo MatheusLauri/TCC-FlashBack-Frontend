@@ -50,10 +50,6 @@ export default function AdmPanel(props) {
                     <ConfirmationNumberIcon/>
                     <a>Ingressos</a>
                 </div>
-                <div onClick={() => HandleMenu(7)} className={menu == 7 ? 'clicked' : 'div'}>
-                    <AddIcon/>
-                    <a>Add Ingresso</a>
-                </div>
                 <div onClick={() => HandleMenu(8)} className={menu == 8 ? 'clicked' : 'div'}>
                     <AssignmentIcon/>
                     <a>Chamados</a>

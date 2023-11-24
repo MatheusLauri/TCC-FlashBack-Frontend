@@ -13,6 +13,7 @@ import DestaqueBox from './componentes/destaquesBox';
 import AdmLogin from './admLogin';
 import AdmDashboard from './admDashboard';
 import Empresa from './empresa/index.js';
+import AdmLoginPrincipal from './admLogin copy/index.js';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -22,6 +23,7 @@ root.render(
         <Routes>
             <Route path='/' element={<LandingPage/>}/>
             <Route path='/adm' element={<AdmDashboard/>}/>
+            <Route path='/adm/login' element={<AdmLoginPrincipal/>}/>
             <Route path='/empresas' element={<Empresa/>}/>
             <Route path='/empresas/home' element={<AdmPage/>}/>
             <Route path='/empresas/login' element={<AdmLogin/>}/>

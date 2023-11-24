@@ -1,6 +1,6 @@
 import ReactApexChart from "react-apexcharts";
 
-export default function BasicAreaChart(props) {
+export default function BasicAreaChartAdm(props) {
     const dadosDaApi = props.v
 
     const quantidades = [];
@@ -67,7 +67,7 @@ export default function BasicAreaChart(props) {
 
 
         <div id="chart">
-            <ReactApexChart options={state.options} series={state.series} type="area" height={550} width={'450%'}/>
+            <ReactApexChart options={state.options} series={state.series} type="area" height={550}/>
         </div>
 
 
