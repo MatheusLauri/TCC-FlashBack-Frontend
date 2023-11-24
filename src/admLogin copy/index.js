@@ -28,16 +28,16 @@ export default function AdmLoginPrincipal() {
 
         try {
 
-            const resp = await axios.post('http://localhost:5000/empresa/login', {
+            const resp = await axios.post('http://localhost:5000/adm/login', {
                 email: email,
                 senha: senha
             });
 
-            storage('empresa-logada', resp)
+            storage('adm-logado', resp)
 
             setTimeout(() => {
 
-                navigate('/empresas/home')
+                navigate('/adm')
 
             }, 3000)
            
