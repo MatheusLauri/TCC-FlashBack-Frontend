@@ -156,7 +156,8 @@ export default function AdmDashboard() {
     }
 
     let listagemQtdCategoria = []
-    const [qtdC,setQtdC] = useState()
+    const [qtdC,setQtdC] = useState('')
+
     async function ListarVendaPorCategoria () {
         try {
             for (let cont = 1; cont <= 5; cont++){
@@ -453,7 +454,7 @@ export default function AdmDashboard() {
                                             </div>
                                         </div>
 
-                                        <span>{qtdC[1]}</span>
+                                        <span>{qtdC[1] || '0'}</span>
                                     </div>
                                     <div className='analise-box'>
                                         <div className='info-main'>
