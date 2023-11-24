@@ -76,7 +76,7 @@ export default function AdmDashboard() {
     // Iterar sobre cada pedido e somar o resultado de vl_preco_tipo * qtd_tipo_ingresso
     dadosPedidos.forEach((pedido) => {
         const precoTipo = parseFloat(pedido.VL_PRECO_TIPO);
-        const quantidadeTipo = parseInt(pedido.QTD_TIPO_INGRESSO, 10);
+        const quantidadeTipo = parseInt(pedido.QTD_ITENS, 10);
 
         if (!isNaN(precoTipo) && !isNaN(quantidadeTipo)) {
         quantidadeTotalVendas += precoTipo * quantidadeTipo;
@@ -91,7 +91,7 @@ export default function AdmDashboard() {
       
         dadosPedidos.forEach((pedido) => {
           const precoTipo = parseFloat(pedido.VL_PRECO_TIPO);
-          const quantidadeTipo = parseInt(pedido.QTD_TIPO_INGRESSO, 10);
+          const quantidadeTipo = parseInt(pedido.QTD_ITENS, 10);
       
           if (!isNaN(precoTipo) && !isNaN(quantidadeTipo)) {
             const totalPedido = precoTipo * quantidadeTipo;
@@ -207,7 +207,7 @@ export default function AdmDashboard() {
       
         dadosPedidos.forEach((pedido) => {
           const precoTipo = parseFloat(pedido.VL_PRECO_TIPO);
-          const quantidadeTipo = parseInt(pedido.QTD_TIPO_INGRESSO, 10);
+          const quantidadeTipo = parseInt(pedido.QTD_ITENS, 10);
       
           if (!isNaN(precoTipo) && !isNaN(quantidadeTipo)) {
             const totalPedido = precoTipo * quantidadeTipo;
@@ -423,9 +423,9 @@ export default function AdmDashboard() {
                                                     <td>{item.NM_EVENTO}</td>
                                                     <td>{item.NM_TIPO_INGRESSO}</td>
                                                     <td>{`${item.NM_CLIENTE} ${item.NM_SOBRENOME}`}</td>
-                                                    <td>{item.QTD_TIPO_INGRESSO}</td>
+                                                    <td>{item.QTD_ITENS}</td>
                                                     <td>R$ {item.VL_PRECO_TIPO}</td>
-                                                    <td>R$ {item.VL_PRECO_TIPO * item.QTD_TIPO_INGRESSO}</td>
+                                                    <td>R$ {item.VL_PRECO_TIPO * item.QTD_ITENS}</td>
                                                 </tr>
                                             )}
                                         </tbody>
