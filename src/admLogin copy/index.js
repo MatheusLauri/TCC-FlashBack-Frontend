@@ -28,7 +28,7 @@ export default function AdmLoginPrincipal() {
 
         try {
 
-            const resp = await axios.post('http://localhost:5000/adm/login', {
+            const resp = await axios.post('http://129.148.42.252:5014/adm/login', {
                 email: email,
                 senha: senha
             });

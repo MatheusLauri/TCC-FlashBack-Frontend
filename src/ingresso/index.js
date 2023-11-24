@@ -70,7 +70,7 @@ export default function IngressoPage() {
     let contArray = 0
 
     async function ListarTipoIngressos(id) {
-        let url = `http://localhost:5000/tipoIngresso/${id}`
+        let url = `http://129.148.42.252:5014/tipoIngresso/${id}`
         let response = await axios.get(url)
         
         let newArray = []
@@ -151,7 +151,7 @@ export default function IngressoPage() {
     }, [precos])
 
     async function ListarIngressos() {
-        let url = `http://localhost:5000/ingresso/busca?nome`
+        let url = `http://129.148.42.252:5014/ingresso/busca?nome`
         let response = await axios.get(url)
         let newArray = []
         response.data.forEach((element) => {
@@ -168,7 +168,7 @@ export default function IngressoPage() {
 
 
 
-    let url = `http://localhost:5000/${ingressos.IMAGEM_INGRESSO}`
+    let url = `http://129.148.42.252:5014/${ingressos.IMAGEM_INGRESSO}`
 
     //FORMATAR DATETIME
     const formatarHorario = formatHorario(ingressos.DS_HORARIO)
@@ -181,7 +181,7 @@ export default function IngressoPage() {
     //Listar Datas e horarios do Ingresso
 
     async function ListarData_Comprar() {
-        const resp = await axios.get(`http://localhost:5000/data/compra/${id}`)
+        const resp = await axios.get(`http://129.148.42.252:5014/data/compra/${id}`)
 
         let arrayDataFormat = [];
 
@@ -199,7 +199,7 @@ export default function IngressoPage() {
     async function ListarHorario(idData) {
         setDataSelected(idData)
         if (idData > 0) {
-            const resp = await axios.get(`http://localhost:5000/horario/compra/${idData}`)
+            const resp = await axios.get(`http://129.148.42.252:5014/horario/compra/${idData}`)
 
             setListarHorarios(resp.data)
 
@@ -276,17 +276,17 @@ export default function IngressoPage() {
 
         const dadosUsuario = JSON.parse(localStorage.getItem('usuario-logado')) ?? null;
 
-        let url = `http://localhost:5000/cartao`
+        let url = `http://129.148.42.252:5014/cartao`
         let response = await axios.post (url,{
             Numero: numeroCartao,
             Validade: validade,
             Cvv: cvv
         })
-        let url2 = `http://localhost:5000/Pagamento`
+        let url2 = `http://129.148.42.252:5014/Pagamento`
         let response2 = await axios.post(url2, {
             FormaDePag: response.data.ID
         })
-        let url3 = `http://localhost:5000/pedido`
+        let url3 = `http://129.148.42.252:5014/pedido`
 
         let response3 = await axios.post(url3, {
                 FormaPagamento: response2.data.ID
@@ -298,7 +298,7 @@ export default function IngressoPage() {
         console.log(dadosUsuario.data)
 
         for (let cont = 0; cont < idTipos.length; cont++) {
-            const resp = await axios.post(`http://localhost:5000/pedidoIngresso`, {
+            const resp = await axios.post(`http://129.148.42.252:5014/pedidoIngresso`, {
                 Pedido: response3.data.id,
                 Cliente: dadosUsuario.data.ID_CLIENTE, 
                 Categoria: ingressos.ID_CATEGORIA_INGRESSO,

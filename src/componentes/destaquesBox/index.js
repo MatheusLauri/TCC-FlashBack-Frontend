@@ -5,7 +5,7 @@ export default function DestaqueBox(props) {
 
     const navigate = useNavigate()
 
-    let url = `http://localhost:5000/${props.imagem}`
+    let url = `http://129.148.42.252:5014/${props.imagem}`
     function FormatDate(e){
         let meses = ["Jan", "Fev", "Mar", "Abr", "Maio", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
         let datetime = new Date(e);

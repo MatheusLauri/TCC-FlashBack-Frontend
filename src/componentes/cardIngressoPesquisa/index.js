@@ -3,7 +3,7 @@ import './index.scss'
 
 export function CardIngresso(props) {  
 
-    let URLimagem = `http://localhost:5000/${props.imagem}`
+    let URLimagem = `http://129.148.42.252:5014/${props.imagem}`
 
     //FORMATAR DATETIME
     let diasDaSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];

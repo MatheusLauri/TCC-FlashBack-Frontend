@@ -37,7 +37,7 @@ export default function Empresa() {
     async function ListarCnpj() {
         
         try {
-            let url = `http://localhost:5000/getCnpj?cnpj=${cnpj.replace(/\D/g, '')}`
+            let url = `http://129.148.42.252:5014/getCnpj?cnpj=${cnpj.replace(/\D/g, '')}`
             let response = await axios.get(url)
             if (response.data.fantasia){
                 setNmFantasia(response.data.fantasia)
@@ -62,7 +62,7 @@ export default function Empresa() {
     async function RealizarForm() {
         try {
 
-            let url = `http://localhost:5000/formulario`
+            let url = `http://129.148.42.252:5014/formulario`
 
             let response = await axios.post(url, {
                 cnpj: cnpj.replace(/\D/g, ''),

@@ -116,11 +116,11 @@ export default function AdmPage() {
 
         try {
             if (pesquisa.length) {
-                const resp = await axios.get(`http://localhost:5000/IngressoPorEmpresa?id=${idEmpresa}&evento=${pesquisa}`)
+                const resp = await axios.get(`http://129.148.42.252:5014/IngressoPorEmpresa?id=${idEmpresa}&evento=${pesquisa}`)
                 setListarIngressos(resp.data)
             }
             else {
-                const resp = await axios.get(`http://localhost:5000/IngressoPorEmpresa?id=${idEmpresa}&evento=`)
+                const resp = await axios.get(`http://129.148.42.252:5014/IngressoPorEmpresa?id=${idEmpresa}&evento=`)
                 setListarIngressos(resp.data)
             }
 
@@ -135,7 +135,7 @@ export default function AdmPage() {
             empresalogged = JSON.parse(empresalogged)
             let id_Empresa = empresalogged.data.ID_EMPRESA;
 
-            let url = `http://localhost:5000/pedido/empresa/${id_Empresa}`
+            let url = `http://129.148.42.252:5014/pedido/empresa/${id_Empresa}`
             let response = await axios.get(url)
             setVendas(response.data)
         } catch (error) {
@@ -263,7 +263,7 @@ export default function AdmPage() {
             if (idIngresso === 0) {
 
                 //Cadastro Local do evento
-                const responseLocal = await axios.post(`http://localhost:5000/local`, {
+                const responseLocal = await axios.post(`http://129.148.42.252:5014/local`, {
 
                     CEP: CEP,
                     Logradouro: logradouro,
@@ -290,7 +290,7 @@ export default function AdmPage() {
                 }
 
 
-                const responseInfosIngresso = await axios.post('http://localhost:5000/ingresso', infosIngresso)
+                const responseInfosIngresso = await axios.post('http://129.148.42.252:5014/ingresso', infosIngresso)
 
 
                 setIdIngresso(responseInfosIngresso.data.ID)
@@ -319,7 +319,7 @@ export default function AdmPage() {
             if(idIngresso > 0) {
 
             //alterar Local do evento
-            const responseLocal = await axios.put(`http://localhost:5000/local/${idLocal}`, {
+            const responseLocal = await axios.put(`http://129.148.42.252:5014/local/${idLocal}`, {
 
                 CEP: CEP,
                 Logradouro: logradouro,
@@ -341,7 +341,7 @@ export default function AdmPage() {
             }
 
 
-            const responseInfosIngresso = await axios.put(`http://localhost:5000/ingresso/${idIngresso}`, infosIngresso)
+            const responseInfosIngresso = await axios.put(`http://129.148.42.252:5014/ingresso/${idIngresso}`, infosIngresso)
 
             //Alterar imagem de imagem
             const responseImagem = await uploadImagem(idIngresso)
@@ -369,7 +369,7 @@ export default function AdmPage() {
         const formData = new FormData();
         formData.append('capa', imgIngresso)
 
-        const reposta = await axios.put(`http://localhost:5000/ingresso/${id}/capa`, formData, {
+        const reposta = await axios.put(`http://129.148.42.252:5014/ingresso/${id}/capa`, formData, {
 
             headers: {
                 "Content-Type": "multipart/form-data"
@@ -397,7 +397,7 @@ export default function AdmPage() {
 
         try {
 
-            const reposta = await axios.post(`http://localhost:5000/tipoIngresso`, {
+            const reposta = await axios.post(`http://129.148.42.252:5014/tipoIngresso`, {
                 Ingresso: idIngresso,
                 Tipo: nomeTipo,
                 Quantidade: qtdTipo,
@@ -443,7 +443,7 @@ export default function AdmPage() {
 
     async function cadastrarLocal() {
 
-        const response = await axios.post(`http://localhost:5000/local`, {
+        const response = await axios.post(`http://129.148.42.252:5014/local`, {
 
             CEP: CEP,
             Logradouro: logradouro,
@@ -465,7 +465,7 @@ export default function AdmPage() {
 
         setVetorTipo([...vetorTipo])
 
-        const r = await axios.delete(`http://localhost:5000/tipoIngresso/${idTipo}`)
+        const r = await axios.delete(`http://129.148.42.252:5014/tipoIngresso/${idTipo}`)
 
 
     }
@@ -475,7 +475,7 @@ export default function AdmPage() {
 
         try {
             
-            const resp = await axios.post(`http://localhost:5000/data`, {
+            const resp = await axios.post(`http://129.148.42.252:5014/data`, {
                 Ingresso: idIngresso,
                 Data: dataIngresso
             })
@@ -497,7 +497,7 @@ export default function AdmPage() {
 
     async function CadastrarHorario() {
 
-        const resp = await axios.post(`http://localhost:5000/horario`, {
+        const resp = await axios.post(`http://129.148.42.252:5014/horario`, {
             Data: idData,
             Horario: horarioIngresso
         })
@@ -516,7 +516,7 @@ export default function AdmPage() {
 
         setlistarDatas([...listarDatas])
 
-        const resp = await axios.delete(`http://localhost:5000/data/${idData}`)
+        const resp = await axios.delete(`http://129.148.42.252:5014/data/${idData}`)
 
         const filterData = listarHorarios.filter((data) => {
             const apagarHorarios = setData.has(data.Data);
@@ -534,7 +534,7 @@ export default function AdmPage() {
 
         setListarHorarios([...listarHorarios])
 
-        const resp = await axios.delete(`http://localhost:5000/horario/${idHorario}`)
+        const resp = await axios.delete(`http://129.148.42.252:5014/horario/${idHorario}`)
 
     }
 
@@ -567,7 +567,7 @@ export default function AdmPage() {
 
     async function ListarPedidos() {
 
-        const resp = await axios.get(`http://localhost:5000/listarPedido`)
+        const resp = await axios.get(`http://129.148.42.252:5014/listarPedido`)
 
         setListarpedido(resp.data)
 
@@ -995,7 +995,7 @@ export default function AdmPage() {
                                                             <td>
                                                                 <div className='container-infosIngresso_PedidoCliente'>
                                                                     <div>
-                                                                        <img className='container-imgEvento_PedidoCliente' src={`http://localhost:5000/${item.IMAGEM_INGRESSO}`}></img>
+                                                                        <img className='container-imgEvento_PedidoCliente' src={`http://129.148.42.252:5014/${item.IMAGEM_INGRESSO}`}></img>
                                                                     </div>
                                                                     <div className='sub-container-infosIngresso_PedidoCliente'>
                                                                         <div className='valorqtd-infosIngresso_PedidoCliente'>
