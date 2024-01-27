@@ -6,7 +6,7 @@ import formatHorario from '../../componentsFunctions/formatHorario';
 
 
 export default function BoxIngresso(props){
-    const teste = 'http://129.148.42.252:5014/' + props.imagem
+    const teste = 'http://localhost:5000/' + props.imagem
 
     const dataFormatada = formatData(props.data)
     

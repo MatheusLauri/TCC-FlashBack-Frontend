@@ -118,7 +118,7 @@ export function Header() {
             let user = localStorage.getItem(`usuario-logado`)
             user = JSON.parse(user)
             let id = user.data.ID_CLIENTE
-            let url = `http://129.148.42.252:5014/pedido?id=${id}`
+            let url = `http://localhost:5000/pedido?id=${id}`
             let response = await axios.get(url)
 
       
@@ -144,7 +144,7 @@ export function Header() {
             let user = localStorage.getItem(`usuario-logado`)
             user = JSON.parse(user)
             let id = user.data.ID_CLIENTE
-            const response = await axios.get(`http://129.148.42.252:5014/pedidoTipoIngresso/${id}/${pedidoSetado}`)
+            const response = await axios.get(`http://localhost:5000/pedidoTipoIngresso/${id}/${pedidoSetado}`)
      
     
             setlistarTiposIngresso_pedido(response.data)
@@ -183,7 +183,7 @@ export function Header() {
             }
         
 
-            const r = await axios.post('http://129.148.42.252:5014/cliente', cliente)
+            const r = await axios.post('http://localhost:5000/cliente', cliente)
             toast.success(`Cadastro realizado com sucesso!`)
             toggle(false)
         
@@ -230,7 +230,7 @@ export function Header() {
 
         }
 
-        const url = await axios.put(`http://129.148.42.252:5014/cliente/alterarInfos/${userId}`, InfoAdicionais)
+        const url = await axios.put(`http://localhost:5000/cliente/alterarInfos/${userId}`, InfoAdicionais)
         setUsuario(userNomeDeUsuario)
         toast.success(`Cadastro feito!`)
 
@@ -245,7 +245,7 @@ export function Header() {
     async function Logar() {
 
         try {
-            const resp = await axios.post('http://129.148.42.252:5014/cliente/login', {
+            const resp = await axios.post('http://localhost:5000/cliente/login', {
                 NomeUsuario: email,
                 cpf: email,
                 email: email,
@@ -294,7 +294,7 @@ export function Header() {
     
     async function BarraDePesquisaIngresso() {
         try {
-            let response = await axios.get(`http://129.148.42.252:5014/ingresso/busca?nome=${busca}`)
+            let response = await axios.get(`http://localhost:5000/ingresso/busca?nome=${busca}`)
             cardsPequenos.push(...response.data)
             setlistagemBusca(cardsPequenos)
             if(busca.length > 0)

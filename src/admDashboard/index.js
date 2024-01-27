@@ -47,7 +47,7 @@ export default function AdmDashboard() {
             if (pesquisa.length) {
                 try {
 
-                    const resp = await axios.get(`http://129.148.42.252:5014/ingresso/busca?nome=${pesquisa}`)
+                    const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome=${pesquisa}`)
                     setListarIngressos(resp.data)
 
                 } catch (error) {
@@ -58,7 +58,7 @@ export default function AdmDashboard() {
             else {
                 try {
 
-                    const resp = await axios.get(`http://129.148.42.252:5014/ingresso/busca?nome=`)
+                    const resp = await axios.get(`http://localhost:5000/ingresso/busca?nome=`)
                     setListarIngressos(resp.data)
 
                 } catch (error) {
@@ -119,7 +119,7 @@ export default function AdmDashboard() {
 
     async function ListarPedidos() {
         try {
-            let url = `http://129.148.42.252:5014/listartudo`
+            let url = `http://localhost:5000/listartudo`
             let response = await axios.get(url)
             setPedidos(response.data)
             setPedidos10(response.data.slice(0,5))
@@ -138,7 +138,7 @@ export default function AdmDashboard() {
 
     async function Aprovar(id, razao, email, senha) {
         try {
-            let url = `http://129.148.42.252:5014/Aprovacao`
+            let url = `http://localhost:5000/Aprovacao`
             let response = await axios.post(url, {
                 id: id
             })
@@ -170,7 +170,7 @@ export default function AdmDashboard() {
     async function ListarVendaPorCategoria () {
         try {
             for (let cont = 1; cont <= 5; cont++){
-                let url = `http://129.148.42.252:5014/CompraPorCategoria/${cont}`
+                let url = `http://localhost:5000/CompraPorCategoria/${cont}`
                 let response = await axios.get(url)
                 listagemQtdCategoria[cont] = response.data[0].QTDVENDAS
             }
@@ -183,7 +183,7 @@ export default function AdmDashboard() {
     }
     async function Reprovar(id) {
         try {
-            let url = `http://129.148.42.252:5014/FormularioDel/${id}`
+            let url = `http://localhost:5000/FormularioDel/${id}`
             let response = await axios.delete(url)
             await ListarFormulario()
         } catch (error) {
@@ -193,7 +193,7 @@ export default function AdmDashboard() {
 
     async function ListarUsuarios() {
         try {
-            let url = `http://129.148.42.252:5014/cliente`
+            let url = `http://localhost:5000/cliente`
             let response = await axios.get(url)
             setListarUser(response.data)
         } catch (error) {
@@ -203,7 +203,7 @@ export default function AdmDashboard() {
 
     async function ListarFormulario() {
         try {
-            let url = `http://129.148.42.252:5014/listForm`
+            let url = `http://localhost:5000/listForm`
             let response = await axios.get(url)
             setListarSolicitacao(response.data)
         } catch (error) {
@@ -236,7 +236,7 @@ export default function AdmDashboard() {
 
     async function ListarEmpresas() {
         try {
-            let url = `http://129.148.42.252:5014/empresas`
+            let url = `http://localhost:5000/empresas`
             let response = await axios.get(url)
             setListarEmpresas(response.data)
         } catch (error) {
@@ -303,7 +303,7 @@ export default function AdmDashboard() {
 
             }
 
-            const r = await axios.post('http://129.148.42.252:5014/empresa', empresa)
+            const r = await axios.post('http://localhost:5000/empresa', empresa)
             toast.success(`Cadastro realizado com sucesso!`)
 
             setNomeEmpresa('')
@@ -330,7 +330,7 @@ export default function AdmDashboard() {
             }
              //console.log(cliente)
 
-            const r = await axios.post('http://129.148.42.252:5014/cliente', cliente)
+            const r = await axios.post('http://localhost:5000/cliente', cliente)
             toast.success(`Cadastro realizado com sucesso!`)
 
             setNomeUsuario('')
